@@ -10,13 +10,48 @@
 
 </div>
 
+<!-- gameplay-screenshots:start -->
+## 实机截图
+
+宗门经营、修炼配装、仓库与副本战斗的真实手机画面。**左右滑动下方图列，点击图片查看大图。** 截图记录拍摄时的状态，当前开放内容以本文功能说明为准。
+
+<table>
+<tr>
+<td align="center"><a href="docs/screenshots/01-sect-overview.jpg"><img src="docs/screenshots/01-sect-overview.jpg" alt="宗门总览实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/02-sect-buildings.jpg"><img src="docs/screenshots/02-sect-buildings.jpg" alt="山门与宗务实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/03-sect-crafting.jpg"><img src="docs/screenshots/03-sect-crafting.jpg" alt="丹火与百工实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/04-cultivation-equipment.jpg"><img src="docs/screenshots/04-cultivation-equipment.jpg" alt="修炼与配装实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/05-techniques-backpack.jpg"><img src="docs/screenshots/05-techniques-backpack.jpg" alt="功法与背包实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/06-equipment-inventory.jpg"><img src="docs/screenshots/06-equipment-inventory.jpg" alt="独立装备实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/07-resource-inventory.jpg"><img src="docs/screenshots/07-resource-inventory.jpg" alt="仓库资源实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/08-adventure-map.jpg"><img src="docs/screenshots/08-adventure-map.jpg" alt="冒险地图实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/09-dungeon-route.jpg"><img src="docs/screenshots/09-dungeon-route.jpg" alt="副本路线实机截图" width="220"></a></td>
+<td align="center"><a href="docs/screenshots/10-cold-jade-battle.jpg"><img src="docs/screenshots/10-cold-jade-battle.jpg" alt="寒玉冰窟战斗实机截图" width="220"></a></td>
+</tr>
+<tr>
+<td align="center"><sub>01 · 宗门总览</sub></td>
+<td align="center"><sub>02 · 山门与宗务</sub></td>
+<td align="center"><sub>03 · 丹火与百工</sub></td>
+<td align="center"><sub>04 · 修炼与配装</sub></td>
+<td align="center"><sub>05 · 功法与背包</sub></td>
+<td align="center"><sub>06 · 独立装备</sub></td>
+<td align="center"><sub>07 · 仓库资源</sub></td>
+<td align="center"><sub>08 · 冒险地图</sub></td>
+<td align="center"><sub>09 · 副本路线</sub></td>
+<td align="center"><sub>10 · 寒玉冰窟战斗</sub></td>
+</tr>
+</table>
+
+<!-- gameplay-screenshots:end -->
+
+
 云山宗是一款持续开发中的修仙宗门经营网页游戏。日常以资源、建筑和弟子岗位管理为主，冒险以独立场景中的单主角回合战斗为主。每一次炼丹、生产、掉落和突破，都连接同一份服务器存档。
 
 本仓库为 **2026-10-14 的完整游戏发布快照**：包含当前游戏代码、数据定义、测试，以及游戏和万宝图鉴正在引用的正式素材。内容标识为 `sect-ecology-v1-6.3.0-r1`，包含后续功法、委托和显示改动；尚未创建语义版本 Tag。
 
 ## 游戏预览
 
-以下为游戏已接入的实际场景与角色素材，**不是游戏界面截图**。仓库不公开生产服务地址；本地启动后可直接体验完整页面。
+顶部图列为用户提供的实机截图。以下展示游戏已接入的实际场景与角色素材；本地启动后可体验完整页面。
 
 ### 荆棘古道
 
