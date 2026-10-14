@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "version": "thorn-loot-v1",
+  "equipment": [
+    {
+      "id": "thorn_fang_blade",
+      "name": "荆牙短刃",
+      "slot": "left",
+      "quality": "white",
+      "stats": {
+        "attack_milli": 6000,
+        "crit_bps": 500
+      },
+      "asset_id": "icon.equipment.a2b1d8bdd58b2",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_rock_staff",
+      "name": "碎岩铁棍",
+      "slot": "left",
+      "quality": "white",
+      "stats": {
+        "attack_milli": 5000,
+        "pierce_milli": 2000
+      },
+      "asset_id": "icon.equipment.a7a96e7f3f542",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_vine_gloves",
+      "name": "枯藤拳套",
+      "slot": "gloves",
+      "quality": "white",
+      "stats": {
+        "attack_milli": 3000,
+        "accuracy_bps": 500
+      },
+      "asset_id": "icon.equipment.a1cb5bf993ef6",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_spike_gloves",
+      "name": "荆刺护手",
+      "slot": "gloves",
+      "quality": "white",
+      "stats": {
+        "armor_milli": 1000,
+        "reflect_bps": 1000
+      },
+      "asset_id": "icon.equipment.a0ed121b5742a",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_travel_belt",
+      "name": "山行束腰",
+      "slot": "belt",
+      "quality": "white",
+      "stats": {
+        "max_hp_milli": 25000,
+        "armor_milli": 500
+      },
+      "asset_id": "icon.equipment.acdd78d5e32d9",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_vine_belt",
+      "name": "青藤腰带",
+      "slot": "belt",
+      "quality": "white",
+      "stats": {
+        "max_hp_milli": 30000,
+        "poison_resist_bps": 3000
+      },
+      "asset_id": "icon.equipment.a0b90b29a6531",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_scale_shirt",
+      "name": "石鳞短衫",
+      "slot": "body",
+      "quality": "white",
+      "stats": {
+        "max_hp_milli": 35000,
+        "armor_milli": 1500
+      },
+      "asset_id": "icon.equipment.a84932f659c6b",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_pattern_robe",
+      "name": "荆纹战衣",
+      "slot": "body",
+      "quality": "white",
+      "stats": {
+        "armor_milli": 2000,
+        "reflect_bps": 1500
+      },
+      "asset_id": "icon.equipment.a24f3652781a7",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_moss_boots",
+      "name": "苔痕踏靴",
+      "slot": "feet",
+      "quality": "white",
+      "stats": {
+        "speed_bps": 1000,
+        "evasion_bps": 500
+      },
+      "asset_id": "icon.equipment.ad633acdf10bf",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_feather_hood",
+      "name": "灰羽兜帽",
+      "slot": "head",
+      "quality": "white",
+      "stats": {
+        "accuracy_bps": 500,
+        "evasion_bps": 500
+      },
+      "asset_id": "icon.equipment.a07d4b91538a5",
+      "sell_coins": 8,
+      "salvage": {
+        "thorn_spine": 1
+      },
+      "boss_only": false
+    },
+    {
+      "id": "thorn_king_blade",
+      "name": "山魈王骨刃",
+      "slot": "left",
+      "quality": "green",
+      "stats": {
+        "attack_milli": 12000,
+        "crit_bps": 800,
+        "pierce_milli": 3000,
+        "execute_bps": 2000
+      },
+      "asset_id": "icon.equipment.a80eec5dd9690",
+      "sell_coins": 25,
+      "salvage": {
+        "thorn_king_core": 1
+      },
+      "boss_only": true
+    },
+    {
+      "id": "thorn_king_armor",
+      "name": "荆王战甲",
+      "slot": "body",
+      "quality": "green",
+      "stats": {
+        "max_hp_milli": 55000,
+        "armor_milli": 2000,
+        "reflect_bps": 2000
+      },
+      "asset_id": "icon.equipment.ac105eb3f8bfa",
+      "sell_coins": 25,
+      "salvage": {
+        "thorn_king_core": 1
+      },
+      "boss_only": true
+    }
+  ],
+  "materials": [
+    {
+      "id": "thorn_spine",
+      "name": "荆棘硬刺",
+      "asset_id": "icon.material.a8770bf3863b0",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_moss_fur",
+      "name": "青苔绒毛",
+      "asset_id": "icon.material.ad46e8b249d0c",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_feather",
+      "name": "灰羽",
+      "asset_id": "icon.material.afb94eed4e4c2",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_scale",
+      "name": "石蜥硬鳞",
+      "asset_id": "icon.material.a039424845eb2",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_fox_fur",
+      "name": "赤狐尾绒",
+      "asset_id": "icon.material.aed8616691ab7",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_boar_bone",
+      "name": "青牙兽骨",
+      "asset_id": "icon.material.a6fc6caf4c258",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_sickle",
+      "name": "枯枝镰片",
+      "asset_id": "icon.material.a786e8b3f2711",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_centipede_shell",
+      "name": "毒须节甲",
+      "asset_id": "icon.material.a4fb58053eb2c",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_vine_core",
+      "name": "古藤芯",
+      "asset_id": "icon.material.a3fc9300530e5",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_earth_core",
+      "name": "凝土灵核",
+      "asset_id": "icon.material.adee26c3ccc0f",
+      "grade": 1,
+      "boss_only": false
+    },
+    {
+      "id": "thorn_king_tusk",
+      "name": "山魈王獠牙",
+      "asset_id": "icon.material.a2e9b86249e5d",
+      "grade": 1,
+      "boss_only": true
+    },
+    {
+      "id": "thorn_king_core",
+      "name": "荆王妖核",
+      "asset_id": "icon.material.aeb2cc7d1ec97",
+      "grade": 1,
+      "boss_only": true
+    }
+  ],
+  "normal_materials": [
+    "thorn_spine",
+    "thorn_moss_fur",
+    "thorn_feather",
+    "thorn_scale",
+    "thorn_fox_fur",
+    "thorn_boar_bone",
+    "thorn_sickle",
+    "thorn_centipede_shell",
+    "thorn_vine_core",
+    "thorn_earth_core"
+  ],
+  "elite_materials": [
+    "thorn_spine",
+    "thorn_boar_bone",
+    "thorn_fox_fur",
+    "thorn_centipede_shell",
+    "thorn_vine_core"
+  ],
+  "rates": {
+    "normal": {
+      "material_bps": 8000,
+      "material_quantity": 1,
+      "equipment_bps": 1500
+    },
+    "elite": {
+      "material_bps": 10000,
+      "material_quantity": 2,
+      "equipment_bps": 5000
+    },
+    "boss": {
+      "material_bps": 10000,
+      "material_quantity": 1,
+      "equipment_bps": 10000
+    }
+  }
+}

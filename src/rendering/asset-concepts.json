@@ -1,0 +1,1148 @@
+{
+  "schema_version": 1,
+  "concepts": [
+    {
+      "concept_id": "concept.hp",
+      "display_name_zh": "生命图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.ac56dbeac0213",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.mp",
+      "display_name_zh": "灵力图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a7faa6b77c89b",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.cultivation",
+      "display_name_zh": "修为图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a54c3fc890dba",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.attack",
+      "display_name_zh": "攻击图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a983c012ab3af",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.defense",
+      "display_name_zh": "防御图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.afe35326a1025",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.power",
+      "display_name_zh": "战力图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a9e221b4761d3",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.disciples",
+      "display_name_zh": "弟子人数图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.af61e1417e5d6",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.production",
+      "display_name_zh": "生产图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a7301b4ec98ea",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.pause",
+      "display_name_zh": "暂停图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a534ed3eb1865",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.automation",
+      "display_name_zh": "自动经营图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.aebc9b6318d83",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.auto_combat",
+      "display_name_zh": "自动战斗图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a38b71005943d",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.light",
+      "display_name_zh": "日间模式图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a1194640f0064",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.dark",
+      "display_name_zh": "夜间模式图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.ab6458da8b1d7",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.capacity",
+      "display_name_zh": "背包容量图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.acdcf7801c6e5",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.locked",
+      "display_name_zh": "锁定图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.a2a754e53a32b",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.favorite",
+      "display_name_zh": "收藏图标",
+      "category": [
+        "system"
+      ],
+      "asset_id": "icon.material.ad2f3d005be28",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "状态与功能展示"
+    },
+    {
+      "concept_id": "concept.spirit_stone",
+      "display_name_zh": "灵石",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a2cd27cf0d526",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_stone_low",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_stone_low",
+      "display_name_zh": "下品灵石",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a8e85ab24e156",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_stone_mid",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_stone_mid",
+      "display_name_zh": "中品灵石",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.aadc6def190e3",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_stone_high",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_stone_high",
+      "display_name_zh": "上品灵石",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a56aff0caeced",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_stone_supreme",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_stone_supreme",
+      "display_name_zh": "极品灵石",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a1170d4074d0a",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_stone_immortal",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_money",
+      "display_name_zh": "灵钱",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a796c619bf4d1",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "coins",
+      "possible_future_use": "资源生产与交易",
+      "note": "用户确认coins为金钱概念，复用正式灵钱名称与图标；灵石和品级为独立ASSET_ONLY。"
+    },
+    {
+      "concept_id": "concept.herb",
+      "display_name_zh": "灵草",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a86878b93e958",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "herb",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_wood",
+      "display_name_zh": "灵木",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a54be17477f46",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "wood",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_iron_ore",
+      "display_name_zh": "灵铁矿",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a349ad28df67f",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_iron_ore",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.spirit_iron_ingot",
+      "display_name_zh": "灵铁锭",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a5879454f64da",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_iron_ingot",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.wood",
+      "display_name_zh": "普通木材",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a6423d8687c50",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "ordinary_wood",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.stone",
+      "display_name_zh": "石材",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.af6712d654276",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "stone",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.grain",
+      "display_name_zh": "灵谷",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a55960daa05b6",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": "grain",
+      "possible_future_use": "资源生产与交易",
+      "note": "复用已有正式资源ID；生产或消费玩法尚未开放，不代表玩家持有。"
+    },
+    {
+      "concept_id": "concept.seed",
+      "display_name_zh": "种子",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a2afa33ea5e43",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "NEEDS_CONFIRMATION",
+      "gameplay_id": null,
+      "possible_future_use": "资源生产与交易",
+      "note": "当前素材正式名称为灵谷种子；不将具体种子视作通用种子。"
+    },
+    {
+      "concept_id": "concept.spring_water",
+      "display_name_zh": "灵泉水",
+      "category": [
+        "resource"
+      ],
+      "asset_id": "icon.resource.a6114c9513560",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spring_water",
+      "possible_future_use": "资源生产与交易"
+    },
+    {
+      "concept_id": "concept.iron_ingot",
+      "display_name_zh": "铁锭",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a334a58ba0a14",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "ingot",
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.refined_iron_ingot",
+      "display_name_zh": "精铁锭",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a5311eb513073",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "refined_iron_ingot",
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.dark_iron_ingot",
+      "display_name_zh": "玄铁锭",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a0ea4a43870ed",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.spirit_plank",
+      "display_name_zh": "灵木板",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a5a6b6559c36c",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ACTIVE_GAMEPLAY",
+      "gameplay_id": "spirit_plank",
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.beast_bone",
+      "display_name_zh": "兽骨",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a09e2013d3143",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.beast_hide",
+      "display_name_zh": "兽皮",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a0c28651ad351",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": "hide",
+      "possible_future_use": "材料加工与炼器",
+      "note": "复用已有正式资源ID；生产或消费玩法尚未开放，不代表玩家持有。"
+    },
+    {
+      "concept_id": "concept.beast_sinew",
+      "display_name_zh": "兽筋",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a2e9f8a1913ea",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.monster_core",
+      "display_name_zh": "妖丹",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a41c29a912934",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.beast_blood",
+      "display_name_zh": "灵兽精血",
+      "category": [
+        "material",
+        "beast"
+      ],
+      "asset_id": "icon.material.ad0fb1bcacd94",
+      "alternate_asset_ids": [
+        "icon.resource.a2dce3aedb26f"
+      ],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.forge_essence",
+      "display_name_zh": "炼器精华",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.ac28652d8ab96",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.equipment_blank",
+      "display_name_zh": "器胚",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a877d378c7c0e",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.rune_stone",
+      "display_name_zh": "符文石",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a1a81d414dc5f",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.enhancement_stone",
+      "display_name_zh": "强化石",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.aed596b8e5a37",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.refining_stone",
+      "display_name_zh": "精炼石",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.a259fdce9c357",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.equipment_fragment",
+      "display_name_zh": "装备碎片",
+      "category": [
+        "material"
+      ],
+      "asset_id": "icon.material.ae12df76a5c7c",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "材料加工与炼器"
+    },
+    {
+      "concept_id": "concept.loot_bag",
+      "display_name_zh": "普通战利品袋",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a350c511bc964",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.fine_loot_bag",
+      "display_name_zh": "精良战利品袋",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a721ecd6b6c75",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.secret_key",
+      "display_name_zh": "秘境钥匙",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a296408fcad57",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.secret_token",
+      "display_name_zh": "秘境令牌",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a833185292525",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.monster_material",
+      "display_name_zh": "妖兽材料",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a6e4147a3cf17",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.boss_chest",
+      "display_name_zh": "Boss战利品宝箱",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a67d9e44263ba",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.technique_page",
+      "display_name_zh": "功法残页",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a325365114fad",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.soul_crystal",
+      "display_name_zh": "灵魂结晶",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a5cc4075b0419",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.xp_talisman",
+      "display_name_zh": "经验符",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a596c2a9a6a6f",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.resurrection",
+      "display_name_zh": "复活道具",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.a890f354df852",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.teleport_talisman",
+      "display_name_zh": "传送符",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.ae884a56b7170",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.protection_talisman",
+      "display_name_zh": "护身符",
+      "category": [
+        "adventure"
+      ],
+      "asset_id": "icon.material.aa09a0d872d86",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "战斗与秘境探索"
+    },
+    {
+      "concept_id": "concept.beast_egg",
+      "display_name_zh": "灵兽蛋",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a45d8d3c91d6c",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.beast_feed",
+      "display_name_zh": "灵兽饲料",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a120bebf56013",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.beast_core",
+      "display_name_zh": "灵兽内丹",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.af7ab08245508",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.beast_fur",
+      "display_name_zh": "灵兽皮毛",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a1b228f4f253c",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.beast_feather",
+      "display_name_zh": "灵兽羽毛",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a3f769851fed9",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.spirit_fish",
+      "display_name_zh": "灵鱼",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.abedcef30351e",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": "fish",
+      "possible_future_use": "灵兽与养殖",
+      "note": "复用已有正式资源ID；生产或消费玩法尚未开放，不代表玩家持有。"
+    },
+    {
+      "concept_id": "concept.fish_scale",
+      "display_name_zh": "灵鱼鳞",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a18f00a86c8de",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.bird_egg",
+      "display_name_zh": "灵禽蛋",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a18ec9fa0ad25",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": "egg",
+      "possible_future_use": "灵兽与养殖",
+      "note": "复用已有正式资源ID；生产或消费玩法尚未开放，不代表玩家持有。"
+    },
+    {
+      "concept_id": "concept.bird_feather",
+      "display_name_zh": "灵禽羽毛",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.ab8e14bda610e",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.divine_beast_soul",
+      "display_name_zh": "神兽精魄",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a687eaa3fe07c",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.beast_contract",
+      "display_name_zh": "御兽契约",
+      "category": [
+        "beast"
+      ],
+      "asset_id": "icon.resource.a47ac93c8b071",
+      "alternate_asset_ids": [],
+      "template_id": "resource_icon_v1",
+      "template_version": 4,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "灵兽与养殖"
+    },
+    {
+      "concept_id": "concept.disciple_token",
+      "display_name_zh": "弟子令牌",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.acf6efce433da",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.contribution_token",
+      "display_name_zh": "宗门贡献令",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.a95a8b7982635",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.recruitment_token",
+      "display_name_zh": "招募令",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.a3601e9e0ebf5",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.blueprint",
+      "display_name_zh": "建筑图纸",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.a238a44bea454",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.upgrade_material",
+      "display_name_zh": "升级材料包",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.ae702e2fbe9b0",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.recipe_scroll",
+      "display_name_zh": "丹方卷轴",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.aedf7af493458",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.forge_scroll",
+      "display_name_zh": "炼器图谱",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.aad464ec5461b",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.technique_book",
+      "display_name_zh": "功法秘籍",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.aed8d4ff4b6f4",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.mission_scroll",
+      "display_name_zh": "任务卷轴",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.ae376672b226c",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.reputation",
+      "display_name_zh": "宗门声望徽记",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.a55d6fcde3f55",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.storage_bag",
+      "display_name_zh": "储物袋",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.a82f370fee1a9",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    },
+    {
+      "concept_id": "concept.trade_contract",
+      "display_name_zh": "交易契约",
+      "category": [
+        "sect"
+      ],
+      "asset_id": "icon.material.a03c289b0b319",
+      "alternate_asset_ids": [],
+      "template_id": "material_icon_v1",
+      "template_version": 2,
+      "gameplay_status": "ASSET_ONLY",
+      "gameplay_id": null,
+      "possible_future_use": "宗门经营"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+/* Shared jade/stone/ink palette. Components consume semantic tokens only. */
+:root{
+ color-scheme:light;
+ --bg:#e9f1ed;--surface:#f3f6ee;--surface-2:#dce7de;--line:#78978b;
+ --ink:#18373c;--muted:#59716f;--accent:#387567;--accent-2:#ae7041;
+ --ok:#387567;--warn:#775134;--danger:#923f31;--on-accent:#ffffff;
+ --header-bg:#172d32;--header-ink:#e0e9e4;--nav-bg:#172d32;--nav-ink:#e0e9e4;--nav-active-bg:#34524e;--nav-active-ink:#e0e9e4;--warn-bg:#eee1bc;--danger-bg:#eed7c7;--overlay:#142f35a8;
+ --q-uncommon:#477b47;--q-rare:#397b94;--q-epic:#88669c;--q-legendary:#967229;
+ --technique-white:#f1f6ed;--technique-green:#86bc82;--technique-blue:#80b3ee;--technique-purple:#c19ae6;--technique-orange:#f1b163;--technique-red:#ef9690;
+ --font-title:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","STSong",serif;
+ --font-ui:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+ --text-page:26px;--text-section:20px;--text-card:17px;--text-body:15px;--text-input:16px;--text-help:13px;--text-min:12px;
+ --radius:4px;--control-h:48px;--action-h:56px;--touch-h:44px;
+ --header-h:calc(56px + env(safe-area-inset-top));--nav-height:72px;
+}
+:root[data-theme=dark]{
+ color-scheme:dark;
+ --bg:#15252d;--surface:#1c3037;--surface-2:#263e40;--line:#617c78;
+ --ink:#e0e9e4;--muted:#a4b8b4;--accent:#416f65;--accent-2:#bd986e;
+ --ok:#a2cba4;--warn:#dfbd8e;--danger:#f0b0a3;--on-accent:#f1f6ed;
+ --header-bg:#101f29;--header-ink:#e0e9e4;--nav-bg:#101f29;--nav-ink:#e0e9e4;--nav-active-bg:#31504f;--nav-active-ink:#e0e9e4;--warn-bg:#3d3829;--danger-bg:#422f2f;--overlay:#07191dbb;
+ --q-uncommon:#83b47c;--q-rare:#76bad1;--q-epic:#bd96d5;--q-legendary:#d9b66d;
+ --technique-white:#f1f6ed;--technique-green:#86bc82;--technique-blue:#80b3ee;--technique-purple:#c19ae6;--technique-orange:#f1b163;--technique-red:#ef9690;
+}
+.system-icon.item-icon{width:24px;height:24px;border:0;border-radius:var(--radius);font-size:14px;background:transparent;vertical-align:middle}
+.system-icon.item-icon .runtime-icon{padding:0}
+.icon-label{display:inline-flex;gap:6px;align-items:center;vertical-align:middle}
+.theme-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.theme-controls>h2,.theme-controls>p{grid-column:1/-1}
+.theme-controls .filter-chip{width:100%;min-width:0;margin:0;padding:8px 4px}
+.theme-controls .icon-label{display:flex;flex-direction:column;justify-content:center;gap:6px;min-width:0;overflow-wrap:anywhere}
+.resource-summary .item-icon{width:24px;height:24px}
+/* Keep editable controls readable without mobile focus zoom. */
+input,select,textarea{color:var(--ink);font-family:var(--font-ui);font-size:var(--text-input)}

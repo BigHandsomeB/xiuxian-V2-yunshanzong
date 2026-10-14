@@ -1,0 +1,164 @@
+{
+  "version": "thorn-roll-v2",
+  "equipment": {
+    "thorn_fang_blade": {
+      "attack_milli": [
+        5000,
+        7000,
+        1000
+      ],
+      "crit_bps": [
+        400,
+        600,
+        100
+      ]
+    },
+    "thorn_rock_staff": {
+      "attack_milli": [
+        4000,
+        6000,
+        1000
+      ],
+      "pierce_milli": [
+        1000,
+        3000,
+        1000
+      ]
+    },
+    "thorn_vine_gloves": {
+      "attack_milli": [
+        2000,
+        4000,
+        1000
+      ],
+      "accuracy_bps": [
+        400,
+        600,
+        100
+      ]
+    },
+    "thorn_spike_gloves": {
+      "armor_milli": [
+        800,
+        1200,
+        100
+      ],
+      "reflect_bps": [
+        800,
+        1200,
+        100
+      ]
+    },
+    "thorn_travel_belt": {
+      "max_hp_milli": [
+        20000,
+        30000,
+        1000
+      ],
+      "armor_milli": [
+        400,
+        600,
+        100
+      ]
+    },
+    "thorn_vine_belt": {
+      "max_hp_milli": [
+        24000,
+        36000,
+        1000
+      ],
+      "poison_resist_bps": [
+        2400,
+        3600,
+        100
+      ]
+    },
+    "thorn_scale_shirt": {
+      "max_hp_milli": [
+        28000,
+        42000,
+        1000
+      ],
+      "armor_milli": [
+        1200,
+        1800,
+        100
+      ]
+    },
+    "thorn_pattern_robe": {
+      "armor_milli": [
+        1600,
+        2400,
+        100
+      ],
+      "reflect_bps": [
+        1200,
+        1800,
+        100
+      ]
+    },
+    "thorn_moss_boots": {
+      "speed_bps": [
+        800,
+        1200,
+        100
+      ],
+      "evasion_bps": [
+        400,
+        600,
+        100
+      ]
+    },
+    "thorn_feather_hood": {
+      "accuracy_bps": [
+        400,
+        600,
+        100
+      ],
+      "evasion_bps": [
+        400,
+        600,
+        100
+      ]
+    },
+    "thorn_king_blade": {
+      "attack_milli": [
+        10000,
+        14000,
+        1000
+      ],
+      "crit_bps": [
+        600,
+        1000,
+        100
+      ],
+      "pierce_milli": [
+        2000,
+        4000,
+        1000
+      ],
+      "execute_bps": [
+        1600,
+        2000,
+        100
+      ]
+    },
+    "thorn_king_armor": {
+      "max_hp_milli": [
+        44000,
+        66000,
+        1000
+      ],
+      "armor_milli": [
+        1600,
+        2400,
+        100
+      ],
+      "reflect_bps": [
+        1600,
+        2400,
+        100
+      ]
+    }
+  }
+}

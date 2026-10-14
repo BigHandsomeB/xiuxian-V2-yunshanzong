@@ -1,0 +1,572 @@
+{
+  "material_caps": {
+    "thorn_spine": 200,
+    "thorn_moss_fur": 200,
+    "thorn_feather": 200,
+    "thorn_scale": 200,
+    "thorn_fox_fur": 200,
+    "thorn_boar_bone": 200,
+    "thorn_sickle": 200,
+    "thorn_centipede_shell": 200,
+    "thorn_vine_core": 200,
+    "thorn_earth_core": 200,
+    "thorn_king_tusk": 200,
+    "thorn_king_core": 200,
+    "wood": 600
+  },
+  "overflow_coin_per_item": 1,
+  "auto_production_capacity_ratio": 0.5,
+  "new_save_material_overflow": true,
+  "legacy_material_overflow": false,
+  "new_save_production": {
+    "garden": {
+      "workers": 4,
+      "recipe_id": "herb",
+      "target": 200,
+      "max_consumption": 0
+    },
+    "alchemy": {
+      "workers": 2,
+      "recipe_id": "pill",
+      "target": 30,
+      "max_consumption": 10
+    },
+    "mine": {
+      "workers": 1,
+      "recipe_id": "ore",
+      "target": 200,
+      "max_consumption": 0
+    },
+    "forest": {
+      "workers": 1,
+      "recipe_id": "wood",
+      "target": 200,
+      "max_consumption": 0
+    }
+  },
+  "read_default_buildings": {
+    "smelter": 1
+  },
+  "recipe_unlock_overrides": {
+    "ingot": {
+      "floor": 0,
+      "realm": 0
+    }
+  },
+  "production_whitelist": [
+    "herb",
+    "ore",
+    "wood",
+    "stone",
+    "ingot",
+    "pill",
+    "breakthrough_pill",
+    "spirit_iron_ore",
+    "spirit_iron_ingot",
+    "spirit_plank",
+    "refined_iron_ingot",
+    "grain",
+    "pill_1_0",
+    "gu_yuan_pill",
+    "ju_yuan_pill",
+    "ning_yuan_pill",
+    "yang_yuan_pill",
+    "ju_qi_pill",
+    "na_ling_pill",
+    "yang_qi_pill",
+    "yun_ling_pill"
+  ],
+  "additional_recipes": [
+    {
+      "machine_id": "stone",
+      "display_name": "采集石材",
+      "building_kind": "quarry",
+      "inputs": {},
+      "outputs": {
+        "stone": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "breakthrough_pill",
+      "display_name": "炼制筑基丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 60,
+        "ingot": 20
+      },
+      "outputs": {
+        "breakthrough_pill": 1
+      },
+      "duration_ms": 600000,
+      "min_level": 5,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "spirit_iron_ore",
+      "display_name": "开采灵铁矿",
+      "building_kind": "mine",
+      "inputs": {},
+      "outputs": {
+        "spirit_iron_ore": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 4,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "spirit_iron_ingot",
+      "display_name": "冶炼灵铁锭",
+      "building_kind": "smelter",
+      "inputs": {
+        "spirit_iron_ore": 3
+      },
+      "outputs": {
+        "spirit_iron_ingot": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 4,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "spirit_plank",
+      "display_name": "加工灵木板",
+      "building_kind": "smelter",
+      "inputs": {
+        "wood": 3
+      },
+      "outputs": {
+        "spirit_plank": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "refined_iron_ingot",
+      "display_name": "精炼精铁锭",
+      "building_kind": "smelter",
+      "inputs": {
+        "ingot": 3
+      },
+      "outputs": {
+        "refined_iron_ingot": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "pill_1_0",
+      "display_name": "炼制培元丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 6,
+        "grain": 3,
+        "spirit_iron_ore": 3
+      },
+      "outputs": {
+        "pill_1_0": 1
+      },
+      "duration_ms": 216000,
+      "min_level": 5,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "gu_yuan_pill",
+      "display_name": "炼制固元丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 12,
+        "grain": 6,
+        "spirit_iron_ore": 6
+      },
+      "outputs": {
+        "gu_yuan_pill": 1
+      },
+      "duration_ms": 419000,
+      "min_level": 6,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "ju_yuan_pill",
+      "display_name": "炼制聚元丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 23,
+        "grain": 12,
+        "spirit_iron_ore": 12
+      },
+      "outputs": {
+        "ju_yuan_pill": 1
+      },
+      "duration_ms": 813000,
+      "min_level": 7,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "ning_yuan_pill",
+      "display_name": "炼制凝元丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 44,
+        "grain": 22,
+        "spirit_iron_ore": 22
+      },
+      "outputs": {
+        "ning_yuan_pill": 1
+      },
+      "duration_ms": 1577000,
+      "min_level": 8,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "yang_yuan_pill",
+      "display_name": "炼制养元丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 85,
+        "grain": 43,
+        "spirit_iron_ore": 43
+      },
+      "outputs": {
+        "yang_yuan_pill": 1
+      },
+      "duration_ms": 3060000,
+      "min_level": 9,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "ju_qi_pill",
+      "display_name": "炼制聚气丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 5
+      },
+      "outputs": {
+        "ju_qi_pill": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "na_ling_pill",
+      "display_name": "炼制纳灵丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 5
+      },
+      "outputs": {
+        "na_ling_pill": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "yang_qi_pill",
+      "display_name": "炼制养气丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 5
+      },
+      "outputs": {
+        "yang_qi_pill": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "yun_ling_pill",
+      "display_name": "炼制蕴灵丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 5
+      },
+      "outputs": {
+        "yun_ling_pill": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    }
+  ],
+  "building_upgrade": {
+    "coin_coefficient": 150,
+    "material_per_level": 4,
+    "construction_seconds_per_level": 60,
+    "max_level": 10,
+    "materials": {
+      "warehouse": "thorn_earth_core",
+      "garden": "thorn_moss_fur",
+      "alchemy": "thorn_centipede_shell",
+      "mine": "thorn_scale",
+      "forest": "thorn_vine_core",
+      "quarry": "thorn_spine",
+      "smelter": "thorn_scale"
+    },
+    "stone_per_level": 10,
+    "wood_per_level": 15
+  },
+  "craft": {
+    "common": {
+      "ingot": 15,
+      "material": 15,
+      "coins": 1500
+    },
+    "boss": {
+      "ingot": 60,
+      "thorn_king_tusk": 3,
+      "thorn_king_core": 3,
+      "coins": 15000
+    },
+    "materials": {
+      "thorn_fang_blade": "thorn_boar_bone",
+      "thorn_rock_staff": "thorn_earth_core",
+      "thorn_vine_gloves": "thorn_vine_core",
+      "thorn_spike_gloves": "thorn_spine",
+      "thorn_travel_belt": "thorn_sickle",
+      "thorn_vine_belt": "thorn_moss_fur",
+      "thorn_scale_shirt": "thorn_scale",
+      "thorn_pattern_robe": "thorn_centipede_shell",
+      "thorn_moss_boots": "thorn_fox_fur",
+      "thorn_feather_hood": "thorn_feather"
+    },
+    "boss_equipment": [
+      "thorn_king_blade",
+      "thorn_king_armor"
+    ]
+  },
+  "cultivation": {
+    "pill_gain": 15,
+    "breakthrough_cost": {
+      "breakthrough_pill": 1,
+      "pill": 10,
+      "coins": 3000
+    },
+    "stages": [
+      {
+        "name": "初期",
+        "minimum_progress": 0,
+        "bonus_bps": 0
+      },
+      {
+        "name": "中期",
+        "minimum_progress": 600,
+        "bonus_bps": 500
+      },
+      {
+        "name": "后期",
+        "minimum_progress": 1200,
+        "bonus_bps": 1000
+      }
+    ]
+  },
+  "overflow_audit_limit": 20,
+  "additional_resources": [
+    {
+      "machine_id": "breakthrough_pill",
+      "display_name": "筑基丹",
+      "capacity_counted": true,
+      "grade": 1
+    },
+    {
+      "machine_id": "spirit_iron_ore",
+      "display_name": "灵铁矿",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "灵"
+    },
+    {
+      "machine_id": "spirit_iron_ingot",
+      "display_name": "灵铁锭",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "灵"
+    },
+    {
+      "machine_id": "spirit_plank",
+      "display_name": "灵木板",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "machine_id": "refined_iron_ingot",
+      "display_name": "精铁锭",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "machine_id": "gu_yuan_pill",
+      "display_name": "固元丹",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "machine_id": "ju_yuan_pill",
+      "display_name": "聚元丹",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "machine_id": "ning_yuan_pill",
+      "display_name": "凝元丹",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "machine_id": "yang_yuan_pill",
+      "display_name": "养元丹",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "machine_id": "ju_qi_pill",
+      "display_name": "聚气丹",
+      "capacity_counted": true,
+      "grade": 1,
+      "tier": "凡"
+    },
+    {
+      "machine_id": "na_ling_pill",
+      "display_name": "纳灵丹",
+      "capacity_counted": true,
+      "grade": 1,
+      "tier": "凡"
+    },
+    {
+      "machine_id": "yang_qi_pill",
+      "display_name": "养气丹",
+      "capacity_counted": true,
+      "grade": 1,
+      "tier": "凡"
+    },
+    {
+      "machine_id": "yun_ling_pill",
+      "display_name": "蕴灵丹",
+      "capacity_counted": true,
+      "grade": 1,
+      "tier": "凡"
+    }
+  ],
+  "recipe_sect_minimum": {
+    "spirit_iron_ore": 2,
+    "spirit_iron_ingot": 2,
+    "pill_1_0": 2,
+    "gu_yuan_pill": 2,
+    "ju_yuan_pill": 2,
+    "ning_yuan_pill": 2,
+    "yang_yuan_pill": 2
+  },
+  "foundation_cultivation": {
+    "threshold": 6000,
+    "stages": [
+      {
+        "name": "初期",
+        "minimum_progress": 0,
+        "bonus_bps": 0
+      },
+      {
+        "name": "中期",
+        "minimum_progress": 2000,
+        "bonus_bps": 800
+      },
+      {
+        "name": "后期",
+        "minimum_progress": 4000,
+        "bonus_bps": 1600
+      }
+    ],
+    "pills": {
+      "pill_1_0": {
+        "gain": 30
+      },
+      "gu_yuan_pill": {
+        "gain": 60
+      },
+      "ju_yuan_pill": {
+        "gain": 120
+      },
+      "ning_yuan_pill": {
+        "gain": 240
+      },
+      "yang_yuan_pill": {
+        "gain": 480
+      }
+    }
+  },
+  "sect_levels": [
+    {
+      "level": 2,
+      "building_count": 3,
+      "building_level": 3,
+      "cleared_floor": 30
+    },
+    {
+      "level": 3,
+      "building_count": 4,
+      "building_level": 5,
+      "cleared_floor": 60
+    },
+    {
+      "level": 4,
+      "building_count": 5,
+      "building_level": 7,
+      "cleared_floor": 90
+    },
+    {
+      "level": 5,
+      "building_count": 6,
+      "building_level": 9,
+      "cleared_floor": 100
+    }
+  ],
+  "sect_unlocks": [
+    {
+      "level": 2,
+      "name": "灵品配方：灵铁矿采集、灵铁锭冶炼"
+    },
+    {
+      "level": 2,
+      "name": "筑基分档修炼丹：培元丹、固元丹、聚元丹、凝元丹、养元丹"
+    }
+  ],
+  "production_building_overrides": {
+    "grain": "garden"
+  },
+  "legacy_production_buildings": {
+    "grain": [
+      "field"
+    ]
+  },
+  "legacy_job_duration_ms": {
+    "breakthrough_pill": [
+      120000
+    ]
+  }
+}

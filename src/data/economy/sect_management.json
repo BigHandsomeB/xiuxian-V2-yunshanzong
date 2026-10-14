@@ -1,0 +1,714 @@
+{
+  "housing_beds_per_level": 8,
+  "population_per_sect_level": 20,
+  "max_recruit_count": 10,
+  "recruit_cost": {
+    "coins": 120,
+    "spirit_stone_low": 6
+  },
+  "recruit_cycles_per_person": 3,
+  "meal_period_cycles": 10,
+  "meal_food_per_person": 1,
+  "meal_bonus_bps": 1500,
+  "meal_reserve_default": 5,
+  "enhancement_max_level": 5,
+  "enhancement_bonus_bps_per_level": 500,
+  "enhancement_min_sect_level": 2,
+  "enhancement_min_forge_level": 3,
+  "enhancement_cost": {
+    "coins": 120,
+    "crafting_essence": 1
+  },
+  "upgrade_cost_per_level": {
+    "wood": 15,
+    "stone": 10,
+    "coins": 150
+  },
+  "new_craft_cost": {
+    "ingot": 15,
+    "theme_mine": 6,
+    "monster_material": 4,
+    "coins": 300
+  },
+  "new_craft_min_forge_level": 3,
+  "material_sale_coins": 1,
+  "log_limit": 20,
+  "material_retention_cap": 200,
+  "new_craft_min_sect_level": 2,
+  "facility_display_names": {
+    "pasture": "御兽苑",
+    "spring": "灵渊"
+  },
+  "building_stone_stages": [
+    {
+      "min_level": 1,
+      "max_level": 3,
+      "resource_id": "spirit_stone_low"
+    },
+    {
+      "min_level": 4,
+      "max_level": 5,
+      "resource_id": "spirit_stone_mid"
+    },
+    {
+      "min_level": 6,
+      "max_level": 7,
+      "resource_id": "spirit_stone_high"
+    },
+    {
+      "min_level": 8,
+      "max_level": 9,
+      "resource_id": "spirit_stone_supreme"
+    },
+    {
+      "min_level": 10,
+      "max_level": 10,
+      "resource_id": "spirit_stone_immortal"
+    }
+  ],
+  "building_stones_per_target_level": 1,
+  "stone_trade_prices": {
+    "spirit_stone_mid": 120,
+    "spirit_stone_high": 360,
+    "spirit_stone_supreme": 1080,
+    "spirit_stone_immortal": 3240
+  },
+  "stone_trade_max_quantity": 100,
+  "upgrade_material_stages": [
+    {
+      "resource_id": "ordinary_wood",
+      "min_level": 1,
+      "per_target_level": 10
+    },
+    {
+      "resource_id": "spring_water",
+      "min_level": 3,
+      "per_target_level": 5
+    },
+    {
+      "resource_id": "spirit_iron_ingot",
+      "min_level": 5,
+      "per_target_level": 1
+    }
+  ],
+  "recruit_duration_ms": 90000,
+  "meal_period_ms": 300000,
+  "production_input_overrides": {
+    "herb": {"spring_water": 1},
+    "grain": {"spring_water": 1}
+  },
+  "recipes": [
+    {
+      "machine_id": "sect_food",
+      "display_name": "烹饪干粮",
+      "building_kind": "canteen",
+      "inputs": {
+        "grain": 3
+      },
+      "outputs": {
+        "food": 2
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "sect_egg",
+      "display_name": "收集禽蛋",
+      "building_kind": "pasture",
+      "inputs": {
+        "grain": 3
+      },
+      "outputs": {
+        "egg": 2
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "sect_fish",
+      "display_name": "捕捞灵鱼",
+      "building_kind": "spring",
+      "inputs": {
+        "grain": 3
+      },
+      "outputs": {
+        "fish": 2
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "sect_egg_food",
+      "display_name": "烹饪蛋膳",
+      "building_kind": "canteen",
+      "inputs": {
+        "grain": 2,
+        "egg": 1
+      },
+      "outputs": {
+        "food": 4
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "sect_fish_food",
+      "display_name": "烹饪鱼膳",
+      "building_kind": "canteen",
+      "inputs": {
+        "grain": 2,
+        "fish": 1
+      },
+      "outputs": {
+        "food": 4
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "sect_spirit_stone_low",
+      "display_name": "开采下品灵石",
+      "building_kind": "mine",
+      "inputs": {},
+      "outputs": {
+        "spirit_stone_low": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "sect_ordinary_wood",
+      "display_name": "采集普通木材",
+      "building_kind": "forest",
+      "inputs": {},
+      "outputs": {
+        "ordinary_wood": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "sect_spring_water",
+      "display_name": "采集灵泉水",
+      "building_kind": "spring",
+      "inputs": {},
+      "outputs": {
+        "spring_water": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    }
+  ],
+  "upgrade_costs": {
+    "warehouse": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "garden": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "alchemy": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "mine": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "forest": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "quarry": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "smelter": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "house": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "canteen": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "forge": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "pasture": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "spring": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    }
+  },
+  "building_stone_costs": {
+    "1": {
+      "spirit_stone_low": 1
+    },
+    "2": {
+      "spirit_stone_low": 2
+    },
+    "3": {
+      "spirit_stone_low": 3
+    },
+    "4": {
+      "spirit_stone_mid": 4
+    },
+    "5": {
+      "spirit_stone_mid": 5
+    },
+    "6": {
+      "spirit_stone_high": 6
+    },
+    "7": {
+      "spirit_stone_high": 7
+    },
+    "8": {
+      "spirit_stone_supreme": 8
+    },
+    "9": {
+      "spirit_stone_supreme": 9
+    },
+    "10": {
+      "spirit_stone_immortal": 10
+    }
+  },
+  "upgrade_additional_costs": {
+    "1": {
+      "ordinary_wood": 10
+    },
+    "2": {
+      "ordinary_wood": 20
+    },
+    "3": {
+      "ordinary_wood": 30,
+      "spring_water": 15
+    },
+    "4": {
+      "ordinary_wood": 40,
+      "spring_water": 20
+    },
+    "5": {
+      "ordinary_wood": 50,
+      "spring_water": 25,
+      "spirit_iron_ingot": 5
+    },
+    "6": {
+      "ordinary_wood": 60,
+      "spring_water": 30,
+      "spirit_iron_ingot": 6
+    },
+    "7": {
+      "ordinary_wood": 70,
+      "spring_water": 35,
+      "spirit_iron_ingot": 7
+    },
+    "8": {
+      "ordinary_wood": 80,
+      "spring_water": 40,
+      "spirit_iron_ingot": 8
+    },
+    "9": {
+      "ordinary_wood": 90,
+      "spring_water": 45,
+      "spirit_iron_ingot": 9
+    },
+    "10": {
+      "ordinary_wood": 100,
+      "spring_water": 50,
+      "spirit_iron_ingot": 10
+    }
+  },
+  "craft_costs": {
+    "red_copper_mine_equipment_01": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_01": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_02": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_02": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_03": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_03": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_04": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_04": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_05": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_05": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_06": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_06": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_07": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_07": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_08": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_08": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_09": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_09": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_10": {
+      "ingot": 15,
+      "copper": 6,
+      "red_copper_mine_material_10": 4,
+      "coins": 300
+    },
+    "red_copper_mine_equipment_11": {
+      "ingot": 30,
+      "copper": 12,
+      "red_copper_mine_material_11": 8,
+      "coins": 600
+    },
+    "red_copper_mine_equipment_12": {
+      "ingot": 30,
+      "copper": 12,
+      "red_copper_mine_material_12": 8,
+      "coins": 600
+    },
+    "mist_marsh_equipment_01": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_01": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_02": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_02": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_03": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_03": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_04": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_04": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_05": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_05": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_06": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_06": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_07": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_07": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_08": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_08": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_09": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_09": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_10": {
+      "ingot": 15,
+      "water_spirit_stone": 6,
+      "mist_marsh_material_10": 4,
+      "coins": 600
+    },
+    "mist_marsh_equipment_11": {
+      "ingot": 30,
+      "water_spirit_stone": 12,
+      "mist_marsh_material_11": 8,
+      "coins": 1200
+    },
+    "mist_marsh_equipment_12": {
+      "ingot": 30,
+      "water_spirit_stone": 12,
+      "mist_marsh_material_12": 8,
+      "coins": 1200
+    }
+  },
+  "craft_gates": {
+    "red_copper_mine_equipment_01": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_02": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_03": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_04": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_05": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_06": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_07": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_08": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_09": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_10": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_11": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "red_copper_mine_equipment_12": {
+      "dungeon_id": "red_copper_mine",
+      "forge_level": 3
+    },
+    "mist_marsh_equipment_01": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_02": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_03": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_04": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_05": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_06": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_07": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_08": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_09": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_10": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_11": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    },
+    "mist_marsh_equipment_12": {
+      "dungeon_id": "mist_marsh",
+      "forge_level": 4
+    }
+  },
+  "sale_prices": {
+    "red_copper_mine_material_01": 1,
+    "red_copper_mine_material_02": 1,
+    "red_copper_mine_material_03": 1,
+    "red_copper_mine_material_04": 1,
+    "red_copper_mine_material_05": 1,
+    "red_copper_mine_material_06": 1,
+    "red_copper_mine_material_07": 1,
+    "red_copper_mine_material_08": 1,
+    "red_copper_mine_material_09": 1,
+    "red_copper_mine_material_10": 1,
+    "red_copper_mine_material_11": 1,
+    "red_copper_mine_material_12": 1,
+    "mist_marsh_material_01": 2,
+    "mist_marsh_material_02": 2,
+    "mist_marsh_material_03": 2,
+    "mist_marsh_material_04": 2,
+    "mist_marsh_material_05": 2,
+    "mist_marsh_material_06": 2,
+    "mist_marsh_material_07": 2,
+    "mist_marsh_material_08": 2,
+    "mist_marsh_material_09": 2,
+    "mist_marsh_material_10": 2,
+    "mist_marsh_material_11": 2,
+    "mist_marsh_material_12": 2,
+    "purple_copper": 1,
+    "black_gold": 1,
+    "fire_pattern_stone": 1,
+    "beast_bone": 1,
+    "beast_sinew": 1,
+    "beast_core": 1,
+    "spirit_beast_blood": 1,
+    "crafting_essence": 1,
+    "equipment_blank": 1,
+    "water_spirit_stone": 1,
+    "wood_spirit_stone": 1,
+    "green_spirit_stone": 1,
+    "condensed_spirit_crystal": 1,
+    "thorn_spine": 1,
+    "thorn_moss_fur": 1,
+    "thorn_feather": 1,
+    "thorn_scale": 1,
+    "thorn_fox_fur": 1,
+    "thorn_boar_bone": 1,
+    "thorn_sickle": 1,
+    "thorn_centipede_shell": 1,
+    "thorn_vine_core": 1,
+    "thorn_earth_core": 1,
+    "thorn_king_tusk": 1,
+    "thorn_king_core": 1,
+    "copper": 1,
+    "hide": 1
+  },
+  "pill_inputs": {
+    "pill_1_0": {
+      "herb": 6,
+      "grain": 3,
+      "spirit_iron_ore": 3,
+      "thorn_boar_bone": 1
+    },
+    "gu_yuan_pill": {
+      "herb": 12,
+      "grain": 6,
+      "spirit_iron_ore": 6,
+      "thorn_boar_bone": 2
+    },
+    "ju_yuan_pill": {
+      "herb": 23,
+      "grain": 12,
+      "spirit_iron_ore": 12,
+      "thorn_boar_bone": 4
+    },
+    "ning_yuan_pill": {
+      "herb": 44,
+      "grain": 22,
+      "spirit_iron_ore": 22,
+      "thorn_boar_bone": 8
+    },
+    "yang_yuan_pill": {
+      "herb": 85,
+      "grain": 43,
+      "spirit_iron_ore": 43,
+      "thorn_boar_bone": 15
+    },
+    "breakthrough_pill": {
+      "herb": 60,
+      "ingot": 20,
+      "thorn_boar_bone": 10
+    }
+  },
+  "enhancement_costs": {
+    "1": {
+      "coins": 120,
+      "crafting_essence": 1
+    },
+    "2": {
+      "coins": 480,
+      "crafting_essence": 2
+    },
+    "3": {
+      "coins": 1080,
+      "crafting_essence": 3
+    },
+    "4": {
+      "coins": 1920,
+      "crafting_essence": 4
+    },
+    "5": {
+      "coins": 3000,
+      "crafting_essence": 5
+    }
+  }
+}

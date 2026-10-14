@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "content_version": "sect-v1-6.3.0-r1",
+  "definitions": [
+    {
+      "machine_id": "alchemy",
+      "display_name": "丹鼎阁",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "builders",
+      "display_name": "营造司",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "canteen",
+      "display_name": "灵膳房",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "cave",
+      "display_name": "问道峰 · 宗主洞府",
+      "max_level": 10,
+      "unlock_floor": 20,
+      "unlock_realm": 1,
+      "cost": {
+        "coins": 120,
+        "wood": 20,
+        "stone": 20
+      }
+    },
+    {
+      "machine_id": "field",
+      "display_name": "灵田",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "forest",
+      "display_name": "后山 · 灵木林",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "forge",
+      "display_name": "炼器阁 · 炼器",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "garden",
+      "display_name": "药圃",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "house",
+      "display_name": "弟子居",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "jade_mine",
+      "display_name": "后山 · 灵玉窟",
+      "max_level": 10,
+      "unlock_floor": 20,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "library",
+      "display_name": "问道峰 · 藏经阁",
+      "max_level": 10,
+      "unlock_floor": 20,
+      "unlock_realm": 1,
+      "cost": {
+        "coins": 160,
+        "wood": 20,
+        "stone": 10
+      }
+    },
+    {
+      "machine_id": "mine",
+      "display_name": "后山 · 玄矿洞",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "pasture",
+      "display_name": "御兽苑 · 生产设施",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "quarry",
+      "display_name": "后山 · 采石崖",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "smelter",
+      "display_name": "炼器阁 · 冶炼",
+      "max_level": 10,
+      "unlock_floor": 5,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "spring",
+      "display_name": "灵植园 · 灵泉",
+      "max_level": 10,
+      "unlock_floor": 10,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "stoneworks",
+      "display_name": "百工坊 · 石作",
+      "max_level": 10,
+      "unlock_floor": 10,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "trading",
+      "display_name": "万宝楼",
+      "max_level": 10,
+      "unlock_floor": 10,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "warehouse",
+      "display_name": "万宝库",
+      "max_level": 10,
+      "unlock_floor": 0,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "weaving",
+      "display_name": "百工坊 · 织造",
+      "max_level": 10,
+      "unlock_floor": 10,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    },
+    {
+      "machine_id": "woodshop",
+      "display_name": "百工坊 · 木作",
+      "max_level": 10,
+      "unlock_floor": 5,
+      "unlock_realm": 0,
+      "cost": {
+        "coins": 40,
+        "wood": 8,
+        "stone": 4
+      }
+    }
+  ]
+}

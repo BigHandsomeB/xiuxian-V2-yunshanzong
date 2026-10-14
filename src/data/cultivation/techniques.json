@@ -1,0 +1,1900 @@
+{
+  "open": true,
+  "kill_xp_requires_equipped": true,
+  "meditation_open": false,
+  "training_open": false,
+  "xp_per_level_factor": 100,
+  "kill_xp": {
+    "normal": 100,
+    "elite": 400,
+    "boss": 3000
+  },
+  "bonus_growth_bps_per_level": 1000,
+  "slots": [
+    "movement",
+    "defense",
+    "special",
+    "ultimate",
+    "passive_1",
+    "passive_2",
+    "passive_3",
+    "passive_4"
+  ],
+  "grades": {
+    "white": 10,
+    "green": 15,
+    "blue": 20,
+    "purple": 25,
+    "orange": 30,
+    "red": 40
+  },
+  "techniques": [
+    {
+      "id": "manual_ae525f4bb6e74",
+      "name": "踏风步",
+      "category": "movement",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.ae525f4bb6e74",
+      "max_bonus": {
+        "speed_bps": 220,
+        "evasion_bps": 50
+      }
+    },
+    {
+      "id": "manual_a2c1b018c0dc5",
+      "name": "流云步",
+      "category": "movement",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a2c1b018c0dc5",
+      "max_bonus": {
+        "speed_bps": 220,
+        "evasion_bps": 50
+      }
+    },
+    {
+      "id": "manual_a1917dc678ff5",
+      "name": "掠影步",
+      "category": "movement",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a1917dc678ff5",
+      "max_bonus": {
+        "speed_bps": 100,
+        "evasion_bps": 200
+      }
+    },
+    {
+      "id": "manual_a9ad24afb70e1",
+      "name": "追星步",
+      "category": "movement",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a9ad24afb70e1",
+      "max_bonus": {
+        "speed_bps": 220,
+        "evasion_bps": 50
+      }
+    },
+    {
+      "id": "manual_a1f42b266cf93",
+      "name": "逐月步",
+      "category": "movement",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a1f42b266cf93",
+      "max_bonus": {
+        "speed_bps": 220,
+        "evasion_bps": 50
+      }
+    },
+    {
+      "id": "manual_a3c85025d7f75",
+      "name": "御风诀",
+      "category": "movement",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a3c85025d7f75",
+      "max_bonus": {
+        "speed_bps": 352,
+        "evasion_bps": 80
+      }
+    },
+    {
+      "id": "manual_a0511c077d7d4",
+      "name": "轻鸿步",
+      "category": "movement",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a0511c077d7d4",
+      "max_bonus": {
+        "speed_bps": 240,
+        "evasion_bps": 200
+      }
+    },
+    {
+      "id": "manual_a54776f2d06c4",
+      "name": "飞燕诀",
+      "category": "movement",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a54776f2d06c4",
+      "max_bonus": {
+        "speed_bps": 352,
+        "evasion_bps": 80
+      }
+    },
+    {
+      "id": "manual_a693c4ce01adf",
+      "name": "游龙步",
+      "category": "movement",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a693c4ce01adf",
+      "max_bonus": {
+        "speed_bps": 240,
+        "evasion_bps": 200
+      }
+    },
+    {
+      "id": "manual_a5623d75150f6",
+      "name": "灵鹤步",
+      "category": "movement",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a5623d75150f6",
+      "max_bonus": {
+        "speed_bps": 240,
+        "evasion_bps": 200
+      }
+    },
+    {
+      "id": "manual_ac2622eb9ce91",
+      "name": "幻影步",
+      "category": "movement",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.ac2622eb9ce91",
+      "max_bonus": {
+        "speed_bps": 250,
+        "evasion_bps": 500
+      }
+    },
+    {
+      "id": "manual_aa44d0d5433e9",
+      "name": "无痕步",
+      "category": "movement",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.aa44d0d5433e9",
+      "max_bonus": {
+        "speed_bps": 250,
+        "evasion_bps": 500
+      }
+    },
+    {
+      "id": "manual_af295b78d97b8",
+      "name": "青云纵",
+      "category": "movement",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.af295b78d97b8",
+      "max_bonus": {
+        "speed_bps": 550,
+        "evasion_bps": 125
+      }
+    },
+    {
+      "id": "manual_a2a18cea8b2a1",
+      "name": "踏雪无痕",
+      "category": "movement",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a2a18cea8b2a1",
+      "max_bonus": {
+        "speed_bps": 250,
+        "evasion_bps": 500
+      }
+    },
+    {
+      "id": "manual_aa88bf57f8ac5",
+      "name": "流光遁",
+      "category": "movement",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.aa88bf57f8ac5",
+      "max_bonus": {
+        "speed_bps": 450,
+        "evasion_bps": 187,
+        "accuracy_bps": 125
+      }
+    },
+    {
+      "id": "manual_abdce13ba2406",
+      "name": "惊鸿渡",
+      "category": "movement",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.abdce13ba2406",
+      "max_bonus": {
+        "speed_bps": 570,
+        "evasion_bps": 475
+      }
+    },
+    {
+      "id": "manual_a26a2b55f1b76",
+      "name": "星移步",
+      "category": "movement",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a26a2b55f1b76",
+      "max_bonus": {
+        "speed_bps": 684,
+        "evasion_bps": 285,
+        "accuracy_bps": 190
+      }
+    },
+    {
+      "id": "manual_aca98b03ea853",
+      "name": "凌虚步",
+      "category": "movement",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.aca98b03ea853",
+      "max_bonus": {
+        "speed_bps": 570,
+        "evasion_bps": 475
+      }
+    },
+    {
+      "id": "manual_a52977aa9fdc5",
+      "name": "扶摇步",
+      "category": "movement",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a52977aa9fdc5",
+      "max_bonus": {
+        "speed_bps": 836,
+        "evasion_bps": 190
+      }
+    },
+    {
+      "id": "manual_a1c1b242ffd66",
+      "name": "风雷遁",
+      "category": "movement",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a1c1b242ffd66",
+      "max_bonus": {
+        "speed_bps": 684,
+        "evasion_bps": 285,
+        "accuracy_bps": 190
+      }
+    },
+    {
+      "id": "manual_a97f4f5f6f1a9",
+      "name": "缩地诀",
+      "category": "movement",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a97f4f5f6f1a9",
+      "max_bonus": {
+        "speed_bps": 990,
+        "evasion_bps": 412,
+        "accuracy_bps": 275
+      }
+    },
+    {
+      "id": "manual_a4bec68658668",
+      "name": "乾坤挪移",
+      "category": "movement",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a4bec68658668",
+      "max_bonus": {
+        "speed_bps": 990,
+        "evasion_bps": 412,
+        "accuracy_bps": 275
+      }
+    },
+    {
+      "id": "manual_a38c416544cb3",
+      "name": "太虚游身诀",
+      "category": "movement",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a38c416544cb3",
+      "max_bonus": {
+        "speed_bps": 825,
+        "evasion_bps": 687
+      }
+    },
+    {
+      "id": "manual_a673ee9fddb44",
+      "name": "九霄踏天步",
+      "category": "movement",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a673ee9fddb44",
+      "max_bonus": {
+        "speed_bps": 1760,
+        "evasion_bps": 400
+      }
+    },
+    {
+      "id": "manual_a61f1c9ebcd32",
+      "name": "逍遥无极身",
+      "category": "movement",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a61f1c9ebcd32",
+      "max_bonus": {
+        "speed_bps": 1200,
+        "evasion_bps": 1000
+      }
+    },
+    {
+      "id": "manual_a00f304b07a9a",
+      "name": "铁衣诀",
+      "category": "defense",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a00f304b07a9a",
+      "max_bonus": {
+        "max_hp_milli": 12000,
+        "armor_milli": 400
+      }
+    },
+    {
+      "id": "manual_a825aedb9f058",
+      "name": "铜皮功",
+      "category": "defense",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a825aedb9f058",
+      "max_bonus": {
+        "max_hp_milli": 12000,
+        "armor_milli": 400
+      }
+    },
+    {
+      "id": "manual_a6fbf531834a8",
+      "name": "磐石诀",
+      "category": "defense",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a6fbf531834a8",
+      "max_bonus": {
+        "max_hp_milli": 12000,
+        "armor_milli": 400
+      }
+    },
+    {
+      "id": "manual_aff1fb9f78a60",
+      "name": "护元功",
+      "category": "defense",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.aff1fb9f78a60",
+      "max_bonus": {
+        "max_hp_milli": 8000,
+        "armor_milli": 250,
+        "damage_reduction_bps": 100
+      }
+    },
+    {
+      "id": "manual_ad19b8762ad41",
+      "name": "金钟诀",
+      "category": "defense",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.ad19b8762ad41",
+      "max_bonus": {
+        "max_hp_milli": 19200,
+        "armor_milli": 640
+      }
+    },
+    {
+      "id": "manual_a51c2b54769aa",
+      "name": "玄甲功",
+      "category": "defense",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a51c2b54769aa",
+      "max_bonus": {
+        "max_hp_milli": 19200,
+        "armor_milli": 640
+      }
+    },
+    {
+      "id": "manual_aaf737fd61dd4",
+      "name": "灵盾诀",
+      "category": "defense",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.aaf737fd61dd4",
+      "max_bonus": {
+        "max_hp_milli": 12800,
+        "armor_milli": 400,
+        "damage_reduction_bps": 160
+      }
+    },
+    {
+      "id": "manual_a11848236be61",
+      "name": "厚土诀",
+      "category": "defense",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a11848236be61",
+      "max_bonus": {
+        "max_hp_milli": 19200,
+        "armor_milli": 640
+      }
+    },
+    {
+      "id": "manual_a62b1be2131bf",
+      "name": "青木护体功",
+      "category": "defense",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a62b1be2131bf",
+      "max_bonus": {
+        "max_hp_milli": 12800,
+        "armor_milli": 400,
+        "damage_reduction_bps": 160
+      }
+    },
+    {
+      "id": "manual_a4d9f3e110f5d",
+      "name": "寒玉护身诀",
+      "category": "defense",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a4d9f3e110f5d",
+      "max_bonus": {
+        "max_hp_milli": 20000,
+        "armor_milli": 750,
+        "poison_resist_bps": 437
+      }
+    },
+    {
+      "id": "manual_a29589de3c02c",
+      "name": "玄龟护体功",
+      "category": "defense",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a29589de3c02c",
+      "max_bonus": {
+        "max_hp_milli": 20000,
+        "armor_milli": 625,
+        "damage_reduction_bps": 250
+      }
+    },
+    {
+      "id": "manual_af0dc4ccf7626",
+      "name": "金刚炼体诀",
+      "category": "defense",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.af0dc4ccf7626",
+      "max_bonus": {
+        "max_hp_milli": 45000,
+        "armor_milli": 500,
+        "crit_resist_bps": 250
+      }
+    },
+    {
+      "id": "manual_aa1aa296662c7",
+      "name": "不动山诀",
+      "category": "defense",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.aa1aa296662c7",
+      "max_bonus": {
+        "max_hp_milli": 30000,
+        "armor_milli": 1000
+      }
+    },
+    {
+      "id": "manual_ae68933b22802",
+      "name": "镇岳玄功",
+      "category": "defense",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.ae68933b22802",
+      "max_bonus": {
+        "max_hp_milli": 30000,
+        "armor_milli": 1000
+      }
+    },
+    {
+      "id": "manual_a1495adefe015",
+      "name": "玄武护身诀",
+      "category": "defense",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a1495adefe015",
+      "max_bonus": {
+        "max_hp_milli": 25000,
+        "armor_milli": 625,
+        "reflect_bps": 312
+      }
+    },
+    {
+      "id": "manual_a264cf0c5ccfb",
+      "name": "龙鳞护体术",
+      "category": "defense",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a264cf0c5ccfb",
+      "max_bonus": {
+        "max_hp_milli": 30400,
+        "armor_milli": 950,
+        "damage_reduction_bps": 380
+      }
+    },
+    {
+      "id": "manual_abf266c33f1c9",
+      "name": "太乙护元诀",
+      "category": "defense",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.abf266c33f1c9",
+      "max_bonus": {
+        "max_hp_milli": 30400,
+        "armor_milli": 950,
+        "damage_reduction_bps": 380
+      }
+    },
+    {
+      "id": "manual_a10e9c56aa264",
+      "name": "五行护身诀",
+      "category": "defense",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a10e9c56aa264",
+      "max_bonus": {
+        "max_hp_milli": 30400,
+        "armor_milli": 950,
+        "damage_reduction_bps": 380
+      }
+    },
+    {
+      "id": "manual_a400af7735ce5",
+      "name": "乾坤玄甲功",
+      "category": "defense",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a400af7735ce5",
+      "max_bonus": {
+        "max_hp_milli": 45600,
+        "armor_milli": 1520
+      }
+    },
+    {
+      "id": "manual_a27adc12126ed",
+      "name": "八荒镇体诀",
+      "category": "defense",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a27adc12126ed",
+      "max_bonus": {
+        "max_hp_milli": 68400,
+        "armor_milli": 760,
+        "crit_resist_bps": 380
+      }
+    },
+    {
+      "id": "manual_a77595227bf27",
+      "name": "九转金身诀",
+      "category": "defense",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a77595227bf27",
+      "max_bonus": {
+        "max_hp_milli": 99000,
+        "armor_milli": 1100,
+        "crit_resist_bps": 550
+      }
+    },
+    {
+      "id": "manual_a7da9e8d15cc1",
+      "name": "混元护体功",
+      "category": "defense",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a7da9e8d15cc1",
+      "max_bonus": {
+        "max_hp_milli": 44000,
+        "armor_milli": 1375,
+        "damage_reduction_bps": 550
+      }
+    },
+    {
+      "id": "manual_ac23077c70d48",
+      "name": "不灭法身诀",
+      "category": "defense",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.ac23077c70d48",
+      "max_bonus": {
+        "max_hp_milli": 99000,
+        "armor_milli": 1100,
+        "crit_resist_bps": 550
+      }
+    },
+    {
+      "id": "manual_a94518fa79080",
+      "name": "玄黄镇世体",
+      "category": "defense",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a94518fa79080",
+      "max_bonus": {
+        "max_hp_milli": 96000,
+        "armor_milli": 3200
+      }
+    },
+    {
+      "id": "manual_a3b805d37d351",
+      "name": "万劫不坏身",
+      "category": "defense",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a3b805d37d351",
+      "max_bonus": {
+        "max_hp_milli": 144000,
+        "armor_milli": 1600,
+        "crit_resist_bps": 800
+      }
+    },
+    {
+      "id": "manual_a633d1b386928",
+      "name": "裂石掌",
+      "category": "special",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a633d1b386928",
+      "max_bonus": {
+        "attack_milli": 1300,
+        "max_hp_milli": 5000
+      }
+    },
+    {
+      "id": "manual_abe364e897338",
+      "name": "追风剑",
+      "category": "special",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.abe364e897338",
+      "max_bonus": {
+        "attack_milli": 1200,
+        "pierce_milli": 300
+      }
+    },
+    {
+      "id": "manual_a3844ba0b61d6",
+      "name": "奔雷拳",
+      "category": "special",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a3844ba0b61d6",
+      "max_bonus": {
+        "attack_milli": 1000,
+        "crit_bps": 100
+      }
+    },
+    {
+      "id": "manual_a62886493046f",
+      "name": "断岳刀",
+      "category": "special",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a62886493046f",
+      "max_bonus": {
+        "attack_milli": 1760,
+        "execute_bps": 160
+      }
+    },
+    {
+      "id": "manual_acfd849bf8399",
+      "name": "流云剑诀",
+      "category": "special",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.acfd849bf8399",
+      "max_bonus": {
+        "attack_milli": 1920,
+        "pierce_milli": 480
+      }
+    },
+    {
+      "id": "manual_abd6bcb9cceff",
+      "name": "赤炎掌",
+      "category": "special",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.abd6bcb9cceff",
+      "max_bonus": {
+        "attack_milli": 1760,
+        "damage_bonus_bps": 120
+      }
+    },
+    {
+      "id": "manual_a02cc0ff08ca5",
+      "name": "寒霜指",
+      "category": "special",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a02cc0ff08ca5",
+      "max_bonus": {
+        "attack_milli": 1920,
+        "pierce_milli": 480
+      }
+    },
+    {
+      "id": "manual_a40f83ba4a605",
+      "name": "惊雷斩",
+      "category": "special",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a40f83ba4a605",
+      "max_bonus": {
+        "attack_milli": 1600,
+        "crit_bps": 160
+      }
+    },
+    {
+      "id": "manual_a77ca0187b65a",
+      "name": "玄冰剑诀",
+      "category": "special",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a77ca0187b65a",
+      "max_bonus": {
+        "attack_milli": 3000,
+        "pierce_milli": 750
+      }
+    },
+    {
+      "id": "manual_a1e1ec7347ccf",
+      "name": "碎星拳",
+      "category": "special",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a1e1ec7347ccf",
+      "max_bonus": {
+        "attack_milli": 3250,
+        "max_hp_milli": 12500
+      }
+    },
+    {
+      "id": "manual_acef9d875bf0c",
+      "name": "青冥剑气",
+      "category": "special",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.acef9d875bf0c",
+      "max_bonus": {
+        "attack_milli": 3000,
+        "pierce_milli": 750
+      }
+    },
+    {
+      "id": "manual_a89a67ef4ef44",
+      "name": "紫电刀诀",
+      "category": "special",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a89a67ef4ef44",
+      "max_bonus": {
+        "attack_milli": 2500,
+        "crit_bps": 250
+      }
+    },
+    {
+      "id": "manual_a1e396c4afff1",
+      "name": "镇山印",
+      "category": "special",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a1e396c4afff1",
+      "max_bonus": {
+        "attack_milli": 3250,
+        "max_hp_milli": 12500
+      }
+    },
+    {
+      "id": "manual_a979ff9ff3e6b",
+      "name": "焚天掌",
+      "category": "special",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a979ff9ff3e6b",
+      "max_bonus": {
+        "attack_milli": 2750,
+        "damage_bonus_bps": 187
+      }
+    },
+    {
+      "id": "manual_a74654373425f",
+      "name": "沧海剑诀",
+      "category": "special",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a74654373425f",
+      "max_bonus": {
+        "attack_milli": 4560,
+        "pierce_milli": 1140
+      }
+    },
+    {
+      "id": "manual_ad314b1497e09",
+      "name": "九重雷斩",
+      "category": "special",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.ad314b1497e09",
+      "max_bonus": {
+        "attack_milli": 3800,
+        "crit_bps": 380
+      }
+    },
+    {
+      "id": "manual_aec5b777f3742",
+      "name": "破军枪诀",
+      "category": "special",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.aec5b777f3742",
+      "max_bonus": {
+        "attack_milli": 4180,
+        "execute_bps": 380
+      }
+    },
+    {
+      "id": "manual_a80c3b3c6bf32",
+      "name": "天罡裂地拳",
+      "category": "special",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a80c3b3c6bf32",
+      "max_bonus": {
+        "attack_milli": 4940,
+        "max_hp_milli": 19000
+      }
+    },
+    {
+      "id": "manual_a07ff2c0f54e5",
+      "name": "玄阴噬魂指",
+      "category": "special",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a07ff2c0f54e5",
+      "max_bonus": {
+        "attack_milli": 3800,
+        "lifesteal_bps": 285
+      }
+    },
+    {
+      "id": "manual_a1476481bf49a",
+      "name": "烈阳焚岳掌",
+      "category": "special",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a1476481bf49a",
+      "max_bonus": {
+        "attack_milli": 4180,
+        "damage_bonus_bps": 285
+      }
+    },
+    {
+      "id": "manual_a7fc2e7150490",
+      "name": "万剑归宗诀",
+      "category": "special",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a7fc2e7150490",
+      "max_bonus": {
+        "attack_milli": 6600,
+        "pierce_milli": 1650
+      }
+    },
+    {
+      "id": "manual_ac7fd3f911faf",
+      "name": "星河断空斩",
+      "category": "special",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.ac7fd3f911faf",
+      "max_bonus": {
+        "attack_milli": 6600,
+        "pierce_milli": 1650
+      }
+    },
+    {
+      "id": "manual_abb3a906085c4",
+      "name": "九霄神雷诀",
+      "category": "special",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.abb3a906085c4",
+      "max_bonus": {
+        "attack_milli": 5500,
+        "crit_bps": 550
+      }
+    },
+    {
+      "id": "manual_a962ae2ef0c59",
+      "name": "太虚灭神指",
+      "category": "special",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a962ae2ef0c59",
+      "max_bonus": {
+        "attack_milli": 8000,
+        "lifesteal_bps": 600
+      }
+    },
+    {
+      "id": "manual_a8f887b900ae0",
+      "name": "乾坤破界斩",
+      "category": "special",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a8f887b900ae0",
+      "max_bonus": {
+        "attack_milli": 9600,
+        "pierce_milli": 2400
+      }
+    },
+    {
+      "id": "manual_abdd39843e94c",
+      "name": "九天斩仙诀",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.abdd39843e94c",
+      "max_bonus": {
+        "attack_milli": 8250,
+        "crit_damage_bps": 1650
+      }
+    },
+    {
+      "id": "manual_a44ad67c06af6",
+      "name": "太虚灭世剑",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a44ad67c06af6",
+      "max_bonus": {
+        "attack_milli": 7150,
+        "damage_bonus_bps": 1100
+      }
+    },
+    {
+      "id": "manual_a78f9033ec453",
+      "name": "混元镇天印",
+      "category": "ultimate",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a78f9033ec453",
+      "max_bonus": {
+        "max_hp_milli": 91200,
+        "armor_milli": 1710,
+        "attack_milli": 1900
+      }
+    },
+    {
+      "id": "manual_a58e8570ba5ee",
+      "name": "玄黄破界诀",
+      "category": "ultimate",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a58e8570ba5ee",
+      "max_bonus": {
+        "max_hp_milli": 91200,
+        "armor_milli": 1710,
+        "attack_milli": 1900
+      }
+    },
+    {
+      "id": "manual_a5c37e0204043",
+      "name": "鸿蒙开天斩",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a5c37e0204043",
+      "max_bonus": {
+        "attack_milli": 14400,
+        "pierce_milli": 4000
+      }
+    },
+    {
+      "id": "manual_a403c69b9551c",
+      "name": "万劫诛仙剑",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a403c69b9551c",
+      "max_bonus": {
+        "attack_milli": 8250,
+        "crit_damage_bps": 1650
+      }
+    },
+    {
+      "id": "manual_a24bcca389ca4",
+      "name": "无极碎天掌",
+      "category": "ultimate",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a24bcca389ca4",
+      "max_bonus": {
+        "attack_milli": 6840,
+        "pierce_milli": 1900
+      }
+    },
+    {
+      "id": "manual_adf0746e00b5d",
+      "name": "九霄灭神雷",
+      "category": "ultimate",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.adf0746e00b5d",
+      "max_bonus": {
+        "attack_milli": 4560,
+        "max_hp_milli": 45600,
+        "damage_reduction_bps": 285
+      }
+    },
+    {
+      "id": "manual_a3a03a8790df4",
+      "name": "太初神光诀",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a3a03a8790df4",
+      "max_bonus": {
+        "attack_milli": 6600,
+        "max_hp_milli": 66000,
+        "damage_reduction_bps": 412
+      }
+    },
+    {
+      "id": "manual_acbd48d73e08c",
+      "name": "星河葬天剑",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.acbd48d73e08c",
+      "max_bonus": {
+        "attack_milli": 7150,
+        "damage_bonus_bps": 1100
+      }
+    },
+    {
+      "id": "manual_adf4f50e2fd34",
+      "name": "诸天镇狱诀",
+      "category": "ultimate",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.adf4f50e2fd34",
+      "max_bonus": {
+        "max_hp_milli": 91200,
+        "armor_milli": 1710,
+        "attack_milli": 1900
+      }
+    },
+    {
+      "id": "manual_a0ebe276031c4",
+      "name": "阴阳逆乱术",
+      "category": "ultimate",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a0ebe276031c4",
+      "max_bonus": {
+        "attack_milli": 2500,
+        "lifesteal_bps": 312,
+        "execute_bps": 250
+      }
+    },
+    {
+      "id": "manual_a4726bf017b03",
+      "name": "五行灭世轮",
+      "category": "ultimate",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a4726bf017b03",
+      "max_bonus": {
+        "attack_milli": 4940,
+        "damage_bonus_bps": 760
+      }
+    },
+    {
+      "id": "manual_a08fbef706141",
+      "name": "乾坤碎界印",
+      "category": "ultimate",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a08fbef706141",
+      "max_bonus": {
+        "attack_milli": 6840,
+        "pierce_milli": 1900
+      }
+    },
+    {
+      "id": "manual_acd13b8754cff",
+      "name": "轮回寂灭指",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.acd13b8754cff",
+      "max_bonus": {
+        "attack_milli": 5500,
+        "lifesteal_bps": 687,
+        "execute_bps": 550
+      }
+    },
+    {
+      "id": "manual_afc2b919e854b",
+      "name": "混沌开天诀",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.afc2b919e854b",
+      "max_bonus": {
+        "attack_milli": 14400,
+        "pierce_milli": 4000
+      }
+    },
+    {
+      "id": "manual_a8912ae2f638d",
+      "name": "万古镇天掌",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a8912ae2f638d",
+      "max_bonus": {
+        "max_hp_milli": 132000,
+        "armor_milli": 2475,
+        "attack_milli": 2750
+      }
+    },
+    {
+      "id": "manual_a75388ec96785",
+      "name": "天道诛魔剑",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a75388ec96785",
+      "max_bonus": {
+        "attack_milli": 8250,
+        "crit_damage_bps": 1650
+      }
+    },
+    {
+      "id": "manual_abdfdb7d3385d",
+      "name": "太上灭仙诀",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.abdfdb7d3385d",
+      "max_bonus": {
+        "attack_milli": 12000,
+        "crit_damage_bps": 2400
+      }
+    },
+    {
+      "id": "manual_aadcca359322b",
+      "name": "鸿蒙镇世印",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.aadcca359322b",
+      "max_bonus": {
+        "max_hp_milli": 192000,
+        "armor_milli": 3600,
+        "attack_milli": 4000
+      }
+    },
+    {
+      "id": "manual_af5e700cc0c94",
+      "name": "九转弑神诀",
+      "category": "ultimate",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.af5e700cc0c94",
+      "max_bonus": {
+        "attack_milli": 8250,
+        "crit_damage_bps": 1650
+      }
+    },
+    {
+      "id": "manual_a78a63a085dcd",
+      "name": "诸界归墟术",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a78a63a085dcd",
+      "max_bonus": {
+        "attack_milli": 10400,
+        "damage_bonus_bps": 1600
+      }
+    },
+    {
+      "id": "manual_a1e7bf4a8c381",
+      "name": "万法寂灭诀",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a1e7bf4a8c381",
+      "max_bonus": {
+        "attack_milli": 10400,
+        "damage_bonus_bps": 1600
+      }
+    },
+    {
+      "id": "manual_a51428d048ada",
+      "name": "大道无极斩",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a51428d048ada",
+      "max_bonus": {
+        "attack_milli": 14400,
+        "pierce_milli": 4000
+      }
+    },
+    {
+      "id": "manual_a1402bedef72a",
+      "name": "混沌葬仙经",
+      "category": "ultimate",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a1402bedef72a",
+      "max_bonus": {
+        "attack_milli": 10400,
+        "damage_bonus_bps": 1600
+      }
+    },
+    {
+      "id": "manual_adae5c70b9861",
+      "name": "养气诀",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.adae5c70b9861",
+      "max_bonus": {
+        "max_hp_milli": 16000,
+        "armor_milli": 250
+      }
+    },
+    {
+      "id": "manual_acbea36f5fb47",
+      "name": "吐纳诀",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.acbea36f5fb47",
+      "max_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 600,
+        "armor_milli": 150
+      }
+    },
+    {
+      "id": "manual_aef3d9b18d3e4",
+      "name": "引灵诀",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.aef3d9b18d3e4",
+      "max_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 600,
+        "armor_milli": 150
+      }
+    },
+    {
+      "id": "manual_a6e203977b903",
+      "name": "聚气功",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a6e203977b903",
+      "max_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 600,
+        "armor_milli": 150
+      }
+    },
+    {
+      "id": "manual_a3fe79514563d",
+      "name": "凝元诀",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a3fe79514563d",
+      "max_bonus": {
+        "armor_milli": 400,
+        "max_hp_milli": 6000
+      }
+    },
+    {
+      "id": "manual_ae3ff626eb26b",
+      "name": "培元功",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.ae3ff626eb26b",
+      "max_bonus": {
+        "max_hp_milli": 16000,
+        "armor_milli": 250
+      }
+    },
+    {
+      "id": "manual_a009f6a724bbd",
+      "name": "固元诀",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a009f6a724bbd",
+      "max_bonus": {
+        "armor_milli": 400,
+        "max_hp_milli": 6000
+      }
+    },
+    {
+      "id": "manual_a9751c2ba789d",
+      "name": "养元功",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a9751c2ba789d",
+      "max_bonus": {
+        "max_hp_milli": 16000,
+        "armor_milli": 250
+      }
+    },
+    {
+      "id": "manual_ad284a7ac99a7",
+      "name": "灵息诀",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.ad284a7ac99a7",
+      "max_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 600,
+        "armor_milli": 150
+      }
+    },
+    {
+      "id": "manual_a30bd86ac312e",
+      "name": "清心诀",
+      "category": "passive",
+      "grade": "white",
+      "asset_id": "icon.cultivation_manual.a30bd86ac312e",
+      "max_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 600,
+        "armor_milli": 150
+      }
+    },
+    {
+      "id": "manual_ae38e8ce9ae34",
+      "name": "归元功",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.ae38e8ce9ae34",
+      "max_bonus": {
+        "max_hp_milli": 16000,
+        "attack_milli": 960,
+        "armor_milli": 240
+      }
+    },
+    {
+      "id": "manual_a82db55233e16",
+      "name": "玄元诀",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a82db55233e16",
+      "max_bonus": {
+        "max_hp_milli": 16000,
+        "attack_milli": 960,
+        "armor_milli": 240
+      }
+    },
+    {
+      "id": "manual_a374f5554d8e7",
+      "name": "太息功",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a374f5554d8e7",
+      "max_bonus": {
+        "max_hp_milli": 16000,
+        "attack_milli": 960,
+        "armor_milli": 240
+      }
+    },
+    {
+      "id": "manual_a849ddde87506",
+      "name": "青木养气诀",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a849ddde87506",
+      "max_bonus": {
+        "max_hp_milli": 25600,
+        "armor_milli": 400
+      }
+    },
+    {
+      "id": "manual_a37985a69ea7b",
+      "name": "厚土培元功",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a37985a69ea7b",
+      "max_bonus": {
+        "max_hp_milli": 25600,
+        "armor_milli": 400
+      }
+    },
+    {
+      "id": "manual_ade0be54e7a4e",
+      "name": "赤阳炼气诀",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.ade0be54e7a4e",
+      "max_bonus": {
+        "attack_milli": 1760,
+        "damage_bonus_bps": 64
+      }
+    },
+    {
+      "id": "manual_a707a866c001a",
+      "name": "寒阴凝元诀",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a707a866c001a",
+      "max_bonus": {
+        "attack_milli": 1280,
+        "lifesteal_bps": 80
+      }
+    },
+    {
+      "id": "manual_a4b9ecbc86b91",
+      "name": "五行纳灵诀",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a4b9ecbc86b91",
+      "max_bonus": {
+        "max_hp_milli": 12800,
+        "armor_milli": 400,
+        "poison_resist_bps": 240
+      }
+    },
+    {
+      "id": "manual_a81b1f9c0ebb2",
+      "name": "紫府养元功",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a81b1f9c0ebb2",
+      "max_bonus": {
+        "max_hp_milli": 25600,
+        "armor_milli": 400
+      }
+    },
+    {
+      "id": "manual_a71188dd7b57d",
+      "name": "玄门正气诀",
+      "category": "passive",
+      "grade": "green",
+      "asset_id": "icon.cultivation_manual.a71188dd7b57d",
+      "max_bonus": {
+        "attack_milli": 1600,
+        "crit_resist_bps": 120
+      }
+    },
+    {
+      "id": "manual_ae5cf0fb289ed",
+      "name": "天罡聚元功",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.ae5cf0fb289ed",
+      "max_bonus": {
+        "attack_milli": 2500,
+        "crit_resist_bps": 187
+      }
+    },
+    {
+      "id": "manual_a2f6277ae5a8b",
+      "name": "地煞凝元诀",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a2f6277ae5a8b",
+      "max_bonus": {
+        "attack_milli": 2000,
+        "lifesteal_bps": 125
+      }
+    },
+    {
+      "id": "manual_a65993966a47a",
+      "name": "阴阳调息诀",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a65993966a47a",
+      "max_bonus": {
+        "max_hp_milli": 25000,
+        "attack_milli": 1375,
+        "damage_reduction_bps": 125
+      }
+    },
+    {
+      "id": "manual_a46f937cc6571",
+      "name": "太清养气诀",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a46f937cc6571",
+      "max_bonus": {
+        "max_hp_milli": 40000,
+        "armor_milli": 625
+      }
+    },
+    {
+      "id": "manual_aa38997fae04b",
+      "name": "上清玄元功",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.aa38997fae04b",
+      "max_bonus": {
+        "attack_milli": 2500,
+        "crit_resist_bps": 187
+      }
+    },
+    {
+      "id": "manual_a5a0992ccc597",
+      "name": "玉清炼气诀",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a5a0992ccc597",
+      "max_bonus": {
+        "attack_milli": 2500,
+        "crit_resist_bps": 187
+      }
+    },
+    {
+      "id": "manual_a8ca0c58669cd",
+      "name": "太乙聚灵功",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a8ca0c58669cd",
+      "max_bonus": {
+        "max_hp_milli": 25000,
+        "attack_milli": 1500,
+        "armor_milli": 375
+      }
+    },
+    {
+      "id": "manual_ad9e541f595e1",
+      "name": "混元养气诀",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.ad9e541f595e1",
+      "max_bonus": {
+        "max_hp_milli": 40000,
+        "armor_milli": 625
+      }
+    },
+    {
+      "id": "manual_a7cb5c055cb7e",
+      "name": "九转凝元功",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a7cb5c055cb7e",
+      "max_bonus": {
+        "armor_milli": 1000,
+        "max_hp_milli": 15000
+      }
+    },
+    {
+      "id": "manual_acb701f44d4bf",
+      "name": "紫霞玄功",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.acb701f44d4bf",
+      "max_bonus": {
+        "max_hp_milli": 25000,
+        "attack_milli": 1500,
+        "armor_milli": 375
+      }
+    },
+    {
+      "id": "manual_a82d9b5ab4f4b",
+      "name": "北冥玄功",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a82d9b5ab4f4b",
+      "max_bonus": {
+        "attack_milli": 2000,
+        "lifesteal_bps": 125
+      }
+    },
+    {
+      "id": "manual_a8085535b9ed2",
+      "name": "纯阳真诀",
+      "category": "passive",
+      "grade": "blue",
+      "asset_id": "icon.cultivation_manual.a8085535b9ed2",
+      "max_bonus": {
+        "attack_milli": 2750,
+        "damage_bonus_bps": 100
+      }
+    },
+    {
+      "id": "manual_a3a381a0713ab",
+      "name": "玄阴真诀",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a3a381a0713ab",
+      "max_bonus": {
+        "attack_milli": 3040,
+        "lifesteal_bps": 190
+      }
+    },
+    {
+      "id": "manual_a3919bd3933a3",
+      "name": "乾坤纳气功",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a3919bd3933a3",
+      "max_bonus": {
+        "max_hp_milli": 38000,
+        "attack_milli": 2280,
+        "armor_milli": 570
+      }
+    },
+    {
+      "id": "manual_a56e4cd03e847",
+      "name": "五雷正气诀",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a56e4cd03e847",
+      "max_bonus": {
+        "attack_milli": 3800,
+        "crit_resist_bps": 285
+      }
+    },
+    {
+      "id": "manual_ad7af8da4efc1",
+      "name": "太虚凝神功",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.ad7af8da4efc1",
+      "max_bonus": {
+        "armor_milli": 1520,
+        "max_hp_milli": 22800
+      }
+    },
+    {
+      "id": "manual_a00dd0ba20aa7",
+      "name": "玄天炼元诀",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a00dd0ba20aa7",
+      "max_bonus": {
+        "max_hp_milli": 38000,
+        "attack_milli": 2280,
+        "armor_milli": 570
+      }
+    },
+    {
+      "id": "manual_a86e649b96230",
+      "name": "星辰引气诀",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a86e649b96230",
+      "max_bonus": {
+        "attack_milli": 2660,
+        "crit_bps": 285
+      }
+    },
+    {
+      "id": "manual_a5448666b49ac",
+      "name": "日月同辉功",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a5448666b49ac",
+      "max_bonus": {
+        "attack_milli": 2660,
+        "crit_bps": 285
+      }
+    },
+    {
+      "id": "manual_a9ba9bfa9c79d",
+      "name": "天河聚灵诀",
+      "category": "passive",
+      "grade": "purple",
+      "asset_id": "icon.cultivation_manual.a9ba9bfa9c79d",
+      "max_bonus": {
+        "attack_milli": 2660,
+        "crit_bps": 285
+      }
+    },
+    {
+      "id": "manual_aeb4b52bf880d",
+      "name": "八荒纳元功",
+      "category": "passive",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.aeb4b52bf880d",
+      "max_bonus": {
+        "max_hp_milli": 55000,
+        "attack_milli": 3300,
+        "armor_milli": 825
+      }
+    },
+    {
+      "id": "manual_adea37c936d68",
+      "name": "九霄玄元诀",
+      "category": "passive",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.adea37c936d68",
+      "max_bonus": {
+        "attack_milli": 3850,
+        "crit_bps": 412
+      }
+    },
+    {
+      "id": "manual_a41e65c149e1e",
+      "name": "太极混元功",
+      "category": "passive",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a41e65c149e1e",
+      "max_bonus": {
+        "max_hp_milli": 55000,
+        "attack_milli": 3025,
+        "damage_reduction_bps": 275
+      }
+    },
+    {
+      "id": "manual_aa60d71376d37",
+      "name": "无极养神诀",
+      "category": "passive",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.aa60d71376d37",
+      "max_bonus": {
+        "max_hp_milli": 88000,
+        "armor_milli": 1375
+      }
+    },
+    {
+      "id": "manual_a781a58bf72ba",
+      "name": "先天一气诀",
+      "category": "passive",
+      "grade": "orange",
+      "asset_id": "icon.cultivation_manual.a781a58bf72ba",
+      "max_bonus": {
+        "max_hp_milli": 55000,
+        "attack_milli": 3025,
+        "damage_reduction_bps": 275
+      }
+    },
+    {
+      "id": "manual_ae30cf02e21ec",
+      "name": "太初炼元经",
+      "category": "passive",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.ae30cf02e21ec",
+      "max_bonus": {
+        "attack_milli": 8000,
+        "crit_resist_bps": 600
+      }
+    },
+    {
+      "id": "manual_a37c137e0959b",
+      "name": "鸿蒙养气经",
+      "category": "passive",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a37c137e0959b",
+      "max_bonus": {
+        "max_hp_milli": 128000,
+        "armor_milli": 2000
+      }
+    },
+    {
+      "id": "manual_af4538ffb45e9",
+      "name": "玄黄真元诀",
+      "category": "passive",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.af4538ffb45e9",
+      "max_bonus": {
+        "attack_milli": 8000,
+        "crit_resist_bps": 600
+      }
+    },
+    {
+      "id": "manual_a40a86d3ee324",
+      "name": "混沌归元功",
+      "category": "passive",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a40a86d3ee324",
+      "max_bonus": {
+        "max_hp_milli": 80000,
+        "attack_milli": 4400,
+        "damage_reduction_bps": 400
+      }
+    },
+    {
+      "id": "manual_a7d2380863d2b",
+      "name": "大道长生诀",
+      "category": "passive",
+      "grade": "red",
+      "asset_id": "icon.cultivation_manual.a7d2380863d2b",
+      "max_bonus": {
+        "max_hp_milli": 160000,
+        "lifesteal_bps": 400
+      }
+    }
+  ],
+  "legacy_test_definitions": [
+    {
+      "id": "test_wind_step",
+      "name": "试·踏风诀",
+      "category": "movement",
+      "grade": "white",
+      "test": true,
+      "bonus": {
+        "speed_bps": 300
+      }
+    },
+    {
+      "id": "test_stone_guard",
+      "name": "试·磐石诀",
+      "category": "defense",
+      "grade": "green",
+      "test": true,
+      "bonus": {
+        "armor_milli": 5805
+      }
+    },
+    {
+      "id": "test_sword_art",
+      "name": "试·斩云诀",
+      "category": "special",
+      "grade": "blue",
+      "test": true,
+      "bonus": {
+        "attack_milli": 20000
+      }
+    },
+    {
+      "id": "test_ultimate",
+      "name": "试·归元诀",
+      "category": "ultimate",
+      "grade": "red",
+      "test": true,
+      "bonus": {
+        "attack_milli": 25675
+      }
+    },
+    {
+      "id": "test_vitality",
+      "name": "试·长生诀",
+      "category": "passive",
+      "grade": "purple",
+      "test": true,
+      "bonus": {
+        "max_hp_milli": 160000
+      }
+    },
+    {
+      "id": "test_blood",
+      "name": "试·养元诀",
+      "category": "passive",
+      "grade": "orange",
+      "test": true,
+      "bonus": {
+        "max_hp_milli": 156500
+      }
+    },
+    {
+      "id": "test_evasion",
+      "name": "试·轻身诀",
+      "category": "passive",
+      "grade": "green",
+      "test": true,
+      "bonus": {
+        "evasion_bps": 200
+      }
+    },
+    {
+      "id": "test_swiftness",
+      "name": "试·疾风诀",
+      "category": "passive",
+      "grade": "blue",
+      "test": true,
+      "bonus": {
+        "speed_bps": 400
+      }
+    }
+  ],
+  "version": "formal-manuals-v1",
+  "xp_per_level_by_grade": {
+    "white": 100,
+    "green": 180,
+    "blue": 300,
+    "purple": 500,
+    "orange": 800,
+    "red": 1200
+  },
+  "low_floor_penalty": true,
+  "starter_ids": [
+    "manual_ae525f4bb6e74",
+    "manual_adae5c70b9861"
+  ],
+  "sources": {
+    "coin_prices": {
+      "white": 200,
+      "green": 1200
+    },
+    "first_clear": {
+      "blue": 30,
+      "purple": 60
+    },
+    "exchange_costs": {
+      "orange": 100,
+      "red": 400
+    },
+    "page_resource_id": "manual_page",
+    "boss_floor": 100,
+    "pages_per_boss": 1,
+    "stone_costs": {
+      "blue": {
+        "spirit_stone_mid": 30
+      },
+      "purple": {
+        "spirit_stone_high": 20
+      },
+      "orange": {
+        "spirit_stone_supreme": 20,
+        "manual_page": 100
+      },
+      "red": {
+        "spirit_stone_immortal": 10,
+        "manual_page": 400
+      }
+    },
+    "green_stone_cost": {
+      "spirit_stone_low": 60
+    },
+    "green_stone_ids": [
+      "manual_a3c85025d7f75",
+      "manual_ad19b8762ad41",
+      "manual_a62886493046f",
+      "manual_ae38e8ce9ae34"
+    ],
+    "supreme_boss_interval": 10,
+    "supreme_per_reward": 1,
+    "immortal_first_dungeon": "cold_jade_cave",
+    "immortal_first_count": 5,
+    "mining_recipes": [
+      {
+        "machine_id": "sect_spirit_stone_mid",
+        "display_name": "开采中品灵石",
+        "building_kind": "mine",
+        "inputs": {},
+        "outputs": {
+          "spirit_stone_mid": 1
+        },
+        "duration_ms": 120000,
+        "min_level": 3,
+        "unlock_floor": 0,
+        "unlock_realm": 0
+      },
+      {
+        "machine_id": "sect_spirit_stone_high",
+        "display_name": "开采上品灵石",
+        "building_kind": "mine",
+        "inputs": {},
+        "outputs": {
+          "spirit_stone_high": 1
+        },
+        "duration_ms": 360000,
+        "min_level": 5,
+        "unlock_floor": 0,
+        "unlock_realm": 0
+      }
+    ]
+  }
+}

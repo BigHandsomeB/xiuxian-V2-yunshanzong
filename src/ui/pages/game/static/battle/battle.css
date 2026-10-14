@@ -1,0 +1,79 @@
+/* Battle art stays separate from the shared UI surfaces and typography. */
+.battle-scene{position:relative;isolation:isolate;width:100%;min-height:360px;height:min(72svh,680px);overflow:hidden;background:var(--surface-2);color:var(--ink);border-block:2px solid var(--line);box-sizing:border-box}
+.battle-scene .battle-layer{position:absolute;inset:0;pointer-events:none}
+.battle-layer--background{z-index:0}.battle-layer--player{z-index:1}.battle-layer--enemy{z-index:2}.battle-layer--effect{z-index:3}.battle-layer--hud{z-index:4}
+.battle-landscape{position:absolute;inset:0;background:var(--surface-2)}
+.battle-landscape::after{content:"";position:absolute;inset:74% 0 0;background:var(--line)}
+.battle-background{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;image-rendering:pixelated}
+.battle-position{position:absolute;width:0;height:0}
+.battle-sprite{position:absolute;overflow:hidden;contain:layout paint;image-rendering:pixelated}
+.battle-sheet{position:absolute;left:0;top:0;max-width:none;max-height:none;image-rendering:pixelated}
+.battle-placeholder{display:block;position:absolute;transform:translate(-50%,-100%);width:52px;height:82px;padding-top:12px;box-sizing:border-box;text-align:center;background:var(--accent);color:var(--on-accent);clip-path:polygon(30% 0,70% 0,85% 25%,72% 35%,95% 100%,5% 100%,28% 35%,15% 25%);font:var(--text-min)/1.5 var(--font-ui)}
+.battle-placeholder--enemy{width:70px;height:60px;background:var(--accent-2);clip-path:polygon(0 0,30% 15%,70% 15%,100% 0,85% 70%,100% 100%,0 100%,15% 70%)}
+.battle-placeholder--effect{display:none}.battle-scene [hidden]{display:none}
+.battle-status{position:absolute;bottom:100px;left:50%;transform:translateX(-50%);margin:0;padding:8px 14px;width:max-content;max-width:calc(100% - 32px);background:var(--surface);color:var(--ink);border-inline:2px solid var(--line);font:var(--text-body)/1.5 var(--font-title)}
+.battle-health-slots{position:absolute;top:18px;left:16px;right:16px;display:flex;justify-content:space-between;gap:16px}
+.battle-health-slot{width:48%;min-width:0;font-size:var(--text-help)}
+.battle-skill-slots{position:absolute;bottom:20px;left:16px;right:16px;display:flex;justify-content:space-around;gap:8px}
+.battle-skill-slot{display:grid;place-items:center;border:2px solid var(--line);border-radius:var(--radius);width:48px;min-height:var(--control-h);background:var(--surface);color:var(--muted);font:var(--text-min)/1.4 var(--font-ui)}
+.battle-scene .battle-layer--hud button{pointer-events:auto}
+.battle-effect-placeholder{position:absolute;top:43%;left:0;right:0;text-align:center;color:var(--muted);font:var(--text-min)/1.5 var(--font-ui)}
+.combat-controls{padding:12px 0;border-bottom:1px solid var(--line)}
+.combat-summary{text-align:center;font-family:var(--font-title);font-size:var(--text-section);margin:8px 0 12px}
+.combat-return{display:flex;align-items:center;justify-content:center;min-height:var(--control-h);font-size:var(--text-body);color:var(--accent);text-decoration:underline}
+.combat-log{font-size:var(--text-help);color:var(--muted);padding-top:8px}.combat-log p{margin:3px 0}
+.combat-reward{padding:12px 0}.combat-reward h2{margin:6px 0 12px;font-size:var(--text-section)}
+.combat-reward-item{display:inline-flex;align-items:center;gap:8px;margin:0 12px 12px 0;font-size:var(--text-help)}
+.battle-screen .battle-placeholder--player{width:54px;height:88px}.battle-screen .battle-placeholder--enemy{width:72px;height:55px}
+.battle-position[data-action=attack][data-role=player]{animation:combat-lunge .36s ease-in-out}
+.battle-position[data-action=attack][data-role=enemy]{animation:combat-counter .36s ease-in-out}
+.battle-position[data-action=hit]{animation:combat-hit .24s ease-in-out}.battle-position[data-action=death]{animation:combat-death .7s forwards}
+.battle-damage-number{position:absolute;transform:translate(-50%,-50%);font:bold 26px var(--font-title);color:var(--header-ink);text-shadow:0 2px 0 var(--header-bg);animation:combat-number .8s forwards}
+.battle-slash{position:absolute;width:60px;height:5px;transform:translate(-50%,-50%) rotate(-40deg);background:var(--header-ink);animation:combat-slash .3s forwards}
+.battle-effect-image{width:80px;height:80px;object-fit:contain;image-rendering:pixelated;transform:rotate(40deg)}
+@keyframes combat-lunge{45%{transform:translateX(26px)}}@keyframes combat-counter{45%{transform:translateX(-24px)}}@keyframes combat-hit{40%{filter:brightness(2);transform:translateX(4px)}}@keyframes combat-death{to{transform:translateY(10px);opacity:.2}}@keyframes combat-number{to{transform:translate(-50%,-45px);opacity:0}}@keyframes combat-slash{to{opacity:0;width:85px}}
+.battle-scene[data-suspended=true] *{animation-play-state:paused!important}
+/* Full 16:9 arena, unchanged actor scaling, independent 70px attributes row. */
+.battle-screen .battle-scene{min-height:0;height:auto;padding-top:0;padding-bottom:70px;background:var(--surface);border-block:2px solid var(--line)}
+.battle-screen .battle-layer--background{position:relative;inset:auto;aspect-ratio:16/9;overflow:hidden}
+.battle-screen .battle-layer--player,.battle-screen .battle-layer--enemy,.battle-screen .battle-layer--effect{top:0;bottom:70px;overflow:hidden}
+.battle-screen .battle-layer--hud{top:auto;bottom:0;height:70px}
+.battle-screen .battle-background{object-fit:contain;max-width:none;max-height:none;padding:0;margin:0;border:0;border-radius:0}
+.battle-position[data-static=true][data-action=hit]{animation:combat-shake .24s ease-in-out}
+@keyframes combat-shake{20%,60%{transform:translateX(5px);filter:brightness(2)}40%,80%{transform:translateX(-5px)}100%{transform:none;filter:none}}
+.combat-auto{display:grid;gap:10px}
+.combat-auto label{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--text-body)}
+.combat-auto select{min-height:var(--control-h);max-width:65%;min-width:0;color:var(--ink);background:var(--surface-2);border:2px solid var(--line);border-radius:var(--radius);padding:8px;font:var(--text-help)/1.4 var(--font-ui)}
+.combat-auto-note,.combat-progress{color:var(--muted);font-size:var(--text-help);line-height:1.7}
+.battle-screen .battle-health-slots{top:8px;left:8px;right:8px;gap:12px}
+.battle-screen .battle-health-slot{padding:0;background:none;border:0;text-align:center;color:var(--ink)}
+.battle-actor-name{display:block;font:var(--text-min)/1.5 var(--font-ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.battle-actor-stats{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:5px}
+.battle-stat{display:inline-flex;align-items:center;gap:3px;min-width:0}
+.battle-stat-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex:none;color:var(--accent)}
+.battle-stat-icon img{width:18px;height:18px;object-fit:contain;image-rendering:pixelated}
+.battle-stat-value{font:var(--text-min)/1.5 var(--font-ui);white-space:nowrap;font-variant-numeric:tabular-nums}
+.battle-screen .combat-auto,.battle-screen .combat-reward{margin-top:12px;padding:14px 12px}
+/* Shared buttons, three per row. Existing transparent art stays attached. */
+.battle-screen .combat-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:6px}
+.battle-screen .combat-actions>.primary,.battle-screen .combat-actions>.quiet,.battle-screen .combat-actions>.combat-return{display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:0;width:100%;min-height:var(--action-h);margin:0;padding:8px 6px;border:2px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);font:var(--text-body)/1.4 var(--font-ui);text-align:center;text-decoration:none;overflow-wrap:anywhere}
+.battle-screen .combat-actions>.action-key{min-height:var(--action-h)}
+.battle-screen .combat-actions>.primary{background:var(--accent);color:var(--on-accent)}
+.battle-screen[data-battle-skin=true] .combat-actions>.primary,.battle-screen[data-battle-skin=true] .combat-actions>.quiet{background-color:transparent;background-image:var(--battle-primary);background-position:center;background-size:100% 100%;background-repeat:no-repeat;border-color:transparent;color:var(--header-ink)}
+.battle-screen[data-battle-skin=true] .combat-actions>.combat-return{background-color:transparent;background-image:var(--battle-primary);background-position:center;background-size:100% 100%;background-repeat:no-repeat;border-color:transparent;color:var(--header-ink)}
+.battle-screen .combat-actions .system-icon{width:20px;height:20px;min-width:20px}
+.battle-screen .combat-actions>[hidden]{display:none}
+.battle-screen .combat-future{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.battle-screen .combat-future button{min-width:0;width:100%;min-height:var(--control-h);margin:0;padding:6px;font-size:var(--text-body);border:2px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow-wrap:anywhere}
+.battle-screen .combat-future .quiet{grid-column:auto}
+@media(max-width:360px){.battle-actor-stats{gap:3px;flex-wrap:wrap}.battle-stat-icon,.battle-stat-icon img{width:16px;height:16px}}
+@media(prefers-reduced-motion:reduce){.battle-position[data-action],.battle-damage-number{animation:none}.battle-position[data-action=death]{opacity:.2}}
+
+/* Shared effects framework writes only integer, stepped poses. */
+.battle-scene[data-fx-framework=true] .battle-position[data-role=enemy],
+.battle-scene[data-hero-anim-mode=effects] .battle-position[data-role=player],
+.battle-scene[data-fx-framework=true] .battle-damage-number{animation:none;transition:none}
+.battle-damage-number[data-spark=generic]::after{content:"✦";color:var(--accent-2);margin-inline-start:4px}
+
+.battle-scene[data-suspended=true] .battle-position,
+.battle-scene[data-suspended=true] .battle-damage-number{animation-play-state:paused}

@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "id": "red_copper_mine",
+  "name": "赤铜废矿",
+  "floors": 100,
+  "elite_interval": 10,
+  "unlock": {
+    "dungeon_id": "thorn_path",
+    "cleared_floor": 100
+  },
+  "background_asset_id": "scene.environment.a3a1936f6defb",
+  "monsters": [
+    {
+      "id": "red_copper_mine_template_normal_1",
+      "name": "铜齿矿鼠",
+      "tier": "normal",
+      "order": 0,
+      "asset_id": "monster.static.a20b7e2268043",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_2",
+      "name": "铁壳地甲",
+      "tier": "normal",
+      "order": 1,
+      "asset_id": "monster.static.ac07d604eee74",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_3",
+      "name": "赤砂蝎",
+      "tier": "normal",
+      "order": 2,
+      "asset_id": "monster.static.adfa3f8bade18",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_4",
+      "name": "磁石泥怪",
+      "tier": "normal",
+      "order": 3,
+      "asset_id": "monster.static.a85b7c01051c7",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_5",
+      "name": "灰尘矿蝠",
+      "tier": "normal",
+      "order": 4,
+      "asset_id": "monster.static.ac577f43cf4ab",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_6",
+      "name": "铜锈傀童",
+      "tier": "normal",
+      "order": 5,
+      "asset_id": "monster.static.abbdc37919df7",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_7",
+      "name": "矿灯怨影",
+      "tier": "normal",
+      "order": 6,
+      "asset_id": "monster.static.a883d74a7f484",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_8",
+      "name": "碎镐矿尸",
+      "tier": "normal",
+      "order": 7,
+      "asset_id": "monster.static.a4fef56964afc",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_9",
+      "name": "硫烟蛾",
+      "tier": "normal",
+      "order": 8,
+      "asset_id": "monster.static.a4d71ae45890c",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_normal_10",
+      "name": "乌金幼蛇",
+      "tier": "normal",
+      "order": 9,
+      "asset_id": "monster.static.a7b05ca3216dd",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_elite_1",
+      "name": "赤铜监工傀",
+      "tier": "elite",
+      "order": 0,
+      "asset_id": "monster.static.acffb33f07281",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_elite_2",
+      "name": "铁背穿山兽",
+      "tier": "elite",
+      "order": 1,
+      "asset_id": "monster.static.ac3b102bef14a",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_elite_3",
+      "name": "磁核石灵",
+      "tier": "elite",
+      "order": 2,
+      "asset_id": "monster.static.a1eb295adc0b8",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_elite_4",
+      "name": "硫火毒蝎",
+      "tier": "elite",
+      "order": 3,
+      "asset_id": "monster.static.a1e68162941b7",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_elite_5",
+      "name": "断镐矿将",
+      "tier": "elite",
+      "order": 4,
+      "asset_id": "monster.static.a3d7772f76ccb",
+      "poison_milli": 0
+    },
+    {
+      "id": "red_copper_mine_template_boss_1",
+      "name": "赤铜镇矿傀",
+      "tier": "boss",
+      "order": 0,
+      "asset_id": "boss.static.a588222f2bafb",
+      "poison_milli": 0
+    }
+  ],
+  "balance": {
+    "version": "red_copper_mine-balance-v1",
+    "curve": {
+      "hp": [
+        "48.0",
+        "1.80",
+        "0.0090"
+      ],
+      "attack": [
+        "5.00",
+        "0.1500",
+        "0.0003125"
+      ],
+      "armor": [
+        "1",
+        "0.03",
+        "0.0001"
+      ]
+    },
+    "tiers": {
+      "normal": [
+        "1",
+        "1",
+        "0"
+      ],
+      "elite": [
+        "1.65",
+        "1.35",
+        "0.8"
+      ],
+      "boss": [
+        "1.8",
+        "1.45",
+        "1"
+      ]
+    },
+    "profiles": {
+      "铜齿矿鼠": [
+        "0.9",
+        "1",
+        "0"
+      ],
+      "铁壳地甲": [
+        "0.85",
+        "0.95",
+        "0"
+      ],
+      "赤砂蝎": [
+        "0.9",
+        "1.05",
+        "0"
+      ],
+      "磁石泥怪": [
+        "1.05",
+        "0.95",
+        "0.6"
+      ],
+      "灰尘矿蝠": [
+        "0.95",
+        "1.05",
+        "0"
+      ],
+      "铜锈傀童": [
+        "1.15",
+        "1.05",
+        "0.3"
+      ],
+      "矿灯怨影": [
+        "0.9",
+        "1.1",
+        "-0.2"
+      ],
+      "碎镐矿尸": [
+        "0.9",
+        "0.9",
+        "0"
+      ],
+      "硫烟蛾": [
+        "1.1",
+        "1",
+        "0.4"
+      ],
+      "乌金幼蛇": [
+        "1.15",
+        "0.9",
+        "0.8"
+      ],
+      "赤铜监工傀": [
+        "1",
+        "1",
+        "0.5"
+      ],
+      "铁背穿山兽": [
+        "1.1",
+        "1.05",
+        "0.4"
+      ],
+      "磁核石灵": [
+        "0.95",
+        "1.1",
+        "0"
+      ],
+      "硫火毒蝎": [
+        "1",
+        "0.9",
+        "0"
+      ],
+      "断镐矿将": [
+        "1.15",
+        "0.95",
+        "0.8"
+      ],
+      "赤铜镇矿傀": [
+        "1",
+        "1",
+        "0"
+      ]
+    }
+  },
+  "reward": {
+    "coins": 1
+  },
+  "materials": [
+    {
+      "id": "red_copper_mine_material_01",
+      "name": "赤铜矿晶",
+      "asset_id": "icon.equipment.aebb0205e2b20",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_02",
+      "name": "铁甲碎片",
+      "asset_id": "icon.equipment.a4f44b2e84e18",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_03",
+      "name": "赤砂毒尾",
+      "asset_id": "icon.equipment.a0c31d681603e",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_04",
+      "name": "磁石核心",
+      "asset_id": "icon.equipment.a29bccd512741",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_05",
+      "name": "灰蝠翼膜",
+      "asset_id": "icon.equipment.ac9c38e503525",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_06",
+      "name": "铜锈机关片",
+      "asset_id": "icon.equipment.ad1042879231b",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_07",
+      "name": "幽矿残晶",
+      "asset_id": "icon.equipment.a99a3e470f825",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_08",
+      "name": "断镐铁片",
+      "asset_id": "icon.equipment.a047075dbd324",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_09",
+      "name": "硫火粉尘",
+      "asset_id": "icon.equipment.ad8db5e4046e6",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_10",
+      "name": "乌金蛇鳞",
+      "asset_id": "icon.equipment.a888d01e8a267",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "red_copper_mine_material_11",
+      "name": "镇矿傀心",
+      "asset_id": "icon.equipment.a3ae9d8b40192",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    },
+    {
+      "id": "red_copper_mine_material_12",
+      "name": "赤铜灵髓",
+      "asset_id": "icon.equipment.a8a5943129adf",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    }
+  ],
+  "equipment": [
+    {
+      "id": "red_copper_mine_equipment_01",
+      "name": "赤铜矿镐",
+      "slot": "left",
+      "quality": "green",
+      "stats": {
+        "attack_milli": 9000,
+        "crit_bps": 750
+      },
+      "asset_id": "icon.equipment.ae78ae9323366",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          7500,
+          10500,
+          1500
+        ],
+        "crit_bps": [
+          600,
+          900,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_02",
+      "name": "断岩重锤",
+      "slot": "left",
+      "quality": "green",
+      "stats": {
+        "attack_milli": 7500,
+        "pierce_milli": 3000
+      },
+      "asset_id": "icon.equipment.a2f7e153b2b82",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          6000,
+          9000,
+          1500
+        ],
+        "pierce_milli": [
+          1500,
+          4500,
+          1500
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_03",
+      "name": "磁纹铁拳",
+      "slot": "gloves",
+      "quality": "green",
+      "stats": {
+        "attack_milli": 4500,
+        "accuracy_bps": 750
+      },
+      "asset_id": "icon.equipment.a589d85d0fe5c",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          3000,
+          6000,
+          1500
+        ],
+        "accuracy_bps": [
+          600,
+          900,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_04",
+      "name": "铜甲护手",
+      "slot": "gloves",
+      "quality": "green",
+      "stats": {
+        "armor_milli": 1500,
+        "reflect_bps": 1500
+      },
+      "asset_id": "icon.equipment.a7e7ba145cfa9",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          1200,
+          1800,
+          150
+        ],
+        "reflect_bps": [
+          1200,
+          1800,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_05",
+      "name": "矿工束腰",
+      "slot": "belt",
+      "quality": "green",
+      "stats": {
+        "max_hp_milli": 37500,
+        "armor_milli": 750
+      },
+      "asset_id": "icon.equipment.a7cbe56d80a59",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          30000,
+          45000,
+          1500
+        ],
+        "armor_milli": [
+          600,
+          900,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_06",
+      "name": "磁石腰甲",
+      "slot": "belt",
+      "quality": "green",
+      "stats": {
+        "max_hp_milli": 45000,
+        "poison_resist_bps": 4500
+      },
+      "asset_id": "icon.equipment.a2cb5e45ad949",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          36000,
+          54000,
+          1500
+        ],
+        "poison_resist_bps": [
+          3600,
+          5400,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_07",
+      "name": "赤铜胸甲",
+      "slot": "body",
+      "quality": "green",
+      "stats": {
+        "max_hp_milli": 52500,
+        "armor_milli": 2250
+      },
+      "asset_id": "icon.equipment.adac6702fecae",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          42000,
+          63000,
+          1500
+        ],
+        "armor_milli": [
+          1800,
+          2700,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_08",
+      "name": "铁壳战衣",
+      "slot": "body",
+      "quality": "green",
+      "stats": {
+        "armor_milli": 3000,
+        "reflect_bps": 2250
+      },
+      "asset_id": "icon.equipment.a801cf572504d",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          2400,
+          3600,
+          150
+        ],
+        "reflect_bps": [
+          1800,
+          2700,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_09",
+      "name": "矿尘踏靴",
+      "slot": "feet",
+      "quality": "green",
+      "stats": {
+        "speed_bps": 1500,
+        "evasion_bps": 750
+      },
+      "asset_id": "icon.equipment.a895102527409",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "speed_bps": [
+          1200,
+          1800,
+          150
+        ],
+        "evasion_bps": [
+          600,
+          900,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_10",
+      "name": "矿灯铁盔",
+      "slot": "head",
+      "quality": "green",
+      "stats": {
+        "accuracy_bps": 750,
+        "evasion_bps": 750
+      },
+      "asset_id": "icon.equipment.aa78185c26d5e",
+      "sell_coins": 12,
+      "salvage": {
+        "red_copper_mine_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "accuracy_bps": [
+          600,
+          900,
+          150
+        ],
+        "evasion_bps": [
+          600,
+          900,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_11",
+      "name": "镇矿破岩锤",
+      "slot": "left",
+      "quality": "blue",
+      "stats": {
+        "attack_milli": 18000,
+        "crit_bps": 1200,
+        "pierce_milli": 4500,
+        "execute_bps": 3000
+      },
+      "asset_id": "icon.equipment.a9da0a8d805ff",
+      "sell_coins": 38,
+      "salvage": {
+        "red_copper_mine_material_11": 1
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "attack_milli": [
+          15000,
+          21000,
+          1500
+        ],
+        "crit_bps": [
+          900,
+          1500,
+          150
+        ],
+        "pierce_milli": [
+          3000,
+          6000,
+          1500
+        ],
+        "execute_bps": [
+          2400,
+          3000,
+          150
+        ]
+      }
+    },
+    {
+      "id": "red_copper_mine_equipment_12",
+      "name": "赤铜镇山甲",
+      "slot": "body",
+      "quality": "blue",
+      "stats": {
+        "max_hp_milli": 82500,
+        "armor_milli": 3000,
+        "reflect_bps": 3000
+      },
+      "asset_id": "icon.equipment.ae6c09da356dd",
+      "sell_coins": 38,
+      "salvage": {
+        "red_copper_mine_material_11": 1
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "max_hp_milli": [
+          66000,
+          99000,
+          1500
+        ],
+        "armor_milli": [
+          2400,
+          3600,
+          150
+        ],
+        "reflect_bps": [
+          2400,
+          3600,
+          150
+        ]
+      }
+    }
+  ],
+  "loot": {
+    "version": "red_copper_mine-loot-v1",
+    "roll_version": "red_copper_mine-roll-v1",
+    "rates": {
+      "normal": {
+        "material_bps": 8000,
+        "material_quantity": 1,
+        "equipment_bps": 1500
+      },
+      "elite": {
+        "material_bps": 10000,
+        "material_quantity": 2,
+        "equipment_bps": 5000
+      },
+      "boss": {
+        "material_bps": 10000,
+        "material_quantity": 1,
+        "equipment_bps": 10000
+      }
+    },
+    "normal_materials": [
+      "red_copper_mine_material_01",
+      "red_copper_mine_material_02",
+      "red_copper_mine_material_03",
+      "red_copper_mine_material_04",
+      "red_copper_mine_material_05",
+      "red_copper_mine_material_06",
+      "red_copper_mine_material_07",
+      "red_copper_mine_material_08",
+      "red_copper_mine_material_09",
+      "red_copper_mine_material_10"
+    ],
+    "elite_materials": [
+      "red_copper_mine_material_01",
+      "red_copper_mine_material_02",
+      "red_copper_mine_material_03",
+      "red_copper_mine_material_04",
+      "red_copper_mine_material_05"
+    ],
+    "theme_materials": [
+      "copper",
+      "purple_copper",
+      "black_gold",
+      "fire_pattern_stone"
+    ],
+    "beast_materials": [
+      "beast_bone",
+      "hide",
+      "beast_sinew"
+    ],
+    "rare_materials": [
+      "beast_core",
+      "spirit_beast_blood",
+      "crafting_essence",
+      "equipment_blank"
+    ],
+    "extra_rates": {
+      "theme_bps": 8000,
+      "theme_quantity": 1,
+      "beast_bps": 3000,
+      "beast_quantity": 1,
+      "rare_bps": 5000,
+      "rare_quantity": 1
+    }
+  }
+}

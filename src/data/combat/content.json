@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "player": {
+    "machine_id": "hero",
+    "display_name": "无名行者",
+    "level": 1,
+    "realm": 0,
+    "asset_id": "player.combat.hero"
+  },
+  "monsters": [
+    {
+      "machine_id": "thorn_rat",
+      "display_name": "荆棘鼠",
+      "base_hp_milli": 35000,
+      "attack_milli": 6000,
+      "armor_milli": 0,
+      "asset_id": "monster.combat.thorn_rat",
+      "reward": {
+        "coins": 3,
+        "dewleaf": 1
+      }
+    }
+  ],
+  "encounters": [
+    {
+      "machine_id": "thorn_first",
+      "display_name": "荆棘古道 · 初遇",
+      "monster_id": "thorn_rat",
+      "background_asset_id": "scene.battle.thorn"
+    }
+  ],
+  "content_version": "combat-v1-6.3.0-r1"
+}

@@ -1,0 +1,37 @@
+# Private runtime state, credentials, temporary outputs and environments
+.env
+.env.*
+.game/
+.venv/
+venv/
+.tmp/
+.ui-review.json*
+__pycache__/
+*.py[cod]
+*.sqlite*
+*.db
+*-wal
+*-shm
+*-journal
+*.log
+*.pem
+*.key
+*.p12
+*.pfx
+*.zip
+*.tar*
+assets/source/
+assets/master/
+assets/components/
+assets/registry/catalog.sqlite3*
+assets/registry/gameplay-notes.json
+assets/registry/gameplay-notes.json.lock
+node_modules/
+dist/
+build/
+coverage/
+.DS_Store
+
+# Agent-only work records and internal audit metadata
+.codex/
+.agents/

@@ -1,0 +1,2596 @@
+{
+  "schema_version": 2,
+  "templates": [
+    {
+      "template_id": "character_compact_v1",
+      "category": "character",
+      "structure": {
+        "idle": [
+          2,
+          2
+        ],
+        "walk": [
+          4,
+          4
+        ],
+        "attack": [
+          4,
+          4
+        ],
+        "cast": [
+          4,
+          4
+        ],
+        "hit": [
+          2,
+          2
+        ],
+        "death": [
+          4,
+          4
+        ],
+        "special": [
+          4,
+          6
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "Full-body semi-realistic proportions around 1:4 to 1:4.5; consistent feet baseline. Profession identity comes from silhouette, main colors, distinctive props and restrained effects, not recoloring one generic body."
+      ],
+      "default_actions": [
+        "idle",
+        "walk",
+        "attack",
+        "cast",
+        "hit",
+        "death"
+      ],
+      "template_version": 3,
+      "pixel_size_profile": "character_48x64_v1",
+      "output_mode": "sprite_sheet",
+      "families": {
+        "working_disciple": {
+          "name_zh": "宗门工作弟子",
+          "pixel_size_profile": "character_48x64_v1",
+          "structure": {
+            "idle": [
+              2,
+              2
+            ],
+            "work": [
+              4,
+              6
+            ]
+          },
+          "default_actions": [
+            "idle",
+            "work"
+          ],
+          "rules": [
+            "Working disciples do not use the full combat action set; important interiors prefer complete living scene states."
+          ]
+        }
+      },
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "character",
+        "set_namespace": "asset_set.character",
+        "runtime_role": "character_sprite",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "idle": "待机",
+          "walk": "行走",
+          "attack": "普通攻击",
+          "cast": "施法",
+          "hit": "受击",
+          "death": "死亡",
+          "special": "特殊动作",
+          "work": "工作"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "action_frames",
+      "allowed_sheet_semantics": [
+        "action_frames"
+      ],
+      "default_generation_scope": "single_asset",
+      "combat_runtime_profile": {
+        "profile_id": "player_combat_192x256_v1",
+        "version": 1,
+        "frame_size": [
+          192,
+          256
+        ],
+        "subject_logic_size": [
+          176,
+          216
+        ],
+        "baseline_from_bottom": 24,
+        "sampling": "nearest",
+        "policy": "fit_actor"
+      }
+    },
+    {
+      "template_id": "monster_compact_v1",
+      "category": "monster",
+      "structure": {
+        "idle": [
+          2,
+          2
+        ],
+        "attack": [
+          3,
+          3
+        ],
+        "hit": [
+          1,
+          1
+        ],
+        "death": [
+          3,
+          3
+        ],
+        "move": [
+          4,
+          4
+        ],
+        "cast": [
+          4,
+          4
+        ],
+        "special": [
+          4,
+          6
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density"
+      ],
+      "default_actions": [
+        "idle",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "template_version": 3,
+      "pixel_size_profile": "monster_compact_v1",
+      "output_mode": "sprite_sheet",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "monster",
+        "set_namespace": "asset_set.monster",
+        "runtime_role": "monster_sprite",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "idle": "待机",
+          "attack": "普通攻击",
+          "hit": "受击",
+          "death": "死亡",
+          "move": "移动",
+          "cast": "施法",
+          "special": "特殊动作"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "action_frames",
+      "allowed_sheet_semantics": [
+        "action_frames"
+      ],
+      "default_generation_scope": "single_asset",
+      "creation_enabled": false
+    },
+    {
+      "template_id": "boss_v1",
+      "category": "boss",
+      "structure": {
+        "idle": [
+          2,
+          2
+        ],
+        "attack": [
+          3,
+          4
+        ],
+        "skill": [
+          4,
+          4
+        ],
+        "hit": [
+          1,
+          1
+        ],
+        "death": [
+          3,
+          4
+        ],
+        "special": [
+          4,
+          6
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density"
+      ],
+      "default_actions": [
+        "idle",
+        "attack",
+        "skill",
+        "hit",
+        "death"
+      ],
+      "template_version": 3,
+      "pixel_size_profile": "boss_compact_v1",
+      "output_mode": "sprite_sheet",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "boss",
+        "set_namespace": "asset_set.boss",
+        "runtime_role": "boss_sprite",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "idle": "待机",
+          "attack": "普通攻击",
+          "skill": "技能",
+          "hit": "受击",
+          "death": "死亡",
+          "special": "特殊动作"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "action_frames",
+      "allowed_sheet_semantics": [
+        "action_frames"
+      ],
+      "default_generation_scope": "single_asset",
+      "creation_enabled": false
+    },
+    {
+      "template_id": "spirit_beast_v1",
+      "category": "spirit_beast",
+      "structure": {
+        "idle": [
+          2,
+          2
+        ],
+        "attack": [
+          3,
+          3
+        ],
+        "hit": [
+          1,
+          1
+        ],
+        "death": [
+          3,
+          3
+        ],
+        "move": [
+          2,
+          4
+        ],
+        "skill": [
+          2,
+          4
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density"
+      ],
+      "default_actions": [
+        "idle",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "template_version": 3,
+      "pixel_size_profile": "beast_compact_v1",
+      "output_mode": "sprite_sheet",
+      "families": {
+        "fish": {
+          "name_zh": "灵鱼",
+          "pixel_size_profile": "fish_compact_v1",
+          "structure": {
+            "idle": [
+              2,
+              2
+            ],
+            "move": [
+              4,
+              4
+            ],
+            "attack": [
+              3,
+              3
+            ],
+            "skill": [
+              2,
+              4
+            ]
+          },
+          "default_actions": [
+            "idle",
+            "move"
+          ],
+          "rules": [
+            "Only idle and movement are default; combat actions require actual gameplay need."
+          ]
+        },
+        "bird": {
+          "name_zh": "灵禽",
+          "pixel_size_profile": "bird_compact_v1",
+          "structure": {
+            "idle": [
+              2,
+              2
+            ],
+            "move": [
+              4,
+              4
+            ],
+            "attack": [
+              3,
+              3
+            ],
+            "skill": [
+              2,
+              4
+            ]
+          },
+          "default_actions": [
+            "idle",
+            "move"
+          ],
+          "rules": [
+            "Only idle and movement are default; combat actions require actual gameplay need."
+          ]
+        },
+        "large": {
+          "name_zh": "大型灵兽",
+          "pixel_size_profile": "beast_large_v1"
+        },
+        "wide": {
+          "name_zh": "大型宽体灵兽",
+          "pixel_size_profile": "beast_wide_v1"
+        }
+      },
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "spirit_beast",
+        "set_namespace": "asset_set.spirit_beast",
+        "runtime_role": "beast_sprite",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "idle": "待机",
+          "attack": "普通攻击",
+          "hit": "受击",
+          "death": "死亡",
+          "move": "移动",
+          "skill": "技能"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "action_frames",
+      "allowed_sheet_semantics": [
+        "action_frames"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "building_overview_scene_v1",
+      "category": "building",
+      "structure": {
+        "idle": [
+          1,
+          1
+        ],
+        "working": [
+          1,
+          1
+        ],
+        "busy": [
+          1,
+          1
+        ],
+        "blocked": [
+          1,
+          1
+        ],
+        "special": [
+          1,
+          1
+        ]
+      },
+      "transparent": false,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "Consistent oblique overhead view, ground anchor and world scale; clearly distinguish xianxia alchemy, forging, library, farming and beast buildings through architecture, materials and functional objects. Never a generic rural shed with added glow."
+      ],
+      "default_actions": [
+        "idle",
+        "working",
+        "busy",
+        "blocked",
+        "special"
+      ],
+      "template_version": 3,
+      "pixel_size_profile": "building_overview_v1",
+      "output_mode": "independent_scene",
+      "families": {
+        "independent_buildings": {
+          "name_zh": "多个独立建筑外观",
+          "pixel_size_profile": "building_overview_v1",
+          "structure": {
+            "icon": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "icon"
+          ],
+          "output_mode": "icon",
+          "default_sheet_semantics": "independent_assets",
+          "allowed_sheet_semantics": [
+            "independent_assets"
+          ],
+          "default_generation_scope": "asset_set"
+        }
+      },
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "scene.building",
+        "set_namespace": "asset_set.building",
+        "runtime_role": "building_overview_scene",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "idle": "待机",
+          "working": "工作中",
+          "busy": "繁忙",
+          "blocked": "受阻",
+          "special": "特殊动作"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "scene_states",
+      "allowed_sheet_semantics": [
+        "scene_states"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
+      "template_id": "building_interior_scene_v1",
+      "category": "building",
+      "structure": {
+        "prepare": [
+          1,
+          1
+        ],
+        "measure": [
+          1,
+          1
+        ],
+        "add_herbs": [
+          1,
+          1
+        ],
+        "stable": [
+          1,
+          1
+        ],
+        "high_fire": [
+          1,
+          1
+        ],
+        "finish": [
+          1,
+          1
+        ]
+      },
+      "transparent": false,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": true,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "same camera, architecture, furniture, perspective, base lighting, character scale, workstation positions; local changes only",
+        "16:9 complete scene; one locked identity Master plus six complete Scene State panels, either one sheet or independent images, never seven animation frames."
+      ],
+      "default_actions": [
+        "prepare",
+        "measure",
+        "add_herbs",
+        "stable",
+        "high_fire",
+        "finish"
+      ],
+      "state_count": [
+        4,
+        6
+      ],
+      "template_version": 3,
+      "pixel_size_profile": "interior_scene_v1",
+      "output_mode": "scene_set",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "scene.building",
+        "set_namespace": "asset_set.building",
+        "runtime_role": "interior_scene_state",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "prepare": "准备",
+          "measure": "取药 / 称量",
+          "add_herbs": "投药",
+          "stable": "稳定炼制",
+          "high_fire": "旺火炼制",
+          "finish": "开炉收丹"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "scene_states",
+      "allowed_sheet_semantics": [
+        "scene_states"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
+      "template_id": "resource_icon_v1",
+      "category": "resource",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density"
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 4,
+      "pixel_size_profile": "material_icon_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "icon.resource",
+        "set_namespace": "asset_set.resource",
+        "runtime_role": "item_icon",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "current_item_profile",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "pill_icon_v1",
+      "category": "pill",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "round pill body; do not invent gameplay quality tiers",
+        "Round body with spherical shading, materials and pill patterns; no exaggerated aura for ordinary pills; no baked +N numbers. Only actual gameplay tiers permit major material or aura changes."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 4,
+      "pixel_size_profile": "pill_icon_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "icon.pill",
+        "set_namespace": "asset_set.pill",
+        "runtime_role": "item_icon",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "current_item_profile",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "equipment_icon_v1",
+      "category": "equipment",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "enhancement numbers are future UI overlays, not baked icon variants",
+        "Swords and blades favor bottom-left to top-right diagonal composition; long weapons use the diagonal. Never generate separate +1/+2/+3 variants."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 4,
+      "pixel_size_profile": "equipment_icon_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "icon.equipment",
+        "set_namespace": "asset_set.equipment",
+        "runtime_role": "equipment_icon",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "current_item_profile",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "effect_compact_v1",
+      "category": "effect",
+      "structure": {
+        "effect": [
+          2,
+          4
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "Named effect collections: one effect per row, consecutive frames left to right; each row has a distinct named effect and independent asset identity. Never mix rows or add actors, scenery, text or background."
+      ],
+      "default_actions": [
+        "effect"
+      ],
+      "template_version": 4,
+      "pixel_size_profile": "effect_compact_v1",
+      "output_mode": "sprite_sheet",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "effect",
+        "set_namespace": "asset_set.effect",
+        "runtime_role": "effect_sprite",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "effect": "特效"
+        },
+        "named_frame_collection": true
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "effect_frames",
+      "allowed_sheet_semantics": [
+        "effect_frames"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "environment_scene_v1",
+      "category": "environment",
+      "structure": {
+        "scene": [
+          1,
+          1
+        ]
+      },
+      "transparent": false,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density"
+      ],
+      "default_actions": [
+        "scene"
+      ],
+      "template_version": 3,
+      "pixel_size_profile": "environment_scene_v1",
+      "output_mode": "independent_scene",
+      "families": {
+        "time_of_day": {
+          "name_zh": "十二时辰背景",
+          "pixel_size_profile": "environment_scene_v1",
+          "rules": [
+            "Same camera, terrain, buildings and perspective; only sky, time, lamps, shadows, fog, clouds and ambient light change."
+          ],
+          "structure": {
+            "zi": [
+              1,
+              1
+            ],
+            "chou": [
+              1,
+              1
+            ],
+            "yin": [
+              1,
+              1
+            ],
+            "mao": [
+              1,
+              1
+            ],
+            "chen": [
+              1,
+              1
+            ],
+            "si": [
+              1,
+              1
+            ],
+            "wu": [
+              1,
+              1
+            ],
+            "wei": [
+              1,
+              1
+            ],
+            "shen": [
+              1,
+              1
+            ],
+            "you": [
+              1,
+              1
+            ],
+            "xu": [
+              1,
+              1
+            ],
+            "hai": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "zi",
+            "chou",
+            "yin",
+            "mao",
+            "chen",
+            "si",
+            "wu",
+            "wei",
+            "shen",
+            "you",
+            "xu",
+            "hai"
+          ],
+          "default_source_container": "sheet",
+          "allowed_sheet_semantics": [
+            "environment_variants"
+          ],
+          "default_sheet_semantics": "environment_variants",
+          "default_generation_scope": "asset_set"
+        },
+        "terrain": {
+          "name_zh": "地形砖块",
+          "pixel_size_profile": "terrain_tile_v1",
+          "transparent": true,
+          "output_mode": "icon",
+          "structure": {
+            "icon": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "icon"
+          ],
+          "default_sheet_semantics": "tiles",
+          "allowed_sheet_semantics": [
+            "tiles"
+          ],
+          "creation_policy": {
+            "runtime_role": "terrain_tile"
+          }
+        },
+        "prop": {
+          "name_zh": "场景摆件",
+          "pixel_size_profile": "scene_prop_v1",
+          "transparent": true,
+          "output_mode": "icon",
+          "structure": {
+            "icon": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "icon"
+          ],
+          "default_sheet_semantics": "independent_assets",
+          "allowed_sheet_semantics": [
+            "independent_assets"
+          ],
+          "creation_policy": {
+            "runtime_role": "scene_prop"
+          }
+        },
+        "navigation": {
+          "name_zh": "导航图标",
+          "pixel_size_profile": "navigation_icon_v1",
+          "transparent": true,
+          "output_mode": "icon",
+          "structure": {
+            "icon": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "icon"
+          ],
+          "default_sheet_semantics": "independent_assets",
+          "allowed_sheet_semantics": [
+            "independent_assets"
+          ],
+          "creation_policy": {
+            "runtime_role": "navigation_icon"
+          }
+        },
+        "terrain32": {
+          "name_zh": "地形砖块 · 大格",
+          "pixel_size_profile": "terrain_tile_32_v1",
+          "transparent": true,
+          "output_mode": "icon",
+          "structure": {
+            "icon": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "icon"
+          ],
+          "default_sheet_semantics": "tiles",
+          "allowed_sheet_semantics": [
+            "tiles"
+          ],
+          "creation_policy": {
+            "runtime_role": "terrain_tile"
+          }
+        }
+      },
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "scene.environment",
+        "set_namespace": "asset_set.environment",
+        "runtime_role": "environment_scene",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "scene": "完整场景"
+        }
+      },
+      "default_source_container": "single_image",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "environment_variants",
+      "allowed_sheet_semantics": [
+        "environment_variants",
+        "independent_assets"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "material_icon_v1",
+      "category": "material",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density"
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 2,
+      "pixel_size_profile": "material_icon_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "icon.material",
+        "set_namespace": "asset_set.material",
+        "runtime_role": "item_icon",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "current_item_profile",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "herb_icon_v1",
+      "category": "herb",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density"
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 2,
+      "pixel_size_profile": "material_icon_v1",
+      "output_mode": "icon",
+      "families": {
+        "growth": {
+          "name_zh": "灵草成长状态",
+          "pixel_size_profile": "material_icon_v1",
+          "structure": {
+            "seedling": [
+              1,
+              1
+            ],
+            "growing": [
+              1,
+              1
+            ],
+            "flowering": [
+              1,
+              1
+            ],
+            "mature": [
+              1,
+              1
+            ],
+            "spiritual": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "seedling",
+            "growing",
+            "flowering",
+            "mature",
+            "spiritual"
+          ],
+          "output_mode": "independent_scene",
+          "default_source_container": "sheet",
+          "default_sheet_semantics": "state_sequence",
+          "allowed_sheet_semantics": [
+            "state_sequence"
+          ],
+          "default_generation_scope": "asset_set"
+        }
+      },
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "icon.herb",
+        "set_namespace": "asset_set.herb",
+        "runtime_role": "item_icon",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "current_item_profile",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "ui_state_v1",
+      "category": "ui",
+      "structure": {
+        "default": [
+          1,
+          1
+        ],
+        "pressed": [
+          1,
+          1
+        ],
+        "disabled": [
+          1,
+          1
+        ],
+        "selected": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "UI interaction states are separate non-animation components. Never bake text; hover is optional and never required on phones."
+      ],
+      "default_actions": [
+        "default",
+        "pressed",
+        "disabled",
+        "selected"
+      ],
+      "template_version": 1,
+      "pixel_size_profile": "navigation_icon_v1",
+      "output_mode": "independent_scene",
+      "families": {
+        "nine_slice": {
+          "name_zh": "九宫格组件",
+          "pixel_size_profile": "navigation_icon_v1",
+          "structure": {
+            "top_left": [
+              1,
+              1
+            ],
+            "top": [
+              1,
+              1
+            ],
+            "top_right": [
+              1,
+              1
+            ],
+            "left": [
+              1,
+              1
+            ],
+            "center": [
+              1,
+              1
+            ],
+            "right": [
+              1,
+              1
+            ],
+            "bottom_left": [
+              1,
+              1
+            ],
+            "bottom": [
+              1,
+              1
+            ],
+            "bottom_right": [
+              1,
+              1
+            ]
+          },
+          "default_actions": [
+            "top_left",
+            "top",
+            "top_right",
+            "left",
+            "center",
+            "right",
+            "bottom_left",
+            "bottom",
+            "bottom_right"
+          ],
+          "default_sheet_semantics": "nine_slice",
+          "allowed_sheet_semantics": [
+            "nine_slice"
+          ],
+          "rules": [
+            "Nine ordered frame parts; preserve edge continuity. Not animation."
+          ]
+        }
+      },
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "ui.state",
+        "set_namespace": "asset_set.ui",
+        "runtime_role": "ui_component",
+        "action_labels_zh": {
+          "default": "默认",
+          "pressed": "按下",
+          "disabled": "禁用",
+          "selected": "选中"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "ui_states",
+      "allowed_sheet_semantics": [
+        "ui_states"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
+      "template_id": "monster_static_v1",
+      "category": "monster",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen row-major independent monster mapping; one complete static actor per cell.",
+      "master_required": false,
+      "runtime_policy": "Export one high-detail static whole-body image; preserve native pixels when they fit. Motion and hit feedback are separate presentation effects.",
+      "rules": [
+        "Eastern Chinese xianxia pixel art; clear full-body silhouette and deliberate hard-pixel material details. No blurry upscale of a lower-resolution sprite.",
+        "One distinct monster per cell, one neutral pose each; no idle, attack, hit, death or other animation sequence.",
+        "Transparent background; three-quarter view facing left; entire horns, wings, tail and weapon visible; no ground platform, labels, text or UI.",
+        "Keep consistent pixel density and anatomy within each reusable body family; change meaningful silhouette and components, not just color."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 1,
+      "pixel_size_profile": "monster_static_128_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "monster.static",
+        "set_namespace": "asset_set.monster.static",
+        "runtime_role": "monster_image",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "静态全身立绘"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
+      "template_id": "boss_static_v1",
+      "category": "boss",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen row-major independent monster mapping; one complete static actor per cell.",
+      "master_required": false,
+      "runtime_policy": "Export one high-detail static whole-body image; preserve native pixels when they fit. Motion and hit feedback are separate presentation effects.",
+      "rules": [
+        "Eastern Chinese xianxia pixel art; clear full-body silhouette and deliberate hard-pixel material details. No blurry upscale of a lower-resolution sprite.",
+        "One distinct monster per cell, one neutral pose each; no idle, attack, hit, death or other animation sequence.",
+        "Transparent background; three-quarter view facing left; entire horns, wings, tail and weapon visible; no ground platform, labels, text or UI.",
+        "Keep consistent pixel density and anatomy within each reusable body family; change meaningful silhouette and components, not just color."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 1,
+      "pixel_size_profile": "boss_static_256_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "boss.static",
+        "set_namespace": "asset_set.boss.static",
+        "runtime_role": "boss_image",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "静态全身立绘"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
+      "template_id": "battle_background_v1",
+      "category": "environment",
+      "structure": {
+        "scene": [
+          1,
+          1
+        ]
+      },
+      "transparent": false,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "战斗背景必须有实际落脚地面。侧视或轻微斜侧视的横向对战构图，主角在左、敌人在右；不绘制任何人物、怪物、血条、文字或UI。",
+        "画面约55%～85%高度绘制连续、平整、可行走的宽阔地面。双方脚底基线在约74%高度，左侧约15%～35%宽度、右侧约65%～85%宽度预留完整落脚区域；两个区域由同一条连续地面连接。禁止悬空、悬崖断口、水面或荆棘挡住落脚位置。",
+        "输出640×360像素，16:9完整横向战斗场景，画面铺满整个画布，不留边框、空白、透明边缘或嵌套小画面。手机按完整画幅显示，不做居中cover裁切。上方远景低对比，主要战斗地面宽阔平整，前景只占底部少量空间，不遮挡主角24%、敌人76%位置的脚底和身体。血条由游戏在场景外绘制。",
+        "荆棘古道示例：平整夯土古道横贯前景，少量嵌平碎石；荆棘、树根、巨石置于两侧边缘或远景，森林纵深在后方。古道不能蜿蜒成仅供俯视探索的狭窄小径。",
+        "Complete 640x360 16:9 side-view battle arena. Broad continuous walkable ground at y=55–85%, shared foot baseline near y=74%; clear left landing zone x=15–35%, right x=65–85%. Full-width view, no crop dependency, no isolated edge platforms. No actors, baked UI, text, alignment guides or grid. Keep foreground obstacles below the feet or at extreme edges."
+      ],
+      "default_actions": [
+        "scene"
+      ],
+      "template_version": 2,
+      "pixel_size_profile": "battle_background_hd_v1",
+      "output_mode": "independent_scene",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "scene.environment",
+        "set_namespace": "asset_set.battle_background",
+        "runtime_role": "environment_scene",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "scene": "完整场景"
+        }
+      },
+      "default_source_container": "single_image",
+      "allowed_source_containers": [
+        "single_image"
+      ],
+      "default_sheet_semantics": "environment_variants",
+      "allowed_sheet_semantics": [
+        "environment_variants",
+        "independent_assets"
+      ],
+      "default_generation_scope": "single_asset"
+    },
+    {
+      "template_id": "battle_ui_component_v1",
+      "category": "ui",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel UI: dark ink/stone, restrained jade green and small aged-bronze details; coherent hard pixel edges, readable at mobile size.",
+        "Only requested standalone UI components. Genuine RGBA PNG: empty margins and gaps are alpha=0, no checkerboard or white showcase background. Intentional panel/button fills and their ornamental borders belong to the component and may be opaque.",
+        "Do not bake text, names, numbers, health values, icons, characters, monsters, screenshots or a whole interface into the component.",
+        "Each supplied name is one independent static component, not an animation frame. Do not mix families with different sizes in one sheet."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 2,
+      "pixel_size_profile": "battle_ui_panel_v1",
+      "output_mode": "icon",
+      "families": {
+        "panel": {
+          "name_zh": "面板 · 96×96 · 九宫格伸缩",
+          "pixel_size_profile": "battle_ui_panel_v1",
+          "rules": [
+            "Each panel is ONE complete 96x96 image, not nine separate pictures. Reserve 24px corner bands for nine-slice rendering; the central 48x48 area is calm and tileable. Keep corner ornaments inside the corner bands and side patterns continuous. No drawn slicing lines."
+          ],
+          "suggested_asset_names": [
+            "通用墨玉面板",
+            "战利品面板",
+            "物品底框",
+            "选中边框"
+          ]
+        },
+        "button": {
+          "name_zh": "按钮底 · 192×64",
+          "pixel_size_profile": "battle_ui_button_v1",
+          "rules": [
+            "One complete horizontal 192x64 button base per asset; leave the center clear for programmatic text/icons. Reserve corner/end decoration within 24px horizontal and 16px vertical inset bands. Default, pressed or selected variants are separate named assets only when requested; do not invent extra variants.",
+            "Button silhouette follows its frame and curved end ornaments. All pixels outside that silhouette, including rectangular corner padding, must be alpha=0. Do not add an opaque rectangular colored underlay behind the ornamental button. Keep the center readable and the ornament restrained for compact mobile controls."
+          ],
+          "suggested_asset_names": [
+            "主按钮底",
+            "次按钮底"
+          ]
+        },
+        "bar": {
+          "name_zh": "血条槽 / 填充 · 192×32",
+          "pixel_size_profile": "battle_ui_bar_v1",
+          "rules": [
+            "One horizontal 192x32 health track OR fill per asset, according to its name. Track and fill are separate images sharing the same viewport and aligned inner rail. No numbers, percentage text or baked health amount. Keep fill ends simple for programmatic clipping."
+          ],
+          "suggested_asset_names": [
+            "生命条槽",
+            "主角生命填充",
+            "敌方生命填充"
+          ]
+        },
+        "badge": {
+          "name_zh": "状态徽记 · 64×64",
+          "pixel_size_profile": "battle_ui_badge_v1",
+          "rules": [
+            "One 64x64 compact emblem per asset; simple readable silhouette, no baked words or numbers. Do not draw interface panels or a whole screen."
+          ],
+          "suggested_asset_names": [
+            "普通怪徽记",
+            "精英怪徽记",
+            "首领徽记"
+          ]
+        },
+        "bar_states": {
+          "name_zh": "血条 · 六档完整状态 · 192×32",
+          "pixel_size_profile": "battle_ui_bar_v1",
+          "rules": [
+            "Six independent COMPLETE health bars: empty, 20%, 40%, 60%, 80%, 100%. These are NOT animation frames and NOT separate tracks/fills. Each named image contains the same frame plus its specified fill.",
+            "Lock the exact same 192x32 viewport, outer silhouette, frame, end ornaments, inner rail and placement across all six states. Only change the left-to-right fill length inside the rail to the named percentage; empty means no fill. No percentage numbers or labels baked into PNG. Compact restrained frame, clear fill, transparent pixels outside its silhouette. Never stretch or shift the frame between states."
+          ],
+          "suggested_asset_names": [
+            "生命条-空血",
+            "生命条-20%",
+            "生命条-40%",
+            "生命条-60%",
+            "生命条-80%",
+            "生命条-100%"
+          ]
+        }
+      },
+      "creation_policy": {
+        "default_asset_family": "panel",
+        "asset_namespace": "ui.battle",
+        "set_namespace": "asset_set.battle_ui",
+        "runtime_role": "ui_component",
+        "action_labels_zh": {
+          "icon": "独立界面组件"
+        }
+      },
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
+      "template_id": "dungeon_icon_v1",
+      "category": "icon",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "Dungeon entrance emblem or compact isolated landmark; recognizable location silhouette, restrained xianxia pixel art. No full rectangular scenery background, tile/card/button frame, UI border, name, floor number, labels or caption. Surrounding void, cell gaps and outer margins must be genuine alpha=0. One isolated dungeon emblem per named cell; equal subject scale; no connecting terrain or effects across cells."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 1,
+      "pixel_size_profile": "dungeon_icon_128_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "icon.dungeon",
+        "set_namespace": "asset_set.dungeon_icons",
+        "runtime_role": "dungeon_icon",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "frozen",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
+      "template_id": "cultivation_manual_icon_v1",
+      "category": "icon",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Chinese xianxia pixel art, high detail, low frame count, slow rhythm",
+        "no poster, text, labels, numbering, borders",
+        "locked identity and pixel density",
+        "功法图标：以卷轴、玉简、典籍或凝练符印表现指定功法，主体轮廓清晰，纹饰克制，96×96下可辨。每个名称只对应一个独立图标，不绘制文字、书名、数字、卡框或整张界面，不添加连接相邻图标的光效。Cultivation technique/manual icon: one isolated scroll, jade slip, book or compact sigil per named cell. Clear silhouette and restrained readable ornament at 96x96. No baked text, titles, numbers, card frames, full UI, scenery or effects connecting cells. Surrounding void, gaps and margins must be genuine alpha=0."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 1,
+      "pixel_size_profile": "cultivation_manual_icon_96_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "icon.cultivation_manual",
+        "set_namespace": "asset_set.cultivation_manuals",
+        "runtime_role": "cultivation_manual_icon",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "frozen",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "asset_set"
+    }
+  ],
+  "pixel_size_profiles": {
+    "character_48x64_v1": {
+      "profile_id": "character_48x64_v1",
+      "version": 1,
+      "subject_logic_size": [
+        48,
+        64
+      ],
+      "subject_options": [
+        [
+          48,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "bottom_center",
+        "baseline_from_bottom": 24
+      },
+      "runtime_profile": {
+        "profile_id": "character_48x64_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "monster_compact_v1": {
+      "profile_id": "monster_compact_v1",
+      "version": 1,
+      "subject_logic_size": [
+        48,
+        48
+      ],
+      "subject_options": [
+        [
+          48,
+          48
+        ],
+        [
+          64,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "monster_compact_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "boss_compact_v1": {
+      "profile_id": "boss_compact_v1",
+      "version": 1,
+      "subject_logic_size": [
+        64,
+        64
+      ],
+      "subject_options": [
+        [
+          64,
+          64
+        ],
+        [
+          96,
+          96
+        ]
+      ],
+      "source_cell_size": [
+        160,
+        160
+      ],
+      "spacing": 48,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "bottom_center",
+        "baseline_from_bottom": 24
+      },
+      "runtime_profile": {
+        "profile_id": "boss_compact_v1",
+        "frame_size": [
+          160,
+          160
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "beast_compact_v1": {
+      "profile_id": "beast_compact_v1",
+      "version": 1,
+      "subject_logic_size": [
+        48,
+        48
+      ],
+      "subject_options": [
+        [
+          48,
+          48
+        ],
+        [
+          64,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "beast_compact_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "beast_large_v1": {
+      "profile_id": "beast_large_v1",
+      "version": 1,
+      "subject_logic_size": [
+        96,
+        96
+      ],
+      "subject_options": [
+        [
+          96,
+          96
+        ]
+      ],
+      "source_cell_size": [
+        160,
+        160
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "beast_large_v1",
+        "frame_size": [
+          160,
+          160
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "beast_wide_v1": {
+      "profile_id": "beast_wide_v1",
+      "version": 1,
+      "subject_logic_size": [
+        128,
+        96
+      ],
+      "subject_options": [
+        [
+          128,
+          96
+        ]
+      ],
+      "source_cell_size": [
+        192,
+        160
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "beast_wide_v1",
+        "frame_size": [
+          192,
+          160
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "fish_compact_v1": {
+      "profile_id": "fish_compact_v1",
+      "version": 1,
+      "subject_logic_size": [
+        48,
+        48
+      ],
+      "subject_options": [
+        [
+          48,
+          48
+        ],
+        [
+          64,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "fish_compact_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "bird_compact_v1": {
+      "profile_id": "bird_compact_v1",
+      "version": 1,
+      "subject_logic_size": [
+        48,
+        48
+      ],
+      "subject_options": [
+        [
+          48,
+          48
+        ],
+        [
+          64,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "bird_compact_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "material_icon_v1": {
+      "profile_id": "material_icon_v1",
+      "version": 2,
+      "subject_logic_size": [
+        48,
+        48
+      ],
+      "subject_options": [
+        [
+          48,
+          48
+        ]
+      ],
+      "source_cell_size": [
+        96,
+        96
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "material_icon_v1",
+        "frame_size": [
+          48,
+          48
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "pill_icon_v1": {
+      "profile_id": "pill_icon_v1",
+      "version": 2,
+      "subject_logic_size": [
+        48,
+        48
+      ],
+      "subject_options": [
+        [
+          48,
+          48
+        ]
+      ],
+      "source_cell_size": [
+        96,
+        96
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "pill_icon_v1",
+        "frame_size": [
+          48,
+          48
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "equipment_icon_v1": {
+      "profile_id": "equipment_icon_v1",
+      "version": 2,
+      "subject_logic_size": [
+        48,
+        48
+      ],
+      "subject_options": [
+        [
+          48,
+          48
+        ]
+      ],
+      "source_cell_size": [
+        96,
+        96
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "equipment_icon_v1",
+        "frame_size": [
+          48,
+          48
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "building_overview_v1": {
+      "profile_id": "building_overview_v1",
+      "version": 1,
+      "subject_logic_size": [
+        96,
+        96
+      ],
+      "subject_options": [
+        [
+          96,
+          96
+        ]
+      ],
+      "source_cell_size": [
+        160,
+        160
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "bottom_center",
+        "baseline_from_bottom": 24
+      },
+      "runtime_profile": {
+        "profile_id": "building_overview_v1",
+        "frame_size": [
+          160,
+          160
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "interior_scene_v1": {
+      "profile_id": "interior_scene_v1",
+      "version": 1,
+      "subject_logic_size": [
+        256,
+        144
+      ],
+      "subject_options": [
+        [
+          256,
+          144
+        ]
+      ],
+      "source_cell_size": [
+        256,
+        144
+      ],
+      "spacing": 0,
+      "inner_safe_padding": 0,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "interior_scene_v1",
+        "frame_size": [
+          256,
+          144
+        ],
+        "policy": "scene_resize",
+        "sampling": "nearest"
+      }
+    },
+    "environment_scene_v1": {
+      "profile_id": "environment_scene_v1",
+      "version": 1,
+      "subject_logic_size": [
+        320,
+        180
+      ],
+      "subject_options": [
+        [
+          320,
+          180
+        ]
+      ],
+      "source_cell_size": [
+        320,
+        180
+      ],
+      "spacing": 0,
+      "inner_safe_padding": 0,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "environment_scene_v1",
+        "frame_size": [
+          320,
+          180
+        ],
+        "policy": "scene_resize",
+        "sampling": "nearest"
+      }
+    },
+    "effect_compact_v1": {
+      "profile_id": "effect_compact_v1",
+      "version": 1,
+      "subject_logic_size": [
+        32,
+        32
+      ],
+      "subject_options": [
+        [
+          32,
+          32
+        ],
+        [
+          64,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 24,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "effect_compact_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "preserve_cell",
+        "sampling": "nearest"
+      }
+    },
+    "terrain_tile_v1": {
+      "profile_id": "terrain_tile_v1",
+      "version": 1,
+      "subject_logic_size": [
+        16,
+        16
+      ],
+      "subject_options": [
+        [
+          16,
+          16
+        ]
+      ],
+      "source_cell_size": [
+        16,
+        16
+      ],
+      "spacing": 0,
+      "inner_safe_padding": 0,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "terrain_tile_v1",
+        "frame_size": [
+          16,
+          16
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "scene_prop_v1": {
+      "profile_id": "scene_prop_v1",
+      "version": 1,
+      "subject_logic_size": [
+        32,
+        32
+      ],
+      "subject_options": [
+        [
+          32,
+          32
+        ],
+        [
+          64,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        96,
+        96
+      ],
+      "spacing": 16,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "scene_prop_v1",
+        "frame_size": [
+          32,
+          32
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "navigation_icon_v1": {
+      "profile_id": "navigation_icon_v1",
+      "version": 1,
+      "subject_logic_size": [
+        24,
+        24
+      ],
+      "subject_options": [
+        [
+          24,
+          24
+        ],
+        [
+          32,
+          32
+        ]
+      ],
+      "source_cell_size": [
+        64,
+        64
+      ],
+      "spacing": 16,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "navigation_icon_v1",
+        "frame_size": [
+          24,
+          24
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "terrain_tile_32_v1": {
+      "profile_id": "terrain_tile_32_v1",
+      "version": 1,
+      "subject_logic_size": [
+        32,
+        32
+      ],
+      "subject_options": [
+        [
+          32,
+          32
+        ]
+      ],
+      "source_cell_size": [
+        32,
+        32
+      ],
+      "spacing": 0,
+      "inner_safe_padding": 0,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "terrain_tile_32_v1",
+        "frame_size": [
+          32,
+          32
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "monster_static_128_v1": {
+      "profile_id": "monster_static_128_v1",
+      "version": 1,
+      "subject_logic_size": [
+        128,
+        128
+      ],
+      "subject_options": [
+        [
+          128,
+          128
+        ]
+      ],
+      "source_cell_size": [
+        160,
+        160
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "monster_static_128_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest",
+        "trim_transparent": true
+      }
+    },
+    "boss_static_256_v1": {
+      "profile_id": "boss_static_256_v1",
+      "version": 1,
+      "subject_logic_size": [
+        256,
+        256
+      ],
+      "subject_options": [
+        [
+          256,
+          256
+        ]
+      ],
+      "source_cell_size": [
+        288,
+        288
+      ],
+      "spacing": 48,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "boss_static_256_v1",
+        "frame_size": [
+          256,
+          256
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest",
+        "trim_transparent": true
+      }
+    },
+    "battle_background_hd_v1": {
+      "profile_id": "battle_background_hd_v1",
+      "version": 1,
+      "subject_logic_size": [
+        640,
+        360
+      ],
+      "subject_options": [
+        [
+          640,
+          360
+        ]
+      ],
+      "source_cell_size": [
+        640,
+        360
+      ],
+      "spacing": 0,
+      "inner_safe_padding": 0,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "battle_background_hd_v1",
+        "frame_size": [
+          640,
+          360
+        ],
+        "policy": "scene_resize",
+        "sampling": "nearest"
+      }
+    },
+    "battle_ui_panel_v1": {
+      "profile_id": "battle_ui_panel_v1",
+      "version": 1,
+      "subject_logic_size": [
+        96,
+        96
+      ],
+      "subject_options": [
+        [
+          96,
+          96
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 16,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "battle_ui_panel_v1",
+        "frame_size": [
+          96,
+          96
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest",
+        "nine_slice_insets": [
+          24,
+          24,
+          24,
+          24
+        ]
+      }
+    },
+    "battle_ui_button_v1": {
+      "profile_id": "battle_ui_button_v1",
+      "version": 1,
+      "subject_logic_size": [
+        192,
+        64
+      ],
+      "subject_options": [
+        [
+          192,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        224,
+        96
+      ],
+      "spacing": 16,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "battle_ui_button_v1",
+        "frame_size": [
+          192,
+          64
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest",
+        "nine_slice_insets": [
+          16,
+          24,
+          16,
+          24
+        ]
+      }
+    },
+    "battle_ui_bar_v1": {
+      "profile_id": "battle_ui_bar_v1",
+      "version": 1,
+      "subject_logic_size": [
+        192,
+        32
+      ],
+      "subject_options": [
+        [
+          192,
+          32
+        ]
+      ],
+      "source_cell_size": [
+        224,
+        64
+      ],
+      "spacing": 16,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "battle_ui_bar_v1",
+        "frame_size": [
+          192,
+          32
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "battle_ui_badge_v1": {
+      "profile_id": "battle_ui_badge_v1",
+      "version": 1,
+      "subject_logic_size": [
+        64,
+        64
+      ],
+      "subject_options": [
+        [
+          64,
+          64
+        ]
+      ],
+      "source_cell_size": [
+        96,
+        96
+      ],
+      "spacing": 16,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "battle_ui_badge_v1",
+        "frame_size": [
+          64,
+          64
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest"
+      }
+    },
+    "dungeon_icon_128_v1": {
+      "profile_id": "dungeon_icon_128_v1",
+      "version": 1,
+      "subject_logic_size": [
+        128,
+        128
+      ],
+      "subject_options": [
+        [
+          128,
+          128
+        ]
+      ],
+      "source_cell_size": [
+        160,
+        160
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "dungeon_icon_128_v1",
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest",
+        "trim_transparent": true
+      }
+    },
+    "cultivation_manual_icon_96_v1": {
+      "profile_id": "cultivation_manual_icon_96_v1",
+      "version": 1,
+      "subject_logic_size": [
+        96,
+        96
+      ],
+      "subject_options": [
+        [
+          96,
+          96
+        ]
+      ],
+      "source_cell_size": [
+        128,
+        128
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "cultivation_manual_icon_96_v1",
+        "frame_size": [
+          96,
+          96
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest",
+        "trim_transparent": true
+      }
+    }
+  }
+}

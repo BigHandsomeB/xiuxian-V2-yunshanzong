@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "orders": [
+    {"id":"processing","name":"材料加工委托","contribution":20,"items":{"ingot":12,"spirit_plank":5,"refined_iron_ingot":2}},
+    {"id":"meal","name":"宗门供膳委托","contribution":20,"items":{"meal_qingling_rice":15}},
+    {"id":"husbandry","name":"养殖供给委托","contribution":20,"items":{"egg":24,"fish":20}}
+  ],
+  "exchanges": [
+    {"id":"wood","name":"灵木材料包","cost":40,"rewards":{"wood":10}},
+    {"id":"stone","name":"石材材料包","cost":20,"rewards":{"stone":10}},
+    {"id":"ingot","name":"铁锭材料包","cost":50,"rewards":{"ingot":10}},
+    {"id":"coins","name":"经营灵钱","cost":100,"rewards":{"coins":200}},
+    {"id":"essence","name":"炼器精华","cost":500,"rewards":{"crafting_essence":1}},
+    {"id":"manual_page","name":"功法残页","cost":100,"rewards":{"manual_page":1}}
+  ],
+  "chest_choices": [
+    {"id":"equipment","name":"装备成长","rewards":{"crafting_essence":10,"ingot":10}},
+    {"id":"management","name":"宗门经营","rewards":{"coins":500,"wood":20,"stone":20}},
+    {"id":"techniques","name":"功法成长","rewards":{"manual_page":4}}
+  ],
+  "reputation": [{"threshold":0,"name":"初立宗务"},{"threshold":300,"name":"宗务有序"},{"threshold":1000,"name":"供给兴盛"},{"threshold":3000,"name":"宗门望族"}],
+  "dungeons": ["thorn_path","red_copper_mine","mist_marsh","cold_jade_cave"]
+}

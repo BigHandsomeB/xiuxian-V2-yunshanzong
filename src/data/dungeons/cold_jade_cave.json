@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "id": "cold_jade_cave",
+  "name": "寒玉冰窟",
+  "floors": 100,
+  "elite_interval": 10,
+  "unlock": {
+    "dungeon_id": "mist_marsh",
+    "cleared_floor": 100
+  },
+  "background_asset_id": "scene.environment.aff66a63c8f71",
+  "monsters": [
+    {
+      "id": "cold_jade_cave_template_normal_1",
+      "name": "霜须冰鼠",
+      "tier": "normal",
+      "order": 0,
+      "asset_id": "monster.static.af230158a3ef9",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_2",
+      "name": "寒玉蛛",
+      "tier": "normal",
+      "order": 1,
+      "asset_id": "monster.static.aade96485e6d7",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_3",
+      "name": "雪鬃山狼",
+      "tier": "normal",
+      "order": 2,
+      "asset_id": "monster.static.ae1e814159206",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_4",
+      "name": "冰壳石蟹",
+      "tier": "normal",
+      "order": 3,
+      "asset_id": "monster.static.a2baca51089f2",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_5",
+      "name": "冻苔木灵",
+      "tier": "normal",
+      "order": 4,
+      "asset_id": "monster.static.ad816cd9c604f",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_6",
+      "name": "蓝晶洞蝠",
+      "tier": "normal",
+      "order": 5,
+      "asset_id": "monster.static.a8ebbe767d73b",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_7",
+      "name": "霜羽妖鸮",
+      "tier": "normal",
+      "order": 6,
+      "asset_id": "monster.static.aaa1688445cc3",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_8",
+      "name": "雪纹幼蟒",
+      "tier": "normal",
+      "order": 7,
+      "asset_id": "monster.static.a514ea9caf737",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_9",
+      "name": "寒灯幽火",
+      "tier": "normal",
+      "order": 8,
+      "asset_id": "monster.static.ac5456b93fe08",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_normal_10",
+      "name": "冰刃残甲",
+      "tier": "normal",
+      "order": 9,
+      "asset_id": "monster.static.a63dd50f96a89",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_elite_1",
+      "name": "玄冰狼卫",
+      "tier": "elite",
+      "order": 0,
+      "asset_id": "monster.static.aac5a53ab3fcf",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_elite_2",
+      "name": "玉足蛛母",
+      "tier": "elite",
+      "order": 1,
+      "asset_id": "monster.static.af54e34d18aa1",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_elite_3",
+      "name": "冻骨甲将",
+      "tier": "elite",
+      "order": 2,
+      "asset_id": "monster.static.a34fe104f7664",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_elite_4",
+      "name": "寒潭冰灵",
+      "tier": "elite",
+      "order": 3,
+      "asset_id": "monster.static.a3e05f0ff21ab",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_elite_5",
+      "name": "霜冠雪鸮",
+      "tier": "elite",
+      "order": 4,
+      "asset_id": "monster.static.ae1b6fa58c83f",
+      "poison_milli": 0
+    },
+    {
+      "id": "cold_jade_cave_template_boss_1",
+      "name": "寒玉螭龙",
+      "tier": "boss",
+      "order": 0,
+      "asset_id": "boss.static.a8931e61baf64",
+      "poison_milli": 0
+    }
+  ],
+  "balance": {
+    "version": "cold_jade_cave-balance-v1",
+    "curve": {
+      "hp": [
+        "80",
+        "3.0",
+        "0.015"
+      ],
+      "attack": [
+        "7.0",
+        "0.210",
+        "0.0004375"
+      ],
+      "armor": [
+        "3",
+        "0.03",
+        "0.0001"
+      ]
+    },
+    "tiers": {
+      "normal": [
+        "1",
+        "1",
+        "0"
+      ],
+      "elite": [
+        "1.65",
+        "1.35",
+        "0.8"
+      ],
+      "boss": [
+        "1.8",
+        "1.45",
+        "1"
+      ]
+    },
+    "profiles": {
+      "霜须冰鼠": [
+        "0.9",
+        "1",
+        "0"
+      ],
+      "寒玉蛛": [
+        "0.85",
+        "0.95",
+        "0"
+      ],
+      "雪鬃山狼": [
+        "0.9",
+        "1.05",
+        "0"
+      ],
+      "冰壳石蟹": [
+        "1.05",
+        "0.95",
+        "0.6"
+      ],
+      "冻苔木灵": [
+        "0.95",
+        "1.05",
+        "0"
+      ],
+      "蓝晶洞蝠": [
+        "1.15",
+        "1.05",
+        "0.3"
+      ],
+      "霜羽妖鸮": [
+        "0.9",
+        "1.1",
+        "-0.2"
+      ],
+      "雪纹幼蟒": [
+        "0.9",
+        "0.9",
+        "0"
+      ],
+      "寒灯幽火": [
+        "1.1",
+        "1",
+        "0.4"
+      ],
+      "冰刃残甲": [
+        "1.15",
+        "0.9",
+        "0.8"
+      ],
+      "玄冰狼卫": [
+        "1",
+        "1",
+        "0.5"
+      ],
+      "玉足蛛母": [
+        "1.1",
+        "1.05",
+        "0.4"
+      ],
+      "冻骨甲将": [
+        "0.95",
+        "1.1",
+        "0"
+      ],
+      "寒潭冰灵": [
+        "1",
+        "0.9",
+        "0"
+      ],
+      "霜冠雪鸮": [
+        "1.15",
+        "0.95",
+        "0.8"
+      ],
+      "寒玉螭龙": [
+        "1",
+        "1",
+        "0"
+      ]
+    }
+  },
+  "reward": {
+    "coins": 1
+  },
+  "materials": [
+    {
+      "id": "cold_jade_cave_material_01",
+      "name": "霜鼠寒须",
+      "asset_id": "icon.equipment.ad8a0f8e532be",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_02",
+      "name": "寒玉蛛丝",
+      "asset_id": "icon.equipment.ab34b4dda08b0",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_03",
+      "name": "雪狼冰鬃",
+      "asset_id": "icon.equipment.ab639402243ab",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_04",
+      "name": "冰壳蟹甲",
+      "asset_id": "icon.equipment.a8dd642e07125",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_05",
+      "name": "冻苔灵芯",
+      "asset_id": "icon.equipment.a0bae7d69a0c0",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_06",
+      "name": "蓝晶蝠翼",
+      "asset_id": "icon.equipment.a59f012672a76",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_07",
+      "name": "霜鸮寒羽",
+      "asset_id": "icon.equipment.a36c4e4228033",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_08",
+      "name": "雪蟒冰鳞",
+      "asset_id": "icon.equipment.a62449a650f80",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_09",
+      "name": "寒焰幽晶",
+      "asset_id": "icon.equipment.a3a70fa623c68",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_10",
+      "name": "冰甲残片",
+      "asset_id": "icon.equipment.a77f53850e720",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "cold_jade_cave_material_11",
+      "name": "寒玉螭鳞",
+      "asset_id": "icon.equipment.a25387540ab3d",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    },
+    {
+      "id": "cold_jade_cave_material_12",
+      "name": "玄冰龙髓",
+      "asset_id": "icon.equipment.a742f7c4408a3",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    }
+  ],
+  "equipment": [
+    {
+      "id": "cold_jade_cave_equipment_01",
+      "name": "寒玉冰刃",
+      "slot": "left",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 15000,
+        "crit_bps": 1250
+      },
+      "asset_id": "icon.equipment.a9d7fbdd99427",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          12500,
+          17500,
+          2500
+        ],
+        "crit_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_02",
+      "name": "玄冰重剑",
+      "slot": "left",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 12500,
+        "pierce_milli": 5000
+      },
+      "asset_id": "icon.equipment.afe5a3859357c",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          10000,
+          15000,
+          2500
+        ],
+        "pierce_milli": [
+          2500,
+          7500,
+          2500
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_03",
+      "name": "霜狼护拳",
+      "slot": "gloves",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 7500,
+        "accuracy_bps": 1250
+      },
+      "asset_id": "icon.equipment.a14354fae77aa",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          5000,
+          10000,
+          2500
+        ],
+        "accuracy_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_04",
+      "name": "玉丝冰手",
+      "slot": "gloves",
+      "quality": "rare",
+      "stats": {
+        "armor_milli": 2500,
+        "reflect_bps": 2500
+      },
+      "asset_id": "icon.equipment.a9418eea54b29",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          2000,
+          3000,
+          250
+        ],
+        "reflect_bps": [
+          2000,
+          3000,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_05",
+      "name": "寒潭束腰",
+      "slot": "belt",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 62500,
+        "armor_milli": 1250
+      },
+      "asset_id": "icon.equipment.ae12746b60eb9",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          50000,
+          75000,
+          2500
+        ],
+        "armor_milli": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_06",
+      "name": "冻玉腰甲",
+      "slot": "belt",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 75000,
+        "poison_resist_bps": 7500
+      },
+      "asset_id": "icon.equipment.a6b07ab9b4c4c",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          60000,
+          90000,
+          2500
+        ],
+        "poison_resist_bps": [
+          6000,
+          9000,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_07",
+      "name": "雪纹寒袍",
+      "slot": "body",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 87500,
+        "armor_milli": 3750
+      },
+      "asset_id": "icon.equipment.a6349836696ab",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          70000,
+          105000,
+          2500
+        ],
+        "armor_milli": [
+          3000,
+          4500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_08",
+      "name": "冰壳战甲",
+      "slot": "body",
+      "quality": "rare",
+      "stats": {
+        "armor_milli": 5000,
+        "reflect_bps": 3750
+      },
+      "asset_id": "icon.equipment.af9bd8214e7d4",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          4000,
+          6000,
+          250
+        ],
+        "reflect_bps": [
+          3000,
+          4500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_09",
+      "name": "霜影踏雪靴",
+      "slot": "feet",
+      "quality": "rare",
+      "stats": {
+        "speed_bps": 2500,
+        "evasion_bps": 1250
+      },
+      "asset_id": "icon.equipment.aa6b2a4249f13",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "speed_bps": [
+          2000,
+          3000,
+          250
+        ],
+        "evasion_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_10",
+      "name": "寒晶冰冠",
+      "slot": "head",
+      "quality": "rare",
+      "stats": {
+        "accuracy_bps": 1250,
+        "evasion_bps": 1250
+      },
+      "asset_id": "icon.equipment.a99041f71e9cc",
+      "sell_coins": 20,
+      "salvage": {
+        "cold_jade_cave_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "accuracy_bps": [
+          1000,
+          1500,
+          250
+        ],
+        "evasion_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_11",
+      "name": "螭龙寒牙刃",
+      "slot": "left",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 30000,
+        "crit_bps": 2000,
+        "pierce_milli": 7500,
+        "execute_bps": 5000
+      },
+      "asset_id": "icon.equipment.ab57ec5f10eb9",
+      "sell_coins": 60,
+      "salvage": {
+        "cold_jade_cave_material_11": 1
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "attack_milli": [
+          25000,
+          35000,
+          2500
+        ],
+        "crit_bps": [
+          1500,
+          2500,
+          250
+        ],
+        "pierce_milli": [
+          5000,
+          10000,
+          2500
+        ],
+        "execute_bps": [
+          4000,
+          5000,
+          250
+        ]
+      }
+    },
+    {
+      "id": "cold_jade_cave_equipment_12",
+      "name": "寒玉龙鳞甲",
+      "slot": "body",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 137500,
+        "armor_milli": 5000,
+        "reflect_bps": 5000
+      },
+      "asset_id": "icon.equipment.a4d2b09a106d0",
+      "sell_coins": 60,
+      "salvage": {
+        "cold_jade_cave_material_11": 1
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "max_hp_milli": [
+          110000,
+          165000,
+          2500
+        ],
+        "armor_milli": [
+          4000,
+          6000,
+          250
+        ],
+        "reflect_bps": [
+          4000,
+          6000,
+          250
+        ]
+      }
+    }
+  ],
+  "loot": {
+    "version": "cold_jade_cave-loot-v1",
+    "roll_version": "cold_jade_cave-roll-v1",
+    "rates": {
+      "normal": {
+        "material_bps": 8000,
+        "material_quantity": 1,
+        "equipment_bps": 1500
+      },
+      "elite": {
+        "material_bps": 10000,
+        "material_quantity": 2,
+        "equipment_bps": 5000
+      },
+      "boss": {
+        "material_bps": 10000,
+        "material_quantity": 1,
+        "equipment_bps": 10000
+      }
+    },
+    "normal_materials": [
+      "cold_jade_cave_material_01",
+      "cold_jade_cave_material_02",
+      "cold_jade_cave_material_03",
+      "cold_jade_cave_material_04",
+      "cold_jade_cave_material_05",
+      "cold_jade_cave_material_06",
+      "cold_jade_cave_material_07",
+      "cold_jade_cave_material_08",
+      "cold_jade_cave_material_09",
+      "cold_jade_cave_material_10"
+    ],
+    "elite_materials": [
+      "cold_jade_cave_material_01",
+      "cold_jade_cave_material_02",
+      "cold_jade_cave_material_03",
+      "cold_jade_cave_material_04",
+      "cold_jade_cave_material_05"
+    ],
+    "theme_materials": [
+      "cold_jade_ore",
+      "ice_crystal_ore",
+      "water_spirit_stone",
+      "condensed_spirit_crystal"
+    ],
+    "beast_materials": [
+      "beast_bone",
+      "hide",
+      "beast_sinew"
+    ],
+    "rare_materials": [
+      "beast_core",
+      "spirit_beast_blood",
+      "crafting_essence",
+      "equipment_blank"
+    ],
+    "extra_rates": {
+      "theme_bps": 8000,
+      "theme_quantity": 1,
+      "beast_bps": 3000,
+      "beast_quantity": 1,
+      "rare_bps": 5000,
+      "rare_quantity": 1
+    }
+  }
+}

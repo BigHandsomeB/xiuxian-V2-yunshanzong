@@ -1,0 +1,2 @@
+.review-banner{max-width:760px;margin:0 auto;padding:8px 12px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:var(--text-min);line-height:1.5;background:var(--header-bg);color:var(--header-ink);border-bottom:2px solid var(--line)}
+.review-banner a{color:var(--header-ink);text-decoration:underline;text-underline-offset:3px}.review-banner strong{font-weight:600}

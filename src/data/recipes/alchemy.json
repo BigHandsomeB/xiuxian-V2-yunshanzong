@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "content_version": "alchemy-v1-6.3.0-r1",
+  "definitions": [
+    {
+      "machine_id": "pill",
+      "display_name": "炼制凝气丹",
+      "building_kind": "alchemy",
+      "inputs": {
+        "herb": 5
+      },
+      "outputs": {
+        "pill": 1
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    }
+  ]
+}

@@ -1,0 +1,1202 @@
+{
+  "baseline": [
+    {
+      "loadout": "筑基六件低值",
+      "historical_wins": 10,
+      "current_wins": 8,
+      "runs": 64,
+      "before_after_identical": true
+    },
+    {
+      "loadout": "筑基六件均值",
+      "historical_wins": 56,
+      "current_wins": 41,
+      "runs": 64,
+      "before_after_identical": true
+    },
+    {
+      "loadout": "筑基六件高值",
+      "historical_wins": 64,
+      "current_wins": 62,
+      "runs": 64,
+      "before_after_identical": true
+    }
+  ],
+  "summary": [
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 1,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 2,
+      "mean_win_hp_pct": 99.3
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 9,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.7,
+      "mean_win_hp_pct": 96.7
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 10,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.6,
+      "mean_win_hp_pct": 90.0
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 20,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 7.5,
+      "mean_win_hp_pct": 78.5
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 29,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.8,
+      "mean_win_hp_pct": 89.1
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 30,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 8.5,
+      "mean_win_hp_pct": 66.6
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 40,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 10.4,
+      "mean_win_hp_pct": 60.0
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 49,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.9,
+      "mean_win_hp_pct": 76.8
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 50,
+      "wins": 63,
+      "runs": 64,
+      "win_pct": 98.4,
+      "mean_win_rounds": 14.8,
+      "mean_win_hp_pct": 24.4
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 60,
+      "wins": 648,
+      "runs": 1000,
+      "win_pct": 64.8,
+      "mean_win_rounds": 14.7,
+      "mean_win_hp_pct": 12.5
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 69,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 9.5,
+      "mean_win_hp_pct": 53.4
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 70,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 80,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 89,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 12.3,
+      "mean_win_hp_pct": 22.8
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 90,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 99,
+      "wins": 151,
+      "runs": 1000,
+      "win_pct": 15.1,
+      "mean_win_rounds": 17.5,
+      "mean_win_hp_pct": 9.0
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "low",
+      "floor": 100,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 1,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 2,
+      "mean_win_hp_pct": 99.6
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 9,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.0,
+      "mean_win_hp_pct": 98.2
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 10,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.6,
+      "mean_win_hp_pct": 94.0
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 20,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.8,
+      "mean_win_hp_pct": 83.9
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 29,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.0,
+      "mean_win_hp_pct": 92.9
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 30,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 7.5,
+      "mean_win_hp_pct": 75.1
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 40,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 9.4,
+      "mean_win_hp_pct": 70.6
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 49,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.5,
+      "mean_win_hp_pct": 82.0
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 50,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 13.1,
+      "mean_win_hp_pct": 43.1
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 60,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 13.1,
+      "mean_win_hp_pct": 27.7
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 69,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 8.5,
+      "mean_win_hp_pct": 65.7
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 70,
+      "wins": 199,
+      "runs": 1000,
+      "win_pct": 19.9,
+      "mean_win_rounds": 16.8,
+      "mean_win_hp_pct": 8.6
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 80,
+      "wins": 1,
+      "runs": 64,
+      "win_pct": 1.6,
+      "mean_win_rounds": 17,
+      "mean_win_hp_pct": 7.0
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 89,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 11.1,
+      "mean_win_hp_pct": 41.6
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 90,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 99,
+      "wins": 807,
+      "runs": 1000,
+      "win_pct": 80.7,
+      "mean_win_rounds": 15.9,
+      "mean_win_hp_pct": 18.4
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "mean",
+      "floor": 100,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 1,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 2,
+      "mean_win_hp_pct": 99.8
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 9,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.0,
+      "mean_win_hp_pct": 98.8
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 10,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.5,
+      "mean_win_hp_pct": 95.3
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 20,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.8,
+      "mean_win_hp_pct": 89.2
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 29,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.0,
+      "mean_win_hp_pct": 94.2
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 30,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.5,
+      "mean_win_hp_pct": 81.9
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 40,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 8.4,
+      "mean_win_hp_pct": 78.2
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 49,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.9,
+      "mean_win_hp_pct": 86.5
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 50,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 11.6,
+      "mean_win_hp_pct": 58.2
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 60,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 12.0,
+      "mean_win_hp_pct": 45.1
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 69,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 7.5,
+      "mean_win_hp_pct": 74.2
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 70,
+      "wins": 792,
+      "runs": 1000,
+      "win_pct": 79.2,
+      "mean_win_rounds": 15.3,
+      "mean_win_hp_pct": 17.0
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 80,
+      "wins": 438,
+      "runs": 1000,
+      "win_pct": 43.8,
+      "mean_win_rounds": 14.9,
+      "mean_win_hp_pct": 12.4
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 89,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 9.7,
+      "mean_win_hp_pct": 56.7
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 90,
+      "wins": 186,
+      "runs": 1000,
+      "win_pct": 18.6,
+      "mean_win_rounds": 17.8,
+      "mean_win_hp_pct": 13.3
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 99,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 14.4,
+      "mean_win_hp_pct": 36.1
+    },
+    {
+      "gear": "mist_marsh",
+      "level": "high",
+      "floor": 100,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 1,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 2,
+      "mean_win_hp_pct": 99.6
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 9,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.0,
+      "mean_win_hp_pct": 98.2
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 10,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.9,
+      "mean_win_hp_pct": 93.6
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 20,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.8,
+      "mean_win_hp_pct": 83.9
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 29,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.0,
+      "mean_win_hp_pct": 92.9
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 30,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 7.5,
+      "mean_win_hp_pct": 75.1
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 40,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 9.4,
+      "mean_win_hp_pct": 70.6
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 49,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.5,
+      "mean_win_hp_pct": 82.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 50,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 13.1,
+      "mean_win_hp_pct": 43.1
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 60,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 13.4,
+      "mean_win_hp_pct": 25.9
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 69,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 8.5,
+      "mean_win_hp_pct": 65.7
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 70,
+      "wins": 165,
+      "runs": 1000,
+      "win_pct": 16.5,
+      "mean_win_rounds": 17.0,
+      "mean_win_hp_pct": 8.1
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 80,
+      "wins": 1,
+      "runs": 64,
+      "win_pct": 1.6,
+      "mean_win_rounds": 17,
+      "mean_win_hp_pct": 7.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 89,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 11.1,
+      "mean_win_hp_pct": 41.6
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 90,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 99,
+      "wins": 739,
+      "runs": 1000,
+      "win_pct": 73.9,
+      "mean_win_rounds": 16.2,
+      "mean_win_hp_pct": 17.7
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "low",
+      "floor": 100,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 1,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 2,
+      "mean_win_hp_pct": 99.8
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 9,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.0,
+      "mean_win_hp_pct": 98.9
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 10,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 4.4,
+      "mean_win_hp_pct": 95.8
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 20,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.8,
+      "mean_win_hp_pct": 89.8
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 29,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.7,
+      "mean_win_hp_pct": 95.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 30,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.5,
+      "mean_win_hp_pct": 82.6
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 40,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 8.4,
+      "mean_win_hp_pct": 79.4
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 49,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.9,
+      "mean_win_hp_pct": 87.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 50,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 11.6,
+      "mean_win_hp_pct": 59.8
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 60,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 11.7,
+      "mean_win_hp_pct": 48.3
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 69,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 7.5,
+      "mean_win_hp_pct": 75.5
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 70,
+      "wins": 925,
+      "runs": 1000,
+      "win_pct": 92.5,
+      "mean_win_rounds": 14.8,
+      "mean_win_hp_pct": 20.5
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 80,
+      "wins": 498,
+      "runs": 1000,
+      "win_pct": 49.8,
+      "mean_win_rounds": 14.7,
+      "mean_win_hp_pct": 15.7
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 89,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 9.7,
+      "mean_win_hp_pct": 58.3
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 90,
+      "wins": 355,
+      "runs": 1000,
+      "win_pct": 35.5,
+      "mean_win_rounds": 17.6,
+      "mean_win_hp_pct": 11.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 99,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 14.2,
+      "mean_win_hp_pct": 39.2
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "mean",
+      "floor": 100,
+      "wins": 0,
+      "runs": 64,
+      "win_pct": 0.0,
+      "mean_win_rounds": null,
+      "mean_win_hp_pct": null
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 1,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 1.8,
+      "mean_win_hp_pct": 99.9
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 9,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 2.7,
+      "mean_win_hp_pct": 99.4
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 10,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.9,
+      "mean_win_hp_pct": 97.2
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 20,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.4,
+      "mean_win_hp_pct": 92.1
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 29,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 3.6,
+      "mean_win_hp_pct": 96.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 30,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.8,
+      "mean_win_hp_pct": 86.6
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 40,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 7.3,
+      "mean_win_hp_pct": 84.9
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 49,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 5.3,
+      "mean_win_hp_pct": 90.2
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 50,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 10.5,
+      "mean_win_hp_pct": 68.8
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 60,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 10.4,
+      "mean_win_hp_pct": 59.7
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 69,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 6.9,
+      "mean_win_hp_pct": 80.7
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 70,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 13.3,
+      "mean_win_hp_pct": 37.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 80,
+      "wins": 62,
+      "runs": 64,
+      "win_pct": 96.9,
+      "mean_win_rounds": 13.2,
+      "mean_win_hp_pct": 21.7
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 89,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 8.7,
+      "mean_win_hp_pct": 67.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 90,
+      "wins": 886,
+      "runs": 1000,
+      "win_pct": 88.6,
+      "mean_win_rounds": 15.8,
+      "mean_win_hp_pct": 19.4
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 99,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0,
+      "mean_win_rounds": 12.4,
+      "mean_win_hp_pct": 54.0
+    },
+    {
+      "gear": "cold_jade_cave",
+      "level": "high",
+      "floor": 100,
+      "wins": 2,
+      "runs": 64,
+      "win_pct": 3.1,
+      "mean_win_rounds": 19.5,
+      "mean_win_hp_pct": 13.9
+    }
+  ],
+  "battles": 18696,
+  "collection": {
+    "trials": 10000,
+    "p50_normal_wins": 102,
+    "p90_normal_wins": 206,
+    "assumptions": "胜利后的普通层领奖次数；不含战败、Boss、精英、强化与随机附加属性。"
+  },
+  "seconds": 187.7,
+  "progression": [
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 70,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 80,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 90,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 100,
+      "wins": 363,
+      "runs": 1000,
+      "win_pct": 36.3
+    },
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 70,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 80,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 90,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 0,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 100,
+      "wins": 62,
+      "runs": 64,
+      "win_pct": 96.9
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 70,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 80,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 90,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "mean",
+      "floor": 100,
+      "wins": 800,
+      "runs": 1000,
+      "win_pct": 80.0
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 70,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 80,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 90,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    },
+    {
+      "stage": 4000,
+      "gear": "mist_boss_plus_cold_normal",
+      "level": "high",
+      "floor": 100,
+      "wins": 64,
+      "runs": 64,
+      "win_pct": 100.0
+    }
+  ],
+  "progression_battles": 2896
+}

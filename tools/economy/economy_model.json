@@ -1,0 +1,317 @@
+{
+  "base_cycle_seconds": 30,
+  "processing_level": 1,
+  "recipes": [
+    {
+      "machine_id": "spirit_iron_ore",
+      "display_name": "开采灵铁矿",
+      "building_kind": "mine",
+      "base_inputs": {},
+      "outputs": {
+        "spirit_iron_ore": 3
+      },
+      "source_level": 4
+    },
+    {
+      "machine_id": "spirit_iron_ingot",
+      "display_name": "冶炼灵铁锭",
+      "building_kind": "smelter",
+      "base_inputs": {
+        "spirit_iron_ore": 3
+      },
+      "outputs": {
+        "spirit_iron_ingot": 1
+      },
+      "minimum_input_level": 4,
+      "processing_level_offset": 0
+    },
+    {
+      "machine_id": "spirit_plank",
+      "display_name": "加工灵木板",
+      "building_kind": "smelter",
+      "base_inputs": {
+        "wood": 3
+      },
+      "outputs": {
+        "spirit_plank": 1
+      },
+      "source_level": 1
+    },
+    {
+      "machine_id": "refined_iron_ingot",
+      "display_name": "精炼精铁锭",
+      "building_kind": "smelter",
+      "base_inputs": {
+        "ingot": 3
+      },
+      "outputs": {
+        "refined_iron_ingot": 1
+      },
+      "source_level": 1
+    },
+    {
+      "machine_id": "grain",
+      "display_name": "种植灵谷",
+      "building_kind": "field",
+      "base_inputs": {},
+      "outputs": {
+        "grain": 3
+      },
+      "source_level": 1
+    }
+  ],
+  "foundation_target_hours": 6,
+  "foundation_threshold": 6000,
+  "foundation_base_gain": 30,
+  "foundation_discount_per_tier": 0.97,
+  "foundation_pills": [
+    {
+      "machine_id": "pill_1_0",
+      "display_name": "培元丹",
+      "level": 5,
+      "weight": 1,
+      "base_inputs": {
+        "herb": 6,
+        "grain": 3,
+        "spirit_iron_ore": 3
+      }
+    },
+    {
+      "machine_id": "gu_yuan_pill",
+      "display_name": "固元丹",
+      "level": 6,
+      "weight": 2,
+      "base_inputs": {
+        "herb": 6,
+        "grain": 3,
+        "spirit_iron_ore": 3
+      }
+    },
+    {
+      "machine_id": "ju_yuan_pill",
+      "display_name": "聚元丹",
+      "level": 7,
+      "weight": 4,
+      "base_inputs": {
+        "herb": 6,
+        "grain": 3,
+        "spirit_iron_ore": 3
+      }
+    },
+    {
+      "machine_id": "ning_yuan_pill",
+      "display_name": "凝元丹",
+      "level": 8,
+      "weight": 8,
+      "base_inputs": {
+        "herb": 6,
+        "grain": 3,
+        "spirit_iron_ore": 3
+      }
+    },
+    {
+      "machine_id": "yang_yuan_pill",
+      "display_name": "养元丹",
+      "level": 9,
+      "weight": 16,
+      "base_inputs": {
+        "herb": 6,
+        "grain": 3,
+        "spirit_iron_ore": 3
+      }
+    }
+  ],
+  "foundation_reference_workers": 2,
+  "sect_management": {
+    "housing_beds_per_level": 8,
+    "population_per_sect_level": 20,
+    "max_recruit_count": 10,
+    "recruit_cost": {
+      "coins": 120,
+      "grain": 6
+    },
+    "recruit_cycles_per_person": 3,
+    "meal_period_cycles": 10,
+    "meal_food_per_person": 1,
+    "meal_bonus_bps": 1500,
+    "meal_reserve_default": 5,
+    "enhancement_max_level": 5,
+    "enhancement_bonus_bps_per_level": 500,
+    "enhancement_min_sect_level": 2,
+    "enhancement_min_forge_level": 3,
+    "enhancement_cost": {
+      "coins": 120,
+      "crafting_essence": 1
+    },
+    "upgrade_cost_per_level": {
+      "wood": 15,
+      "stone": 10,
+      "coins": 150
+    },
+    "new_craft_cost": {
+      "ingot": 15,
+      "theme_mine": 6,
+      "monster_material": 4,
+      "coins": 300
+    },
+    "new_craft_min_forge_level": 3,
+    "material_sale_coins": 1,
+    "log_limit": 20,
+    "material_retention_cap": 200,
+    "new_craft_min_sect_level": 2,
+    "facility_display_names": {
+      "pasture": "御兽苑",
+      "spring": "灵渊"
+    },
+    "building_stone_stages": [
+      {
+        "min_level": 1,
+        "max_level": 3,
+        "resource_id": "spirit_stone_low"
+      },
+      {
+        "min_level": 4,
+        "max_level": 5,
+        "resource_id": "spirit_stone_mid"
+      },
+      {
+        "min_level": 6,
+        "max_level": 7,
+        "resource_id": "spirit_stone_high"
+      },
+      {
+        "min_level": 8,
+        "max_level": 9,
+        "resource_id": "spirit_stone_supreme"
+      },
+      {
+        "min_level": 10,
+        "max_level": 10,
+        "resource_id": "spirit_stone_immortal"
+      }
+    ],
+    "building_stones_per_target_level": 1,
+    "stone_trade_prices": {
+      "spirit_stone_mid": 120,
+      "spirit_stone_high": 360,
+      "spirit_stone_supreme": 1080,
+      "spirit_stone_immortal": 3240
+    },
+    "stone_trade_max_quantity": 100,
+    "upgrade_material_stages": [
+      {
+        "resource_id": "ordinary_wood",
+        "min_level": 1,
+        "per_target_level": 10
+      },
+      {
+        "resource_id": "spring_water",
+        "min_level": 3,
+        "per_target_level": 5
+      },
+      {
+        "resource_id": "spirit_iron_ingot",
+        "min_level": 5,
+        "per_target_level": 1
+      }
+    ]
+  },
+  "sect_management_recipes": [
+    {
+      "machine_id": "sect_food",
+      "display_name": "烹饪干粮",
+      "building_kind": "canteen",
+      "base_inputs": {
+        "grain": 3
+      },
+      "outputs": {
+        "food": 2
+      }
+    },
+    {
+      "machine_id": "sect_egg",
+      "display_name": "收集禽蛋",
+      "building_kind": "pasture",
+      "base_inputs": {
+        "grain": 3
+      },
+      "outputs": {
+        "egg": 2
+      }
+    },
+    {
+      "machine_id": "sect_fish",
+      "display_name": "捕捞灵鱼",
+      "building_kind": "spring",
+      "base_inputs": {
+        "grain": 3
+      },
+      "outputs": {
+        "fish": 2
+      }
+    },
+    {
+      "machine_id": "sect_egg_food",
+      "display_name": "烹饪蛋膳",
+      "building_kind": "canteen",
+      "base_inputs": {
+        "grain": 2,
+        "egg": 1
+      },
+      "outputs": {
+        "food": 4
+      }
+    },
+    {
+      "machine_id": "sect_fish_food",
+      "display_name": "烹饪鱼膳",
+      "building_kind": "canteen",
+      "base_inputs": {
+        "grain": 2,
+        "fish": 1
+      },
+      "outputs": {
+        "food": 4
+      }
+    },
+    {
+      "machine_id": "sect_spirit_stone_low",
+      "display_name": "开采下品灵石",
+      "building_kind": "mine",
+      "base_inputs": {},
+      "outputs": {
+        "spirit_stone_low": 3
+      },
+      "source_level": 1
+    },
+    {
+      "machine_id": "sect_ordinary_wood",
+      "display_name": "采集普通木材",
+      "building_kind": "forest",
+      "base_inputs": {},
+      "outputs": {
+        "ordinary_wood": 3
+      },
+      "source_level": 1
+    },
+    {
+      "machine_id": "sect_spring_water",
+      "display_name": "采集灵泉水",
+      "building_kind": "spring",
+      "base_inputs": {},
+      "outputs": {
+        "spring_water": 3
+      },
+      "source_level": 1
+    }
+  ],
+  "sect_pill_core": {
+    "resource_id": "thorn_boar_bone",
+    "per_base_batch": 1,
+    "breakthrough_base_inputs": {
+      "herb": 60,
+      "ingot": 20
+    },
+    "breakthrough_core_batches": 10
+  }
+}

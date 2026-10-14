@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "id": "mist_marsh",
+  "name": "雾隐灵泽",
+  "floors": 100,
+  "elite_interval": 10,
+  "unlock": {
+    "dungeon_id": "red_copper_mine",
+    "cleared_floor": 100
+  },
+  "background_asset_id": "scene.environment.a43022fdd6f21.scene",
+  "monsters": [
+    {
+      "id": "mist_marsh_template_normal_1",
+      "name": "雾鳞泥鳅",
+      "tier": "normal",
+      "order": 0,
+      "asset_id": "monster.static.a669c2c3a2b66",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_2",
+      "name": "苇叶妖蛙",
+      "tier": "normal",
+      "order": 1,
+      "asset_id": "monster.static.af865ef77d631",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_3",
+      "name": "浮萍水灵",
+      "tier": "normal",
+      "order": 2,
+      "asset_id": "monster.static.ad1518bf5533d",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_4",
+      "name": "青须河虾",
+      "tier": "normal",
+      "order": 3,
+      "asset_id": "monster.static.afe41093bdf39",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_5",
+      "name": "腐木沼鳄",
+      "tier": "normal",
+      "order": 4,
+      "asset_id": "monster.static.a060b56130668",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_6",
+      "name": "紫瘴蜓",
+      "tier": "normal",
+      "order": 5,
+      "asset_id": "monster.static.ab4a1a85e33da",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_7",
+      "name": "水纹灵蟹",
+      "tier": "normal",
+      "order": 6,
+      "asset_id": "monster.static.a0abf31eecd4b",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_8",
+      "name": "芦羽泽鹭",
+      "tier": "normal",
+      "order": 7,
+      "asset_id": "monster.static.a689958d0c3c0",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_9",
+      "name": "溺影纸人",
+      "tier": "normal",
+      "order": 8,
+      "asset_id": "monster.static.a68169bf31110",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_normal_10",
+      "name": "荧藻灯鱼",
+      "tier": "normal",
+      "order": 9,
+      "asset_id": "monster.static.aa36e92e283f7",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_elite_1",
+      "name": "瘴冠蟾将",
+      "tier": "elite",
+      "order": 0,
+      "asset_id": "monster.static.a8a2b01255206",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_elite_2",
+      "name": "铁吻泽鳄",
+      "tier": "elite",
+      "order": 1,
+      "asset_id": "monster.static.a0e4c300af2c9",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_elite_3",
+      "name": "百须虾卫",
+      "tier": "elite",
+      "order": 2,
+      "asset_id": "monster.static.a438d88f01a16",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_elite_4",
+      "name": "古苇水巫",
+      "tier": "elite",
+      "order": 3,
+      "asset_id": "monster.static.a4844ece02ed8",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_elite_5",
+      "name": "月背灵蟹",
+      "tier": "elite",
+      "order": 4,
+      "asset_id": "monster.static.a3de6b6b0dbbb",
+      "poison_milli": 0
+    },
+    {
+      "id": "mist_marsh_template_boss_1",
+      "name": "碧瘴泽蛟",
+      "tier": "boss",
+      "order": 0,
+      "asset_id": "boss.static.a0e670d738e84",
+      "poison_milli": 0
+    }
+  ],
+  "balance": {
+    "version": "mist_marsh-balance-v1",
+    "curve": {
+      "hp": [
+        "64",
+        "2.4",
+        "0.012"
+      ],
+      "attack": [
+        "6.0",
+        "0.180",
+        "0.000375"
+      ],
+      "armor": [
+        "2",
+        "0.03",
+        "0.0001"
+      ]
+    },
+    "tiers": {
+      "normal": [
+        "1",
+        "1",
+        "0"
+      ],
+      "elite": [
+        "1.65",
+        "1.35",
+        "0.8"
+      ],
+      "boss": [
+        "1.8",
+        "1.45",
+        "1"
+      ]
+    },
+    "profiles": {
+      "雾鳞泥鳅": [
+        "0.9",
+        "1",
+        "0"
+      ],
+      "苇叶妖蛙": [
+        "0.85",
+        "0.95",
+        "0"
+      ],
+      "浮萍水灵": [
+        "0.9",
+        "1.05",
+        "0"
+      ],
+      "青须河虾": [
+        "1.05",
+        "0.95",
+        "0.6"
+      ],
+      "腐木沼鳄": [
+        "0.95",
+        "1.05",
+        "0"
+      ],
+      "紫瘴蜓": [
+        "1.15",
+        "1.05",
+        "0.3"
+      ],
+      "水纹灵蟹": [
+        "0.9",
+        "1.1",
+        "-0.2"
+      ],
+      "芦羽泽鹭": [
+        "0.9",
+        "0.9",
+        "0"
+      ],
+      "溺影纸人": [
+        "1.1",
+        "1",
+        "0.4"
+      ],
+      "荧藻灯鱼": [
+        "1.15",
+        "0.9",
+        "0.8"
+      ],
+      "瘴冠蟾将": [
+        "1",
+        "1",
+        "0.5"
+      ],
+      "铁吻泽鳄": [
+        "1.1",
+        "1.05",
+        "0.4"
+      ],
+      "百须虾卫": [
+        "0.95",
+        "1.1",
+        "0"
+      ],
+      "古苇水巫": [
+        "1",
+        "0.9",
+        "0"
+      ],
+      "月背灵蟹": [
+        "1.15",
+        "0.95",
+        "0.8"
+      ],
+      "碧瘴泽蛟": [
+        "1",
+        "1",
+        "0"
+      ]
+    }
+  },
+  "reward": {
+    "coins": 1
+  },
+  "materials": [
+    {
+      "id": "mist_marsh_material_01",
+      "name": "雾鳞软皮",
+      "asset_id": "icon.equipment.afe8552976465",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_02",
+      "name": "苇妖毒囊",
+      "asset_id": "icon.equipment.a5fc9769c5697",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_03",
+      "name": "浮萍灵珠",
+      "asset_id": "icon.equipment.a35cd34d92ef0",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_04",
+      "name": "青须虾甲",
+      "asset_id": "icon.equipment.ac0172b9f689a",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_05",
+      "name": "腐木鳄皮",
+      "asset_id": "icon.equipment.a9fb8b89959cb",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_06",
+      "name": "紫瘴晶粉",
+      "asset_id": "icon.equipment.a9684217feb7c",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_07",
+      "name": "水纹蟹壳",
+      "asset_id": "icon.equipment.af251ac24ac44",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_08",
+      "name": "芦羽灵翎",
+      "asset_id": "icon.equipment.a3764b5090613",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_09",
+      "name": "溺魂纸灰",
+      "asset_id": "icon.equipment.a0346523ce93a",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_10",
+      "name": "荧藻鱼珠",
+      "asset_id": "icon.equipment.a056b3e90b51b",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "mist_marsh_material_11",
+      "name": "碧瘴蛟鳞",
+      "asset_id": "icon.equipment.ae45b182855a2",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    },
+    {
+      "id": "mist_marsh_material_12",
+      "name": "泽蛟灵珠",
+      "asset_id": "icon.equipment.a8700e2f45148",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    }
+  ],
+  "equipment": [
+    {
+      "id": "mist_marsh_equipment_01",
+      "name": "泽水短刃",
+      "slot": "left",
+      "quality": "blue",
+      "stats": {
+        "attack_milli": 12000,
+        "crit_bps": 1000
+      },
+      "asset_id": "icon.equipment.a5f1afa3d602d",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          10000,
+          14000,
+          2000
+        ],
+        "crit_bps": [
+          800,
+          1200,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_02",
+      "name": "腐木毒杖",
+      "slot": "left",
+      "quality": "blue",
+      "stats": {
+        "attack_milli": 10000,
+        "pierce_milli": 4000
+      },
+      "asset_id": "icon.equipment.a6fe768075a78",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          8000,
+          12000,
+          2000
+        ],
+        "pierce_milli": [
+          2000,
+          6000,
+          2000
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_03",
+      "name": "青须水拳",
+      "slot": "gloves",
+      "quality": "blue",
+      "stats": {
+        "attack_milli": 6000,
+        "accuracy_bps": 1000
+      },
+      "asset_id": "icon.equipment.a32e8e17b783e",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          4000,
+          8000,
+          2000
+        ],
+        "accuracy_bps": [
+          800,
+          1200,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_04",
+      "name": "蟹纹护手",
+      "slot": "gloves",
+      "quality": "blue",
+      "stats": {
+        "armor_milli": 2000,
+        "reflect_bps": 2000
+      },
+      "asset_id": "icon.equipment.a483edd03da07",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          1600,
+          2400,
+          200
+        ],
+        "reflect_bps": [
+          1600,
+          2400,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_05",
+      "name": "苇编灵腰",
+      "slot": "belt",
+      "quality": "blue",
+      "stats": {
+        "max_hp_milli": 50000,
+        "armor_milli": 1000
+      },
+      "asset_id": "icon.equipment.adc9835192e46",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          40000,
+          60000,
+          2000
+        ],
+        "armor_milli": [
+          800,
+          1200,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_06",
+      "name": "瘴雾束带",
+      "slot": "belt",
+      "quality": "blue",
+      "stats": {
+        "max_hp_milli": 60000,
+        "poison_resist_bps": 6000
+      },
+      "asset_id": "icon.equipment.af9b9b5c05829",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          48000,
+          72000,
+          2000
+        ],
+        "poison_resist_bps": [
+          4800,
+          7200,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_07",
+      "name": "鳄皮水甲",
+      "slot": "body",
+      "quality": "blue",
+      "stats": {
+        "max_hp_milli": 70000,
+        "armor_milli": 3000
+      },
+      "asset_id": "icon.equipment.a23e1699daae9",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          56000,
+          84000,
+          2000
+        ],
+        "armor_milli": [
+          2400,
+          3600,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_08",
+      "name": "芦羽踏水靴",
+      "slot": "body",
+      "quality": "blue",
+      "stats": {
+        "armor_milli": 4000,
+        "reflect_bps": 3000
+      },
+      "asset_id": "icon.equipment.a01809cc4b0a3",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          3200,
+          4800,
+          200
+        ],
+        "reflect_bps": [
+          2400,
+          3600,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_09",
+      "name": "雾纹轻履",
+      "slot": "feet",
+      "quality": "blue",
+      "stats": {
+        "speed_bps": 2000,
+        "evasion_bps": 1000
+      },
+      "asset_id": "icon.equipment.a9d2c4e9e51a0",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "speed_bps": [
+          1600,
+          2400,
+          200
+        ],
+        "evasion_bps": [
+          800,
+          1200,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_10",
+      "name": "荧藻泽冠",
+      "slot": "head",
+      "quality": "blue",
+      "stats": {
+        "accuracy_bps": 1000,
+        "evasion_bps": 1000
+      },
+      "asset_id": "icon.equipment.af5a532f70c92",
+      "sell_coins": 16,
+      "salvage": {
+        "mist_marsh_material_01": 1
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "accuracy_bps": [
+          800,
+          1200,
+          200
+        ],
+        "evasion_bps": [
+          800,
+          1200,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_11",
+      "name": "碧瘴蛟牙刃",
+      "slot": "left",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 24000,
+        "crit_bps": 1600,
+        "pierce_milli": 6000,
+        "execute_bps": 4000
+      },
+      "asset_id": "icon.equipment.ad2031d699e70",
+      "sell_coins": 50,
+      "salvage": {
+        "mist_marsh_material_11": 1
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "attack_milli": [
+          20000,
+          28000,
+          2000
+        ],
+        "crit_bps": [
+          1200,
+          2000,
+          200
+        ],
+        "pierce_milli": [
+          4000,
+          8000,
+          2000
+        ],
+        "execute_bps": [
+          3200,
+          4000,
+          200
+        ]
+      }
+    },
+    {
+      "id": "mist_marsh_equipment_12",
+      "name": "泽蛟玄鳞甲",
+      "slot": "body",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 110000,
+        "armor_milli": 4000,
+        "reflect_bps": 4000
+      },
+      "asset_id": "icon.equipment.a7ab1d2e26a2c",
+      "sell_coins": 50,
+      "salvage": {
+        "mist_marsh_material_11": 1
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "max_hp_milli": [
+          88000,
+          132000,
+          2000
+        ],
+        "armor_milli": [
+          3200,
+          4800,
+          200
+        ],
+        "reflect_bps": [
+          3200,
+          4800,
+          200
+        ]
+      }
+    }
+  ],
+  "loot": {
+    "version": "mist_marsh-loot-v1",
+    "roll_version": "mist_marsh-roll-v1",
+    "rates": {
+      "normal": {
+        "material_bps": 8000,
+        "material_quantity": 1,
+        "equipment_bps": 1500
+      },
+      "elite": {
+        "material_bps": 10000,
+        "material_quantity": 2,
+        "equipment_bps": 5000
+      },
+      "boss": {
+        "material_bps": 10000,
+        "material_quantity": 1,
+        "equipment_bps": 10000
+      }
+    },
+    "normal_materials": [
+      "mist_marsh_material_01",
+      "mist_marsh_material_02",
+      "mist_marsh_material_03",
+      "mist_marsh_material_04",
+      "mist_marsh_material_05",
+      "mist_marsh_material_06",
+      "mist_marsh_material_07",
+      "mist_marsh_material_08",
+      "mist_marsh_material_09",
+      "mist_marsh_material_10"
+    ],
+    "elite_materials": [
+      "mist_marsh_material_01",
+      "mist_marsh_material_02",
+      "mist_marsh_material_03",
+      "mist_marsh_material_04",
+      "mist_marsh_material_05"
+    ],
+    "theme_materials": [
+      "water_spirit_stone",
+      "wood_spirit_stone",
+      "green_spirit_stone",
+      "condensed_spirit_crystal"
+    ],
+    "beast_materials": [
+      "beast_bone",
+      "hide",
+      "beast_sinew"
+    ],
+    "rare_materials": [
+      "beast_core",
+      "spirit_beast_blood",
+      "crafting_essence",
+      "equipment_blank"
+    ],
+    "extra_rates": {
+      "theme_bps": 8000,
+      "theme_quantity": 1,
+      "beast_bps": 3000,
+      "beast_quantity": 1,
+      "rare_bps": 5000,
+      "rare_quantity": 1
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "levels_per_realm": 500,
+  "max_level": 3000,
+  "open_realms": 2,
+  "xp_curve": {
+    "A": 160,
+    "exponent_numerator": 1,
+    "exponent_denominator": 2,
+    "rounding": "floor"
+  },
+  "X0": 22500,
+  "kills_per_hour": 226,
+  "tier_multipliers": {
+    "normal": 1,
+    "elite": 4,
+    "boss": 30
+  },
+  "recommended_level_per_floor": 10,
+  "penalty_start_percent": 120,
+  "minimum_multiplier_percent": 10,
+  "base_stats": {
+    "max_hp_milli": 80000,
+    "attack_milli": 10000,
+    "armor_milli": 500
+  },
+  "equipment_anchor": {
+    "max_hp_milli": 60000,
+    "attack_milli": 9000,
+    "armor_milli": 2000
+  },
+  "growth_coefficient_bps": 5500,
+  "milestones": [
+    {
+      "stat": "max_hp_milli",
+      "amount": 10000
+    },
+    {
+      "stat": "armor_milli",
+      "amount": 500
+    },
+    {
+      "stat": "attack_milli",
+      "amount": 2000
+    },
+    {
+      "stat": "speed_bps",
+      "amount": 500
+    },
+    {
+      "stat": "evasion_bps",
+      "amount": 500
+    }
+  ],
+  "realms": [
+    {
+      "id": "realm_0",
+      "name": "炼气",
+      "open": true,
+      "breakthrough_bonus": {},
+      "cost": {
+        "breakthrough_pill": 1,
+        "pill": 10,
+        "coins": 3000
+      }
+    },
+    {
+      "id": "realm_1",
+      "name": "筑基",
+      "open": true,
+      "breakthrough_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 2000,
+        "armor_milli": 500
+      },
+      "cost": {}
+    },
+    {
+      "id": "realm_2",
+      "name": "金丹",
+      "open": false,
+      "breakthrough_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 2000,
+        "armor_milli": 500
+      },
+      "cost": {}
+    },
+    {
+      "id": "realm_3",
+      "name": "元婴",
+      "open": false,
+      "breakthrough_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 2000,
+        "armor_milli": 500
+      },
+      "cost": {}
+    },
+    {
+      "id": "realm_4",
+      "name": "化神",
+      "open": false,
+      "breakthrough_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 2000,
+        "armor_milli": 500
+      },
+      "cost": {}
+    },
+    {
+      "id": "realm_5",
+      "name": "炼虚",
+      "open": false,
+      "breakthrough_bonus": {
+        "max_hp_milli": 10000,
+        "attack_milli": 2000,
+        "armor_milli": 500
+      },
+      "cost": {}
+    }
+  ],
+  "pill_minutes": 5,
+  "pill_period_ms": 86400000,
+  "pill_full_count": 48,
+  "pill_reduced_percent": 25,
+  "pills": {
+    "ju_qi_pill": {
+      "minimum_level": 1,
+      "maximum_level": 100
+    },
+    "na_ling_pill": {
+      "minimum_level": 101,
+      "maximum_level": 200
+    },
+    "yang_qi_pill": {
+      "minimum_level": 201,
+      "maximum_level": 300
+    },
+    "pill": {
+      "minimum_level": 301,
+      "maximum_level": 400
+    },
+    "yun_ling_pill": {
+      "minimum_level": 401,
+      "maximum_level": 500
+    },
+    "pill_1_0": {
+      "minimum_level": 501,
+      "maximum_level": 600
+    },
+    "gu_yuan_pill": {
+      "minimum_level": 601,
+      "maximum_level": 700
+    },
+    "ju_yuan_pill": {
+      "minimum_level": 701,
+      "maximum_level": 800
+    },
+    "ning_yuan_pill": {
+      "minimum_level": 801,
+      "maximum_level": 900
+    },
+    "yang_yuan_pill": {
+      "minimum_level": 901,
+      "maximum_level": 1000
+    }
+  },
+  "restricted_equipment": [
+    "thorn_king_blade",
+    "thorn_king_armor"
+  ],
+  "growth_stat_coefficients_bps": {
+    "max_hp_milli": 14500
+  }
+}

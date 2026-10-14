@@ -1,0 +1,2791 @@
+{
+  "schema_version": 1,
+  "content_version": "sect-ecology-v1-6.3.0-r1",
+  "resources": [
+    {
+      "id": "sect_lining",
+      "name": "灵织衬料",
+      "category": "material"
+    },
+    {
+      "id": "sect_shell_part",
+      "name": "灵甲构件",
+      "category": "material"
+    },
+    {
+      "id": "sect_bone_frame",
+      "name": "灵骨支架",
+      "category": "material"
+    },
+    {
+      "id": "sect_nurture_agent",
+      "name": "灵养药剂",
+      "category": "material"
+    },
+    {
+      "id": "sect_crop_01",
+      "name": "青灵稻",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_02",
+      "name": "玉髓米",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_03",
+      "name": "紫纹灵麦",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_04",
+      "name": "金穗灵粟",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_05",
+      "name": "翠心灵菜",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_06",
+      "name": "赤阳椒",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_07",
+      "name": "寒露笋",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_08",
+      "name": "玉露灵藕",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_09",
+      "name": "青元果",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_10",
+      "name": "赤霞果",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_11",
+      "name": "月华灵桃",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_12",
+      "name": "凝神灵梨",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_13",
+      "name": "聚灵草",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_14",
+      "name": "凝露草",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_15",
+      "name": "青叶灵苜",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_16",
+      "name": "水萍灵藻",
+      "category": "crop"
+    },
+    {
+      "id": "sect_crop_17",
+      "name": "甜髓灵薯",
+      "category": "crop"
+    },
+    {
+      "id": "meal_qingling_rice",
+      "name": "青灵米饭",
+      "category": "meal"
+    },
+    {
+      "id": "meal_cuixin_soup",
+      "name": "翠心菜羹",
+      "category": "meal"
+    },
+    {
+      "id": "meal_grain_egg_porridge",
+      "name": "灵谷蛋粥",
+      "category": "meal"
+    },
+    {
+      "id": "meal_yuxu_fish_soup",
+      "name": "玉须鱼汤",
+      "category": "meal"
+    },
+    {
+      "id": "meal_chizong_rice",
+      "name": "赤鬃肉饭",
+      "category": "meal"
+    },
+    {
+      "id": "meal_yulu_lotus_soup",
+      "name": "玉露灵藕羹",
+      "category": "meal"
+    },
+    {
+      "id": "meal_ningshen_yulu_soup",
+      "name": "凝神玉露羹",
+      "category": "meal"
+    },
+    {
+      "id": "meal_jiuxiang_porridge",
+      "name": "九香养神粥",
+      "category": "meal"
+    },
+    {
+      "id": "meal_baicao_tongxuan_soup",
+      "name": "百草通玄汤",
+      "category": "meal"
+    },
+    {
+      "id": "meal_xuanyuan_alchemist_feast",
+      "name": "玄元丹师宴",
+      "category": "meal"
+    },
+    {
+      "id": "meal_chiyang_forge_soup",
+      "name": "赤阳锻骨汤",
+      "category": "meal"
+    },
+    {
+      "id": "meal_zimai_biscuit",
+      "name": "紫麦巧工饼",
+      "category": "meal"
+    },
+    {
+      "id": "meal_jinsui_quench_soup",
+      "name": "金髓淬火羹",
+      "category": "meal"
+    },
+    {
+      "id": "meal_bailian_master_feast",
+      "name": "百炼宗师宴",
+      "category": "meal"
+    },
+    {
+      "id": "meal_chixia_strength_rice",
+      "name": "赤霞壮力饭",
+      "category": "meal"
+    },
+    {
+      "id": "meal_dimai_prospect_soup",
+      "name": "地脉寻珍汤",
+      "category": "meal"
+    },
+    {
+      "id": "meal_lingmu_restore_soup",
+      "name": "灵木养元羹",
+      "category": "meal"
+    },
+    {
+      "id": "meal_shanhai_harvest_feast",
+      "name": "山海丰收宴",
+      "category": "meal"
+    },
+    {
+      "id": "meal_qingyuan_herb_soup",
+      "name": "青元百草羹",
+      "category": "meal"
+    },
+    {
+      "id": "meal_lingtian_harvest_rice",
+      "name": "灵田丰穗饭",
+      "category": "meal"
+    },
+    {
+      "id": "meal_baishou_nourish_soup",
+      "name": "百兽滋养汤",
+      "category": "meal"
+    },
+    {
+      "id": "meal_lingyuan_clear_soup",
+      "name": "灵渊清心羹",
+      "category": "meal"
+    },
+    {
+      "id": "meal_sect_variety_rice",
+      "name": "宗门百味饭",
+      "category": "meal"
+    },
+    {
+      "id": "meal_five_grain_porridge",
+      "name": "五谷养元粥",
+      "category": "meal"
+    },
+    {
+      "id": "meal_eight_treasure_feast",
+      "name": "八珍灵膳宴",
+      "category": "meal"
+    },
+    {
+      "id": "meal_tiangong_creation_feast",
+      "name": "天工造化宴",
+      "category": "meal"
+    },
+    {
+      "id": "beast_feed_basic",
+      "name": "基础灵兽饲料",
+      "category": "feed"
+    },
+    {
+      "id": "beast_feed_refined",
+      "name": "精制灵兽饲料",
+      "category": "feed"
+    },
+    {
+      "id": "fish_feed_basic",
+      "name": "基础灵鱼饲料",
+      "category": "feed"
+    },
+    {
+      "id": "fish_feed_refined",
+      "name": "精制灵鱼饲料",
+      "category": "feed"
+    },
+    {
+      "id": "meal_shanhai",
+      "name": "山海灵膳",
+      "category": "meal"
+    },
+    {
+      "id": "sect_product_01",
+      "name": "云纹羊毛",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_02",
+      "name": "兽皮",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_03",
+      "name": "兽骨",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_04",
+      "name": "寒晶鳞",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_05",
+      "name": "寒潭鱼肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_06",
+      "name": "月光鲈肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_07",
+      "name": "月光鳞",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_08",
+      "name": "月影皮毛",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_09",
+      "name": "火绒毛",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_10",
+      "name": "灵兔肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_11",
+      "name": "灵兽精血",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_12",
+      "name": "灵牛乳",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_13",
+      "name": "灵牛肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_14",
+      "name": "灵猪肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_15",
+      "name": "灵禽肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_17",
+      "name": "灵羊乳",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_18",
+      "name": "灵羊肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_19",
+      "name": "灵虾肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_20",
+      "name": "灵蚌肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_21",
+      "name": "灵蛇胆",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_22",
+      "name": "灵螺肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_23",
+      "name": "灵蟹肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_24",
+      "name": "灵雉肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_25",
+      "name": "灵鱼籽",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_26",
+      "name": "灵鳝血",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_27",
+      "name": "灵鹿乳",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_28",
+      "name": "玄水精华",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_29",
+      "name": "玄水龟甲",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_30",
+      "name": "玄甲角",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_31",
+      "name": "玉兔绒",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_32",
+      "name": "玉灵珠",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_33",
+      "name": "玉须灵鳅",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_34",
+      "name": "碧尾羽",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_35",
+      "name": "碧甲蟹壳",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_36",
+      "name": "碧鳞",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_37",
+      "name": "紫纹螺壳",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_38",
+      "name": "紫角碎片",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_39",
+      "name": "赤尾鲟肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_40",
+      "name": "赤须",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_41",
+      "name": "金线鳝肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_42",
+      "name": "金羽",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_43",
+      "name": "银纹鲤肉",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_44",
+      "name": "银鳞",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_45",
+      "name": "霜羽",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_46",
+      "name": "青角茸",
+      "category": "material"
+    },
+    {
+      "id": "sect_product_47",
+      "name": "青鳞灵鱼",
+      "category": "material"
+    }
+  ],
+  "crops": [
+    {
+      "id": "sect_crop_01",
+      "name": "青灵稻",
+      "days": 1,
+      "yield": 12,
+      "recipe_id": "grow_sect_crop_01"
+    },
+    {
+      "id": "sect_crop_02",
+      "name": "玉髓米",
+      "days": 3,
+      "yield": 8,
+      "recipe_id": "grow_sect_crop_02"
+    },
+    {
+      "id": "sect_crop_03",
+      "name": "紫纹灵麦",
+      "days": 2,
+      "yield": 10,
+      "recipe_id": "grow_sect_crop_03"
+    },
+    {
+      "id": "sect_crop_04",
+      "name": "金穗灵粟",
+      "days": 4,
+      "yield": 7,
+      "recipe_id": "grow_sect_crop_04"
+    },
+    {
+      "id": "sect_crop_05",
+      "name": "翠心灵菜",
+      "days": 1,
+      "yield": 10,
+      "recipe_id": "grow_sect_crop_05"
+    },
+    {
+      "id": "sect_crop_06",
+      "name": "赤阳椒",
+      "days": 2,
+      "yield": 8,
+      "recipe_id": "grow_sect_crop_06"
+    },
+    {
+      "id": "sect_crop_07",
+      "name": "寒露笋",
+      "days": 2,
+      "yield": 8,
+      "recipe_id": "grow_sect_crop_07"
+    },
+    {
+      "id": "sect_crop_08",
+      "name": "玉露灵藕",
+      "days": 3,
+      "yield": 6,
+      "recipe_id": "grow_sect_crop_08"
+    },
+    {
+      "id": "sect_crop_09",
+      "name": "青元果",
+      "days": 2,
+      "yield": 8,
+      "recipe_id": "grow_sect_crop_09"
+    },
+    {
+      "id": "sect_crop_10",
+      "name": "赤霞果",
+      "days": 3,
+      "yield": 6,
+      "recipe_id": "grow_sect_crop_10"
+    },
+    {
+      "id": "sect_crop_11",
+      "name": "月华灵桃",
+      "days": 4,
+      "yield": 5,
+      "recipe_id": "grow_sect_crop_11"
+    },
+    {
+      "id": "sect_crop_12",
+      "name": "凝神灵梨",
+      "days": 3,
+      "yield": 6,
+      "recipe_id": "grow_sect_crop_12"
+    },
+    {
+      "id": "sect_crop_13",
+      "name": "聚灵草",
+      "days": 3,
+      "yield": 6,
+      "recipe_id": "grow_sect_crop_13"
+    },
+    {
+      "id": "sect_crop_14",
+      "name": "凝露草",
+      "days": 2,
+      "yield": 8,
+      "recipe_id": "grow_sect_crop_14"
+    },
+    {
+      "id": "sect_crop_15",
+      "name": "青叶灵苜",
+      "days": 1,
+      "yield": 12,
+      "recipe_id": "grow_sect_crop_15"
+    },
+    {
+      "id": "sect_crop_16",
+      "name": "水萍灵藻",
+      "days": 1,
+      "yield": 12,
+      "recipe_id": "grow_sect_crop_16"
+    },
+    {
+      "id": "sect_crop_17",
+      "name": "甜髓灵薯",
+      "days": 2,
+      "yield": 10,
+      "recipe_id": "grow_sect_crop_17"
+    }
+  ],
+  "meals": [
+    {
+      "id": "meal_qingling_rice",
+      "name": "青灵米饭",
+      "basic": true,
+      "scope": "none",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "基础供养",
+      "duration_days": 0
+    },
+    {
+      "id": "meal_cuixin_soup",
+      "name": "翠心菜羹",
+      "basic": true,
+      "scope": "none",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "基础供养",
+      "duration_days": 0
+    },
+    {
+      "id": "meal_grain_egg_porridge",
+      "name": "灵谷蛋粥",
+      "basic": true,
+      "scope": "none",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "基础供养",
+      "duration_days": 0
+    },
+    {
+      "id": "meal_yuxu_fish_soup",
+      "name": "玉须鱼汤",
+      "basic": true,
+      "scope": "none",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "基础供养",
+      "duration_days": 0
+    },
+    {
+      "id": "meal_chizong_rice",
+      "name": "赤鬃肉饭",
+      "basic": true,
+      "scope": "none",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "基础供养",
+      "duration_days": 0
+    },
+    {
+      "id": "meal_yulu_lotus_soup",
+      "name": "玉露灵藕羹",
+      "basic": true,
+      "scope": "none",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "基础供养",
+      "duration_days": 0
+    },
+    {
+      "id": "meal_ningshen_yulu_soup",
+      "name": "凝神玉露羹",
+      "basic": false,
+      "scope": "alchemy",
+      "speed_bps": 1000,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "炼丹速度+10%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_jiuxiang_porridge",
+      "name": "九香养神粥",
+      "basic": false,
+      "scope": "alchemy",
+      "speed_bps": 0,
+      "extra_bps": 800,
+      "discovery_bps": 0,
+      "effect": "炼丹额外产出概率+8个百分点",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_baicao_tongxuan_soup",
+      "name": "百草通玄汤",
+      "basic": false,
+      "scope": "alchemy",
+      "speed_bps": 800,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "炼丹速度+8%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_xuanyuan_alchemist_feast",
+      "name": "玄元丹师宴",
+      "basic": false,
+      "scope": "alchemy",
+      "speed_bps": 1200,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "炼丹速度+12%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_chiyang_forge_soup",
+      "name": "赤阳锻骨汤",
+      "basic": false,
+      "scope": "forge",
+      "speed_bps": 1200,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "炼器速度+12%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_zimai_biscuit",
+      "name": "紫麦巧工饼",
+      "basic": false,
+      "scope": "forge",
+      "speed_bps": 0,
+      "extra_bps": 600,
+      "discovery_bps": 0,
+      "effect": "炼器额外产出概率+6个百分点",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_jinsui_quench_soup",
+      "name": "金髓淬火羹",
+      "basic": false,
+      "scope": "forge",
+      "speed_bps": 800,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "炼器速度+8%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_bailian_master_feast",
+      "name": "百炼宗师宴",
+      "basic": false,
+      "scope": "forge",
+      "speed_bps": 1000,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "炼器速度+10%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_chixia_strength_rice",
+      "name": "赤霞壮力饭",
+      "basic": false,
+      "scope": "mine",
+      "speed_bps": 1200,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "矿石开采速度+12%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_dimai_prospect_soup",
+      "name": "地脉寻珍汤",
+      "basic": false,
+      "scope": "mine",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 400,
+      "effect": "合格矿区高阶矿物发现概率+4个百分点",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_lingmu_restore_soup",
+      "name": "灵木养元羹",
+      "basic": false,
+      "scope": "forest",
+      "speed_bps": 1200,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "伐木采集速度+12%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_shanhai_harvest_feast",
+      "name": "山海丰收宴",
+      "basic": false,
+      "scope": "gather",
+      "speed_bps": 0,
+      "extra_bps": 800,
+      "discovery_bps": 0,
+      "effect": "采集额外产出概率+8个百分点",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_qingyuan_herb_soup",
+      "name": "青元百草羹",
+      "basic": false,
+      "scope": "garden",
+      "speed_bps": 1200,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "灵植生产速度+12%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_lingtian_harvest_rice",
+      "name": "灵田丰穗饭",
+      "basic": false,
+      "scope": "garden",
+      "speed_bps": 0,
+      "extra_bps": 1000,
+      "discovery_bps": 0,
+      "effect": "灵植额外收获概率+10%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_baishou_nourish_soup",
+      "name": "百兽滋养汤",
+      "basic": false,
+      "scope": "pasture",
+      "speed_bps": 1000,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "御兽苑产出速度+10%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_lingyuan_clear_soup",
+      "name": "灵渊清心羹",
+      "basic": false,
+      "scope": "spring",
+      "speed_bps": 1000,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "灵渊养殖速度+10%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_sect_variety_rice",
+      "name": "宗门百味饭",
+      "basic": false,
+      "scope": "all",
+      "speed_bps": 300,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "所有经营工作速度+3%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_five_grain_porridge",
+      "name": "五谷养元粥",
+      "basic": false,
+      "scope": "all",
+      "speed_bps": 500,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "所有经营工作速度+5%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_eight_treasure_feast",
+      "name": "八珍灵膳宴",
+      "basic": false,
+      "scope": "all",
+      "speed_bps": 800,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "所有经营工作速度+8%",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_tiangong_creation_feast",
+      "name": "天工造化宴",
+      "basic": false,
+      "scope": "all",
+      "speed_bps": 600,
+      "extra_bps": 400,
+      "discovery_bps": 0,
+      "effect": "生产速度+6%，额外产出概率+4个百分点",
+      "duration_days": 8
+    },
+    {
+      "id": "meal_shanhai",
+      "name": "山海灵膳",
+      "basic": true,
+      "scope": "none",
+      "speed_bps": 0,
+      "extra_bps": 0,
+      "discovery_bps": 0,
+      "effect": "基础供养",
+      "duration_days": 0
+    }
+  ],
+  "recipes": [
+    {
+      "machine_id": "grow_sect_crop_01",
+      "display_name": "种植青灵稻",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_01": 12
+      },
+      "duration_ms": 120000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_02",
+      "display_name": "种植玉髓米",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_02": 8
+      },
+      "duration_ms": 360000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_03",
+      "display_name": "种植紫纹灵麦",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_03": 10
+      },
+      "duration_ms": 240000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_04",
+      "display_name": "种植金穗灵粟",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_04": 7
+      },
+      "duration_ms": 480000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_05",
+      "display_name": "种植翠心灵菜",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_05": 10
+      },
+      "duration_ms": 120000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_06",
+      "display_name": "种植赤阳椒",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_06": 8
+      },
+      "duration_ms": 240000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_07",
+      "display_name": "种植寒露笋",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_07": 8
+      },
+      "duration_ms": 240000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_08",
+      "display_name": "种植玉露灵藕",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_08": 6
+      },
+      "duration_ms": 360000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_09",
+      "display_name": "种植青元果",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_09": 8
+      },
+      "duration_ms": 240000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_10",
+      "display_name": "种植赤霞果",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_10": 6
+      },
+      "duration_ms": 360000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_11",
+      "display_name": "种植月华灵桃",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_11": 5
+      },
+      "duration_ms": 480000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_12",
+      "display_name": "种植凝神灵梨",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_12": 6
+      },
+      "duration_ms": 360000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_13",
+      "display_name": "种植聚灵草",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_13": 6
+      },
+      "duration_ms": 360000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_14",
+      "display_name": "种植凝露草",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_14": 8
+      },
+      "duration_ms": 240000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_15",
+      "display_name": "种植青叶灵苜",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_15": 12
+      },
+      "duration_ms": 120000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_16",
+      "display_name": "种植水萍灵藻",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_16": 12
+      },
+      "duration_ms": 120000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "grow_sect_crop_17",
+      "display_name": "种植甜髓灵薯",
+      "building_kind": "garden",
+      "inputs": {
+        "spring_water": 1
+      },
+      "outputs": {
+        "sect_crop_17": 10
+      },
+      "duration_ms": 240000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_qingling_rice",
+      "display_name": "青灵米饭",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_01": 4,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_qingling_rice": 4
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_cuixin_soup",
+      "display_name": "翠心菜羹",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_05": 3,
+        "spring_water": 2
+      },
+      "outputs": {
+        "meal_cuixin_soup": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_grain_egg_porridge",
+      "display_name": "灵谷蛋粥",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_01": 3,
+        "egg": 2
+      },
+      "outputs": {
+        "meal_grain_egg_porridge": 4
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_yuxu_fish_soup",
+      "display_name": "玉须鱼汤",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_33": 2,
+        "sect_crop_05": 2
+      },
+      "outputs": {
+        "meal_yuxu_fish_soup": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_chizong_rice",
+      "display_name": "赤鬃肉饭",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_14": 2,
+        "sect_crop_01": 3
+      },
+      "outputs": {
+        "meal_chizong_rice": 4
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_yulu_lotus_soup",
+      "display_name": "玉露灵藕羹",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_08": 2,
+        "spring_water": 2
+      },
+      "outputs": {
+        "meal_yulu_lotus_soup": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_ningshen_yulu_soup",
+      "display_name": "凝神玉露羹",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_07": 2,
+        "sect_crop_14": 2,
+        "spring_water": 2
+      },
+      "outputs": {
+        "meal_ningshen_yulu_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_jiuxiang_porridge",
+      "display_name": "九香养神粥",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_02": 3,
+        "egg": 2,
+        "sect_crop_12": 1
+      },
+      "outputs": {
+        "meal_jiuxiang_porridge": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_baicao_tongxuan_soup",
+      "display_name": "百草通玄汤",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_13": 2,
+        "sect_crop_08": 2,
+        "sect_product_27": 1
+      },
+      "outputs": {
+        "meal_baicao_tongxuan_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_xuanyuan_alchemist_feast",
+      "display_name": "玄元丹师宴",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_11": 2,
+        "sect_crop_02": 3,
+        "sect_product_27": 2
+      },
+      "outputs": {
+        "meal_xuanyuan_alchemist_feast": 4
+      },
+      "duration_ms": 90000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_chiyang_forge_soup",
+      "display_name": "赤阳锻骨汤",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_06": 2,
+        "sect_product_14": 2,
+        "sect_product_12": 1
+      },
+      "outputs": {
+        "meal_chiyang_forge_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_zimai_biscuit",
+      "display_name": "紫麦巧工饼",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_03": 3,
+        "egg": 2
+      },
+      "outputs": {
+        "meal_zimai_biscuit": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_jinsui_quench_soup",
+      "display_name": "金髓淬火羹",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_04": 2,
+        "sect_crop_10": 2,
+        "sect_product_27": 1
+      },
+      "outputs": {
+        "meal_jinsui_quench_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_bailian_master_feast",
+      "display_name": "百炼宗师宴",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_06": 2,
+        "sect_crop_04": 3,
+        "sect_product_12": 2
+      },
+      "outputs": {
+        "meal_bailian_master_feast": 4
+      },
+      "duration_ms": 90000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_chixia_strength_rice",
+      "display_name": "赤霞壮力饭",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_10": 2,
+        "sect_crop_01": 3,
+        "sect_product_14": 1
+      },
+      "outputs": {
+        "meal_chixia_strength_rice": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_dimai_prospect_soup",
+      "display_name": "地脉寻珍汤",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_08": 2,
+        "sect_product_27": 2,
+        "sect_crop_14": 1
+      },
+      "outputs": {
+        "meal_dimai_prospect_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_lingmu_restore_soup",
+      "display_name": "灵木养元羹",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_09": 2,
+        "sect_crop_05": 3,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_lingmu_restore_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_shanhai_harvest_feast",
+      "display_name": "山海丰收宴",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_14": 2,
+        "sect_product_39": 2,
+        "sect_crop_04": 2
+      },
+      "outputs": {
+        "meal_shanhai_harvest_feast": 4
+      },
+      "duration_ms": 90000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_qingyuan_herb_soup",
+      "display_name": "青元百草羹",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_09": 2,
+        "sect_crop_05": 3,
+        "sect_crop_14": 1
+      },
+      "outputs": {
+        "meal_qingyuan_herb_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_lingtian_harvest_rice",
+      "display_name": "灵田丰穗饭",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_01": 3,
+        "sect_crop_17": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_lingtian_harvest_rice": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_baishou_nourish_soup",
+      "display_name": "百兽滋养汤",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_27": 2,
+        "egg": 2,
+        "sect_crop_09": 2
+      },
+      "outputs": {
+        "meal_baishou_nourish_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_lingyuan_clear_soup",
+      "display_name": "灵渊清心羹",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_06": 2,
+        "sect_crop_07": 2,
+        "spring_water": 2
+      },
+      "outputs": {
+        "meal_lingyuan_clear_soup": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_sect_variety_rice",
+      "display_name": "宗门百味饭",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_01": 3,
+        "egg": 1,
+        "sect_crop_05": 2
+      },
+      "outputs": {
+        "meal_sect_variety_rice": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_five_grain_porridge",
+      "display_name": "五谷养元粥",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_02": 2,
+        "sect_product_17": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_five_grain_porridge": 4
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_eight_treasure_feast",
+      "display_name": "八珍灵膳宴",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_11": 2,
+        "sect_product_14": 2,
+        "sect_product_05": 2,
+        "sect_crop_04": 2
+      },
+      "outputs": {
+        "meal_eight_treasure_feast": 4
+      },
+      "duration_ms": 90000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "meal_tiangong_creation_feast",
+      "display_name": "天工造化宴",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_crop_12": 2,
+        "sect_crop_10": 2,
+        "sect_crop_02": 3,
+        "sect_product_27": 2
+      },
+      "outputs": {
+        "meal_tiangong_creation_feast": 4
+      },
+      "duration_ms": 90000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "craft_beast_feed_basic",
+      "display_name": "基础灵兽饲料",
+      "building_kind": "pasture",
+      "inputs": {
+        "sect_crop_15": 6,
+        "sect_crop_17": 2
+      },
+      "outputs": {
+        "beast_feed_basic": 10
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "craft_beast_feed_refined",
+      "display_name": "精制灵兽饲料",
+      "building_kind": "pasture",
+      "inputs": {
+        "beast_feed_basic": 5,
+        "sect_crop_09": 2
+      },
+      "outputs": {
+        "beast_feed_refined": 6
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "craft_fish_feed_basic",
+      "display_name": "基础灵鱼饲料",
+      "building_kind": "spring",
+      "inputs": {
+        "sect_crop_16": 6,
+        "sect_crop_01": 2
+      },
+      "outputs": {
+        "fish_feed_basic": 10
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "craft_fish_feed_refined",
+      "display_name": "精制灵鱼饲料",
+      "building_kind": "spring",
+      "inputs": {
+        "fish_feed_basic": 5,
+        "sect_crop_14": 2
+      },
+      "outputs": {
+        "fish_feed_refined": 6
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_01",
+      "display_name": "灵织衬料·云纹羊毛",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_01": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_02",
+      "display_name": "灵织衬料·兽皮",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_02": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_03",
+      "display_name": "灵骨支架·兽骨",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_03": 1,
+        "ordinary_wood": 2
+      },
+      "outputs": {
+        "sect_bone_frame": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_04",
+      "display_name": "灵甲构件·寒晶鳞",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_04": 2,
+        "stone": 2
+      },
+      "outputs": {
+        "sect_shell_part": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_05",
+      "display_name": "灵甲构件·月光鳞",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_07": 2,
+        "stone": 2
+      },
+      "outputs": {
+        "sect_shell_part": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_06",
+      "display_name": "灵织衬料·月影皮毛",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_08": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_07",
+      "display_name": "灵织衬料·火绒毛",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_09": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_08",
+      "display_name": "山海灵膳·灵兔肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_10": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_09",
+      "display_name": "灵养药剂·灵兽精血",
+      "building_kind": "alchemy",
+      "inputs": {
+        "sect_product_11": 1,
+        "sect_crop_14": 2
+      },
+      "outputs": {
+        "sect_nurture_agent": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_10",
+      "display_name": "山海灵膳·灵牛肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_13": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_11",
+      "display_name": "山海灵膳·灵禽肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_15": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_12",
+      "display_name": "山海灵膳·灵羊肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_18": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_13",
+      "display_name": "山海灵膳·灵虾肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_19": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_14",
+      "display_name": "山海灵膳·灵蚌肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_20": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_15",
+      "display_name": "灵养药剂·灵蛇胆",
+      "building_kind": "alchemy",
+      "inputs": {
+        "sect_product_21": 1,
+        "sect_crop_14": 2
+      },
+      "outputs": {
+        "sect_nurture_agent": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_16",
+      "display_name": "山海灵膳·灵螺肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_22": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_17",
+      "display_name": "山海灵膳·灵蟹肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_23": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_18",
+      "display_name": "山海灵膳·灵雉肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_24": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_19",
+      "display_name": "山海灵膳·灵鱼籽",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_25": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_20",
+      "display_name": "灵养药剂·灵鳝血",
+      "building_kind": "alchemy",
+      "inputs": {
+        "sect_product_26": 1,
+        "sect_crop_14": 2
+      },
+      "outputs": {
+        "sect_nurture_agent": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_21",
+      "display_name": "灵养药剂·玄水精华",
+      "building_kind": "alchemy",
+      "inputs": {
+        "sect_product_28": 1,
+        "sect_crop_14": 2
+      },
+      "outputs": {
+        "sect_nurture_agent": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_22",
+      "display_name": "灵甲构件·玄水龟甲",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_29": 2,
+        "stone": 2
+      },
+      "outputs": {
+        "sect_shell_part": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_23",
+      "display_name": "灵骨支架·玄甲角",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_30": 1,
+        "ordinary_wood": 2
+      },
+      "outputs": {
+        "sect_bone_frame": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_24",
+      "display_name": "灵织衬料·玉兔绒",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_31": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_25",
+      "display_name": "灵养药剂·玉灵珠",
+      "building_kind": "alchemy",
+      "inputs": {
+        "sect_product_32": 1,
+        "sect_crop_14": 2
+      },
+      "outputs": {
+        "sect_nurture_agent": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_26",
+      "display_name": "灵织衬料·碧尾羽",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_34": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_27",
+      "display_name": "灵甲构件·碧甲蟹壳",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_35": 2,
+        "stone": 2
+      },
+      "outputs": {
+        "sect_shell_part": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_28",
+      "display_name": "灵甲构件·碧鳞",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_36": 2,
+        "stone": 2
+      },
+      "outputs": {
+        "sect_shell_part": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_29",
+      "display_name": "灵甲构件·紫纹螺壳",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_37": 2,
+        "stone": 2
+      },
+      "outputs": {
+        "sect_shell_part": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_30",
+      "display_name": "灵骨支架·紫角碎片",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_38": 1,
+        "ordinary_wood": 2
+      },
+      "outputs": {
+        "sect_bone_frame": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_31",
+      "display_name": "灵骨支架·赤须",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_40": 1,
+        "ordinary_wood": 2
+      },
+      "outputs": {
+        "sect_bone_frame": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_32",
+      "display_name": "山海灵膳·金线鳝肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_41": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_33",
+      "display_name": "灵织衬料·金羽",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_42": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_34",
+      "display_name": "山海灵膳·银纹鲤肉",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_43": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_35",
+      "display_name": "灵甲构件·银鳞",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_44": 2,
+        "stone": 2
+      },
+      "outputs": {
+        "sect_shell_part": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_36",
+      "display_name": "灵织衬料·霜羽",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_45": 2,
+        "sect_crop_03": 1
+      },
+      "outputs": {
+        "sect_lining": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_37",
+      "display_name": "灵骨支架·青角茸",
+      "building_kind": "forge",
+      "inputs": {
+        "sect_product_46": 1,
+        "ordinary_wood": 2
+      },
+      "outputs": {
+        "sect_bone_frame": 1
+      },
+      "duration_ms": 60000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "supplement_recipe_38",
+      "display_name": "山海灵膳·青鳞灵鱼",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_product_47": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "legacy_grain_meal",
+      "display_name": "青灵米饭·灵谷兼容配方",
+      "building_kind": "canteen",
+      "inputs": {
+        "grain": 4,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_qingling_rice": 4
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    },
+    {
+      "machine_id": "legacy_fish_meal",
+      "display_name": "山海灵膳·灵鱼兼容配方",
+      "building_kind": "canteen",
+      "inputs": {
+        "fish": 2,
+        "sect_crop_05": 2,
+        "spring_water": 1
+      },
+      "outputs": {
+        "meal_shanhai": 3
+      },
+      "duration_ms": 30000,
+      "min_level": 1,
+      "unlock_floor": 0,
+      "unlock_realm": 0
+    }
+  ],
+  "species": [
+    {
+      "id": "pasture_species_01",
+      "name": "玉耳灵兔",
+      "building_kind": "pasture",
+      "days": 2,
+      "feed_id": "beast_feed_basic",
+      "feed_quantity": 2,
+      "slots": 1,
+      "purchase_coins": 8,
+      "periodic_outputs": {
+        "sect_product_31": 1
+      },
+      "harvest_outputs": {
+        "sect_product_10": 4
+      }
+    },
+    {
+      "id": "pasture_species_02",
+      "name": "金羽灵鸡",
+      "building_kind": "pasture",
+      "days": 1,
+      "feed_id": "beast_feed_basic",
+      "feed_quantity": 3,
+      "slots": 1,
+      "purchase_coins": 12,
+      "periodic_outputs": {
+        "egg": 4,
+        "sect_product_42": 1
+      },
+      "harvest_outputs": {
+        "sect_product_15": 3
+      }
+    },
+    {
+      "id": "pasture_species_03",
+      "name": "青角灵鹿",
+      "building_kind": "pasture",
+      "days": 3,
+      "feed_id": "beast_feed_basic",
+      "feed_quantity": 4,
+      "slots": 2,
+      "purchase_coins": 24,
+      "periodic_outputs": {
+        "sect_product_27": 3
+      },
+      "harvest_outputs": {
+        "sect_product_46": 1,
+        "sect_product_02": 1
+      }
+    },
+    {
+      "id": "pasture_species_04",
+      "name": "赤鬃灵猪",
+      "building_kind": "pasture",
+      "days": 3,
+      "feed_id": "beast_feed_basic",
+      "feed_quantity": 4,
+      "slots": 2,
+      "purchase_coins": 18,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_14": 6,
+        "sect_product_02": 1
+      }
+    },
+    {
+      "id": "pasture_species_05",
+      "name": "云纹灵羊",
+      "building_kind": "pasture",
+      "days": 2,
+      "feed_id": "beast_feed_basic",
+      "feed_quantity": 3,
+      "slots": 2,
+      "purchase_coins": 22,
+      "periodic_outputs": {
+        "sect_product_17": 4,
+        "sect_product_01": 2
+      },
+      "harvest_outputs": {
+        "sect_product_18": 4,
+        "sect_product_02": 1
+      }
+    },
+    {
+      "id": "pasture_species_06",
+      "name": "玄甲灵牛",
+      "building_kind": "pasture",
+      "days": 4,
+      "feed_id": "beast_feed_basic",
+      "feed_quantity": 4,
+      "slots": 3,
+      "purchase_coins": 35,
+      "periodic_outputs": {
+        "sect_product_12": 5
+      },
+      "harvest_outputs": {
+        "sect_product_13": 6,
+        "sect_product_30": 1
+      }
+    },
+    {
+      "id": "pasture_species_07",
+      "name": "霜羽灵鹤",
+      "building_kind": "pasture",
+      "days": 3,
+      "feed_id": "beast_feed_refined",
+      "feed_quantity": 2,
+      "slots": 2,
+      "purchase_coins": 38,
+      "periodic_outputs": {
+        "sect_product_45": 2,
+        "egg": 2
+      },
+      "harvest_outputs": {
+        "sect_product_15": 3
+      }
+    },
+    {
+      "id": "pasture_species_08",
+      "name": "碧尾灵雉",
+      "building_kind": "pasture",
+      "days": 2,
+      "feed_id": "beast_feed_basic",
+      "feed_quantity": 3,
+      "slots": 1,
+      "purchase_coins": 16,
+      "periodic_outputs": {
+        "sect_product_34": 2
+      },
+      "harvest_outputs": {
+        "sect_product_24": 3
+      }
+    },
+    {
+      "id": "pasture_species_09",
+      "name": "火绒灵狐",
+      "building_kind": "pasture",
+      "days": 4,
+      "feed_id": "beast_feed_refined",
+      "feed_quantity": 3,
+      "slots": 2,
+      "purchase_coins": 42,
+      "periodic_outputs": {
+        "sect_product_09": 3
+      },
+      "harvest_outputs": {
+        "sect_product_11": 1,
+        "sect_product_03": 1
+      }
+    },
+    {
+      "id": "pasture_species_10",
+      "name": "月影灵貂",
+      "building_kind": "pasture",
+      "days": 4,
+      "feed_id": "beast_feed_refined",
+      "feed_quantity": 3,
+      "slots": 2,
+      "purchase_coins": 42,
+      "periodic_outputs": {
+        "sect_product_08": 2
+      },
+      "harvest_outputs": {
+        "sect_product_11": 1,
+        "sect_product_03": 1
+      }
+    },
+    {
+      "id": "pasture_species_11",
+      "name": "紫角灵犀",
+      "building_kind": "pasture",
+      "days": 5,
+      "feed_id": "beast_feed_refined",
+      "feed_quantity": 4,
+      "slots": 3,
+      "purchase_coins": 65,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_38": 2,
+        "sect_product_11": 1
+      }
+    },
+    {
+      "id": "pasture_species_12",
+      "name": "碧鳞灵蛇",
+      "building_kind": "pasture",
+      "days": 3,
+      "feed_id": "beast_feed_refined",
+      "feed_quantity": 3,
+      "slots": 2,
+      "purchase_coins": 36,
+      "periodic_outputs": {
+        "sect_product_36": 3
+      },
+      "harvest_outputs": {
+        "sect_product_21": 1,
+        "sect_product_03": 1
+      }
+    },
+    {
+      "id": "spring_species_01",
+      "name": "青鳞灵鲫",
+      "building_kind": "spring",
+      "days": 1,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 2,
+      "slots": 1,
+      "purchase_coins": 4,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_47": 4
+      }
+    },
+    {
+      "id": "spring_species_02",
+      "name": "银纹灵鲤",
+      "building_kind": "spring",
+      "days": 2,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 3,
+      "slots": 1,
+      "purchase_coins": 6,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_43": 4,
+        "sect_product_44": 1
+      }
+    },
+    {
+      "id": "spring_species_03",
+      "name": "赤尾灵鲟",
+      "building_kind": "spring",
+      "days": 3,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 3,
+      "slots": 2,
+      "purchase_coins": 12,
+      "periodic_outputs": {
+        "sect_product_25": 1
+      },
+      "harvest_outputs": {
+        "sect_product_39": 5
+      }
+    },
+    {
+      "id": "spring_species_04",
+      "name": "玉须灵鳅",
+      "building_kind": "spring",
+      "days": 1,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 2,
+      "slots": 1,
+      "purchase_coins": 4,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_33": 5
+      }
+    },
+    {
+      "id": "spring_species_05",
+      "name": "月光灵鲈",
+      "building_kind": "spring",
+      "days": 3,
+      "feed_id": "fish_feed_refined",
+      "feed_quantity": 2,
+      "slots": 2,
+      "purchase_coins": 14,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_06": 4,
+        "sect_product_07": 1
+      }
+    },
+    {
+      "id": "spring_species_06",
+      "name": "寒潭雪鱼",
+      "building_kind": "spring",
+      "days": 3,
+      "feed_id": "fish_feed_refined",
+      "feed_quantity": 2,
+      "slots": 2,
+      "purchase_coins": 14,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_05": 4,
+        "sect_product_04": 1
+      }
+    },
+    {
+      "id": "spring_species_07",
+      "name": "金线灵鳝",
+      "building_kind": "spring",
+      "days": 2,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 3,
+      "slots": 1,
+      "purchase_coins": 7,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_41": 3,
+        "sect_product_26": 1
+      }
+    },
+    {
+      "id": "spring_species_08",
+      "name": "碧甲灵蟹",
+      "building_kind": "spring",
+      "days": 2,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 3,
+      "slots": 1,
+      "purchase_coins": 8,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_23": 4,
+        "sect_product_35": 2
+      }
+    },
+    {
+      "id": "spring_species_09",
+      "name": "赤须灵虾",
+      "building_kind": "spring",
+      "days": 2,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 3,
+      "slots": 1,
+      "purchase_coins": 7,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_19": 5,
+        "sect_product_40": 1
+      }
+    },
+    {
+      "id": "spring_species_10",
+      "name": "玉珠灵蚌",
+      "building_kind": "spring",
+      "days": 4,
+      "feed_id": "fish_feed_refined",
+      "feed_quantity": 2,
+      "slots": 2,
+      "purchase_coins": 20,
+      "periodic_outputs": {
+        "sect_product_32": 1
+      },
+      "harvest_outputs": {
+        "sect_product_20": 3
+      }
+    },
+    {
+      "id": "spring_species_11",
+      "name": "紫纹灵螺",
+      "building_kind": "spring",
+      "days": 3,
+      "feed_id": "fish_feed_basic",
+      "feed_quantity": 3,
+      "slots": 1,
+      "purchase_coins": 8,
+      "periodic_outputs": {},
+      "harvest_outputs": {
+        "sect_product_22": 4,
+        "sect_product_37": 2
+      }
+    },
+    {
+      "id": "spring_species_12",
+      "name": "玄水灵龟",
+      "building_kind": "spring",
+      "days": 5,
+      "feed_id": "fish_feed_refined",
+      "feed_quantity": 4,
+      "slots": 3,
+      "purchase_coins": 32,
+      "periodic_outputs": {
+        "sect_product_28": 1
+      },
+      "harvest_outputs": {
+        "sect_product_29": 1
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "id": "garden_plot",
+      "name": "灵植园增设一田",
+      "building_kind": "garden",
+      "inputs": {
+        "sect_lining": 1,
+        "sect_bone_frame": 2,
+        "ordinary_wood": 6,
+        "stone": 4
+      },
+      "capacity": 1,
+      "speed_bps": 0,
+      "per_level": true
+    },
+    {
+      "id": "pasture_pen",
+      "name": "御兽苑增设栏组",
+      "building_kind": "pasture",
+      "inputs": {
+        "sect_lining": 2,
+        "sect_shell_part": 1,
+        "sect_bone_frame": 2,
+        "sect_nurture_agent": 1,
+        "ordinary_wood": 6,
+        "stone": 4
+      },
+      "capacity": 2,
+      "speed_bps": 0,
+      "per_level": true
+    },
+    {
+      "id": "spring_pool",
+      "name": "灵渊增设池组",
+      "building_kind": "spring",
+      "inputs": {
+        "sect_lining": 1,
+        "sect_shell_part": 2,
+        "sect_bone_frame": 1,
+        "sect_nurture_agent": 1,
+        "ordinary_wood": 4,
+        "stone": 6
+      },
+      "capacity": 3,
+      "speed_bps": 0,
+      "per_level": true
+    },
+    {
+      "id": "canteen_warmth",
+      "name": "灵膳房保温设施",
+      "building_kind": "canteen",
+      "inputs": {
+        "sect_lining": 2,
+        "sect_shell_part": 1,
+        "ordinary_wood": 4,
+        "stone": 4
+      },
+      "capacity": 0,
+      "speed_bps": 500,
+      "per_level": false
+    }
+  ],
+  "legacy_food_replacement": "meal_qingling_rice",
+  "retired_recipes": [
+    "sect_food",
+    "sect_egg_food",
+    "sect_fish_food",
+    "sect_egg",
+    "sect_fish"
+  ],
+  "limits": {
+    "max_batches": 64,
+    "max_count": 128,
+    "target_days_min": 3,
+    "target_days_max": 7,
+    "base_plots_per_level": 2,
+    "base_pasture_slots": 8,
+    "pasture_slots_per_level": 4,
+    "base_spring_slots": 12,
+    "spring_slots_per_level": 6
+  }
+}

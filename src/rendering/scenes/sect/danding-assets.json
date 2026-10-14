@@ -1,0 +1,14 @@
+{
+  "scenes": {
+    "master": "scene.building.a219f807916ef.master",
+    "prepare": "scene.building.a219f807916ef.prepare",
+    "measure": "scene.building.a219f807916ef.measure",
+    "add_herbs": "scene.building.a219f807916ef.add_herbs",
+    "stable": "scene.building.a219f807916ef.stable",
+    "high_fire": "scene.building.a219f807916ef.high_fire",
+    "finish": "scene.building.a219f807916ef.finish"
+  },
+  "icons": {
+    "pill": "icon.pill.a05aa9179e82c"
+  }
+}

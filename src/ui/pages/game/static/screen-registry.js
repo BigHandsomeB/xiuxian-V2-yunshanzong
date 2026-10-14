@@ -1,0 +1,10 @@
+import * as sect from './screens/sect.js';
+import * as building from './screens/building.js';
+import * as disciples from './screens/disciples.js';
+import * as discipleDetail from './screens/disciple-detail.js';
+import * as cultivation from './screens/cultivation.js';
+import * as inventory from './screens/inventory.js';
+import * as adventure from './screens/adventure.js';
+import * as battle from './screens/battle.js';
+import * as settings from './screens/settings.js';
+export const screens={sect,building,disciples,disciple_detail:discipleDetail,cultivation,inventory,adventure,battle,settings};

@@ -1,0 +1,630 @@
+{
+  "schema_version": 1,
+  "content_version": "inventory-v1-6.3.0-r1",
+  "definitions": [
+    {
+      "domain": "resources",
+      "machine_id": "body_pill",
+      "display_name": "淬体丹",
+      "capacity_counted": true,
+      "grade": 9,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "breath_pill",
+      "display_name": "清息丹",
+      "capacity_counted": true,
+      "grade": 9,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "brick",
+      "display_name": "石砖",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "cloth",
+      "display_name": "灵布",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "coins",
+      "display_name": "灵钱",
+      "capacity_counted": false,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "copper",
+      "display_name": "赤铜矿",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "dewleaf",
+      "display_name": "晨露草",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "divine_leaf",
+      "display_name": "归真叶",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "divine_pill",
+      "display_name": "归真丹",
+      "capacity_counted": true,
+      "grade": 3,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "egg",
+      "display_name": "灵禽蛋",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "essence",
+      "display_name": "妖兽精华",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "feed",
+      "display_name": "饲料",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "fertilizer",
+      "display_name": "灵肥",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "fiber",
+      "display_name": "灵丝",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "fish",
+      "display_name": "灵鱼",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "food",
+      "display_name": "干粮",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "foundation_pill",
+      "display_name": "固基丹",
+      "capacity_counted": true,
+      "grade": 9,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "gem",
+      "display_name": "灵晶",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "golden_pill",
+      "display_name": "结金丹",
+      "capacity_counted": true,
+      "grade": 6,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "grain",
+      "display_name": "灵谷",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "healing_pill",
+      "display_name": "回春丹",
+      "capacity_counted": true,
+      "grade": 9,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "herb",
+      "display_name": "灵草",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "hide",
+      "display_name": "兽皮",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "infant_pill",
+      "display_name": "化婴丹",
+      "capacity_counted": true,
+      "grade": 4,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "ingot",
+      "display_name": "铁锭",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "凡"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "insight",
+      "display_name": "悟道残页",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "jade",
+      "display_name": "星髓玉",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "life_pill",
+      "display_name": "延寿丹",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "material_1_1",
+      "display_name": "寒玉莲",
+      "capacity_counted": true,
+      "grade": 8,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "material_2_1",
+      "display_name": "紫纹参",
+      "capacity_counted": true,
+      "grade": 6,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "material_3_0",
+      "display_name": "九叶魂兰",
+      "capacity_counted": true,
+      "grade": 4,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "material_3_1",
+      "display_name": "碧海灵髓",
+      "capacity_counted": true,
+      "grade": 4,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "material_4_1",
+      "display_name": "太清莲",
+      "capacity_counted": true,
+      "grade": 3,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "meat",
+      "display_name": "灵肉",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "milk",
+      "display_name": "灵乳",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "moon_pearl",
+      "display_name": "银月灵珠",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "moonleaf",
+      "display_name": "月华叶",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "ore",
+      "display_name": "凡铁矿",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "凡"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "parts",
+      "display_name": "器胚零件",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill",
+      "display_name": "凝气丹",
+      "capacity_counted": true,
+      "grade": 9,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_1_0",
+      "display_name": "培元丹",
+      "capacity_counted": true,
+      "grade": 7,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_1_1",
+      "display_name": "通脉丹",
+      "capacity_counted": true,
+      "grade": 7,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_2_0",
+      "display_name": "蕴金丹",
+      "capacity_counted": true,
+      "grade": 5,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_2_1",
+      "display_name": "养识丹",
+      "capacity_counted": true,
+      "grade": 5,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_3_0",
+      "display_name": "婴元丹",
+      "capacity_counted": true,
+      "grade": 4,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_3_1",
+      "display_name": "定魂丹",
+      "capacity_counted": true,
+      "grade": 4,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_4_1",
+      "display_name": "太清丹",
+      "capacity_counted": true,
+      "grade": 3,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "pill_4_3",
+      "display_name": "神游丹",
+      "capacity_counted": true,
+      "grade": 3,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "plank",
+      "display_name": "木板",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "rare_herb",
+      "display_name": "天灵芝",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "raw_wood",
+      "display_name": "原木",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "red_ore",
+      "display_name": "赤纹矿",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "seed_cotton",
+      "display_name": "月绒花种子",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "seed_firefruit",
+      "display_name": "赤焰果种子",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "seed_grain",
+      "display_name": "灵谷种子",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "seed_herb",
+      "display_name": "青灵草种子",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "seed_lotus",
+      "display_name": "寒玉莲种子",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "seed_tea",
+      "display_name": "悟道茶种子",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "silk",
+      "display_name": "灵绸",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "soft_wool",
+      "display_name": "云羊绒",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_fruit",
+      "display_name": "青灵果",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_ingot",
+      "display_name": "玄灵锭",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_ore",
+      "display_name": "玄灵矿",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_pill",
+      "display_name": "凝神丹",
+      "capacity_counted": true,
+      "grade": 3,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "star_dust",
+      "display_name": "星砂",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "star_ingot",
+      "display_name": "星纹锭",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "star_ore",
+      "display_name": "星纹矿",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "stone",
+      "display_name": "石材",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "stone_core",
+      "display_name": "巨灵岩核",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "thorn_heart",
+      "display_name": "荆棘妖心",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "wood",
+      "display_name": "灵木",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_stone_low",
+      "display_name": "下品灵石",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_stone_mid",
+      "display_name": "中品灵石",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_stone_high",
+      "display_name": "上品灵石",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_stone_supreme",
+      "display_name": "极品灵石",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spirit_stone_immortal",
+      "display_name": "仙品灵石",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "ordinary_wood",
+      "display_name": "普通木材",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    },
+    {
+      "domain": "resources",
+      "machine_id": "spring_water",
+      "display_name": "灵泉水",
+      "capacity_counted": true,
+      "grade": null,
+      "tier": "待定"
+    }
+  ]
+}

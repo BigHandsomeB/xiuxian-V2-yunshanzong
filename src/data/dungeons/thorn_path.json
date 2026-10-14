@@ -1,0 +1,169 @@
+{
+  "id": "thorn_path",
+  "name": "荆棘古道",
+  "floors": 100,
+  "elite_interval": 10,
+  "background_asset_id": "scene.battle.thorn",
+  "monsters": [
+    {
+      "id": "thorn_normal_1",
+      "name": "荆棘鼠",
+      "tier": "normal",
+      "order": 0,
+      "asset_id": "monster.dungeon.thorn_normal_1",
+      "hp": 30,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_2",
+      "name": "青苔野兔",
+      "tier": "normal",
+      "order": 1,
+      "asset_id": "monster.dungeon.thorn_normal_2",
+      "hp": 32,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_3",
+      "name": "灰羽山鸦",
+      "tier": "normal",
+      "order": 2,
+      "asset_id": "monster.dungeon.thorn_normal_3",
+      "hp": 34,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_4",
+      "name": "石背蜥",
+      "tier": "normal",
+      "order": 3,
+      "asset_id": "monster.dungeon.thorn_normal_4",
+      "hp": 36,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_5",
+      "name": "赤眼山狐",
+      "tier": "normal",
+      "order": 4,
+      "asset_id": "monster.dungeon.thorn_normal_5",
+      "hp": 38,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_6",
+      "name": "青牙野猪",
+      "tier": "normal",
+      "order": 5,
+      "asset_id": "monster.dungeon.thorn_normal_6",
+      "hp": 40,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_7",
+      "name": "枯枝螳螂",
+      "tier": "normal",
+      "order": 6,
+      "asset_id": "monster.dungeon.thorn_normal_7",
+      "hp": 42,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_8",
+      "name": "毒须蜈蚣",
+      "tier": "normal",
+      "order": 7,
+      "asset_id": "monster.dungeon.thorn_normal_8",
+      "hp": 44,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_9",
+      "name": "藤蔓木偶",
+      "tier": "normal",
+      "order": 8,
+      "asset_id": "monster.dungeon.thorn_normal_9",
+      "hp": 46,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_normal_10",
+      "name": "碎石泥灵",
+      "tier": "normal",
+      "order": 9,
+      "asset_id": "monster.dungeon.thorn_normal_10",
+      "hp": 48,
+      "attack": 4,
+      "armor": 0
+    },
+    {
+      "id": "thorn_elite_1",
+      "name": "荆甲巨鼠",
+      "tier": "elite",
+      "order": 0,
+      "asset_id": "monster.dungeon.thorn_elite_1",
+      "hp": 65,
+      "attack": 7,
+      "armor": 1
+    },
+    {
+      "id": "thorn_elite_2",
+      "name": "裂岩山猪",
+      "tier": "elite",
+      "order": 1,
+      "asset_id": "monster.dungeon.thorn_elite_2",
+      "hp": 69,
+      "attack": 7,
+      "armor": 1
+    },
+    {
+      "id": "thorn_elite_3",
+      "name": "赤尾妖狐",
+      "tier": "elite",
+      "order": 2,
+      "asset_id": "monster.dungeon.thorn_elite_3",
+      "hp": 73,
+      "attack": 7,
+      "armor": 1
+    },
+    {
+      "id": "thorn_elite_4",
+      "name": "百足毒母",
+      "tier": "elite",
+      "order": 3,
+      "asset_id": "monster.dungeon.thorn_elite_4",
+      "hp": 77,
+      "attack": 7,
+      "armor": 1
+    },
+    {
+      "id": "thorn_elite_5",
+      "name": "古藤卫士",
+      "tier": "elite",
+      "order": 4,
+      "asset_id": "monster.dungeon.thorn_elite_5",
+      "hp": 81,
+      "attack": 7,
+      "armor": 1
+    },
+    {
+      "id": "thorn_boss_1",
+      "name": "荆棘山魈王",
+      "tier": "boss",
+      "order": 0,
+      "asset_id": "monster.dungeon.thorn_boss_1",
+      "hp": 240,
+      "attack": 12,
+      "armor": 2
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "materials": [
+    {
+      "id": "purple_copper",
+      "name": "紫铜矿",
+      "asset_id": "icon.resource.a7bfa439c6e0b",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "black_gold",
+      "name": "乌金矿",
+      "asset_id": "icon.resource.a7d20d5a10acb",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "fire_pattern_stone",
+      "name": "火纹石",
+      "asset_id": "icon.resource.a667d72ad39b9",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "beast_bone",
+      "name": "兽骨",
+      "asset_id": "icon.material.a09e2013d3143",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "beast_sinew",
+      "name": "兽筋",
+      "asset_id": "icon.material.a2e9f8a1913ea",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "beast_core",
+      "name": "妖丹",
+      "asset_id": "icon.material.a41c29a912934",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "spirit_beast_blood",
+      "name": "灵兽精血",
+      "asset_id": "icon.resource.a2dce3aedb26f",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "crafting_essence",
+      "name": "炼器精华",
+      "asset_id": "icon.material.ac28652d8ab96",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "equipment_blank",
+      "name": "器胚",
+      "asset_id": "icon.material.a877d378c7c0e",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "water_spirit_stone",
+      "name": "水灵石",
+      "asset_id": "icon.resource.aad2098409df1",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "wood_spirit_stone",
+      "name": "木灵石",
+      "asset_id": "icon.resource.abf030878031f",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "green_spirit_stone",
+      "name": "青灵石",
+      "asset_id": "icon.resource.a3f42c0919295",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "condensed_spirit_crystal",
+      "name": "凝灵晶",
+      "asset_id": "icon.resource.a3e429f2648ca",
+      "grade": 1,
+      "tier": "待定"
+    }
+  ]
+}

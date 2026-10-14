@@ -1,0 +1,835 @@
+{
+  "version": "market-v2",
+  "offers_per_day": 20,
+  "price_variation_permille": 200,
+  "tier_weights": [
+    100,
+    60,
+    30,
+    15,
+    6,
+    2
+  ],
+  "max_purchase_quantity": 100,
+  "items": {
+    "red_copper_mine_material_01": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_02": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_03": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_04": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_05": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_06": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_07": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_08": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_09": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_10": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "red_copper_mine_material_11": {
+      "level": 3,
+      "buy_coins": 540,
+      "sell_coins": 216,
+      "value_coins": 360,
+      "boss_only": true,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 2
+    },
+    "red_copper_mine_material_12": {
+      "level": 3,
+      "buy_coins": 720,
+      "sell_coins": 288,
+      "value_coins": 480,
+      "boss_only": true,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 2
+    },
+    "mist_marsh_material_01": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_02": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_03": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_04": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_05": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_06": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_07": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_08": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_09": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_10": {
+      "level": 3,
+      "buy_coins": 135,
+      "sell_coins": 54,
+      "value_coins": 90,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "mist_marsh_material_11": {
+      "level": 4,
+      "buy_coins": 1620,
+      "sell_coins": 648,
+      "value_coins": 1080,
+      "boss_only": true,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100,
+        "mist_marsh": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 2
+    },
+    "mist_marsh_material_12": {
+      "level": 4,
+      "buy_coins": 2160,
+      "sell_coins": 864,
+      "value_coins": 1440,
+      "boss_only": true,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100,
+        "mist_marsh": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 2
+    },
+    "purple_copper": {
+      "level": 2,
+      "buy_coins": 30,
+      "sell_coins": 12,
+      "value_coins": 20,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "black_gold": {
+      "level": 3,
+      "buy_coins": 68,
+      "sell_coins": 27,
+      "value_coins": 45,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "fire_pattern_stone": {
+      "level": 3,
+      "buy_coins": 68,
+      "sell_coins": 27,
+      "value_coins": 45,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "beast_bone": {
+      "level": 1,
+      "buy_coins": 12,
+      "sell_coins": 4,
+      "value_coins": 8,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "beast_sinew": {
+      "level": 2,
+      "buy_coins": 36,
+      "sell_coins": 14,
+      "value_coins": 24,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "beast_core": {
+      "level": 3,
+      "buy_coins": 90,
+      "sell_coins": 36,
+      "value_coins": 60,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "spirit_beast_blood": {
+      "level": 4,
+      "buy_coins": 270,
+      "sell_coins": 108,
+      "value_coins": 180,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "crafting_essence": {
+      "level": 3,
+      "buy_coins": 75,
+      "sell_coins": 30,
+      "value_coins": 50,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "equipment_blank": {
+      "level": 2,
+      "buy_coins": 45,
+      "sell_coins": 18,
+      "value_coins": 30,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "water_spirit_stone": {
+      "level": 3,
+      "buy_coins": 68,
+      "sell_coins": 27,
+      "value_coins": 45,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "wood_spirit_stone": {
+      "level": 3,
+      "buy_coins": 68,
+      "sell_coins": 27,
+      "value_coins": 45,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "green_spirit_stone": {
+      "level": 3,
+      "buy_coins": 68,
+      "sell_coins": 27,
+      "value_coins": 45,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "condensed_spirit_crystal": {
+      "level": 4,
+      "buy_coins": 300,
+      "sell_coins": 120,
+      "value_coins": 200,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100,
+        "red_copper_mine": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "thorn_spine": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_moss_fur": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_feather": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_scale": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_fox_fur": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_boar_bone": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_sickle": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_centipede_shell": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_vine_core": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_earth_core": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "thorn_king_tusk": {
+      "level": 2,
+      "buy_coins": 180,
+      "sell_coins": 72,
+      "value_coins": 120,
+      "boss_only": true,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 2
+    },
+    "thorn_king_core": {
+      "level": 2,
+      "buy_coins": 240,
+      "sell_coins": 96,
+      "value_coins": 160,
+      "boss_only": true,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 2
+    },
+    "copper": {
+      "level": 1,
+      "buy_coins": 9,
+      "sell_coins": 3,
+      "value_coins": 6,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "hide": {
+      "level": 1,
+      "buy_coins": 12,
+      "sell_coins": 4,
+      "value_coins": 8,
+      "boss_only": false,
+      "unlock": {
+        "thorn_path": 100
+      },
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "ordinary_wood": {
+      "level": 1,
+      "buy_coins": 3,
+      "sell_coins": 1,
+      "value_coins": 2,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 100
+    },
+    "spring_water": {
+      "level": 1,
+      "buy_coins": 3,
+      "sell_coins": 1,
+      "value_coins": 2,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 100
+    },
+    "wood": {
+      "level": 2,
+      "buy_coins": 12,
+      "sell_coins": 4,
+      "value_coins": 8,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "stone": {
+      "level": 1,
+      "buy_coins": 5,
+      "sell_coins": 1,
+      "value_coins": 3,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 100
+    },
+    "ore": {
+      "level": 1,
+      "buy_coins": 5,
+      "sell_coins": 1,
+      "value_coins": 3,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 100
+    },
+    "ingot": {
+      "level": 1,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "herb": {
+      "level": 1,
+      "buy_coins": 6,
+      "sell_coins": 2,
+      "value_coins": 4,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 100
+    },
+    "grain": {
+      "level": 1,
+      "buy_coins": 3,
+      "sell_coins": 1,
+      "value_coins": 2,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 100
+    },
+    "egg": {
+      "level": 1,
+      "buy_coins": 8,
+      "sell_coins": 3,
+      "value_coins": 5,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "fish": {
+      "level": 1,
+      "buy_coins": 9,
+      "sell_coins": 3,
+      "value_coins": 6,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "food": {
+      "level": 1,
+      "buy_coins": 12,
+      "sell_coins": 4,
+      "value_coins": 8,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "spirit_iron_ore": {
+      "level": 2,
+      "buy_coins": 15,
+      "sell_coins": 6,
+      "value_coins": 10,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "spirit_iron_ingot": {
+      "level": 2,
+      "buy_coins": 53,
+      "sell_coins": 21,
+      "value_coins": 35,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "spirit_plank": {
+      "level": 2,
+      "buy_coins": 36,
+      "sell_coins": 14,
+      "value_coins": 24,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 30
+    },
+    "refined_iron_ingot": {
+      "level": 3,
+      "buy_coins": 120,
+      "sell_coins": 48,
+      "value_coins": 80,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 5
+    },
+    "spirit_stone_low": {
+      "level": 2,
+      "buy_coins": 60,
+      "sell_coins": 24,
+      "value_coins": 40,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 20
+    },
+    "spirit_stone_mid": {
+      "level": 3,
+      "buy_coins": 180,
+      "sell_coins": 72,
+      "value_coins": 120,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 1,
+      "daily_quantity": 6
+    },
+    "spirit_stone_high": {
+      "level": 4,
+      "buy_coins": 540,
+      "sell_coins": 216,
+      "value_coins": 360,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 3,
+      "daily_quantity": 2
+    },
+    "spirit_stone_supreme": {
+      "level": 5,
+      "buy_coins": 1620,
+      "sell_coins": 648,
+      "value_coins": 1080,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 3,
+      "daily_quantity": 1
+    },
+    "spirit_stone_immortal": {
+      "level": 6,
+      "buy_coins": 4860,
+      "sell_coins": 1944,
+      "value_coins": 3240,
+      "boss_only": false,
+      "unlock": {},
+      "sect_level": 3,
+      "daily_quantity": 1
+    }
+  },
+  "orders_per_day": 3,
+  "order_reward_permille": 850,
+  "auction_period_days": 7,
+  "auction_duration_days": 2,
+  "auction_slots": 3,
+  "auction_commission_permille": 100,
+  "consignment_limit": 3
+}

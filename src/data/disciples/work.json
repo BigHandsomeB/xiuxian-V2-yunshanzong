@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "content_version": "work-v1-6.3.0-r1",
+  "groups": [
+    {
+      "machine_id": "ordinary_farm",
+      "display_name": "普通农务编制",
+      "initial_count": 2
+    },
+    {
+      "machine_id": "ordinary_cook",
+      "display_name": "普通炊事编制",
+      "initial_count": 1
+    },
+    {
+      "machine_id": "ordinary_gather",
+      "display_name": "普通采集编制",
+      "initial_count": 3
+    },
+    {
+      "machine_id": "ordinary_alchemy",
+      "display_name": "普通炼丹编制",
+      "initial_count": 1
+    },
+    {
+      "machine_id": "ordinary_build",
+      "display_name": "普通建造编制",
+      "initial_count": 1
+    }
+  ],
+  "building_work": [
+    {
+      "machine_id": "house",
+      "display_name": "弟子居",
+      "slots_per_level": 5,
+      "enabled": false
+    },
+    {
+      "machine_id": "field",
+      "display_name": "灵田",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "garden",
+      "display_name": "药圃",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "canteen",
+      "display_name": "灵膳房",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "pasture",
+      "display_name": "御兽苑 · 生产设施",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "forest",
+      "display_name": "后山 · 灵木林",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "mine",
+      "display_name": "后山 · 玄矿洞",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "quarry",
+      "display_name": "后山 · 采石崖",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "jade_mine",
+      "display_name": "后山 · 灵玉窟",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "alchemy",
+      "display_name": "丹鼎阁",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "forge",
+      "display_name": "炼器阁 · 炼器",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "smelter",
+      "display_name": "炼器阁 · 冶炼",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "woodshop",
+      "display_name": "百工坊 · 木作",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "stoneworks",
+      "display_name": "百工坊 · 石作",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "weaving",
+      "display_name": "百工坊 · 织造",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "builders",
+      "display_name": "营造司",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "warehouse",
+      "display_name": "万宝库",
+      "slots_per_level": 5,
+      "enabled": false
+    },
+    {
+      "machine_id": "spring",
+      "display_name": "灵植园 · 灵泉",
+      "slots_per_level": 5,
+      "enabled": false
+    },
+    {
+      "machine_id": "trading",
+      "display_name": "万宝楼",
+      "slots_per_level": 5,
+      "enabled": true
+    },
+    {
+      "machine_id": "cave",
+      "display_name": "问道峰 · 宗主洞府",
+      "slots_per_level": 1,
+      "enabled": false
+    },
+    {
+      "machine_id": "library",
+      "display_name": "问道峰 · 藏经阁",
+      "slots_per_level": 3,
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "content_version": "growth-v1-6.3.0-r1",
+  "starting_realm": "realm_0",
+  "realms": [
+    {
+      "machine_id": "realm_0",
+      "display_name": "炼气",
+      "index": 0,
+      "threshold": 1800,
+      "next_realm_id": "realm_1",
+      "power": 1,
+      "cost": {
+        "pill": 3,
+        "coins": 80
+      }
+    },
+    {
+      "machine_id": "realm_1",
+      "display_name": "筑基",
+      "index": 1,
+      "threshold": 0,
+      "next_realm_id": null,
+      "power": 2,
+      "cost": {}
+    }
+  ],
+  "action": {
+    "machine_id": "pill_train",
+    "display_name": "使用凝气丹修炼",
+    "required_item_id": "pill",
+    "quantity": 1,
+    "gain": 80
+  }
+}
