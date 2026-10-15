@@ -6,7 +6,7 @@
 
 手机竖屏 · 宗门经营 · 自动战斗 · 像素修仙
 
-[游戏预览](#游戏预览) · [世界概况](#世界概况) · [已实现功能](#已实现功能) · [本地运行](#本地运行) · [后续开发计划](#后续开发计划) · [版本历史](#版本历史)
+[游戏预览](#游戏预览) · [世界概况](#世界概况) · [已实现功能](#已实现功能) · [本地运行](#本地运行) · [在线部署](#在线部署) · [后续开发计划](#后续开发计划) · [版本历史](#版本历史)
 
 </div>
 
@@ -110,32 +110,191 @@
 
 ## 本地运行
 
-需要 Python 3.11 或更新版本。请在项目根目录执行：
+GitHub 保存代码和素材，不会自动启动游戏。下载后运行 Python 后端，再用浏览器打开游戏。无需启动素材管理器。
 
-```sh
+### 1. 准备环境
+
+- Python **3.11 或更新版本**、Git。
+- Linux 或 macOS；Windows 请在 **WSL 的 Linux 终端**中执行下面的命令。项目使用 Unix 文件锁，不能直接照搬到 Windows PowerShell。[Python 文件锁说明](https://docs.python.org/3/library/fcntl.html)
+- 以下示例使用 Bash。安装依赖只需在自己的电脑或服务器上完成一次。
+
+### 2. 下载源码
+
+```bash
+git clone https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong.git
+cd xiuxian-V2-yunshanzong
+```
+
+也可通过仓库的 **Code → Download ZIP** 下载并解压，然后在解压目录打开终端。
+
+### 3. 安装依赖
+
+```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
+```
 
-# 显式创建当前内容的新档；已有存档时拒绝覆盖
+### 4. 创建自己的新档
+
+```bash
 .venv/bin/python -B -m tools.playable.setup_local
+```
 
-# 口令只存在于本机环境中
+**只在第一次运行时执行。** 初始化使用当前完整内容配置，已有存档时拒绝覆盖。原作者的存档和口令不在仓库中，每个人下载后创建自己的进度。
+
+### 5. 设置口令并启动
+
+```bash
+# 自动生成自己的随机口令；不要把它提交到 GitHub
 export ASSET_MANAGER_TOKEN="$(.venv/bin/python -c 'import secrets; print(secrets.token_urlsafe(32))')"
+
+# 仅在自己的终端查看，用于浏览器登录
+printf '本机登录口令：%s\n' "$ASSET_MANAGER_TOKEN"
+
+# 本地 HTTP 模式
+export GAME_LOCAL_HTTP=1
+
+# 启动游戏，终端保持运行
+.venv/bin/python -B -m tools.playable.server
+```
+
+打开 **http://127.0.0.1:8000/game/**，输入刚才生成的口令即可游玩。停止服务时在终端按 **Ctrl+C**。手机不能通过自己手机的 `127.0.0.1` 访问电脑；需要下面的服务器部署方式。
+
+### 6. 下次继续游玩
+
+在项目目录重新执行“设置口令并启动”，**不要再次创建新档**。每次可生成新登录口令，存档仍保留；如果希望复用口令，可在自己的终端用隐藏输入设置：
+
+```bash
+read -r -s -p '输入自己的登录口令（至少24字符）：' ASSET_MANAGER_TOKEN
+printf '\n'
+export ASSET_MANAGER_TOKEN
 export GAME_LOCAL_HTTP=1
 .venv/bin/python -B -m tools.playable.server
 ```
 
-打开 **http://127.0.0.1:8000/game/**，使用本机环境中的 `ASSET_MANAGER_TOKEN` 登录。新档使用当前完整内容配置，后续重启不重复初始化。运行数据生成于 `.game/`，已纳入 Git 忽略规则。
+运行数据保存在项目的 **`.game/`** 目录。更新源码或移动目录时保留这个目录；它不会上传到 GitHub。备份优先使用游戏提供的存档备份入口；需要复制整个目录时，先停止服务，再复制完整目录，避免遗漏正在写入的 SQLite 数据。
 
-`GAME_LOCAL_HTTP=1` 仅用于本地 HTTP 开发。HTTPS 部署时移除该变量，通过 `GAME_ALLOWED_HOSTS` 配置可信主机名，并让可信反向代理覆盖 `X-Forwarded-Proto`。游戏监听回环地址；生产口令、代理配置与服务器地址需要自行设置。
+## 在线部署
 
-素材管理器可另行运行：
+在线部署后，手机或其他电脑可以通过自己的 HTTPS 域名访问。**当前每个服务实例只有一份存档和一个访问口令**：同一个实例的访问者会操作同一份进度。适合私人实例或小范围体验；多人账号、各自独立存档和公开运营隔离尚未实现。
 
-```sh
+下面均为新环境的通用示例，域名、证书路径和账号需要替换为部署者自己的值，不包含原作者的服务器配置。
+
+### 1. 准备自己的服务器
+
+准备可运行 Python 3.11+ 的 Linux 主机、Git、Nginx，以及指向该主机的域名和有效 TLS 证书。下载源码、建立虚拟环境、安装依赖和创建新档，步骤与“本地运行”第2～4步相同。使用对项目运行目录有写权限的专用账号；不要复制别人的真实存档。
+
+### 2. 启动 HTTPS 后端
+
+在项目目录执行：
+
+```bash
+# 域名仅为示例；替换成自己的域名，不写协议和路径
+export GAME_ALLOWED_HOSTS="game.example.com,localhost,127.0.0.1"
+
+# HTTPS 模式不能启用本地 HTTP Cookie 设置
+unset GAME_LOCAL_HTTP
+
+# 自己设置至少24字符的随机口令，不使用公开示例口令
+read -r -s -p '输入自己的登录口令（至少24字符）：' ASSET_MANAGER_TOKEN
+printf '\n'
+export ASSET_MANAGER_TOKEN
+
+# 在自己的服务器安装在线部署所需的 WSGI 服务
+.venv/bin/python -m pip install gunicorn
+
+# 从一个工作进程开始，不按 CPU 数量自动扩张
+.venv/bin/gunicorn --workers 1 --threads 1 --bind 127.0.0.1:8000 --timeout 60 'tools.playable.server:application()'
+```
+
+后端监听 **本机回环地址的8000端口**，由 Nginx 提供外部 HTTPS 入口。不要为这个流程修改源码监听地址或直接公开后端端口。
+
+### 3. 配置 HTTPS 反向代理
+
+下面是独立虚拟主机示例；替换域名和证书文件路径后，放入自己系统对应的 Nginx 配置目录。**不要覆盖已有网站的配置。**
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name game.example.com;
+
+    ssl_certificate     /path/to/your/fullchain.pem;
+    ssl_certificate_key /path/to/your/privkey.pem;
+
+    location / {
+        # 不加尾部路径，保留 /game/ 等完整请求路径
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $remote_addr;
+
+        # 存档备份接口允许的请求体大于普通玩法请求
+        client_max_body_size 8m;
+        proxy_read_timeout 60s;
+    }
+}
+```
+
+由可信代理覆盖 `X-Forwarded-Proto`，保留原始 Host；应用的可信主机配置应与自己的域名一致。配置路径是否保留取决于 `proxy_pass` 是否带 URI；本示例不带 URI。[Nginx 官方代理说明](https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass)
+
+在自己的服务器上检查配置后再加载：
+
+```bash
+sudo nginx -t
+# 仅在检查通过后执行
+sudo systemctl reload nginx
+```
+
+系统没有 systemd 时，使用该系统对应的 Nginx 重载方式。浏览器访问 **https://game.example.com/game/**，替换为自己的域名，使用自己的口令登录。
+
+### 4. 持续运行与维护
+
+先用前台方式确认登录、静态素材和游戏页面正常，再通过自己的服务管理器保持后端运行。以下 systemd 模板可供有管理经验的部署者配置：
+
+```ini
+[Unit]
+Description=Yunshanzong game instance
+After=network.target
+
+[Service]
+Type=simple
+User=YOUR_GAME_USER
+WorkingDirectory=/absolute/path/to/xiuxian-V2-yunshanzong
+EnvironmentFile=/absolute/private/path/yunshanzong.env
+ExecStart=/absolute/path/to/xiuxian-V2-yunshanzong/.venv/bin/gunicorn --workers 1 --threads 1 --bind 127.0.0.1:8000 --timeout 60 'tools.playable.server:application()'
+Restart=on-failure
+RestartSec=5
+Nice=10
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
+```
+
+先替换账号、项目和私密环境文件路径。环境文件只放自己的 `ASSET_MANAGER_TOKEN` 与 `GAME_ALLOWED_HOSTS`，限制文件读取权限，不设置 `GAME_LOCAL_HTTP`，不要提交到仓库。部署者在自己的服务器安装服务模板后，可用 `systemctl daemon-reload` 和 `systemctl enable --now 自己的服务名` 启动；查看日志并监控内存、CPU和磁盘。
+
+本地启动命令使用 Werkzeug 开发服务，在线示例改用 Gunicorn 调用现有 WSGI 工厂；Gunicorn 是部署者自行安装的可选依赖，不在现有游戏依赖文件中。此示例从一个工作进程开始，仍不代表项目已经具备多人运营隔离或通过并发负载验收。[Werkzeug 服务说明](https://werkzeug.palletsprojects.com/en/stable/serving/) · [Gunicorn 工厂入口说明](https://docs.gunicorn.org/en/21.0.1/run.html)
+
+更新前停服务并备份自己的存档；确认兼容后再更新代码、依赖和重启。已有存档升级应按版本的显式迁移说明操作，不要删档重建来代替迁移。本文模板未在本次文档更新中实际部署到服务器，不是自动安装脚本。
+
+### 多人独立游玩的边界
+
+- **各自下载并本地运行**：每个人拥有自己的存档。
+- **各自部署一个实例**：实例之间独立；同一台主机上的不同实例还需要单独端口、运行目录和代理配置，当前代码没有提供一键多实例入口。
+- **所有人访问同一个实例**：共用一份进度；访问口令不是多人账号系统。
+- **公开多人服务**：需要先实现玩家身份、存档隔离、权限与相应容量验证。GitHub Pages 只托管静态页面，不能直接运行本项目的 Python/SQLite 后端。[GitHub Pages 官方说明](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
+
+## 素材管理器（可选）
+
+单纯游玩不需要启动素材管理器。开发自己的素材时，可在已设置口令的终端中单独运行：
+
+```bash
 .venv/bin/python -B -m tools.asset_manager
 ```
 
-访问 http://127.0.0.1:8001。它会建立自己的空元数据库，**不含原项目的素材制作历史**。游戏运行读取正式 Manifest 和小型公开图鉴索引，无须先启动素材管理器。图鉴索引只保存展示所需的名称、分类和顺序，不包含制作数据库或历史。
+访问 http://127.0.0.1:8001。它会建立自己的空元数据库，不含原项目的素材制作历史。游戏运行读取正式 Manifest 和公开图鉴索引；素材管理器不必与游戏一同运行。
 
 ## 项目结构
 
