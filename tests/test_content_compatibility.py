@@ -92,10 +92,16 @@ class Fixtures:
 
 
 class ContentPolicyTests(Fixtures,unittest.TestCase):
-    def test_three_explicit_profiles_and_directional_policies(self):
+    def test_five_explicit_profiles_and_directional_policies(self):
         table = content.validate_profiles()
         from src.data.combat.mechanics import CONTENT_VERSION as EFFECTS
-        self.assertEqual(set(table),{OLD,CURRENT,EFFECTS})
+        from src.data.combat.skill_timing import CONTENT_VERSION as TIMED
+        from src.data.artifacts.definitions import CONTENT_VERSION as ARTIFACTS
+        self.assertEqual(set(table),{OLD,CURRENT,EFFECTS,TIMED,ARTIFACTS})
+        self.assertEqual(content.transition(TIMED,ARTIFACTS),'REQUIRES_EXPLICIT_MIGRATION')
+        self.assertEqual(content.transition(ARTIFACTS,TIMED),'BLOCKED')
+        self.assertEqual(content.transition(EFFECTS,TIMED),'REQUIRES_EXPLICIT_MIGRATION')
+        self.assertEqual(content.transition(TIMED,EFFECTS),'BLOCKED')
         self.assertEqual(content.transition(CURRENT,EFFECTS),'REQUIRES_EXPLICIT_MIGRATION')
         self.assertEqual(content.transition(EFFECTS,CURRENT),'BLOCKED')
         self.assertEqual(content.transition(OLD,CURRENT),'REQUIRES_EXPLICIT_MIGRATION')

@@ -10,6 +10,7 @@ from src.systems.combat import equipment_effects as effects
 from src.data.dungeons.expeditions import loot_version,valid_loot_version
 from src.data.combat import mechanics as effect_definitions
 from src.systems.combat import mechanics
+from src.data.combat.skill_timing import VERSION as TIMED_VERSION
 
 STATUSES=('ACTIVE','PLAYER_WIN','PLAYER_LOSE','ABANDONED','SETTLED')
 COMMANDS=('combat_start','combat_attack','combat_abandon','combat_reward')
@@ -50,15 +51,21 @@ def validate(partition,registry,save_id):
     b=partition['battle']
     if b is None:return
     fields={'battle_id','encounter_id','player_id','enemy_id','status','player_hp_milli','enemy_hp_milli','step','latest_events','reward_state','reward'}
-    if not isinstance(b,Mapping) or not fields<=set(b) or set(b)-fields-{'player_snapshot','loot_version','rules_version','enemy_hp_scale_bps','reward_compensation_bps','visual_events_online','growth_snapshot','mechanics'}:raise ValidationError('exact battle state required')
+    if not isinstance(b,Mapping) or not fields<=set(b) or set(b)-fields-{'player_snapshot','loot_version','rules_version','enemy_hp_scale_bps','reward_compensation_bps','visual_events_online','growth_snapshot','mechanics','artifact_snapshot'}:raise ValidationError('exact battle state required')
     for key in ('enemy_hp_scale_bps','reward_compensation_bps'):
         if key in b:integer(b[key],key,10000)
     if 'visual_events_online' in b and type(b['visual_events_online']) is not bool:raise ValidationError('boolean visual event source required')
-    if 'rules_version' in b and b['rules_version'] not in (RULES_VERSION,effect_definitions.VERSION):raise ValidationError('unsupported combat rules version')
-    cfg=effect_definitions.settings(registry)
-    if b.get('rules_version')==effect_definitions.VERSION:
+    if 'rules_version' in b and b['rules_version'] not in (RULES_VERSION,effect_definitions.VERSION,TIMED_VERSION):raise ValidationError('unsupported combat rules version')
+    cfg=effect_definitions.settings(registry,b.get('rules_version'))
+    if b.get('rules_version') in (effect_definitions.VERSION,TIMED_VERSION):
         if not cfg or 'mechanics' not in b:raise ValidationError('missing effect battle state')
         mechanics.validate(b['mechanics'],cfg,b['step'])
+        artifact_sources=[s for s in b['mechanics']['sources'] if s['group']=='artifacts']
+        if 'artifact_snapshot' in b:
+            from src.systems.artifacts.artifacts import validate_snapshot
+            value=validate_snapshot(b['artifact_snapshot'],registry)
+            if artifact_sources!=[{'group':'artifacts','id':value['artifact_id'],'level':value['level']}]:raise ValidationError('artifact combat source mismatch')
+        elif artifact_sources:raise ValidationError('missing artifact snapshot')
     elif 'mechanics' in b:raise ValidationError('historical battle cannot carry new effects')
     if 'loot_version' in b and not valid_loot_version(registry,b['encounter_id'],b['loot_version']):raise ValidationError('unknown battle loot version')
     version=loot_version(registry,b['encounter_id'])
@@ -102,7 +109,7 @@ def validate_player_input(p,registry,save_id):
     for k in ("max_hp_milli","attack_milli"):integer(p[k],k,1)
     integer(p["armor_milli"],"armor")
 
-def start(partition,registry,save_id,battle_id,encounter_id,*,player_snapshot=None,growth_snapshot=None,equipment_sources=()):
+def start(partition,registry,save_id,battle_id,encounter_id,*,player_snapshot=None,growth_snapshot=None,equipment_sources=(),artifact_snapshot=None):
     validate(partition,registry,save_id)
     old=partition['battle']
     if old and old['status'] in ('ACTIVE','PLAYER_WIN'):raise ConflictError('finish or settle current battle before start')
@@ -115,6 +122,9 @@ def start(partition,registry,save_id,battle_id,encounter_id,*,player_snapshot=No
     b['enemy_hp_milli']=effective_monster(registry,b).base_hp_milli
     if player_snapshot is not None:b['player_snapshot']=p
     if growth_snapshot is not None:b['growth_snapshot']=growth_snapshot
+    if artifact_snapshot is not None:
+        from src.systems.artifacts.artifacts import validate_snapshot
+        validate_snapshot(artifact_snapshot,registry);b['artifact_snapshot']=artifact_snapshot
     version=loot_version(registry,encounter_id)
     if version:b['loot_version']=version
     cfg=effect_definitions.settings(registry)
@@ -129,9 +139,10 @@ def start(partition,registry,save_id,battle_id,encounter_id,*,player_snapshot=No
                     sources.append({'group':'techniques','id':key,'level':techniques.level(manuals,row,part['owned'][key])})
         for key in equipment_sources:
             if key in cfg['equipment']:sources.append({'group':'equipment','id':key,'level':1})
+        if artifact_snapshot is not None:sources.append({'group':'artifacts','id':artifact_snapshot['artifact_id'],'level':artifact_snapshot['level']})
         enemy_source=e.asset_id.replace('.','_')
         b['mechanics']=mechanics.initial(cfg,sources,enemy_source if enemy_source in cfg['enemies'] else None)
-        b['rules_version']=effect_definitions.VERSION
+        b['rules_version']=cfg['version']
     result=freeze_json({'battle':b});validate(result,registry,save_id);return result
 
 def current(partition,registry,save_id,battle_id):
@@ -142,11 +153,11 @@ def current(partition,registry,save_id,battle_id):
 def attack(partition,registry,save_id,battle_id):
     b=thaw_json(current(partition,registry,save_id,battle_id))
     if b['status']!='ACTIVE':raise ValidationError('battle no longer active')
-    _round(b,effective_monster(registry,b),b.get('player_snapshot') or player(registry,save_id),config=effect_definitions.settings(registry))
+    _round(b,effective_monster(registry,b),b.get('player_snapshot') or player(registry,save_id),config=effect_definitions.settings(registry,b.get('rules_version')))
     result=freeze_json({'battle':b});validate(result,registry,save_id);return result
 
 def _round(b,e,p,*,emit=True,config=None):
-    if b.get('rules_version')==effect_definitions.VERSION:
+    if b.get('rules_version') in (effect_definitions.VERSION,TIMED_VERSION):
         mechanics.Round(b,e,p,config,emit).turn()
         return
     # Shared arithmetic and deterministic rolls; result-only settlement emits no attacks.
@@ -202,7 +213,7 @@ def result_only(partition,registry,save_id):
     rounds=0;before=None
     while b['status']=='ACTIVE':
         before=thaw_json(b) if 'mechanics' in b else dict(b)
-        _round(b,e,p,emit=False,config=effect_definitions.settings(registry));rounds+=1
+        _round(b,e,p,emit=False,config=effect_definitions.settings(registry,b.get('rules_version')));rounds+=1
     result=freeze_json({'battle':b});validate(result,registry,save_id)
     return result,freeze_json({'battle':before}),rounds
 

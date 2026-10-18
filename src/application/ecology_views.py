@@ -157,6 +157,9 @@ class EcologyViews:
                            'basic_meal_ids': list(nutrition.basic_ids(self.registry)),
                            'available': available}
         view['preparation'] = self.preparation_view(state, view)
+        from src.application.artifacts import view as artifact_view
+        artifacts=artifact_view(state,self.registry)
+        if artifacts is not None:view['artifacts']=artifacts
         return freeze_json(view)
 
     def project_economy(self, state):

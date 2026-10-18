@@ -5,15 +5,15 @@ from src.application.memory import Command,Receipt
 from src.core.save.codec import StoredReceipt
 from src.core.state.envelope import thaw_json
 from src.core.validation import ValidationError,ConflictError
-from src.data.content_loader import load_current
 from src.data.dungeons.definitions import load_dungeons
 from src.data.economy.ecology import VERSION as SOURCE_VERSION
-from src.data.combat.mechanics import CONTENT_VERSION
+from src.data.combat.mechanics import CONTENT_VERSION as EFFECTS_VERSION
+from src.data.combat.skill_timing import CONTENT_VERSION
 
 def upgrade(store,clock,request):
     if not isinstance(request,Command) or request.name!='combat_effect_content_upgrade' or request.version!=1 or request.payload:
         raise ValidationError('exact trusted combat effect upgrade required')
-    target=load_current()
+    target=load_dungeons(management=True,cold_jade=True,ecology=True,mechanics=True,skill_timing=True)
     with store.transaction():
         observation=store.inspect(request.save_id,include_recovery=False)
         if observation.status!='CURRENT_VALID':raise ValidationError('valid current save required')
@@ -27,9 +27,9 @@ def upgrade(store,clock,request):
         if state.content_version==CONTENT_VERSION:
             EcologyApplication(store,target,clock).foundation.validate_state(state)
             return Receipt(request.request_id,state.revision,{'status':'ALREADY_UPGRADED'})
-        if state.content_version!=SOURCE_VERSION:raise ConflictError('需要当前四副本与150正式功法版本')
+        if state.content_version not in (SOURCE_VERSION,EFFECTS_VERSION):raise ConflictError('需要当前四/五副本与150正式功法版本')
         if state.time['pending']:raise ConflictError('请先使用旧版本完成离线续算')
-        old=load_dungeons(management=True,cold_jade=True,ecology=True)
+        old=load_dungeons(management=True,cold_jade=True,ecology=True,mechanics=state.content_version==EFFECTS_VERSION)
         EcologyApplication(store,old,clock).foundation.validate_state(state)
         candidate=replace(state,content_version=CONTENT_VERSION,revision=state.revision+1)
         EcologyApplication(store,target,clock).foundation.validate_state(candidate)
@@ -37,7 +37,7 @@ def upgrade(store,clock,request):
         if candidate.domains!=state.domains or candidate.time!=state.time or candidate.identity!=state.identity:
             raise ValidationError('content upgrade must preserve all saved gameplay facts')
         receipt=Receipt(request.request_id,candidate.revision,{'status':'UPGRADED','content_version':CONTENT_VERSION,
-            'existing_equipment':'PRESERVED','active_battle':'PRESERVED','new_battles':'five-dungeons-effects-v1'})
+            'existing_equipment':'PRESERVED','active_battle':'PRESERVED','new_battles':'timed-skills-v1'})
         store.checkpoint(state.save_id)
         store.commit(state,candidate,StoredReceipt(state.save_id,state.generation,request.request_id,request.digest(),candidate.revision,'command',thaw_json(receipt.result)))
         store.checkpoint(state.save_id)

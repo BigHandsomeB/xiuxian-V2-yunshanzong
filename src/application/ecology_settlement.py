@@ -17,7 +17,10 @@ from src.data.economy.ecology import lookup
 
 class EcologySettlement(ManagementSettlement):
     def configure(self, day_length_ms):
-        self.core = SettlementEngine({
+        from src.data.artifacts.definitions import settings as artifact_settings
+        from src.systems.artifacts import artifacts
+        artifact_handlers={artifacts.DOMAIN:artifacts.simulation(self.registry)} if artifact_settings(self.registry) else {}
+        self.core = SettlementEngine({**artifact_handlers,
             'production': jobs.simulation(self.registry),
             'automation': policy.simulation(self.registry),
             'dungeon': progress.simulation(self.registry),

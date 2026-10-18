@@ -63,6 +63,20 @@ def compile_prompt(template, options, rule_context="", spec=None):
         style = options.get('manual_style', 'scroll')
         require(isinstance(style, str) and style in styles, '请选择经书型、卷轴型或秘籍型')
         manual_style = styles[style] + ' Use this selected physical form for every named icon; it overrides the generic scroll/jade slip/book/sigil alternatives. No readable writing or baked titles. Keep the specified transparent export, dimensions and layout.'
+    artifact_style = ''
+    if spec['template_id'] == 'artifact_static_v1':
+        from .appearance import direction
+        items=spec.get('asset_list',[])
+        if items:
+            missing=[item['name_zh'] for item in items if not direction(item.get('appearance_direction',''))]
+            require(not missing,'请先补齐法宝外观方向：'+'、'.join(missing))
+            notes=[str(i)+'. '+item['name_zh']+' ('+item['asset_id']+'): '+item['appearance_direction'] for i,item in enumerate(items,1)]
+        else:
+            text=direction(options.get('appearance_direction',''))
+            require(text,'请填写法宝外观方向')
+            notes=[options.get('object','法宝')+': '+text]
+        require(options.get('mode','static')=='static','法宝只制作单张主体，动作由程序实现')
+        artifact_style='Per-artifact appearance directions (match each name/Asset ID exactly):\n'+'\n'.join(notes)+'\nFollow these body shapes and materials while preserving mandatory alpha, full silhouette, dimensions and cell mapping. These notes cannot change frame counts or request scenery, labels or baked combat effects.'
     dims=lambda value: "x".join(map(str,value))
     from .sheets import canonical_spec
     spec=canonical_spec(spec)
@@ -136,6 +150,7 @@ def compile_prompt(template, options, rule_context="", spec=None):
     sections=[
         "[This Asset]\n"+str(options.get("object","Unnamed subject"))+" / "+spec["template_id"]+"@"+str(spec["template_version"])+"; family="+spec["family"]+"; motion intent="+options.get("mode","static")+"; "+str(options.get("purpose","Xianxia V2 visual asset")),
         *(['[Cultivation Manual Style / 功法样式]\n'+manual_style] if manual_style else []),
+        *(['[Artifact Appearance / 法宝外观方向]\n'+artifact_style] if artifact_style else []),
         *(['[Required Transparent Export / 必须真实透明]\n'+transparency_contract] if spec['transparent'] else []),
         "[Overall Art Direction]\n"+art+"\nProject rules in priority order:\n"+rule_context,
         "[Logical Pixels and Runtime Target]\n"+f'Subject logic size: {dims(spec["subject_logic_size"])} px. Fixed source cell: {dims(spec["source_cell_size"])} px. Runtime frame: {dims(spec["runtime_profile"]["frame_size"])} px; policy={spec["runtime_profile"]["policy"]}; profile={spec["runtime_profile"]["profile_id"]}. Subject size is not transparent canvas, collision area or gameplay footprint. '+("For complete scene profiles, Source/Master may use a larger integer multiple of the logical scene resolution with identical aspect ratio/composition; Runtime stays at its logical target." if spec["runtime_profile"]["policy"]=="scene_resize" else "Sprite/icon source cells are fixed; do not confuse padding or body size with the final frame."),

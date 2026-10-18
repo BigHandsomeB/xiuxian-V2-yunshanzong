@@ -30,7 +30,10 @@ class EconomyApplication(WorldApplication):
     def _application(self,specs):
         validators={**sect.validators(self.registry),'production':lambda p:jobs.validate(p,self.registry),'disciples':lambda p:work.validate(p,self.registry),'automation':lambda p:policy.validate(p,self.registry)}
         return equip.EconomyPersistence(self.store,self.registry,specs,references=lambda s:references(s,self.registry),validators=validators,settlement_engine=self.engine,clock=self.clock)
-    def player_projection(self,state):return items.projection(equip.equipment(state),growth.projection(partition(state),self.registry,state.save_id))
+    def player_projection(self,state):
+        from src.systems.artifacts import artifacts
+        actor=items.projection(equip.equipment(state),growth.projection(partition(state),self.registry,state.save_id))
+        return artifacts.project(actor,self.registry,self.combat_artifact(state))
     def combat_equipment(self,state):
         p=equip.equipment(state)
         return tuple(p['instances'][identity]['definition_id'] for identity in p['slots'].values())
@@ -40,7 +43,8 @@ class EconomyApplication(WorldApplication):
         v['attributes']=equip.attribute_rows(actor)
         if v['next_realm']:
             p=partition(state);future=({**growth.leveling.normalized(p,self.registry,state.save_id),'current_realm':v['next_realm']['id'],'total_xp':growth.leveling.table(growth.leveling.config(self.registry))[501],'growth_revision':p['growth_revision']+1} if growth.leveling.config(self.registry) else {**p,'current_realm':v['next_realm']['id'],'progress':0,'growth_revision':p['growth_revision']+1})
-            v['next_realm_preview']=growth.stats(items.projection(equip.equipment(state),growth.projection(future,self.registry,state.save_id)))
+            from src.systems.artifacts.artifacts import project
+            v['next_realm_preview']=growth.stats(project(items.projection(equip.equipment(state),growth.projection(future,self.registry,state.save_id)),self.registry,self.combat_artifact(state)))
         return v
     def create(self,state):
         state=replace(state,domains={**state.domains,'automation':state.domains.get('automation',policy.initial()),'equipment':state.domains.get('equipment',items.initial())})
@@ -157,6 +161,8 @@ class EconomyApplication(WorldApplication):
             tier=definition(self.registry,did).tiers[floor-1]
             grown,_=growth.leveling.kill(partition(candidate),self.registry,candidate.save_id,floor,tier,b['battle_id'])
             candidate=replace(candidate,domains={**candidate.domains,'cultivation':grown})
+            from src.systems.artifacts import artifacts
+            candidate=artifacts.award(candidate,self.registry,b,tier)
         return candidate
 
     def reward(self,q):

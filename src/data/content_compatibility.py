@@ -10,6 +10,8 @@ from src.data.dungeons.definitions import COLD_JADE_MANAGEMENT_VERSION
 from src.data.economy.ecology import VERSION as ECOLOGY_VERSION
 from src.data.item_effects import bindings_for
 from src.data.combat.mechanics import CONTENT_VERSION as EFFECTS_VERSION
+from src.data.combat.skill_timing import CONTENT_VERSION as TIMED_VERSION
+from src.data.artifacts.definitions import CONTENT_VERSION as ARTIFACT_VERSION
 
 COMMON_DOMAINS = frozenset({'inventory', 'sect', 'production', 'disciples', 'automation',
     'equipment', 'cultivation', 'combat', 'dungeon', 'sect_management', 'offline_reports'})
@@ -28,7 +30,9 @@ PROFILES = (
     ContentProfile(COLD_JADE_MANAGEMENT_VERSION, 'dungeons',
                    (('management', True), ('cold_jade', True)), 'management', COMMON_DOMAINS),
     ContentProfile(ECOLOGY_VERSION, 'dungeons', (('management',True),('cold_jade',True),('ecology',True)), 'ecology', COMMON_DOMAINS | {'ecology'}),
-    ContentProfile(EFFECTS_VERSION, 'current', (), 'ecology', COMMON_DOMAINS | {'ecology'}),
+    ContentProfile(EFFECTS_VERSION, 'dungeons', (('management',True),('cold_jade',True),('ecology',True),('mechanics',True)), 'ecology', COMMON_DOMAINS | {'ecology'}),
+    ContentProfile(TIMED_VERSION, 'dungeons', (('management',True),('cold_jade',True),('ecology',True),('mechanics',True),('skill_timing',True)), 'ecology', COMMON_DOMAINS | {'ecology'}),
+    ContentProfile(ARTIFACT_VERSION, 'current', (), 'ecology', COMMON_DOMAINS | {'ecology','artifacts'}),
 )
 
 
@@ -37,7 +41,9 @@ def validate_profiles(entries=None):
     result = {}
     expected = {COLD_JADE_MANAGEMENT_VERSION: ('dungeons', (('management', True), ('cold_jade', True)), 'management', COMMON_DOMAINS),
                 ECOLOGY_VERSION: ('dungeons', (('management',True),('cold_jade',True),('ecology',True)), 'ecology', COMMON_DOMAINS | {'ecology'}),
-                EFFECTS_VERSION: ('current', (), 'ecology', COMMON_DOMAINS | {'ecology'})}
+                EFFECTS_VERSION: ('dungeons', (('management',True),('cold_jade',True),('ecology',True),('mechanics',True)), 'ecology', COMMON_DOMAINS | {'ecology'}),
+                TIMED_VERSION: ('dungeons', (('management',True),('cold_jade',True),('ecology',True),('mechanics',True),('skill_timing',True)), 'ecology', COMMON_DOMAINS | {'ecology'}),
+                ARTIFACT_VERSION: ('current', (), 'ecology', COMMON_DOMAINS | {'ecology','artifacts'})}
     for row in entries:
         if not isinstance(row, ContentProfile) or type(row.version) is not str or row.version not in expected:
             raise ValidationError('unsupported runtime content profile')
@@ -64,7 +70,7 @@ def transition(source, target):
     profile(source); profile(target)
     if source == target:
         return 'NOT_NEEDED'
-    return 'REQUIRES_EXPLICIT_MIGRATION' if (source==COLD_JADE_MANAGEMENT_VERSION and target==ECOLOGY_VERSION) or (source==ECOLOGY_VERSION and target==EFFECTS_VERSION) else 'BLOCKED'
+    return 'REQUIRES_EXPLICIT_MIGRATION' if (source==COLD_JADE_MANAGEMENT_VERSION and target==ECOLOGY_VERSION) or (source==ECOLOGY_VERSION and target in (EFFECTS_VERSION,TIMED_VERSION)) or (source==EFFECTS_VERSION and target==TIMED_VERSION) or (source==TIMED_VERSION and target==ARTIFACT_VERSION) else 'BLOCKED'
 
 
 def canonical(value):

@@ -8,7 +8,7 @@ async function testFormalTechniqueUI(sources,fixture,styles) {
  let doc;
  function node(tag='div'){const n={...eventTarget(),tagName:tag.toUpperCase(),children:[],dataset:{},attrs:{},style:{},hidden:false,disabled:false,open:false,textContent:'',ownerDocument:doc,
  prepend(...children){for(const x of children)x.parentNode=this;this.children.unshift(...children);},append(...children){for(const x of children){x.parentNode=this;this.children.push(x);}},replaceChildren(...children){this.children=[];this.append(...children);},remove(){if(this.parentNode)this.parentNode.children=this.parentNode.children.filter(x=>x!==this);},setAttribute(k,v){this.attrs[k]=String(v);},getAttribute(k){return this.attrs[k]??null;},removeAttribute(k){delete this.attrs[k];},focus(){this.focused=true;},showModal(){this.open=true;},close(){this.open=false;},getBoundingClientRect(){return {width:390,height:500,top:0,left:0,right:390,bottom:500};},querySelectorAll(selector){return all(this).filter(x=>selector==='[data-tab]'?!!x.dataset.tab:false);},set src(v){this.attrs.src=v;},get src(){return this.attrs.src;}};
- n.querySelector=selector=>all(n).find(x=>selector==='input[type=number]'?x.tagName==='INPUT'&&x.type==='number':selector==='button.primary'?x.tagName==='BUTTON'&&x.classList.contains('primary'):false)||null;n.dispatchEvent=event=>{n.emit(event.type,event);return true;};n.classList={add(k){n.className=(n.className||'')+' '+k;},contains(k){return (n.className||'').split(' ').includes(k);}};return n;}
+ n.querySelector=selector=>all(n).find(x=>selector==='input[type=number]'?x.tagName==='INPUT'&&x.type==='number':selector==='button.primary'?x.tagName==='BUTTON'&&x.classList.contains('primary'):false)||null;n.dispatchEvent=event=>{n.emit(event.type,event);return true;};n.classList={add(k){n.className=(n.className||'')+' '+k;},remove(k){n.className=(n.className||'').split(' ').filter(v=>v!==k).join(' ');},contains(k){return (n.className||'').split(' ').includes(k);}};return n;}
  function all(n){return [n,...n.children.flatMap(all)];}
  const nodes=new Map(['world-bar','world-status','world-toggle','screen','connection','main-nav','sheet','sheet-title','sheet-content','close-sheet','refresh','toast'].map(id=>[id,node()]));
  const win={...eventTarget(),scrollY:0,innerHeight:844,innerWidth:390,scrollTo(x,y){this.scrollY=y;},matchMedia:()=>({...eventTarget(),matches:false}),requestAnimationFrame:f=>{timers.set(++serial,f);return serial;},cancelAnimationFrame:id=>timers.delete(id)};
@@ -35,6 +35,16 @@ async function testFormalTechniqueUI(sources,fixture,styles) {
   all(collection).find(n=>n.textContent==='功法图鉴').emit('click');collection=library.renderTechniqueLibrary(ctx);check(all(collection).filter(n=>n.dataset.id?.startsWith('manual_')).length===fixture.view.techniques.catalog.length,'catalog cards');
   const unowned=fixture.view.techniques.catalog.find(r=>r.grade==='green'&&!r.owned);all(collection).find(n=>n.dataset.id===unowned.id).emit('click');
   if(unowned.effects_version){check(all(sheet).some(n=>n.textContent==='特殊效果'),'special effect section');check(all(sheet).some(n=>n.textContent===unowned.effect_rules[0]),'effect explanation comes from server');}
+  if(unowned.active_skill){
+   check(all(sheet).some(n=>n.textContent==='被动属性（装备后常驻）'),'passive properties separate');
+   check(all(sheet).some(n=>n.textContent==='主动技能（自动施放）'),'automatic active section');
+   check(all(sheet).some(n=>n.textContent.includes(`冷却 ${unowned.active_skill.cooldown_ms/1000}秒`)),'real seconds from server');
+   check(all(sheet).some(n=>n.textContent.includes('施法耗时 0秒')),'instant cast separate from cooldown');
+   if(unowned.active_skill.duration_turns){
+    check(all(sheet).some(n=>n.textContent.includes(`效果持续 ${unowned.active_skill.duration_turns}回合`)),'actual active duration from server');
+    check(all(sheet).some(n=>n.textContent===unowned.active_skill.base_effect),'active effect from actual rule');
+   }
+  }
   const buy=all(sheet).find(n=>n.textContent==='购买功法');check(!buy.disabled,'affordable buy');buy.emit('click');all(sheet).find(n=>n.textContent==='确认').emit('click');check(commands.at(-1).name==='technique_buy','purchase intent');
   collection=library.renderTechniqueLibrary(ctx);const red=fixture.view.techniques.catalog.find(r=>r.grade==='red');all(collection).find(n=>n.dataset.id===red.id).emit('click');check(all(sheet).some(n=>n.textContent.includes('仙品灵石')),'stone cost');check(all(sheet).some(n=>n.textContent.includes('功法残页')),'page cost');
   if(ctx.data.view.combat?.dungeons?.some(d=>d.id==='fire_elixir_ruins')){
@@ -43,6 +53,18 @@ async function testFormalTechniqueUI(sources,fixture,styles) {
   }
   const effectGear=ctx.data.view.equipment?.instances.find(r=>r.effect_rules?.length);
   if(effectGear){load(base+'screens/equipment.js').equipmentDetail(ctx,effectGear);check(all(sheet).some(n=>n.textContent===effectGear.effect_rules[0]),'equipment special effect is explained');}
+  if(fixture.timed_battle){
+   const combatCtx={...ctx,data:clone(fixture.timed_battle)},before=JSON.stringify(combatCtx.data),scheduled=timers.size;
+   const combatPage=load(base+'screens/battle.js').render(combatCtx),panel=all(combatPage).find(n=>n.dataset.id==='combat-active-skills');
+   check(panel&&!panel.hidden,'active panel visible');
+   check(all(panel).some(n=>n.textContent.includes('冷却 10.0秒')),'battle seconds remaining');
+   check(!all(combatPage).some(n=>n.textContent==='技能 · 尚未开放'),'skill placeholder retired');
+   check(JSON.stringify(combatCtx.data)===before,'battle read model immutable');
+   check(timers.size===scheduled,'cooldown display adds no timer');
+   const old=clone(fixture.timed_battle);delete old.view.combat.effects.skills[0].cooldown_remaining_ms;
+   const oldPage=load(base+'screens/battle.js').render({...ctx,data:old});
+   check(all(oldPage).some(n=>n.textContent.includes('冷却0回合')),'legacy round cooldown still displayed');
+  }
   const shop=library.renderTechniqueLibrary(ctx,{shop:true});check(all(shop).filter(n=>n.dataset.id?.startsWith('manual_')).every(n=>fixture.view.techniques.catalog.find(r=>r.id===n.dataset.id).grade==='green'||fixture.view.techniques.catalog.find(r=>r.id===n.dataset.id).grade==='white'),'low grade shop');
  }
  return {checks,device_visual_verified:false};

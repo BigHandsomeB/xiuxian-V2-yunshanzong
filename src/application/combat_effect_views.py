@@ -1,6 +1,10 @@
 """Read-only Chinese effect explanations from the same committed definitions."""
 from src.core.state.envelope import thaw_json
 from src.data.combat.mechanics import settings
+from src.data.combat.skill_timing import VERSION as TIMED_VERSION
+from src.systems.combat.equipment_effects import interval
+
+def seconds(milliseconds):return str(round(milliseconds/1000,3)).removesuffix('.0')+'秒'
 
 TRIGGERS={'battle_start':'开战','turn_start':'回合开始','turn_end':'回合结束','before_attack':'攻击前',
  'on_hit':'普通攻击命中','on_crit':'普通攻击暴击','on_evade':'成功闪避','on_block':'成功格挡',
@@ -36,7 +40,7 @@ def expression(value,config):
     if op=='if':return '('+parts[0]+'时 '+parts[1]+'，否则 '+parts[2]+')'
     if op in ('gt','ge','lt','le','eq') and len(args)==2 and isinstance(args[0],str) and args[0].endswith('hp_bps') and type(args[1]) is int:
         parts[1]=str(args[1]/100).removesuffix('.0')+'%'
-    if op=='eq' and args[0]=='event.category':parts[1]={1:'绝技',2:'终极'}.get(args[1],parts[1])
+    if op=='eq' and args[0]=='event.category':parts[1]={1:'绝技',2:'终极',3:'身法',4:'防御'}.get(args[1],parts[1])
     if op=='eq' and isinstance(args[0],str) and args[0].startswith('event.') and args[0]!='event.category' and args[1] in (0,1):parts[1]='是' if args[1] else '否'
     if op=='mul' and type(args[1]) is int:return parts[0]+'的'+str(args[1]/100).removesuffix('.0')+'%'
     signs={'gt':' > ','ge':' ≥ ','lt':' < ','le':' ≤ ','eq':' = ','add':' + ','sub':' − ','and':' 且 ','or':' 或 ','div':' ÷ ','mul':' × '}
@@ -48,7 +52,8 @@ def describe(row,config):
     out=[]
     for rule in row['rules']:
         parts=[TRIGGERS[rule['trigger']]]
-        if rule.get('category'):parts.append('自动施放'+('绝技' if rule['category']=='special' else '终极'))
+        if rule.get('category'):parts.append('自动施放'+{'special':'绝技','ultimate':'终极','movement':'身法','defense':'防御'}[rule['category']])
+        if rule.get('requires_active'):parts.append('主动运转期间触发')
         if rule.get('every',1)>1:parts.append('每'+str(rule['every'])+'回合')
         if 'condition' in rule:parts.append('条件：'+expression(rule['condition'],config))
         if rule.get('chance',10000)<10000:parts.append('概率'+str(rule['chance']/100).removesuffix('.0')+'%')
@@ -73,6 +78,7 @@ def describe(row,config):
         parts.append('；'.join(effects))
         if rule.get('cost'):parts.append('消耗真气'+str(rule['cost']))
         if rule.get('cooldown'):parts.append('冷却'+str(rule['cooldown'])+'回合')
+        if rule.get('cooldown_ms'):parts.append('施法0秒 · 冷却'+seconds(rule['cooldown_ms']))
         parts.append('每回合最多'+str(rule.get('per_turn',1))+'次')
         if rule.get('per_battle',10000)<10000:parts.append('每场最多'+str(rule['per_battle'])+'次')
         out.append(' · '.join(parts))
@@ -82,7 +88,17 @@ def technique(registry,key):
     config=settings(registry)
     if not config or key not in config['techniques']:return {}
     row=config['techniques'][key]
-    return {'effect_description':row['description'],'effect_rules':describe(row,config),'effects_version':config['version']}
+    result={'effect_description':row['description'],'effect_rules':describe(row,config),'effects_version':config['version']}
+    if config['version']==TIMED_VERSION and row['category']!='passive':
+        rule=next(r for r in row['rules'] if r.get('category'))
+        duration=next((e['duration'] for e in rule['effects'] if e.get('status')=='active_'+row['category']),None)
+        base={'movement':'速度+12%、闪避+8%','defense':'减伤+12%'}.get(row['category'],row['description'])
+        if duration:base+='，持续'+str(duration)+'回合'
+        result['active_skill']={'category':row['category'],'cast_time_ms':0,'cooldown_ms':rule['cooldown_ms'],
+            'cost':rule.get('cost',0),'duration_turns':duration,
+            'automatic':True,'description':row['description'],
+            'base_effect':base}
+    return result
 
 def equipment(registry,key):
     config=settings(registry)
@@ -91,7 +107,7 @@ def equipment(registry,key):
     return {'effect_description':row['description'],'effect_direction':row['direction'],'effect_rules':describe(row,config),'effects_version':config['version']}
 
 def battle(registry,b):
-    config=settings(registry)
+    config=settings(registry,b.get('rules_version'))
     if not config or 'mechanics' not in b:return {}
     part=b['mechanics'];statuses={}
     for actor in ('player','enemy'):
@@ -104,8 +120,14 @@ def battle(registry,b):
         for rule in row['rules']:
             if not rule.get('category'):continue
             key=source['group']+':'+source['id']+':'+rule['id']
+            timed='cooldown_ms' in rule
+            remaining=max(0,part.get('ready_ms',{}).get(key,0)-part.get('elapsed_ms',0)) if timed else None
+            window='active_'+rule['category']
+            duration=max((s['duration'] for s in part['statuses']['player'] if s['status_id']==window),default=0)
             skills.append({'source_id':source['id'],'name':row['name'],'category':rule['category'],
                 'cooldown_remaining':max(0,part['ready'].get(key,0)-b['step']),
+                **({'cooldown_remaining_ms':remaining,'cooldown_ms':rule['cooldown_ms'],'cast_time_ms':0,
+                    'active_remaining_turns':duration,'active_remaining_ms':duration*interval(b.get('player_snapshot',{}))} if timed else {}),
                 'used':part['counts'].get(key,0),'max_uses':rule.get('per_battle',10000),'cost':rule.get('cost',0)})
     return {'effects':{'statuses':statuses,'shields':thaw_json(part['shields']),'resources':thaw_json(part['resources']),
                        'sources':sources,'skills':skills,'death_prevention_used':part['death_prevention']}}

@@ -54,7 +54,8 @@ class RetiredEconomyApplication(EconomyApplication):
         e=equip.equipment(state)
         kept={k:v for k,v in e['slots'].items() if e['instances'][v]['definition_id'] not in RETIRED_ITEMS}
         if len(kept)!=len(e['slots']):e={**e,'slots':kept}
-        return items.projection(e,growth.projection(partition(state),self.registry,state.save_id))
+        from src.systems.artifacts.artifacts import project
+        return project(items.projection(e,growth.projection(partition(state),self.registry,state.save_id)),self.registry,self.combat_artifact(state))
     def project_cultivation(self,state):
         v=thaw_json(super().project_cultivation(state))
         if v['next_realm'] and not growth.leveling.config(self.registry):

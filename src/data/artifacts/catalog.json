@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "content_version": "sect-artifacts-v1-6.3.0-r1",
+  "growth": {
+    "max_level": 20,
+    "xp_step": 100,
+    "kill_xp": {
+      "normal": 2,
+      "elite": 10,
+      "boss": 50
+    }
+  },
+  "enhancement": {
+    "max_level": 10,
+    "cost": {
+      "crafting_essence": 5,
+      "coins": 100
+    },
+    "core_from_level": 5,
+    "bonus_bps": 1000
+  },
+  "feed": {
+    "thorn_boar_bone": 10,
+    "red_copper_mine_material_01": 15,
+    "mist_marsh_material_02": 20,
+    "cold_jade_cave_material_01": 25,
+    "fire_elixir_ruins_material_01": 30,
+    "beast_bone": 5,
+    "hide": 5,
+    "beast_sinew": 5
+  },
+  "effects": {
+    "pursuit": {
+      "description": "每3回合追加飞剑追击，造成3＋0.5×等级点金属性伤害。",
+      "rules": [
+        {
+          "id": "pursuit",
+          "trigger": "before_attack",
+          "every": 3,
+          "effects": [
+            {
+              "op": "damage",
+              "amount": [
+                "add",
+                3000,
+                [
+                  "mul",
+                  5000000,
+                  "level"
+                ]
+              ],
+              "element": "metal",
+              "kind": "extra_hit",
+              "target": "other"
+            }
+          ]
+        }
+      ]
+    },
+    "shield": {
+      "description": "每6回合获得8＋2×等级点护盾，持续3回合。",
+      "rules": [
+        {
+          "id": "ward",
+          "trigger": "turn_start",
+          "cooldown": 6,
+          "effects": [
+            {
+              "op": "shield",
+              "amount": [
+                "add",
+                8000,
+                [
+                  "mul",
+                  20000000,
+                  "level"
+                ]
+              ],
+              "duration": 3
+            }
+          ]
+        }
+      ]
+    },
+    "soul_heal": {
+      "description": "击败敌人后回复2＋等级点生命，不超过生命上限。",
+      "rules": [
+        {
+          "id": "soul",
+          "trigger": "kill",
+          "effects": [
+            {
+              "op": "heal",
+              "amount": [
+                "add",
+                2000,
+                [
+                  "mul",
+                  10000000,
+                  "level"
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "frost": {
+      "description": "每5回合发出寒气，造成3＋0.5×等级点冰伤，并施加2回合迟缓。",
+      "rules": [
+        {
+          "id": "frost",
+          "trigger": "before_attack",
+          "cooldown": 5,
+          "effects": [
+            {
+              "op": "damage",
+              "amount": [
+                "add",
+                3000,
+                [
+                  "mul",
+                  5000000,
+                  "level"
+                ]
+              ],
+              "element": "ice",
+              "target": "other"
+            },
+            {
+              "op": "status",
+              "status": "slow",
+              "duration": 2,
+              "amount": 1000,
+              "element": "ice",
+              "target": "other"
+            }
+          ]
+        }
+      ]
+    },
+    "burn": {
+      "description": "每4回合喷火，造成3＋0.5×等级点火伤，并附加3回合灼烧，每回合造成0.5＋0.1×等级点伤害。",
+      "rules": [
+        {
+          "id": "fire",
+          "trigger": "before_attack",
+          "cooldown": 4,
+          "effects": [
+            {
+              "op": "damage",
+              "amount": [
+                "add",
+                3000,
+                [
+                  "mul",
+                  5000000,
+                  "level"
+                ]
+              ],
+              "element": "fire",
+              "target": "other"
+            },
+            {
+              "op": "status",
+              "status": "burn",
+              "duration": 3,
+              "amount": [
+                "add",
+                500,
+                [
+                  "mul",
+                  1000000,
+                  "level"
+                ]
+              ],
+              "element": "fire",
+              "target": "other"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "artifacts": {
+    "slayer_sword": {
+      "name": "斩妖飞剑",
+      "glyph": "剑",
+      "source_dungeon_id": "thorn_path",
+      "source_boss_id": "thorn_path_v2_enemy_100",
+      "core_material_id": "thorn_king_tusk",
+      "recipe_id": "forge_artifact_slayer_sword",
+      "inputs": {
+        "thorn_king_tusk": 10,
+        "thorn_boar_bone": 150,
+        "beast_bone": 100,
+        "ingot": 100,
+        "coins": 2000
+      },
+      "duration_ms": 7200000,
+      "unlock_floor": 100,
+      "min_forge_level": 1,
+      "effect_id": "pursuit",
+      "motion_profile_id": "strike",
+      "base_stats": {
+        "attack_milli": 2000,
+        "max_hp_milli": 10000
+      }
+    },
+    "mountain_cauldron": {
+      "name": "镇岳鼎",
+      "glyph": "鼎",
+      "source_dungeon_id": "red_copper_mine",
+      "source_boss_id": "red_copper_mine_v1_enemy_100",
+      "core_material_id": "red_copper_mine_material_11",
+      "recipe_id": "forge_artifact_mountain_cauldron",
+      "inputs": {
+        "red_copper_mine_material_11": 12,
+        "red_copper_mine_material_01": 200,
+        "beast_bone": 100,
+        "ingot": 125,
+        "coins": 3000
+      },
+      "duration_ms": 14400000,
+      "unlock_floor": 100,
+      "min_forge_level": 1,
+      "effect_id": "shield",
+      "motion_profile_id": "spin",
+      "base_stats": {
+        "attack_milli": 3000,
+        "max_hp_milli": 15000
+      }
+    },
+    "soul_banner": {
+      "name": "噬魂幡",
+      "glyph": "幡",
+      "source_dungeon_id": "mist_marsh",
+      "source_boss_id": "mist_marsh_v1_enemy_100",
+      "core_material_id": "mist_marsh_material_12",
+      "recipe_id": "forge_artifact_soul_banner",
+      "inputs": {
+        "mist_marsh_material_12": 14,
+        "mist_marsh_material_02": 250,
+        "beast_bone": 100,
+        "ingot": 150,
+        "coins": 4000
+      },
+      "duration_ms": 21600000,
+      "unlock_floor": 100,
+      "min_forge_level": 1,
+      "effect_id": "soul_heal",
+      "motion_profile_id": "absorb",
+      "base_stats": {
+        "attack_milli": 4000,
+        "max_hp_milli": 20000
+      }
+    },
+    "frost_seal": {
+      "name": "寒魄印",
+      "glyph": "印",
+      "source_dungeon_id": "cold_jade_cave",
+      "source_boss_id": "cold_jade_cave_v1_enemy_100",
+      "core_material_id": "cold_jade_cave_material_12",
+      "recipe_id": "forge_artifact_frost_seal",
+      "inputs": {
+        "cold_jade_cave_material_12": 16,
+        "cold_jade_cave_material_01": 300,
+        "beast_bone": 100,
+        "ingot": 175,
+        "coins": 5000
+      },
+      "duration_ms": 28800000,
+      "unlock_floor": 100,
+      "min_forge_level": 1,
+      "effect_id": "frost",
+      "motion_profile_id": "pulse",
+      "base_stats": {
+        "attack_milli": 5000,
+        "max_hp_milli": 25000
+      }
+    },
+    "fire_gourd": {
+      "name": "赤焰葫",
+      "glyph": "葫",
+      "source_dungeon_id": "fire_elixir_ruins",
+      "source_boss_id": "fire_elixir_ruins_v1_enemy_100",
+      "core_material_id": "fire_elixir_ruins_material_12",
+      "recipe_id": "forge_artifact_fire_gourd",
+      "inputs": {
+        "fire_elixir_ruins_material_12": 18,
+        "fire_elixir_ruins_material_01": 350,
+        "beast_bone": 100,
+        "ingot": 200,
+        "coins": 6000
+      },
+      "duration_ms": 43200000,
+      "unlock_floor": 100,
+      "min_forge_level": 1,
+      "effect_id": "burn",
+      "motion_profile_id": "pour",
+      "base_stats": {
+        "attack_milli": 6000,
+        "max_hp_milli": 30000
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ from .prompts import compile_prompt, project_rules
 from .specs import freeze_spec, grid_regions, resolve_template, export_spec, default_export_policy
 from .sheets import scope, canonical_spec, freeze_container, regions as sheet_regions, FRAME_SEMANTICS, cell_key, grid_options
 from .selection import validate as validate_selection, intersect as selections_intersect, crop_region
+from . import appearance
 from .sets import creation_spec, static_spec, static_regions, available_id, suggested_id
 
 PROJECT = Path(__file__).resolve().parents[2]
@@ -140,11 +141,14 @@ class Catalog:
                 self._create_asset(asset_prefix + "." + state, (labels or {}).get(state, state), template_id, set_id, state, [], conn, family)
         return value
 
-    def creation_preview(self, template_id, name_zh, generation_scope=None, asset_names=None, generation_mode=None, family=None, machine_id=None, source_container=None, states=None, counts=None, collection_id=None):
+    def creation_preview(self, template_id, name_zh, generation_scope=None, asset_names=None, generation_mode=None, family=None, machine_id=None, source_container=None, states=None, counts=None, collection_id=None, appearance_directions=None):
         from .collections import require_collection
         require_collection(self,collection_id)
         require(template_id in self.templates,"Unknown template")
         value=creation_spec(self.templates[template_id],name_zh,generation_scope,asset_names,generation_mode,family,machine_id,source_container,states,counts)
+        looks=appearance.directions(template_id,[item['name_zh'] for item in value['asset_list']],appearance_directions)
+        if template_id==appearance.TEMPLATE:
+            for item in value['asset_list']:item['appearance_direction']=looks.get(item['name_zh'],'')
         generation_scope=value["generation_scope"]
         generation_mode=value["generation_mode"]
         kind="set" if generation_scope=="asset_set" else "asset"
@@ -160,8 +164,11 @@ class Catalog:
                     item["asset_id"]=available_id(suggested_id(self.templates[template_id]["creation_policy"]["asset_namespace"],value["machine_id"]+"\0"+item["name_zh"]),occupied);occupied.add(item["asset_id"])
         return value
 
-    def create_named(self, template_id, name_zh, generation_scope=None, asset_names=None, generation_mode=None, family=None, machine_id=None, asset_ids=None, states=None, source_container=None, counts=None, collection_id=None):
+    def create_named(self, template_id, name_zh, generation_scope=None, asset_names=None, generation_mode=None, family=None, machine_id=None, asset_ids=None, states=None, source_container=None, counts=None, collection_id=None, appearance_directions=None):
         value=creation_spec(self.templates[template_id],name_zh,generation_scope,asset_names,generation_mode,family,machine_id,source_container,states,counts)
+        looks=appearance.directions(template_id,[item['name_zh'] for item in value['asset_list']],appearance_directions)
+        if template_id==appearance.TEMPLATE:
+            for item in value['asset_list']:item['appearance_direction']=looks.get(item['name_zh'],'')
         generation_scope=value["generation_scope"]
         generation_mode=value["generation_mode"]
         with self.transaction() as conn:
@@ -176,6 +183,7 @@ class Catalog:
                 mid=available_id(mid,occupied)
             if generation_scope=="single_asset":
                 a=self._create_asset(mid,name_zh,template_id,None,None,[],conn,value["family"])
+                if template_id==appearance.TEMPLATE:a['appearance_direction']=looks.get(name_zh.strip(),'')
                 if collection_id is not None:a["collection_id"]=collection_id
                 a["generation_defaults"]=dict(source_container=value["source_container"],counts=value["frame_counts"],generation_scope="single_asset")
                 self.put("asset",mid,a,conn);return a
@@ -203,6 +211,9 @@ class Catalog:
             self.put("set",mid,group,conn,True)
             for item in actual:
                 asset=self._create_asset(item["asset_id"],item["name_zh"],template_id,mid,"effect" if value["named_collection"] else "icon",[],conn,value["family"])
+                if template_id==appearance.TEMPLATE:
+                    asset['appearance_direction']=looks.get(item['name_zh'],'')
+                    self.put('asset',asset['asset_id'],asset,conn)
                 if value["named_collection"]:
                     asset["generation_defaults"]=dict(source_container="sheet",counts=value["frame_counts"],generation_scope="single_asset")
                     self.put("asset",asset["asset_id"],asset,conn)
@@ -226,12 +237,20 @@ class Catalog:
             for item in asset_list:
                 aid=item.get("asset_id")
                 if aid:
-                    a=self.get("asset",aid,conn);a.update(name_zh=item["name_zh"].strip(),updated_at=now());self.put("asset",aid,a,conn)
+                    a=self.get("asset",aid,conn);a.update(name_zh=item["name_zh"].strip(),updated_at=now())
+                    if 'appearance_direction' in item:
+                        require(group['template_id']==appearance.TEMPLATE,'只有法宝素材支持外观方向')
+                        a['appearance_direction']=appearance.direction(item['appearance_direction'])
+                    self.put('asset',aid,a,conn)
                 else:
                     aid=available_id(suggested_id(self.templates[group["template_id"]]["creation_policy"]["asset_namespace"],set_id+"\0"+item["name_zh"]),occupied);occupied.add(aid)
                     # Add membership before using the shared Asset validator.
                     group["asset_ids"].append(aid);self.put("set",set_id,group,conn)
                     asset=self._create_asset(aid,item["name_zh"].strip(),group["template_id"],set_id,"effect" if group.get("kind")=="effect_collection" else "icon",[],conn,group["family"])
+                    if 'appearance_direction' in item:
+                        require(group['template_id']==appearance.TEMPLATE,'只有法宝素材支持外观方向')
+                        asset['appearance_direction']=appearance.direction(item['appearance_direction'])
+                        self.put('asset',aid,asset,conn)
                     if group.get("kind")=="effect_collection":
                         asset["generation_defaults"]=dict(source_container="sheet",counts=group["generation_defaults"]["counts"],generation_scope="single_asset")
                         self.put("asset",aid,asset,conn)
@@ -259,11 +278,14 @@ class Catalog:
                 self.put("asset", aid, asset, conn)
         return asset
 
-    def rename(self, asset_id, name_zh, tags=None):
+    def rename(self, asset_id, name_zh, tags=None, appearance_direction=None):
         require(isinstance(name_zh, str) and 0 < len(name_zh) <= 160, "Invalid display name")
         with self.transaction() as conn:
             value = self.get("asset", asset_id, conn)
             value.update(name_zh=name_zh, updated_at=now())
+            if appearance_direction is not None:
+                require(value['template_id']==appearance.TEMPLATE,'只有法宝素材支持外观方向')
+                value['appearance_direction']=appearance.direction(appearance_direction)
             if tags is not None:
                 require(isinstance(tags, list) and all(isinstance(t, str) and len(t) <= 80 for t in tags), "Invalid tags")
                 value["tags"] = tags
@@ -309,6 +331,11 @@ class Catalog:
                 require(group.get('kind')=='static_collection','请选择独立素材组')
                 items=[dict(asset_id=aid,name_zh=self.get('asset',aid,conn)['name_zh']) for aid in group['asset_ids']];actual_set=set_id
             else:items=[];actual_set=None
+            if items and template_id==appearance.TEMPLATE:
+                items=appearance.frozen_items(self,items,conn)
+                if 'appearance_direction' in opts:
+                    require(len(items)==1,'素材组请逐件保存外观方向，不能用一条说明覆盖整组')
+                    items[0]['appearance_direction']=appearance.direction(opts['appearance_direction'])
             if items:frozen=static_spec(frozen,items,actual_set,opts.get('source_container',frozen['source_container']),'single_asset' if a else 'asset_set')
         elif group and not a and group.get('kind')=='effect_collection' and frozen['output_mode']!='master':
             items=[dict(asset_id=aid,name_zh=self.get('asset',aid,conn)['name_zh']) for aid in group['asset_ids']]

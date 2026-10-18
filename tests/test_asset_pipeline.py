@@ -22,7 +22,8 @@ class ModelTests(unittest.TestCase):
         self.templates=templates(self.document)
 
     def test_initial_and_item_templates(self):
-        self.assertEqual(len(self.templates),19)
+        self.assertEqual(len(self.templates),21)
+        self.assertEqual(self.templates["artifact_static_v1"]["pixel_size_profile"]["runtime_profile"]["frame_size"],[128,128])
         self.assertIn("battle_background_v1",self.templates)
         self.assertIn("building_interior_scene_v1",self.templates)
 
@@ -552,4 +553,3 @@ class WebTests(unittest.TestCase):
         self.assertFalse(any("inventory" in r or "settlement" in r or "alchemy" in r for r in routes))
 
 if __name__ == "__main__":unittest.main()
-

@@ -30,7 +30,7 @@ def sources():
         result[key]=path.read_text()
         for relative in re.findall(r'^import\s+.+?\s+from\s+[\'"](.+?)[\'"]',result[key],re.M):
             visit(Path(os.path.normpath(path.parent/relative)))
-    for name in ('screens/techniques.js','screens/equipment.js','screens/adventure.js','components/patch.js','api-client.js'):
+    for name in ('screens/battle.js','screens/techniques.js','screens/equipment.js','screens/adventure.js','components/patch.js','api-client.js'):
         visit(Path('src/ui/pages/game/static')/name)
     return result
 

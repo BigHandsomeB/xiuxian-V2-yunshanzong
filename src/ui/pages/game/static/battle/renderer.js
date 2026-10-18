@@ -163,6 +163,25 @@ export function mountBattle(host, options = {}) {
     if(a.motionAction!=='dodge')a.image.style.opacity='1';
     a.position.dataset.movement=a.spec.movement||'ground';
   }
+  const artifact=make('span','battle-artifact');artifact.hidden=true;
+  let artifactURL=null,artifactDetach=()=>{};
+  listeners.push(()=>artifactDetach());
+  let artifactTime=0,artifactAction=0,artifactFact='',artifactMotion='';
+  function artifactFrame(delta){
+    if(artifact.hidden)return;
+    const hero=actors.find(a=>a.role==='player');if(!hero)return;
+    artifact.style.left=`${Math.max(8,(hero.spec.x||24)-9)}%`;
+    artifact.style.top=`${Math.max(12,(hero.spec.y||74)-32)}%`;
+    if(media?.matches){artifact.style.transform='';return;}
+    artifactTime+=delta;artifactAction=Math.max(0,artifactAction-delta);
+    const t=1-artifactAction/650,pulse=artifactAction?Math.sin(t*Math.PI):0;
+    const follow=(hero.position.style.transform||'').match(/translate\(([-.\d]+)px,\s*([-.\d]+)px\)/);
+    const x=(follow?Number(follow[1]):0)+(artifactMotion==='strike'?pulse*80:0);
+    const y=(follow?Number(follow[2]):0)+Math.round(Math.sin(artifactTime/650)*3)-(artifactMotion==='pulse'?pulse*9:0);
+    const angle=artifactMotion==='spin'?pulse*180:artifactMotion==='pour'?pulse*35:0;
+    const scale=1+(artifactMotion==='absorb'?pulse*.25:0);
+    artifact.style.transform=`translate(${Math.round(x)}px,${y}px) rotate(${Math.round(angle)}deg) scale(${scale})`;
+  }
   let hostSuspended=false;
   const running = () => !hostSuspended && !destroyed && visible && !doc.hidden && online();
   function tick(time) {
@@ -174,12 +193,13 @@ export function mountBattle(host, options = {}) {
       if(config()&&a.role!=='effect')motion(a,delta);
       if (destroyed) return;
     }
+    artifactFrame(delta);
     for(const n of numberPool)if(!n.hidden){n.fxElapsed+=delta;n.style.transform=`translate(-50%,${-Math.floor(n.fxElapsed/100)*2}px) scale(${n.fxScale||1})`;n.style.opacity=String(1-Math.floor(n.fxElapsed/100)/6);if(n.fxElapsed>=600){n.fxDone?.();n.hidden=true;}}
     schedule();
   }
   function schedule() {
     if (!running()) { if (raf !== null) win.cancelAnimationFrame(raf); raf = null; last = null; return; }
-    if (raf === null && (config()&&!media?.matches||numberPool.some(n=>!n.hidden)||actors.some(a=>a.flashLeft>0)||!media?.matches&&actors.some(a => a.action && !failed.has(a.spec.asset) && (a.action.loop || a.elapsed < a.action.durations.reduce((x, y) => x + y, 0))))) raf = win.requestAnimationFrame(tick);
+    if (raf === null && (!artifact.hidden&&!media?.matches||config()&&!media?.matches||numberPool.some(n=>!n.hidden)||actors.some(a=>a.flashLeft>0)||!media?.matches&&actors.some(a => a.action && !failed.has(a.spec.asset) && (a.action.loop || a.elapsed < a.action.durations.reduce((x, y) => x + y, 0))))) raf = win.requestAnimationFrame(tick);
   }
   function configure(a,spec) {
     const changedIdentity=a.spec.id!==spec.id;
@@ -207,6 +227,22 @@ export function mountBattle(host, options = {}) {
   }
   function healthView(view){
     if(destroyed)return;
+    const treasure=view.artifact;artifact.hidden=!treasure;
+    if(treasure){
+      if(!Array.from(layers.player.children).includes(artifact))layers.player.append(artifact);
+      const visual=assets.artifact_icons?.[treasure.artifact_id];
+       let url=null;try{if(visual?.asset?.url)url=runtimeURL(visual.asset.url);}catch{}
+       if(url!==artifactURL){
+         artifactDetach();artifactURL=url;artifact.replaceChildren();artifact.dataset.image='false';
+         const fallback=make('span','',treasure.glyph);artifact.append(fallback);
+         if(url){const image=make('img','battle-artifact-image');image.alt='';image.width=128;image.height=128;image.src=url;fallback.hidden=true;artifact.dataset.image='true';const error=()=>{image.remove();fallback.hidden=false;artifact.dataset.image='false';};image.addEventListener('error',error,{once:true});artifactDetach=()=>image.removeEventListener('error',error);artifact.append(image);}
+       }else if(!url)artifact.textContent=treasure.glyph;
+       artifact.setAttribute('aria-label',treasure.name);artifact.dataset.artifactId=treasure.artifact_id;artifactMotion=treasure.motion_profile_id;
+      const key=`${view.battle_id}:${view.step}:${treasure.artifact_id}`;
+      if(key!==artifactFact){artifactFact=key;if(online()&&view.animation_allowed!==false&&view.latest_events?.some(e=>e.actor==='player'&&e.source_name===treasure.name))artifactAction=650;}
+      artifactFrame(0);schedule();
+    }else{artifactAction=0;artifactFact='';}
+
     for(const role of ['player','enemy']){
       const value=view[role],n=hpNodes[role];n.name.textContent=value.name;
       n.values.hp.textContent=`${Math.round(value.hp)} / ${Math.round(value.max_hp)}`;

@@ -77,3 +77,11 @@
 
 .battle-scene[data-suspended=true] .battle-position,
 .battle-scene[data-suspended=true] .battle-damage-number{animation-play-state:paused}
+
+/* The artifact shares the existing scene RAF and suspends with the battle. */
+.battle-artifact{position:absolute;display:grid;place-items:center;box-sizing:border-box;width:30px;height:30px;border:2px solid var(--accent);border-radius:var(--radius);background:var(--surface);color:var(--accent);font:var(--text-body)/1 var(--font-title);pointer-events:none;image-rendering:pixelated;z-index:3}
+
+.battle-artifact[data-image=true]{width:48px;height:48px;border:0;background:transparent}
+.battle-artifact-image{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+
+.battle-artifact[hidden]{display:none}

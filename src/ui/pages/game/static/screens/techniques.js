@@ -10,9 +10,14 @@ function techniqueDetail(ctx,identity){
  const body=el('div','item-detail technique-detail'),title=el('h2','technique-name',row.name);title.dataset.grade=row.grade;
  body.append(techniqueIcon(ctx,row,'detail'),title,el('p','',owned?`Lv ${row.level} / ${row.max_level}`:`尚未习得 · Lv上限 ${row.max_level}`));
  if(owned)body.append(el('p','',row.level===row.max_level?'功法已满级':`功法经验 ${row.progress} / ${row.threshold}`));
- body.append(el('h3','',owned?'当前加成':'满级加成'));
+ body.append(el('h3','',row.active_skill?'被动属性（装备后常驻）':owned?'当前加成':'满级加成'));
  for(const [key,n]of Object.entries(owned?row.bonus:row.max_bonus))body.append(el('p','',`${names[key]||key} +${Math.round(n/(key.endsWith('_bps')?100:1000))}${key.endsWith('_bps')?'%':''}`));
  body.append(el('p','muted','装备后击杀获得功法经验，Lv提升增加属性；合计加成遵守现有上限。'));
+ if(row.active_skill){
+  const skill=row.active_skill;
+  body.append(el('h3','','主动技能（自动施放）'),el('p','',skill.base_effect),el('p','',`施法耗时 ${skill.cast_time_ms/1000}秒 · 冷却 ${skill.cooldown_ms/1000}秒 · 消耗真气 ${skill.cost}`));
+  body.append(el('p','muted',skill.duration_turns?`效果持续 ${skill.duration_turns}回合；按战斗行动推进，冷却就绪后在下次可行动时施放。`:'效果即时结算；附带状态的持续时间见下方说明。'));
+ }
  if(row.effect_rules?.length){body.append(el('h3','','特殊效果'));for(const text of row.effect_rules)body.append(el('p','',text));}
  const actions=el('div','action-grid');
  if(owned){

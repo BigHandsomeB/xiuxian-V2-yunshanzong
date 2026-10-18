@@ -34,7 +34,7 @@ class DungeonSettlement(RetiredSettlement):
             if a['mode']=='push' and progress.cleared(p,progress.selected(p))==len(progress.definition(self.registry,progress.selected(p)).encounters):return s
             eid=progress.next_encounter(p,self.registry) if a['mode']=='push' else progress.definition(self.registry,progress.selected(p)).encounters[a.get('next_floor',a['floor'])-1]
             counter+=1
-            part=battle.start(part,self.registry,s.save_id,f'{s.save_id}:{s.generation}:i:{counter}',eid,player_snapshot=self.app.player_projection(s),growth_snapshot=s.domains.get('cultivation',growth.initial(s.save_id)),equipment_sources=self.app.combat_equipment(s))
+            part=battle.start(part,self.registry,s.save_id,f'{s.save_id}:{s.generation}:i:{counter}',eid,player_snapshot=self.app.player_projection(s),growth_snapshot=s.domains.get('cultivation',growth.initial(s.save_id)),equipment_sources=self.app.combat_equipment(s),artifact_snapshot=self.app.combat_artifact(s))
         if progress.floor_of(self.registry,part['battle']['encounter_id']) is None:return s
         outcome,before,rounds=battle.result_only(part,self.registry,s.save_id)
         # After a victory, the scheduled first tick may still carry the prior
@@ -81,7 +81,7 @@ class DungeonSettlement(RetiredSettlement):
         if not b or b['status'] in ('SETTLED','ABANDONED'):
             if a['mode']=='push' and progress.cleared(p,progress.selected(p))==len(progress.definition(self.registry,progress.selected(p)).encounters):return self.stop(s,'COMPLETED')
             eid=progress.next_encounter(p,self.registry) if a['mode']=='push' else progress.definition(self.registry,progress.selected(p)).encounters[a.get('next_floor',a['floor'])-1]
-            counter=s.identity['instance_counter']+1;part=battle.start(s.domains.get('combat',battle.initial()),self.registry,s.save_id,f'{s.save_id}:{s.generation}:i:{counter}',eid,player_snapshot=self.app.player_projection(s),growth_snapshot=s.domains.get('cultivation',growth.initial(s.save_id)),equipment_sources=self.app.combat_equipment(s))
+            counter=s.identity['instance_counter']+1;part=battle.start(s.domains.get('combat',battle.initial()),self.registry,s.save_id,f'{s.save_id}:{s.generation}:i:{counter}',eid,player_snapshot=self.app.player_projection(s),growth_snapshot=s.domains.get('cultivation',growth.initial(s.save_id)),equipment_sources=self.app.combat_equipment(s),artifact_snapshot=self.app.combat_artifact(s))
             s=replace(s,identity={**s.identity,'instance_counter':counter},domains={**s.domains,'combat':part});b=part['battle']
         if b['status']=='ACTIVE':
             part=self._compressed or battle.attack(s.domains['combat'],self.registry,s.save_id,b['battle_id']);part=thaw_json(part);part['battle']['visual_events_online']=not s.time['pending'] or s.time['pending']['accepted_ms']<=self.recent_ms;self._compressed=None;s=replace(s,domains={**s.domains,'combat':part});b=part['battle']

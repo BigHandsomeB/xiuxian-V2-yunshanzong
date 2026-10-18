@@ -92,7 +92,8 @@ def expedition_plan(registry,b,did):
 
 def equipment_roll_version(b):
     from src.data.combat.mechanics import VERSION,ROLL_VERSION
-    if b.get('mechanics',{}).get('version')==VERSION:return ROLL_VERSION
+    from src.data.combat.skill_timing import VERSION as TIMED_VERSION
+    if b.get('mechanics',{}).get('version') in (VERSION,TIMED_VERSION):return ROLL_VERSION
     from .expeditions import content
     from . import catalog
     if b.get('loot_version') in ('thorn-loot-v2',):return 'thorn-roll-v2'

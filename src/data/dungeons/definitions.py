@@ -29,7 +29,7 @@ class DungeonDefinition(Definition):
         if self.legacy_encounters and (len(self.legacy_encounters)!=100 or len(set(self.legacy_encounters))!=100 or set(self.encounters)&set(self.legacy_encounters)):raise ValidationError('invalid historical dungeon encounters')
         if self.references!=tuple(DefinitionKey('encounters',k) for k in (*self.encounters,*self.legacy_encounters)):raise ValidationError('dungeon encounter references mismatch')
 
-def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,management=False,cold_jade=False,ecology=False,mechanics=False):
+def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,management=False,cold_jade=False,ecology=False,mechanics=False,skill_timing=False,artifacts=False):
     if cold_jade and (legacy or balance_legacy or expansion_legacy):raise ValidationError('cold jade requires current expeditions')
     if management and (legacy or balance_legacy or expansion_legacy):raise ValidationError('management requires current expeditions')
     input_overrides=json.loads(Path(__file__).parents[1].joinpath('economy/sect_management.json').read_text()).get('production_input_overrides',{}) if management else {}
@@ -37,7 +37,11 @@ def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,man
     from src.data.economy.ecology import VERSION as ECOLOGY_VERSION
     if mechanics and not ecology:raise ValidationError('effects require ecological content')
     from src.data.combat.mechanics import CONTENT_VERSION
-    r=load_economy(seal=False,production_input_overrides=input_overrides,content_version=CONTENT_VERSION if mechanics else ECOLOGY_VERSION if ecology else (COLD_JADE_MANAGEMENT_VERSION if management else COLD_JADE_VERSION) if cold_jade else MANAGEMENT_VERSION if management else LEGACY_VERSION if legacy else LOOT_VERSION if balance_legacy else EXPANSION_LEGACY_VERSION if expansion_legacy else VERSION)
+    from src.data.combat.skill_timing import CONTENT_VERSION as TIMED_CONTENT_VERSION
+    if skill_timing and not mechanics:raise ValidationError('skill timing requires combat effects')
+    from src.data.artifacts.definitions import CONTENT_VERSION as ARTIFACT_VERSION
+    if artifacts and not skill_timing:raise ValidationError('artifacts require timed combat content')
+    r=load_economy(seal=False,production_input_overrides=input_overrides,content_version=ARTIFACT_VERSION if artifacts else TIMED_CONTENT_VERSION if skill_timing else CONTENT_VERSION if mechanics else ECOLOGY_VERSION if ecology else (COLD_JADE_MANAGEMENT_VERSION if management else COLD_JADE_VERSION) if cold_jade else MANAGEMENT_VERSION if management else LEGACY_VERSION if legacy else LOOT_VERSION if balance_legacy else EXPANSION_LEGACY_VERSION if expansion_legacy else VERSION)
     if not legacy:
         from src.data.dungeons.loot import register
         register(r,current=not (balance_legacy or expansion_legacy))
@@ -80,5 +84,5 @@ def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,man
         register_expeditions(r,DungeonDefinition,cold_jade=cold_jade,current=mechanics)
     if mechanics:
         from src.data.combat.mechanics import register as register_mechanics
-        register_mechanics(r)
+        register_mechanics(r,skill_timing=skill_timing,artifacts=artifacts)
     r.seal();return r

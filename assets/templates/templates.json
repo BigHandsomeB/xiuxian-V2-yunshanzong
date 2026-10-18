@@ -742,6 +742,56 @@
       "default_generation_scope": "single_asset"
     },
     {
+      "template_id": "artifact_static_v1",
+      "category": "artifact",
+      "structure": {
+        "icon": [
+          1,
+          1
+        ]
+      },
+      "transparent": true,
+      "layout": "Frozen shared layout_spec; row-major cell_mapping defines meaning. Unused cells are unassigned.",
+      "master_required": false,
+      "runtime_policy": "Use frozen runtime_profile; subject size is not the transparent frame, collision box or gameplay footprint.",
+      "rules": [
+        "Eastern Chinese xianxia pixel art, clear material details and a readable complete artifact silhouette at 128x128.",
+        "One independent static artifact per named cell, one neutral pose; floating, spinning, striking, tilting and returning are program-driven, never extra animation frames.",
+        "Follow the separate appearance direction for each named artifact. Keep the sword tip, banner pole, cauldron legs, seal knob and gourd cord fully visible.",
+        "Genuine transparent RGBA background. No character, hand holding the artifact, scenery, ground shadow, backdrop, UI border, text, number, enhancement badge or labels.",
+        "Do not bake sword trails, a large shield, fire streams, particle clouds or large glow into the solid artifact body; these are separate combat effects."
+      ],
+      "default_actions": [
+        "icon"
+      ],
+      "template_version": 1,
+      "pixel_size_profile": "artifact_static_128_v1",
+      "output_mode": "icon",
+      "families": {},
+      "creation_policy": {
+        "default_asset_family": "default",
+        "asset_namespace": "artifact.static",
+        "set_namespace": "asset_set.artifacts",
+        "runtime_role": "artifact_image",
+        "action_labels_zh": {
+          "master": "视觉基准",
+          "icon": "独立图标"
+        }
+      },
+      "runtime_export_policy": "frozen",
+      "default_source_container": "sheet",
+      "allowed_source_containers": [
+        "single_image",
+        "sheet",
+        "image_set"
+      ],
+      "default_sheet_semantics": "independent_assets",
+      "allowed_sheet_semantics": [
+        "independent_assets"
+      ],
+      "default_generation_scope": "asset_set"
+    },
+    {
       "template_id": "effect_compact_v1",
       "category": "effect",
       "structure": {
@@ -2586,6 +2636,40 @@
         "frame_size": [
           96,
           96
+        ],
+        "policy": "crop_subject",
+        "sampling": "nearest",
+        "trim_transparent": true
+      }
+    },
+    "artifact_static_128_v1": {
+      "profile_id": "artifact_static_128_v1",
+      "version": 1,
+      "subject_logic_size": [
+        128,
+        128
+      ],
+      "subject_options": [
+        [
+          128,
+          128
+        ]
+      ],
+      "source_cell_size": [
+        160,
+        160
+      ],
+      "spacing": 32,
+      "inner_safe_padding": 16,
+      "anchor": {
+        "type": "center",
+        "baseline_from_bottom": 0
+      },
+      "runtime_profile": {
+        "profile_id": "artifact_static_128_v1",
+        "frame_size": [
+          128,
+          128
         ],
         "policy": "crop_subject",
         "sampling": "nearest",

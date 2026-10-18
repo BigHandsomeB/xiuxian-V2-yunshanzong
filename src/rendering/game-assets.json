@@ -550,5 +550,12 @@
     "spirit_stone_mid": "上品灵石",
     "spirit_stone_high": "极品灵石",
     "spirit_stone_supreme": "仙品灵石"
+  },
+  "artifact_icons": {
+    "slayer_sword": "artifact.static.a5e4881dafb3e",
+    "mountain_cauldron": "artifact.static.a213f200c37ac",
+    "soul_banner": "artifact.static.a1189ccdd4eb1",
+    "frost_seal": "artifact.static.ace0348cf1cf5",
+    "fire_gourd": "artifact.static.a7977d695ee35"
   }
 }

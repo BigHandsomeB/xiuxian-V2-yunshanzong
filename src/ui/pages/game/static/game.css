@@ -181,3 +181,11 @@ h3{font-size:var(--text-card)}.danger-action{color:var(--danger);border-color:va
 .catalog-notes-summary{display:flex;flex-direction:column;gap:3px;width:100%;min-width:0;text-align:left}.catalog-notes-summary small{font-size:var(--text-min);line-height:1.4;overflow-wrap:anywhere;color:var(--muted)}.catalog-notes-editor input,.catalog-notes-editor textarea{width:100%;min-width:0;box-sizing:border-box;font-size:var(--text-input);padding:8px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink)}
 
 .settings-actions.action-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:16px 0}.settings-actions.action-grid>.secondary{margin:0;font-size:var(--text-body)}.settings-actions .icon-label{min-width:0;overflow-wrap:anywhere}
+
+.artifact-library>.panel{display:block;max-width:100%;text-align:left;overflow-wrap:anywhere;box-sizing:border-box}
+.artifact-library .policy-field>*{max-width:100%;min-width:0}
+
+.artifact-grid{margin-top:12px}.artifact-card{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;min-height:var(--control-h);margin:0;padding:8px;text-align:center;overflow-wrap:anywhere;color:var(--ink)}
+.artifact-card>.item-icon[data-profile]{width:100%;max-width:128px;height:auto;aspect-ratio:1;flex-shrink:0}.artifact-card>.item-icon .runtime-icon{padding:0;object-fit:contain}
+.artifact-card-name{font:600 var(--text-help)/1.4 var(--font-title)}.artifact-card-status,.artifact-card-effect{font-size:var(--text-min);line-height:1.5;max-width:100%}.artifact-card-status{font-variant-numeric:tabular-nums}
+.artifact-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}

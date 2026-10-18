@@ -38,8 +38,11 @@ def equipment_ranges(identity,*,craft=False):
 class MechanicsDefinition(Definition):
     values: object = None
 
-def settings(registry):
-    key=DefinitionKey('combat_mechanics','shipping')
+def settings(registry, version=None):
+    from .skill_timing import VERSION as TIMED_VERSION
+    timed=DefinitionKey('combat_mechanics','timed')
+    key=timed if version!=VERSION and registry.contains(timed) else DefinitionKey('combat_mechanics','shipping')
+    if version==TIMED_VERSION and not registry.contains(timed):return None
     return registry.lookup(key).values if registry.contains(key) else None
 
 STAT_KEYS=frozenset((*STATS,'max_hp_milli','attack_milli','armor_milli','pierce_milli','crit_bps','accuracy_bps','evasion_bps','speed_bps','reflect_bps','poison_resist_bps','execute_bps','crit_damage_bps','crit_resist_bps','lifesteal_bps','damage_bonus_bps','damage_reduction_bps','attack_bonus_bps','status_resist_bps','adaptive_resist_bps','convert_bps','shield_pierce_bps','skill_bonus_bps'))
@@ -65,12 +68,17 @@ def expression(value,statuses=None):
     for item in value[1:]:expression(item,statuses)
 
 def validate_rule(row,statuses):
-    allowed={'id','trigger','condition','effects','chance','cooldown','per_turn','per_battle','every','category','cost','description'}
+    allowed={'id','trigger','condition','effects','chance','cooldown','cooldown_ms','requires_active','per_turn','per_battle','every','category','cost','description'}
     if not isinstance(row,Mapping) or set(row)-allowed or not {'id','trigger','effects'}<=set(row):raise ValidationError('invalid effect rule')
     DefinitionKey('effect_rules',row['id'])
     if row['trigger'] not in TRIGGERS:raise ValidationError('unknown effect trigger')
     if not isinstance(row['effects'],(list,tuple)) or not 1<=len(row['effects'])<=12:raise ValidationError('bounded effects required')
     expression(row.get('condition',True),statuses)
+    if 'category' in row and row['category'] not in ('movement','defense','special','ultimate'):raise ValidationError('unknown active skill category')
+    if 'requires_active' in row and row['requires_active'] not in statuses:raise ValidationError('unknown active skill window')
+    if 'cooldown_ms' in row:
+        integer(row['cooldown_ms'],'skill cooldown',1)
+        if not row.get('category') or row['cooldown_ms']>60000 or 'cooldown' in row:raise ValidationError('invalid timed skill cooldown')
     for key in ('chance','cooldown','per_turn','per_battle','every','cost'):
         if key in row:
             integer(row[key],key)
@@ -84,7 +92,7 @@ def validate_rule(row,statuses):
         for key in ('amount','stacks','duration','condition','limit','count'):
             if key in effect:expression(effect[key],statuses)
 
-def register(registry):
+def register(registry, *, skill_timing=False, artifacts=False):
     data=json.loads(Path(__file__).with_name('mechanics.json').read_text())
     if set(data)!={'schema_version','version','balance','statuses','techniques','equipment','enemies'} or data['schema_version']!=1 or data['version']!=VERSION:raise ValidationError('invalid mechanics package')
     for key,value in data['balance'].items():integer(value,key,1)
@@ -122,6 +130,15 @@ def register(registry):
                 if rule['id'] in ids:raise ValidationError('duplicate source rule')
                 ids.add(rule['id'])
     registry.register(MechanicsDefinition('combat_mechanics','shipping',VERSION,(),freeze_json(data)))
+    if skill_timing:
+        from .skill_timing import compile_settings, VERSION as TIMED_VERSION
+        timed=compile_settings(data)
+        if artifacts:
+            from src.data.artifacts.definitions import register as register_artifacts
+            timed['artifacts']=register_artifacts(registry,timed)
+        for row in timed['techniques'].values():
+            for rule in row['rules']:validate_rule(rule,timed['statuses'])
+        registry.register(MechanicsDefinition('combat_mechanics','timed',TIMED_VERSION,(),freeze_json(timed)))
     refs=tuple(DefinitionKey('equipment',key) for key in data['equipment'])
     registry.register(Definition('equipment_rolls',ROLL_VERSION.replace('-','_'),ROLL_VERSION,refs))
     crafting=tuple(DefinitionKey('equipment',key) for key,row in data['equipment'].items() if row.get('craft_ranges'))

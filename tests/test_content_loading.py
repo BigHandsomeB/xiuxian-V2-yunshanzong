@@ -127,7 +127,7 @@ class ContentLoadingTests(unittest.TestCase):
         loaded = content.load_current()
         self.assertEqual(original.schema_version,loaded.schema_version)
         self.assertNotEqual(original.content_version,loaded.content_version)
-        self.assertEqual(1764,len(loaded._definitions))
+        self.assertEqual(1771,len(loaded._definitions))
         self.assertLess(set(original._definitions),set(loaded._definitions))
         for key, definition in original._definitions.items():
             with self.subTest(key=key):
@@ -198,7 +198,7 @@ print(len(new._definitions))
         result=subprocess.run([sys.executable,'-B','-c',code],cwd=content.ROOT,
                               capture_output=True,text=True,timeout=30)
         self.assertEqual(result.returncode,0,result.stderr)
-        self.assertEqual(result.stdout.strip(),'1764')
+        self.assertEqual(result.stdout.strip(),'1771')
 
 
 class ContentSaveRestartTests(unittest.TestCase):

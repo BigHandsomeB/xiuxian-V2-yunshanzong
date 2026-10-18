@@ -7,12 +7,14 @@ from collections.abc import Mapping
 from src.core.state.envelope import thaw_json
 from src.core.validation import ValidationError, integer
 from src.data.combat import mechanics as definitions
-from src.systems.combat.equipment_effects import roll, CAPS
+from src.systems.combat.equipment_effects import roll, CAPS, interval
+from src.data.combat.skill_timing import VERSION as TIMED_VERSION, CATEGORIES
 
 EVENTS=('skill','status_apply','status_remove','dot','heal','shield','block','cleanse','revive','counter','extra_hit')
 
 def initial(config,sources,enemy_source):
-    return {'version':config['version'],'sources':sources,'enemy_source':enemy_source,
+    return {**({'elapsed_ms':0,'ready_ms':{}} if config['version']==TIMED_VERSION else {}),
+            'version':config['version'],'sources':sources,'enemy_source':enemy_source,
             'statuses':{'player':[],'enemy':[]},'shields':{'player':0,'enemy':0},
             'shield_until':{'player':0,'enemy':0},
             'resources':{'player':0,'enemy':0},'counts':{},'ready':{},'turn_counts':{},
@@ -20,17 +22,23 @@ def initial(config,sources,enemy_source):
             'last_element':{'player':'neutral','enemy':'neutral'},'history':{'player':{},'enemy':{}}}
 
 def validate(value,config,step):
-    if not isinstance(value,Mapping) or set(value)!={'version','sources','enemy_source','statuses','shields','shield_until','resources','counts','ready','turn_counts','used_types','death_prevention','control_ready','last_element','history'} or value['version']!=config['version']:raise ValidationError('invalid combat effects state')
-    if not isinstance(value['sources'],(tuple,list)) or len(value['sources'])>14:raise ValidationError('bounded battle effect sources required')
+    timed=config['version']==TIMED_VERSION
+    fields={'version','sources','enemy_source','statuses','shields','shield_until','resources','counts','ready','turn_counts','used_types','death_prevention','control_ready','last_element','history'}
+    if timed:fields|={'elapsed_ms','ready_ms'}
+    if not isinstance(value,Mapping) or set(value)!=fields or value['version']!=config['version']:raise ValidationError('invalid combat effects state')
+    if timed:
+        integer(value['elapsed_ms'],'elapsed combat milliseconds')
+        if not max(0,step-1)*1000<=value['elapsed_ms']<=max(0,step-1)*2000:raise ValidationError('combat elapsed time outside action bounds')
+    if not isinstance(value['sources'],(tuple,list)) or len(value['sources'])>15:raise ValidationError('bounded battle effect sources required')
     for source in value['sources']:
-        if set(source)!={'group','id','level'} or source['group'] not in ('techniques','equipment') or source['id'] not in config[source['group']]:raise ValidationError('unknown battle effect source')
+        if set(source)!={'group','id','level'} or source['group'] not in ('techniques','equipment','artifacts') or source['id'] not in config.get(source['group'],{}):raise ValidationError('unknown battle effect source')
         integer(source['level'],'source level',1)
-        if source['level']>(config['techniques'][source['id']]['max_level'] if source['group']=='techniques' else 1):raise ValidationError('source level outside bound')
+        if source['level']>(config[source['group']][source['id']]['max_level'] if source['group'] in ('techniques','artifacts') else 1):raise ValidationError('source level outside bound')
     categories={}
     for source in value['sources']:
         if source['group']=='techniques':
             category=config['techniques'][source['id']]['category'];categories[category]=categories.get(category,0)+1
-    if any(n>(4 if category=='passive' else 1) for category,n in categories.items()) or sum(s['group']=='equipment' for s in value['sources'])>6:raise ValidationError('effect sources exceed equipment/manual slots')
+    if any(n>(4 if category=='passive' else 1) for category,n in categories.items()) or sum(s['group']=='equipment' for s in value['sources'])>6 or sum(s['group']=='artifacts' for s in value['sources'])>1:raise ValidationError('effect sources exceed equipment/manual slots')
     if len({(s['group'],s['id']) for s in value['sources']})!=len(value['sources']):raise ValidationError('duplicate battle effect source')
     if value['enemy_source'] is not None and value['enemy_source'] not in config['enemies']:raise ValidationError('unknown enemy effect source')
     if type(value['death_prevention']) is not bool:raise ValidationError('boolean death prevention required')
@@ -58,8 +66,14 @@ def validate(value,config,step):
     for group in ('counts','ready','turn_counts'):
         if not isinstance(value[group],Mapping) or set(value[group])-allowed:raise ValidationError('unknown saved effect counter')
         for n in value[group].values():integer(n,group)
+    if timed:
+        timed_keys={s['group']+':'+s['id']+':'+r['id'] for s in value['sources'] for r in config[s['group']][s['id']]['rules'] if 'cooldown_ms' in r}
+        if not isinstance(value['ready_ms'],Mapping) or set(value['ready_ms'])-timed_keys:raise ValidationError('unknown timed skill counter')
+        for n in value['ready_ms'].values():
+            integer(n,'skill ready milliseconds')
+            if n>value['elapsed_ms']+60000:raise ValidationError('timed cooldown outside bound')
     if not isinstance(value['used_types'],(list,tuple)) or len(set(value['used_types']))!=len(value['used_types']) or any(t not in definitions.OPS for t in value['used_types']):raise ValidationError('invalid effect type history')
-    history_keys={'hit','hurt','evade','block','heal','skill','negative','clean_turns','last_hurt_turn','last_movement_turn','last_skill_turn','category_special','category_ultimate',*(('element_'+e) for e in definitions.ELEMENTS),*(('dealt_'+e) for e in definitions.ELEMENTS),*(('negative_'+s) for s in config['statuses']),*(('kind_'+k) for k in ('direct','skill','ranged','dot','reflect','counter','extra_hit'))}
+    history_keys={'hit','hurt','evade','block','heal','skill','negative','clean_turns','last_hurt_turn','last_movement_turn','last_skill_turn','category_special','category_ultimate',*(('category_'+c) for c in ('movement','defense') if timed),*(('element_'+e) for e in definitions.ELEMENTS),*(('dealt_'+e) for e in definitions.ELEMENTS),*(('negative_'+s) for s in config['statuses']),*(('kind_'+k) for k in ('direct','skill','ranged','dot','reflect','counter','extra_hit'))}
     for history in value['history'].values():
         if not isinstance(history,Mapping) or set(history)-history_keys:raise ValidationError('invalid effect history')
         for n in history.values():integer(n,'effect history')
@@ -157,8 +171,11 @@ class Round:
             for rule in self.c[source['group']][source['id']]['rules']:
                 if self.budget>=self.c['balance']['effect_budget']:break
                 if phase=='passive' and rule.get('category') or phase=='active' and not rule.get('category'):continue
+                if phase=='prepare' and rule.get('category') not in ('movement','defense'):continue
                 key=self.source+':'+rule['id']
                 if rule['trigger']!=event or self.s['ready'].get(key,0)>self.b['step']:continue
+                if rule.get('requires_active') and not self.stacks(actor,rule['requires_active']):continue
+                if rule.get('cooldown_ms') and self.s['ready_ms'].get(key,0)>self.s['elapsed_ms']:continue
                 if self.s['turn_counts'].get(key,0)>=rule.get('per_turn',1) or self.s['counts'].get(key,0)>=rule.get('per_battle',10000):continue
                 if rule.get('every',1) and self.b['step']%rule.get('every',1):continue
                 if not self.value(rule.get('condition',True)):continue
@@ -174,6 +191,7 @@ class Round:
                 if roll(self.b,key+':'+event+':'+str(self.s['counts'].get(key,0)))>=rule.get('chance',10000):continue
                 self.s['turn_counts'][key]=self.s['turn_counts'].get(key,0)+1;self.s['counts'][key]=self.s['counts'].get(key,0)+1
                 self.s['ready'][key]=self.b['step']+rule.get('cooldown',0);self.budget+=1
+                if rule.get('cooldown_ms'):self.s['ready_ms'][key]=self.s['elapsed_ms']+rule['cooldown_ms']
                 if source['group']=='techniques' and self.c['techniques'][source['id']]['category']=='movement':
                     self.s['history'][actor]['last_movement_turn']=self.b['step']
                     self.s['statuses'][actor]=[s for s in self.rows(actor) if self.c['statuses'][s['status_id']].get('break_on_category')!='movement']
@@ -189,11 +207,13 @@ class Round:
                     self.event('skill',actor,self.other(actor))
                     # Trigger once the cooldown is committed, so refund effects
                     # operate on this cast's cooldown and cannot cast recursively.
-                    self.trigger(actor,'skill_cast',category=1 if category=='special' else 2,element=element,new_category=int(new_category),gap_turns=gap)
+                    if self.c['version']!=TIMED_VERSION or category in ('special','ultimate'):
+                        self.trigger(actor,'skill_cast',category=CATEGORIES[category],element=element,new_category=int(new_category),gap_turns=gap)
                 for effect in rule['effects']:
                     if self.value(effect.get('condition',True)):
                         self.apply(effect)
                         if effect['op'] not in self.s['used_types']:self.s['used_types'].append(effect['op'])
+                if category in ('movement','defense') and self.c['version']==TIMED_VERSION:self.trigger(actor,'skill_cast',category=CATEGORIES[category],element=element,new_category=int(new_category),gap_turns=gap)
                 if category:self.s['statuses'][actor]=[s for s in self.rows(actor) if not self.c['statuses'][s['status_id']].get('consume_on_skill')]
         self.actor,self.source,self.context=old;self.depth-=1
 
@@ -240,6 +260,12 @@ class Round:
                 if removed:self.event('cleanse',a,target);self.trigger(target,'status_removed',cleansed=removed)
             elif op=='cooldown':
                 prefix='techniques:' if target=='player' else 'enemies:'
+                if 'ready_ms' in self.s:
+                    for key in sorted(self.s['ready_ms']):
+                        if key.startswith(prefix) and self.s['ready_ms'][key]>self.s['elapsed_ms']:
+                            self.s['ready_ms'][key]=max(self.s['elapsed_ms']+interval(self.p),self.s['ready_ms'][key]-n*interval(self.p));break
+                    else:key=None
+                    if key is not None:continue
                 for key in sorted(self.s['ready']):
                     if key.startswith(prefix) and self.s['ready'][key]>self.b['step']:
                         self.s['ready'][key]=max(self.b['step']+1,self.s['ready'][key]-n);break
@@ -341,6 +367,8 @@ class Round:
         return actual
 
     def turn(self):
+        if self.c['version']==TIMED_VERSION and self.b['step']:
+            self.s['elapsed_ms']+=interval(self.p)
         self.b['step']+=1;self.s['turn_counts']={}
         for actor in ('player','enemy'):
             if self.s['shield_until'][actor]<=self.b['step']:self.s['shields'][actor]=0
@@ -352,6 +380,8 @@ class Round:
         # Establish turn-start stances before initiative. Active skills then run
         # in that initiative order, so a temporary speed bonus affects this turn.
         for actor in ('player','enemy'):
+            if self.c['version']==TIMED_VERSION and self.b['player_hp_milli'] and self.b['enemy_hp_milli']:
+                self.trigger(actor,'turn_start',phase='prepare',tier=tier)
             if self.b['player_hp_milli'] and self.b['enemy_hp_milli']:self.trigger(actor,'turn_start',phase='passive',tier=tier)
         order=('player','enemy') if self.stat('player','speed_bps')>=self.stat('enemy','speed_bps') else ('enemy','player')
         for actor in order:

@@ -17,8 +17,8 @@ def bindings():
         if BINDING_PATH.is_symlink() or BINDING_PATH.stat().st_size>65536:return BINDINGS
         value=json.loads(BINDING_PATH.read_text())
         if value.get('schema_version')!=1:return BINDINGS
-        for name in ('icons','building_icons','battle','combat_bindings','system_icons','combat_effects','battle_ui'):
-            if not isinstance(value.get(name,{} if name in ('system_icons','combat_effects','battle_ui') else None),dict) or any(v is not None and not isinstance(v,str) for v in value.get(name,{}).values()):return BINDINGS
+        for name in ('icons','building_icons','battle','combat_bindings','system_icons','combat_effects','battle_ui','artifact_icons'):
+            if not isinstance(value.get(name,{} if name in ('system_icons','combat_effects','battle_ui','artifact_icons') else None),dict) or any(v is not None and not isinstance(v,str) for v in value.get(name,{}).values()):return BINDINGS
         if not {'background','player','enemy'}<=value['battle'].keys():return BINDINGS
         if not isinstance(value.get('combat_actions',{}),dict):return BINDINGS
         for actions in value.get('combat_actions',{}).values():
@@ -95,6 +95,7 @@ def _battle(assets,snapshot,combat=None,config=None):
                             sprite['actions'][action]=part['actions'][action]
                 result['sprites'][asset_id]=sprite;result[role]['fallback']=False
     result['fx_config']=json.loads((Path(__file__).parents[1]/'ui/pages/game/static/battle/combat_fx_profiles.json').read_text())
+    result['artifact_icons']=_map(config.get('artifact_icons',{}),config.get('artifact_icons',{}),assets,snapshot)
     result['effects']={}
     if combat and hasattr(assets,'sprite'):
         for key,aid in config.get('combat_effects',{}).items():
@@ -118,6 +119,7 @@ def present(view, assets):
         'system_icons': _map(config.get('system_icons',{}),config.get('system_icons',{}),assets,snapshot),
         'resource_overview':resource_overview(assets,snapshot),
         'equipment_icons': {r['definition_id']:_icon(config['icons'].get(r['definition_id']) or r['asset_id'],assets,snapshot) for r in view.get('equipment',{}).get('instances',[])},
+        'artifact_icons': _map(config.get('artifact_icons',{}),config.get('artifact_icons',{}),assets,snapshot),
         'technique_icons': {r['id']:_icon(r['asset_id'],assets,snapshot) for r in (view.get('techniques') or {}).get('catalog',[])},
         'building_icons': _map(kinds, config['building_icons'], assets, snapshot),
         'screens': screens,

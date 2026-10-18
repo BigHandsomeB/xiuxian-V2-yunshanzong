@@ -17,7 +17,7 @@ from src.systems.equipment import items
 class EffectsTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.registry=load_current();cls.config=settings(cls.registry)
+        cls.registry=load_dungeons(management=True,cold_jade=True,ecology=True,mechanics=True);cls.config=settings(cls.registry)
         cls.manuals={r['name']:key for key,r in cls.config['techniques'].items()}
     def start(self,*names,enemy='thorn_path_v2_001',attack=10000,hp=1000000):
         p=dict(battle.player(self.registry,'design'));p.update(max_hp_milli=hp,attack_milli=attack,armor_milli=0,accuracy_bps=1000)
@@ -246,11 +246,11 @@ class UpgradeTests(unittest.TestCase):
         with SQLiteSave(self.path,allowed_root=self.root) as store:
             before=EcologyApplication(store,self.registry,self.clock).query(self.sid)
             request=Command(self.sid,before.generation,before.revision,str(uuid4()),'combat_effect_content_upgrade',{})
-            first=upgrade(store,self.clock,request);after=EcologyApplication(store,load_current(),self.clock).query(self.sid)
+            first=upgrade(store,self.clock,request);after=EcologyApplication(store,load_dungeons(management=True,cold_jade=True,ecology=True,mechanics=True,skill_timing=True),self.clock).query(self.sid)
             self.assertEqual(after.domains,before.domains);self.assertEqual(after.time,before.time)
             self.assertEqual(after.identity,before.identity);self.assertEqual(upgrade(store,self.clock,request),first)
         with SQLiteSave(self.path,allowed_root=self.root) as store:
-            reopened=EcologyApplication(store,load_current(),self.clock)
+            reopened=EcologyApplication(store,load_dungeons(management=True,cold_jade=True,ecology=True,mechanics=True,skill_timing=True),self.clock)
             self.assertEqual(reopened.query(self.sid),after)
             self.assertEqual(len(reopened.view(self.sid)['techniques']['catalog']),150)
 
@@ -263,7 +263,7 @@ class UpgradeTests(unittest.TestCase):
             app.execute(start);before=app.query(self.sid)
             self.assertNotIn('mechanics',before.domains['combat']['battle'])
             request=Command(self.sid,before.generation,before.revision,str(uuid4()),'combat_effect_content_upgrade',{})
-            upgrade(store,self.clock,request);new=EcologyApplication(store,load_current(),self.clock);after=new.query(self.sid)
+            upgrade(store,self.clock,request);new=EcologyApplication(store,load_dungeons(management=True,cold_jade=True,ecology=True,mechanics=True,skill_timing=True),self.clock);after=new.query(self.sid)
             self.assertEqual(after.domains,before.domains)
             bid=after.domains['combat']['battle']['battle_id']
             expected=battle.attack(before.domains['combat'],self.registry,self.sid,bid)
@@ -304,7 +304,7 @@ class ApplicationEffectsTests(unittest.TestCase):
     def test_new_battle_freezes_starters_and_cannot_change_in_battle(self):
         self.command('combat_start',{'encounter_id':'thorn_path_v2_001'})
         state=self.read();b=state.domains['combat']['battle']
-        self.assertEqual(b['rules_version'],'five-dungeons-effects-v1')
+        self.assertEqual(b['rules_version'],'timed-skills-v1')
         self.assertEqual(len(b['mechanics']['sources']),2)
         key=next(iter(state.domains['cultivation']['techniques']['owned']))
         with self.assertRaises(ValidationError):self.command('technique_equip',{'technique_id':key,'slot':'movement'})
@@ -344,7 +344,7 @@ class ApplicationEffectsTests(unittest.TestCase):
         self.command('dungeon_auto',{'enabled':True,'mode':'push','floor':1})
         self.settle(4000,max_events=64)
         b=self.read().domains['combat']['battle'];self.assertIsNotNone(b)
-        self.assertEqual(b['rules_version'],'five-dungeons-effects-v1')
+        self.assertEqual(b['rules_version'],'timed-skills-v1')
         self.assertGreater(b['step'],0)
 
     def test_automatic_online_offline_authority_matches(self):

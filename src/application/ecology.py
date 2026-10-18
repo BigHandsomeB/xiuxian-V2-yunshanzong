@@ -26,11 +26,16 @@ from src.application import sect_activities
 from src.application.sect_economy import reserved
 from src.systems.cultivation import techniques
 from src.application.cultivation import partition
+from src.systems.artifacts import artifacts
+from src.data.artifacts.definitions import settings as artifact_settings
+from src.application import artifacts as artifact_app
 
-COMMANDS = (*activities.COMMANDS, *techniques.COMMANDS, 'ecology_buy', 'ecology_collect', 'ecology_supply', 'ecology_meal')
+COMMANDS = (*artifacts.COMMANDS, *activities.COMMANDS, *techniques.COMMANDS, 'ecology_buy', 'ecology_collect', 'ecology_supply', 'ecology_meal')
 
 
 def validate_state(state, registry):
+    if artifact_settings(registry):
+        artifact_app.validate_state(state,registry)
     part = state.domains[ecology.DOMAIN]
     ecology.validate(part, registry)
     actual = state.domains['sect']['buildings']
@@ -143,6 +148,8 @@ class EcologyApplication(EcologyViews, ManagementApplication):
         return validate_state(state, self.registry)
 
     def create(self, state):
+        if artifact_settings(self.registry):
+            state=replace(state,domains={**state.domains,artifacts.DOMAIN:state.domains.get(artifacts.DOMAIN,artifacts.initial())})
         part = state.domains.get(ecology.DOMAIN, ecology.initial())
         grown=techniques.migrate(partition(state),self.registry)
         return super().create(replace(state, domains={**state.domains, ecology.DOMAIN: part,'cultivation':grown}))
@@ -278,6 +285,8 @@ class EcologyApplication(EcologyViews, ManagementApplication):
             return receipt
 
     def transition(self, state, name, payload):
+        if name in artifacts.COMMANDS:
+            return artifact_app.transition(state,self.registry,name,payload)
         if name in activities.COMMANDS:
             return sect_activities.transition(state,self.registry,name,payload,self._capacity(state)-reserved(state,self.registry))
         if name in techniques.COMMANDS:

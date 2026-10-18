@@ -155,6 +155,9 @@ def validate(state,registry):
                 if growth.leveling.config(registry):
                     actor=dict(growth.projection(legacy,registry,state.save_id));actor.update(growth.leveling.legacy_stats(legacy,registry));actor.pop('speed_bps',None);actor.pop('evasion_bps',None);bases.append(actor)
                 else:bases.append(growth.projection(legacy,registry,state.save_id))
+        if b.get('artifact_snapshot'):
+            from src.systems.artifacts.artifacts import project
+            bases=[project(base,registry,b['artifact_snapshot']) for base in bases]
         for base in bases:
             # A known equipped set is an exact witness; avoid a six-slot search.
             equipped=[equipment(state)['instances'][i] for i in equipment(state)['slots'].values()]
