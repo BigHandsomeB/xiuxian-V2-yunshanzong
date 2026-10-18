@@ -4,9 +4,23 @@ Public entrypoints: present(view, assets), manifest(assets). No daily scene,
 gameplay commands, clock reads, or simulation authority.
 """
 import json
+from contextvars import ContextVar
+from functools import wraps
+from .assets import observation
 from pathlib import Path
 from .asset_catalog import metadata
 from .concepts import concepts
+
+_projection = ContextVar("game_projection", default=None)
+
+def projection(function):
+    @wraps(function)
+    def render(*args, **kwargs):
+        token = _projection.set({"concepts": {r["asset_id"]: r for r in concepts()}, "icons": {}})
+        try:
+            with observation():return function(*args, **kwargs)
+        finally:_projection.reset(token)
+    return render
 
 BINDING_PATH=Path(__file__).with_name('game-assets.json')
 BINDINGS=json.loads(BINDING_PATH.read_text())
@@ -37,7 +51,9 @@ SCREENS = {
 
 
 def _icon(asset_id, assets, snapshot):
-    concept=next((r for r in concepts() if r['asset_id']==asset_id),None)
+    scope=_projection.get()
+    if scope is not None and asset_id in scope['icons']:return dict(scope['icons'][asset_id])
+    concept=scope['concepts'].get(asset_id) if scope is not None else next((r for r in concepts() if r['asset_id']==asset_id),None)
     row=snapshot.get(asset_id,{}) if asset_id else {}
     origin=row.get('export_origin',{}) if isinstance(row,dict) else None
     if (not isinstance(origin,dict) or
@@ -52,22 +68,25 @@ def _icon(asset_id, assets, snapshot):
         if resolved.get('nine_slice_insets'):public['nine_slice_insets']=resolved['nine_slice_insets']
         if resolved.get('content_box'):public['content_box']=resolved['content_box']
         public['url'] = '/game/runtime/' + resolved['url'].split('/play/runtime/', 1)[1]
-    return {'asset_id': asset_id, 'fallback': public is None, 'asset': public}
+    result={'asset_id': asset_id, 'fallback': public is None, 'asset': public}
+    if scope is not None:scope['icons'][asset_id]=dict(result)
+    return result
 
 
 def _map(keys, bindings, assets, snapshot):
     return {key: _icon(bindings.get(key), assets, snapshot) for key in sorted(keys)}
 
 
-def resource_overview(assets,snapshot):
+def resource_overview(assets,snapshot,config=None):
     """Explicit presentation concepts; missing Inventory definitions never imply ownership."""
+    config=config or bindings()
     rows={r['concept_id']:r for r in concepts()}
     order=['spirit_stone','spirit_stone_low','spirit_stone_mid','spirit_stone_high','spirit_stone_supreme','spirit_money','herb','spirit_wood','spirit_iron_ore','spirit_iron_ingot','wood','stone','grain','spring_water']
     result=[]
     for key in order:
         row=rows.get('concept.'+key)
         if not row:continue
-        result.append({'concept_id':row['concept_id'],'name':bindings().get('resource_overview_names',{}).get(key,'灵谷种子' if key=='seed' else row['display_name_zh']),
+        result.append({'concept_id':row['concept_id'],'name':config.get('resource_overview_names',{}).get(key,'灵谷种子' if key=='seed' else row['display_name_zh']),
             'gameplay_id':'seed_grain' if key=='seed' else row.get('gameplay_id'),
             'visual':_icon(row['asset_id'],assets,snapshot)})
     return result
@@ -104,6 +123,7 @@ def _battle(assets,snapshot,combat=None,config=None):
     return result
 
 
+@projection
 def present(view, assets):
     """One approved Manifest observation; never mutates the committed read model."""
     snapshot = assets.snapshot();config=bindings()
@@ -117,7 +137,7 @@ def present(view, assets):
         'schema_version': 1, 'mode': 'icon',
         'icons': _map(resources, config['icons'], assets, snapshot),
         'system_icons': _map(config.get('system_icons',{}),config.get('system_icons',{}),assets,snapshot),
-        'resource_overview':resource_overview(assets,snapshot),
+        'resource_overview':resource_overview(assets,snapshot,config),
         'equipment_icons': {r['definition_id']:_icon(config['icons'].get(r['definition_id']) or r['asset_id'],assets,snapshot) for r in view.get('equipment',{}).get('instances',[])},
         'artifact_icons': _map(config.get('artifact_icons',{}),config.get('artifact_icons',{}),assets,snapshot),
         'technique_icons': {r['id']:_icon(r['asset_id'],assets,snapshot) for r in (view.get('techniques') or {}).get('catalog',[])},
@@ -172,6 +192,7 @@ def catalog(assets, snapshot, config):
     return projection
 
 
+@projection
 def manifest(assets):
     """Injectable public binding/availability map and optional public catalog; no Source or raw file paths.
 

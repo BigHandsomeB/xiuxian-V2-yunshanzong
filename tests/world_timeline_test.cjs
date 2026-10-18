@@ -1,0 +1,17 @@
+const fs=require('fs'),assert=require('node:assert/strict');
+const {WorldTimeline}=new Function(fs.readFileSync('src/ui/pages/game/static/components/world-time.js','utf8').replace(/^export /gm,'')+';return {WorldTimeline};')();
+const original={save_id:'one',generation:1,simulation_time_ms:9900,day_length_ms:120000,paused:false,pending:false};
+const snapshot={...original},clock=new WorldTimeline(snapshot,1000);
+assert.equal(clock.sample(1500).time,10400,'progress advances between replies and crosses the watch boundary');
+assert.equal(clock.sample(1200).animated,true);assert.deepEqual(snapshot,original,'animation never mutates authoritative time');
+clock.update({...snapshot},1500);assert.equal(clock.sample(1600).time,10500,'unchanged render does not reset the clock');
+clock.update({...snapshot,simulation_time_ms:10300},1600);
+assert.equal(clock.sample(1600).time,10500,'resync starts at the currently displayed position');
+assert.equal(clock.sample(1800).time,10500,'correction converges without a full repaint');
+clock.update({...snapshot,paused:true,simulation_time_ms:10600},1900);assert.equal(clock.sample(999999).time,10600,'paused world never drifts');
+clock.update({...snapshot,pending:true,simulation_time_ms:10800},2000);assert.equal(clock.sample(50000).time,10800,'offline catch-up never interpolates rewards');
+clock.update({...snapshot,generation:2,simulation_time_ms:0},3000);assert.equal(clock.sample(3000).time,0,'save recovery resets display generation');
+assert.equal(clock.sample(20000).time,10000,'stale authority has a bounded extrapolation horizon');assert.equal(clock.sample(20000).animated,false);
+const invalid=new WorldTimeline({simulation_time_ms:NaN,day_length_ms:0},0);assert.equal(invalid.sample(100).valid,false);
+const midnight=new WorldTimeline({...original,simulation_time_ms:119900},0);assert.equal(Math.floor(midnight.sample(500).time/120000)+1,2);
+console.log('world timeline: smooth advance, resync, pause, catch-up, recovery, stale cap and day boundary PASS');

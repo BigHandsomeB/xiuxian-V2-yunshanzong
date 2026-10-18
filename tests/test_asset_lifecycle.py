@@ -41,7 +41,15 @@ class LifecycleTests(unittest.TestCase):
     def test_detach_preserves_asset_source_runtime_prompt(self):
         before=self.c.get('asset',self.aid);m=self.manifest();self.do('detach_asset');a=self.c.get('asset',self.aid)
         self.assertIsNone(a['set_id']);self.assertEqual(a['versions'],before['versions']);self.assertEqual(m,self.manifest());self.assertEqual(self.c.get('prompt',self.p['prompt_id']),self.p);self.assertEqual(self.c.get('source',self.s['source_id']),self.s);self.assertEqual(self.c.completeness(self.g['set_id'])['total'],5)
+    def scene_bootstrap(self):
+        # Standalone distributions intentionally ship an empty seed; this test owns its fixture.
+        self.scene_seed=self.c.root.parent/'scene-seed.json'
+        row={'set_id':'scene_set.danding.interior.v1','name_zh':'测试丹鼎阁','template_id':'building_interior_scene_v1',
+             'states':['prepare','measure','add_herbs','stable','high_fire','finish'],'asset_prefix':'scene.building.test.danding'}
+        self.scene_seed.write_text(json.dumps({'schema_version':1,'sets':[row]}))
+        self.c=Catalog(self.c.root,seed_file=self.scene_seed)
     def test_scene_detach_keeps_required_empty_slot(self):
+        self.scene_bootstrap()
         g=self.c.get('set','scene_set.danding.interior.v1');aid=g['asset_prefix']+'.prepare';self.do('detach_asset',aid);s=self.c.completeness(g['set_id']);self.assertIsNone(s['slots']['prepare']['asset_id']);self.assertEqual(s['total'],6)
     def test_source_reference_blocks_delete_even_after_deprecation(self):
         p=self.preview('delete_source',self.s['source_id'],'source');self.assertTrue(p['force_blockers'])
@@ -88,7 +96,8 @@ class LifecycleTests(unittest.TestCase):
         with self.assertRaises(AssetError):apply(self.c,p['confirmation_id'],True,confirmation_text='永久删除')
         apply(self.c,p['confirmation_id'],True,force=True,force_confirmed=True,confirmation_text='永久删除');self.assertTrue(all(self.c.get('asset',aid,missing=True) is None for aid in self.ids));self.assertEqual(self.manifest(),{});self.assertIsNotNone(self.c.get('prompt',self.p['prompt_id']))
     def test_empty_bootstrap_purge_does_not_resurrect_on_restart(self):
-        sid='scene_set.danding.interior.v1';self.do('purge_set_members',sid,'set',confirmation_text='永久删除');fresh=Catalog(self.c.root);self.assertIsNone(fresh.get('set',sid,missing=True))
+        self.scene_bootstrap()
+        sid='scene_set.danding.interior.v1';self.do('purge_set_members',sid,'set',confirmation_text='永久删除');fresh=Catalog(self.c.root,seed_file=self.scene_seed);self.assertIsNone(fresh.get('set',sid,missing=True))
     def test_container_purge_retains_members(self):
         sid=self.g['set_id'];self.do('purge_set',sid,'set',force=True,force_confirmed=True,confirmation_text='永久删除');self.assertIsNone(self.c.get('set',sid,missing=True));self.assertTrue(all(self.c.get('asset',aid)['set_id'] is None for aid in self.ids));self.assertEqual(len(self.manifest()),6)
     def test_runtime_cleanup_only_after_deprecation_retains_source_and_components(self):
@@ -127,7 +136,7 @@ class LifecycleTests(unittest.TestCase):
     def test_physical_move_failure_rolls_back_metadata_and_files(self):
         self.do('detach_asset');p=self.preview('purge_asset');original=os.replace;calls=[]
         def fail(src,dst):
-            if '/.deletion/' in str(dst):
+            if '.deletion' in Path(dst).parts:
                 calls.append(str(src))
                 if len(calls)==2:raise OSError('disk failure')
             return original(src,dst)
@@ -227,7 +236,7 @@ class LifecycleTests(unittest.TestCase):
         review=self.make_review_preview();self.do('purge_set_members',self.g['set_id'],'set',force=True,force_confirmed=True,confirmation_text='永久删除')
         p=self.preview('delete_source',self.s['source_id'],'source');original=os.replace;calls=[]
         def fail(src,dst):
-            if '/.deletion/' in str(dst):
+            if '.deletion' in Path(dst).parts:
                 calls.append(str(src))
                 if len(calls)==2:raise OSError('disk failure')
             return original(src,dst)

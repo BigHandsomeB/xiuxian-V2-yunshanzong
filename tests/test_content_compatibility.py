@@ -298,7 +298,7 @@ class OfflineCompatibilityCLITests(Fixtures,unittest.TestCase):
         script = V2_ROOT/'tools/economy/check_save_compatibility.py'
         base = [sys.executable,'-B',str(script),'--snapshot',str(self.snapshot)]
         for target,expected in ((OLD,0),(CURRENT,1),('future',1)):
-            child = subprocess.run([*base,'--target',target,'--json'],cwd='/tmp',capture_output=True,text=True,timeout=30)
+            child = subprocess.run([*base,'--target',target,'--json'],cwd=tempfile.gettempdir(),capture_output=True,text=True,timeout=30)
             self.assertEqual(child.returncode,expected,child.stderr)
             report = json.loads(child.stdout)
             self.assertNotIn('SAFE_TO_APPLY',child.stdout)

@@ -66,8 +66,8 @@ class RetiredEconomyApplication(EconomyApplication):
         v=thaw_json(super().project_combat(state));v['reward']=[r for r in v['reward'] if r['resource_id'] not in (*RETIRED_ITEMS,'dewleaf')];return freeze_json(v)
     def project_economy(self,state):
         v=super().project_economy(state);v['recipes']=[r for r in v['recipes'] if r['recipe_id'] not in RETIRED_RECIPES];return v
-    def view(self,save_id):
-        v=thaw_json(super().view(save_id));retired=[r for r in v['equipment']['instances'] if r['definition_id'] in RETIRED_ITEMS]
+    def project_full_view(self,state):
+        v=thaw_json(super().project_full_view(state));retired=[r for r in v['equipment']['instances'] if r['definition_id'] in RETIRED_ITEMS]
         v['equipment']['instances']=[r for r in v['equipment']['instances'] if r['definition_id'] not in RETIRED_ITEMS];v['equipment']['count']=len(v['equipment']['instances'])
         v['capacity']['used']-=len(retired)+v['inventory'].get('dewleaf',{}).get('quantity',0)
         for key in ('inventory','holdings'):v[key].pop('dewleaf',None)

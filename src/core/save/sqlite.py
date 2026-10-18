@@ -10,7 +10,6 @@ import os
 from pathlib import Path
 import sqlite3
 import stat
-from urllib.parse import quote
 
 from src.core.save.codec import (CorruptSaveError, PersistenceError, StoredReceipt,
                                  decode_state, encode_state, wall_claim)
@@ -92,7 +91,7 @@ class SQLiteSave:
         if len(header) >= 20 and header[:16] == b'SQLite format 3\x00' and header[18:20] != b'\x01\x01':
             raise PersistenceError('only DELETE journal databases are supported')
         try:
-            connection = sqlite3.connect('file:' + quote(str(self.path), safe='/') + '?mode=rw',
+            connection = sqlite3.connect(self.path.as_uri() + '?mode=rw',
                                          uri=True, isolation_level=None, timeout=2.0)
             self._connection = connection
             connection.execute('PRAGMA foreign_keys=ON')
@@ -108,7 +107,7 @@ class SQLiteSave:
     def initialize(cls, path, *, allowed_root):
         path = database_path(path, allowed_root)
         # Exclusive creation: an existing unknown file is never truncated.
-        fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
+        fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY | getattr(os, 'O_NOFOLLOW', 0), 0o600)
         os.close(fd)
         connection = None
         try:

@@ -30,6 +30,7 @@ export function patchPanel(old,fresh){
   if(old.dataset.assetFallback==='true'&&fresh.__runtimeURL&&!fresh.dataset.assetFallback&&!old.__iconRetried){fresh.__iconRetried=true;return fresh;}
   return patchIcon(old,fresh);
  }
+ if(old.__worldTime&&fresh.__worldTime){old.__worldTime.update(fresh.__worldTime.snapshot);return old;}
  if(old.__jobProgress&&fresh.__jobProgress){old.__jobProgress.update(fresh.__jobProgress.snapshot);return old;}
  if(fresh.__runtimeURL!==undefined)old.__runtimeURL=fresh.__runtimeURL;
  if(fresh.__onClick)old.__onClick=fresh.__onClick;

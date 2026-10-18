@@ -4,6 +4,7 @@
 @usedBy systems/inventory/operations, application/inventory
 @see ./INDEX.md
 """
+from src.core.state.projection import checked_partition
 from collections.abc import Mapping
 
 from src.core.state.envelope import freeze_json
@@ -28,6 +29,7 @@ def _holdings(partition):
     return holdings
 
 
+@checked_partition
 def validate(partition, registry):
     for key, quantity in _holdings(partition).items():
         definition(registry, key)

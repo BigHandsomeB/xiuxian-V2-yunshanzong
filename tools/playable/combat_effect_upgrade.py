@@ -1,4 +1,5 @@
 """Operator-only fifth-dungeon/effect upgrade. --apply is required; no startup migration."""
+from contextlib import closing
 import argparse
 import json
 from pathlib import Path
@@ -38,7 +39,7 @@ def run(root, apply=False):
         database_backup=backup.with_suffix('.sqlite3')
         descriptor=os.open(database_backup,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
         os.close(descriptor)
-        with sqlite3.connect(path.as_uri()+'?mode=ro',uri=True) as source, sqlite3.connect(database_backup) as target:
+        with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as source, closing(sqlite3.connect(database_backup)) as target:
             source.backup(target)
         receipt = upgrade(store, SystemClock(), request)
         return {**dict(receipt.result), 'backup': str(backup),'database_backup':str(database_backup)}

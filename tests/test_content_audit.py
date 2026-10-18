@@ -222,7 +222,7 @@ class ContentAuditTests(unittest.TestCase):
         self.assertNotEqual(report['status'],'ERROR')
         self.assertEqual(child.stderr,'')
         self.assertEqual(caches,{str(p) for base in watch for p in base.rglob('*.pyc')})
-        self.assertEqual(sorted(str(p.relative_to(self.root)) for p in self.root.rglob('*') if p.is_file()),
+        self.assertEqual(sorted(p.relative_to(self.root).as_posix() for p in self.root.rglob('*') if p.is_file()),
                          ['manifest.json','src/data/sample.json'])
 
 

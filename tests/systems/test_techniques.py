@@ -54,16 +54,21 @@ class TechniqueTests(unittest.TestCase):
             self.clock.advance(3600000)
             with self.assertRaises(ValidationError):app.settle(q)
             self.assertEqual(partition(app.query(self.sid)),partition(before))
-    def test_auto_blocks_equipping(self):
+    def test_auto_allows_equipping_without_stopping(self):
         self.grant()
         def enable(s):
             d=thaw_json(s.domains['dungeon']);d['cleared_floor']=1
             d=progress.set_auto(d,self.registry,True,'farm',1,1)
             return EcologyApplication(None,self.registry,self.clock).engine.wake(replace(s,domains={**s.domains,'dungeon':d}))
         self.fixture(enable);before=self.read()
-        with self.assertRaises(ValidationError):self.command('technique_unequip',{'slot':'movement'})
-        self.assertEqual(self.read(),before)
-        self.assertFalse(self.view()['techniques']['can_change'])
+        request=self.request('technique_unequip',{'slot':'movement'})
+        receipt=self.execute(request);after=self.read()
+        self.assertTrue(after.domains['dungeon']['auto']['enabled'])
+        self.assertEqual(after.domains['dungeon'],before.domains['dungeon'])
+        self.assertNotIn('movement',partition(after)['techniques']['slots'])
+        self.assertEqual(self.execute(request),receipt)
+        self.assertEqual(self.read(),after)
+        self.assertTrue(self.view()['techniques']['can_change'])
     def test_kill_gate_integer_levels_and_grade_caps(self):
         p=partition(self.read());q,result=leveling.kill(p,self.registry,self.sid,1,'normal','battle-1')
         self.assertEqual(result['xp_gained'],0);self.assertNotIn('techniques',q)
@@ -129,8 +134,8 @@ class TechniqueTests(unittest.TestCase):
         self.assertEqual(fight['battle']['status'],'PLAYER_WIN')
         s=replace(s,identity={**s.identity,'instance_counter':counter},domains={**s.domains,'combat':fight})
         self.fixture(lambda _:s);before=self.read()
-        with self.assertRaises(ValidationError):self.command('technique_unequip',{'slot':'movement'})
-        self.assertEqual(self.read(),before)
+        self.command('technique_unequip',{'slot':'movement'})
+        self.assertEqual(self.read().domains['combat'],before.domains['combat'])
         q=self.request('combat_reward',{'battle_id':fight['battle']['battle_id']});receipt=self.execute(q);after=self.read()
         self.assertGreater(sum(partition(after)['techniques']['owned'].values()),0)
         self.assertEqual(self.execute(q),receipt);self.assertEqual(self.read(),after)

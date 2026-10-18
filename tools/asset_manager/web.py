@@ -9,12 +9,12 @@ from .catalog import Catalog, PROJECT
 from .model import AssetError, require, REVIEW, INTERIOR_REVIEW, templates
 
 
-def create_app(root, access_token, allowed_hosts=None):
+def create_app(root, access_token, allowed_hosts=None, *, merge_runtime=False):
     require(isinstance(access_token, str) and len(access_token) >= 24, "Configure a private access token of at least 24 characters")
     app = Flask(__name__)
     app.secret_key = secrets.token_bytes(32)
     app.config.update(MAX_CONTENT_LENGTH=13 * 1024 * 1024, SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Strict", TRUSTED_HOSTS=allowed_hosts or ["127.0.0.1", "localhost", "[::1]"])
-    catalog = Catalog(root)
+    catalog = Catalog(root, merge_runtime=merge_runtime)
     app.extensions["asset_catalog"] = catalog
 
     @app.before_request

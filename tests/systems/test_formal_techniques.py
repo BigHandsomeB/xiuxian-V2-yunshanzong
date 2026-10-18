@@ -32,6 +32,20 @@ class FormalTechniqueTests(unittest.TestCase):
         self.fixture(change)
     def progress(self,floor):
         self.fixture(lambda s:replace(s,domains={**s.domains,'dungeon':{**thaw_json(s.domains['dungeon']),'cleared_floor':floor}}))
+    def test_paused_world_allows_loadout_but_keeps_time_and_battle_snapshot(self):
+        self.grant();row=self.view()['techniques']['instances'][0];key=row['id'];slot=next(s for s in techniques.config(self.registry)['slots'] if ('passive' if s.startswith('passive_') else s)==row['category'])
+        self.command('combat_start',{'encounter_id':'thorn_path_v2_001'})
+        self.command('world_pause',{});before=self.read()
+        self.assertTrue(self.view()['techniques']['can_change'])
+        self.command('technique_equip',{'technique_id':key,'slot':slot})
+        self.assertEqual(partition(self.read())['techniques']['slots'][slot],key)
+        self.command('technique_unequip',{'slot':slot})
+        self.assertNotIn(slot,partition(self.read())['techniques']['slots'])
+        self.assertEqual(self.read().time,before.time)
+        self.assertEqual(self.read().domains['combat'],before.domains['combat'])
+        self.assertEqual(self.read().domains['inventory'],before.domains['inventory'])
+        self.assertTrue(self.view()['world']['paused'])
+        with self.assertRaises(ValidationError):self.command('technique_buy',{'technique_id':self.row('green')['id']})
     def test_catalog_budgets_and_all_grade_boundaries(self):
         c=techniques.config(self.registry);self.assertEqual(len(c['techniques']),150)
         self.assertEqual(len({r['asset_id'] for r in c['techniques']}),150)

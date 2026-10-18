@@ -1,4 +1,5 @@
 """Isolated V2 SQLite contract/restart/corruption tests. No V1 DB or real Save."""
+from contextlib import closing
 from dataclasses import asdict, replace
 from pathlib import Path
 import json
@@ -76,7 +77,7 @@ class PersistenceTests(unittest.TestCase):
         self.save_id = self.initial.save_id
 
     def corrupt(self, transform=None, *, raw=None):
-        with sqlite3.connect(self.path) as connection:
+        with closing(sqlite3.connect(self.path)) as connection, connection:
             body = connection.execute('SELECT body FROM current WHERE save_id=?', (self.save_id,)).fetchone()[0]
             if transform is not None:
                 value = json.loads(body)
@@ -87,7 +88,7 @@ class PersistenceTests(unittest.TestCase):
             connection.execute('UPDATE current SET body=?,digest=? WHERE save_id=?', (body, sha(body), self.save_id))
 
     def test_initialize_and_layout_version(self):
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0], DB_LAYOUT_VERSION)
             self.assertEqual(db.execute('PRAGMA journal_mode').fetchone()[0], 'delete')
         empty = self.root / 'empty.db'
@@ -108,14 +109,14 @@ class PersistenceTests(unittest.TestCase):
 
     def test_open_unsupported_layout(self):
         self.store.close()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('PRAGMA user_version=999')
         with self.assertRaises(PersistenceError):
             SQLiteSave(self.path, allowed_root=self.root)
 
     def test_invalid_layout_tables(self):
         self.store.close()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('DROP TABLE receipts')
         with self.assertRaises(PersistenceError):
             SQLiteSave(self.path, allowed_root=self.root)
@@ -132,7 +133,7 @@ class PersistenceTests(unittest.TestCase):
         self.assertEqual((self.query().generation, self.query().revision), (expected.generation, 1))
 
     def test_save_only_definition_references(self):
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             body = db.execute('SELECT body FROM current WHERE save_id=?', (self.save_id,)).fetchone()[0]
         self.assertIn('test_entry', body)
         self.assertNotIn('display_name', body)
@@ -409,12 +410,12 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
         self.app.checkpoint(self.save_id)
         self.app.execute(self.command())
         self.assertEqual(self.app.inspect(self.save_id).recovery.revision, 1)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             self.assertEqual(db.execute('SELECT count(*) FROM previous WHERE save_id=?', (self.save_id,)).fetchone()[0], 1)
 
     def test_invalid_previous_not_offered(self):
         self.app.checkpoint(self.save_id)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE previous SET digest=? WHERE save_id=?', ('wrong', self.save_id))
         self.corrupt(raw='{}')
         self.assertEqual(self.app.inspect(self.save_id).status, 'CURRENT_INVALID_NO_RECOVERY')
@@ -450,13 +451,13 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
                     self.query()
 
     def test_metadata_disagreement_rejected(self):
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE current SET revision=10 WHERE save_id=?', (self.save_id,))
         with self.assertRaises(CorruptSaveError):
             self.query()
 
     def test_checksum_corruption_rejected(self):
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE current SET digest=? WHERE save_id=?', ('bad', self.save_id))
         with self.assertRaises(CorruptSaveError):
             self.query()
@@ -491,7 +492,7 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
         raw['time']['pending']['accrued_to_ms'] += 1
         candidate = StateEnvelope.from_dict(raw)
         values = encode_state(candidate)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE current SET body=?,digest=?,continuation=? WHERE save_id=?', (values[6], values[7], values[8], self.save_id))
         with self.assertRaises(CorruptSaveError):
             self.query()
@@ -500,7 +501,7 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
         self.schedule([(10, 0, 'TEST a'), (20, 0, 'TEST b')])
         self.clock.advance(100)
         self.app.settle(self.request(budget=1))
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             cont = asdict(Continuation.for_state(self.query()))
             cont['state_fingerprint'] = '0' * 64
             db.execute('UPDATE current SET continuation=? WHERE save_id=?', (canonical(cont), self.save_id))
@@ -510,7 +511,7 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
     def test_corrupt_receipt_replay_is_detected(self):
         command = self.command()
         self.app.execute(command)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE receipts SET digest=? WHERE request_id=?', ('wrong', command.request_id))
         self.restart()
         with self.assertRaises(CorruptSaveError):
@@ -580,7 +581,7 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
     def test_receipt_metadata_checksum_detects_corruption(self):
         command = self.command()
         self.app.execute(command)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE receipts SET committed_revision=0 WHERE request_id=?', (command.request_id,))
         with self.assertRaises(CorruptSaveError):
             self.app.execute(command)
@@ -592,7 +593,7 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
         # Isolated fixture represents a future explicit replacement; no production restore.
         newer = replace(self.query(), generation=2, revision=0)
         values = encode_state(newer)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE current SET generation=?,revision=?,body=?,digest=? WHERE save_id=?',
                        (2, 0, values[6], values[7], self.save_id))
         self.restart()
@@ -621,7 +622,7 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
         raw = self.initial.to_dict()
         raw['domains']['fixture']['definition_refs'][0]['machine_id'] = 'test_unknown'
         body = canonical(raw)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE previous SET body=?,digest=? WHERE save_id=?', (body, sha(body), self.save_id))
         self.corrupt(raw='{}')
         self.assertEqual(self.app.inspect(self.save_id).status, 'CURRENT_INVALID_NO_RECOVERY')
@@ -641,7 +642,7 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
         self.schedule([(10, 0, 'TEST a'), (20, 0, 'TEST b')])
         self.clock.advance(100)
         self.app.settle(self.request(budget=1))
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE current SET continuation=NULL WHERE save_id=?', (self.save_id,))
         with self.assertRaises(CorruptSaveError):
             self.query()
@@ -655,14 +656,14 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
 
     def test_nontext_snapshot_rejected_as_corruption(self):
         self.app.checkpoint(self.save_id)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE previous SET body=? WHERE save_id=?', (sqlite3.Binary(b'not text'), self.save_id))
         self.corrupt(raw='{}')
         self.assertEqual(self.app.inspect(self.save_id).status, 'CURRENT_INVALID_NO_RECOVERY')
 
     def test_wal_database_rejected_before_open(self):
         self.store.close()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             self.assertEqual(db.execute('PRAGMA journal_mode=WAL').fetchone()[0], 'wal')
         for suffix in ('-wal', '-shm'):
             self.assertFalse(Path(str(self.path) + suffix).exists())
@@ -673,6 +674,10 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
 
     def test_replaced_database_path_rejected(self):
         displaced = self.root / 'old.sqlite3'
+        if os.name == 'nt':
+            with self.assertRaises(PermissionError):self.path.rename(displaced)
+            self.query()
+            return
         self.path.rename(displaced)
         self.path.write_bytes(displaced.read_bytes())
         with self.assertRaises(PersistenceError):

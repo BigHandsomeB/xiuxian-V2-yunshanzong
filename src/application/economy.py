@@ -257,4 +257,15 @@ class EconomyApplication(WorldApplication):
         needs=not paused(state.time) and bool(state.time['pending'] or working or can_auto or awaiting)
         return {'recipes':recipes,'automation':automation,'needs_poll':needs,'needs_settlement':needs}
     def view(self,save_id):
-        state=self.query(save_id);v=thaw_json(self.project_world(state));v['economy']=self.project_economy(state);v['equipment']=equip.view(state,self.registry);return freeze_json(v)
+        # Validate the persisted snapshot before entering the projection-only scope.
+        # Inheritance layers share untouched read-only branches instead of copying
+        # the entire display tree each time. Seal once before returning to callers.
+        from contextlib import nullcontext
+        from src.core.state.draft import batch_scope
+        from src.core.state.projection import projection_checks
+        state=self.query(save_id)
+        with projection_checks(),(batch_scope() if state.time['pending'] is None else nullcontext()):
+            view=self.project_full_view(state)
+        return freeze_json(view)
+    def project_full_view(self,state):
+        v=thaw_json(self.project_world(state));v['economy']=self.project_economy(state);v['equipment']=equip.view(state,self.registry);return freeze_json(v)

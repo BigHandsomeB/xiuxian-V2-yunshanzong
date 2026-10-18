@@ -1,14 +1,29 @@
 """Editable planning descriptions, separate from gameplay and Asset Manager metadata."""
-import fcntl
 import json
 import os
 import sqlite3
 import tempfile
-from contextlib import closing
+from contextlib import closing, contextmanager
 from pathlib import Path
 from src.core.validation import ValidationError
 from src.data.asset_notes import read_notes
 from src.data.public_asset_catalog import read_catalog
+
+@contextmanager
+def exclusive_lock(guard):
+    if os.name == 'nt':
+        import msvcrt
+        guard.seek(0)
+        msvcrt.locking(guard.fileno(), msvcrt.LK_LOCK, 1)
+        try:yield
+        finally:
+            guard.seek(0)
+            msvcrt.locking(guard.fileno(), msvcrt.LK_UNLCK, 1)
+    else:
+        import fcntl
+        fcntl.flock(guard, fcntl.LOCK_EX)
+        try:yield
+        finally:fcntl.flock(guard, fcntl.LOCK_UN)
 
 class NotesConflict(Exception):
     def __init__(self,revision):self.revision=revision
@@ -44,9 +59,11 @@ class CatalogNotes:
             if type(payload[key]) is not str or len(payload[key])>limit:raise ValidationError(f'{key}内容超过长度限制')
             fields[key]=payload[key].strip()
         if self.path.is_symlink() or self.path.parent.is_symlink():raise ValidationError('图鉴说明文件不可用')
-        lock=self.path.with_suffix('.lock');fd=os.open(lock,os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
-        with os.fdopen(fd,'r+') as guard:
-            fcntl.flock(guard,fcntl.LOCK_EX);data=self.read();old=data['assets'].get(identity,{});revision=old.get('revision',0)
+        lock=self.path.with_suffix('.lock')
+        if lock.is_symlink():raise ValidationError('图鉴说明锁文件不可用')
+        fd=os.open(lock,os.O_CREAT|os.O_RDWR|getattr(os,'O_NOFOLLOW',0),0o600)
+        with os.fdopen(fd,'r+') as guard, exclusive_lock(guard):
+            data=self.read();old=data['assets'].get(identity,{});revision=old.get('revision',0)
             if all(old.get(k,'')==v for k,v in fields.items()) and old:return old
             if revision!=expected:raise NotesConflict(revision)
             row={'name':self.name(identity),**fields,'revision':revision+1};data['assets'][identity]=row

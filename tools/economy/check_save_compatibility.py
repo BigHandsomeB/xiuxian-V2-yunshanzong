@@ -52,7 +52,7 @@ def read_snapshot(path, *, root=ROOT):
         return result
     def invalid(_):
         raise ValidationError('nonfinite snapshot JSON value')
-    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    descriptor = os.open(path, os.O_RDONLY | getattr(os,'O_NOFOLLOW',0) | getattr(os,'O_NONBLOCK',0))
     with os.fdopen(descriptor, 'rb') as source:
         before = os.fstat(source.fileno())
         if not stat.S_ISREG(before.st_mode) or before.st_size > MAX_SAVE_BYTES:

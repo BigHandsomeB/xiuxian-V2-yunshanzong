@@ -2,6 +2,7 @@
 .env
 .env.*
 .game/
+.asset-manager/
 .venv/
 venv/
 .tmp/

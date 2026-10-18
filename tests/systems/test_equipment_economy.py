@@ -33,10 +33,14 @@ class EquipmentTests(EquipmentFixture,unittest.TestCase):
   i=self.forge();self.command('equipment_equip',{'instance_id':i});self.assertEqual(self.view()['cultivation']['combat_projection']['attack'],14);self.command('equipment_unequip',{'instance_id':i});self.assertEqual(self.view()['cultivation']['combat_projection']['attack'],10)
  def test_new_combat_equipment_projection_damage(self):
   i=self.forge();self.command('equipment_equip',{'instance_id':i});bid=self.command('combat_start',{'encounter_id':'thorn_first'}).result['combat']['battle_id'];self.assertEqual(self.view()['combat']['player']['attack'],14);self.command('combat_attack',{'battle_id':bid});self.assertEqual(self.view()['combat']['enemy']['hp'],21)
- def test_active_battle_prevents_hot_swap(self):
+ def test_active_battle_keeps_snapshot_when_loadout_changes(self):
   i=self.forge();bid=self.command('combat_start',{'encounter_id':'thorn_first'}).result['combat']['battle_id'];before=self.state()
-  with self.assertRaises(ValidationError):self.command('equipment_equip',{'instance_id':i})
-  self.assertEqual(self.state(),before);self.assertEqual(self.view()['combat']['player']['attack'],10)
+  self.command('equipment_equip',{'instance_id':i})
+  self.assertEqual(self.state().domains['combat'],before.domains['combat'])
+  self.assertEqual(self.view()['combat']['player']['attack'],10)
+  self.assertEqual(self.view()['cultivation']['combat_projection']['attack'],14)
+  self.command('combat_abandon',{'battle_id':bid});self.command('combat_start',{'encounter_id':'thorn_first'})
+  self.assertEqual(self.view()['combat']['player']['attack'],14)
  def test_snapshot_survives_unequip_after_abandon(self):
   i=self.forge();self.command('equipment_equip',{'instance_id':i});bid=self.command('combat_start',{'encounter_id':'thorn_first'}).result['combat']['battle_id'];self.command('combat_abandon',{'battle_id':bid});self.command('equipment_unequip',{'instance_id':i});self.assertEqual(self.view()['combat']['player']['attack'],14);self.assertEqual(self.view()['cultivation']['combat_projection']['attack'],10)
  def test_equip_lock_favorite_protection(self):
@@ -86,11 +90,21 @@ class EquipmentTests(EquipmentFixture,unittest.TestCase):
   with self.assertRaises(ValidationError):items.remove(p,self.registry,i)
  def test_default_off_and_preview_pure(self):
   i=self.forge();before=self.state();self.assertEqual(self.view()['equipment']['policy']['mode'],'OFF');self.assertEqual(self.view()['equipment']['instances'][0]['evaluation'],'KEEP');self.assertEqual(self.state(),before)
- def test_pause_blocks_all_equipment_mutations(self):
-  i=self.forge();self.command('world_pause');before=self.state()
-  for name,payload in [('equipment_sell',{'instance_id':i}),('equipment_salvage',{'instance_id':i}),('equipment_equip',{'instance_id':i}),('equipment_lock',{'instance_id':i,'value':True})]:
-   with self.assertRaises(ValidationError):self.command(name,payload)
-  self.assertEqual(self.state(),before)
+ def test_pause_allows_loadout_changes_without_advancing_world(self):
+  i=self.forge();self.command('combat_start',{'encounter_id':'thorn_first'});self.command('world_pause');before=self.state()
+  row=next(r for r in self.view()['equipment']['instances'] if r['instance_id']==i)
+  self.assertTrue(row['can_equip'])
+  self.command('equipment_equip',{'instance_id':i})
+  self.assertTrue(self.state().domains['equipment']['instances'][i]['equipped'])
+  self.assertTrue(next(r for r in self.view()['equipment']['instances'] if r['instance_id']==i)['can_unequip'])
+  self.command('equipment_unequip',{'instance_id':i})
+  self.assertFalse(self.state().domains['equipment']['instances'][i]['equipped'])
+  self.command('equipment_lock',{'instance_id':i,'value':True})
+  self.assertTrue(self.state().domains['equipment']['instances'][i]['locked'])
+  self.assertEqual(self.state().time,before.time)
+  self.assertEqual(self.state().domains['combat'],before.domains['combat'])
+  self.assertEqual(self.state().domains['production'],before.domains['production'])
+  self.assertEqual(self.state().domains['inventory'],before.domains['inventory'])
  def test_personal_equipment_does_not_count_warehouse_capacity(self):
   i=self.forge();self.assertEqual(self.view()['capacity']['used'],sum(n for k,n in self.state().domains['inventory']['holdings'].items() if self.registry.lookup(DefinitionKey('resources',k)).warehouse_counted))
 

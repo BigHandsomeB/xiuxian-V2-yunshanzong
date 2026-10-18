@@ -4,6 +4,7 @@
 @usedBy application/sect, tests/systems/test_buildings
 @see ./INDEX.md
 """
+from src.core.state.projection import checked_partition
 from collections.abc import Mapping
 
 from src.core.state.envelope import freeze_json
@@ -38,6 +39,7 @@ def _rows(partition):
     return partition['buildings']
 
 
+@checked_partition
 def validate(partition, registry, *, save_id=None):
     for identity,row in _rows(partition).items():
         owner=instance_id(identity)

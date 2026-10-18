@@ -214,8 +214,8 @@ class ManagementApplication(DungeonApplication):
         for rid in (row['resource_id'] for row in cfg['building_stone_stages']):
             v['inventory'][rid].update(source_label='后山开采' if rid=='spirit_stone_low' else '万宝楼灵钱交易',use_label='对应阶段的宗门建筑建设与升级')
         return freeze_json(v)
-    def view(self,save_id):
-        v=thaw_json(super().view(save_id))
+    def project_full_view(self,state):
+        v=thaw_json(super().project_full_view(state))
         for row in v['equipment']['instances']:row['enhancement']=v['sect_services']['enhancements'][row['instance_id']]
         return freeze_json(v)
     def project_economy(self,state):

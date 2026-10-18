@@ -316,12 +316,12 @@ from src.application.ecology import EcologyApplication
 from src.application.memory import Command
 from src.core.save.sqlite import SQLiteSave
 from src.core.state.envelope import thaw_json
-from src.data.content_loader import load_current
+from src.data.dungeons.definitions import load_dungeons
 from src.systems.cultivation import item_effects
 from tests.fixtures.time import ManualClock
 root=Path(sys.argv[1]); q=Command(**json.loads(sys.argv[2]))
 with SQLiteSave(root/'isolated.sqlite3',allowed_root=root) as store:
-    app=EcologyApplication(store,load_current(),ManualClock(1000))
+    app=EcologyApplication(store,load_dungeons(management=True,cold_jade=True,ecology=True),ManualClock(1000))
     before=app.query(q.save_id)
     with patch.object(item_effects,'apply',side_effect=AssertionError('old receipt executed')):
         r=app.execute(q)

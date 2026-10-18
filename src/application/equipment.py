@@ -4,7 +4,7 @@ from functools import lru_cache
 from math import gcd
 import hashlib,json
 from src.application.game import GamePersistence
-from src.application.cultivation import partition,active
+from src.application.cultivation import partition
 from src.systems.cultivation import growth
 from src.systems.equipment import items
 from src.systems.economy import policy
@@ -232,8 +232,9 @@ def command(state,registry,name,p):
         identity=p['instance_id']
         if name=='equipment_equip':
             if not can_equip_realm(state,registry,items.get(equipment(state),identity)['definition_id']):raise ValidationError('此灵品Boss装备需要筑基境界（第501级）才能穿戴。')
-            e=items.equip(equipment(state),registry,identity,active(state))
-        elif name=='equipment_unequip':e=items.unequip(equipment(state),registry,identity,active(state))
+            # Change the loadout only; the ongoing battle owns its immutable snapshot.
+            e=items.equip(equipment(state),registry,identity,False)
+        elif name=='equipment_unequip':e=items.unequip(equipment(state),registry,identity,False)
         else:return process(state,registry,identity,'SELL' if name=='equipment_sell' else 'SALVAGE')
     return replace(state,domains={**state.domains,'equipment':e})
 
@@ -264,7 +265,7 @@ def view(state,registry):
     rows=[]
     for identity,row in sorted(p['instances'].items()):
         d=items.definition(registry,row['definition_id']);current=p['instances'].get(p['slots'].get(d.slot));safe=not items.protected(row) and not items.unknown(row,registry)
-        rows.append({'instance_id':identity,'definition_id':d.machine_id,'name':d.display_name,'quality':d.quality,'slot':d.slot,'slot_name':dict(EQUIPMENT_SLOTS)[d.slot],'asset_id':d.asset_id,'stats':growth.stats({'max_hp_milli':row['stats'].get('max_hp_milli',0),'attack_milli':row['stats'].get('attack_milli',0),'armor_milli':row['stats'].get('armor_milli',0)}),'comparison':{k:(row['stats'].get(k,0)-(current['stats'].get(k,0) if current else 0))/1000 for k in items.STATS},'equipped':row['equipped'],'locked':row['locked'],'favorite':row['favorite'],'sell_coins':items.sale_price(registry,d.machine_id),'salvage':[{'resource_id':k,'name':holdings.definition(registry,k).display_name,'quantity':n} for k,n in d.salvage],'evaluation':items.evaluate(p,registry,identity,rules),'can_equip':can_equip_realm(state,registry,d.machine_id) and running and not active(state) and not row['equipped'] and not items.unknown(row,registry),'can_unequip':running and not active(state) and row['equipped'],'can_sell':running and safe,'can_salvage':running and safe,'can_flag':running})
+        rows.append({'instance_id':identity,'definition_id':d.machine_id,'name':d.display_name,'quality':d.quality,'slot':d.slot,'slot_name':dict(EQUIPMENT_SLOTS)[d.slot],'asset_id':d.asset_id,'stats':growth.stats({'max_hp_milli':row['stats'].get('max_hp_milli',0),'attack_milli':row['stats'].get('attack_milli',0),'armor_milli':row['stats'].get('armor_milli',0)}),'comparison':{k:(row['stats'].get(k,0)-(current['stats'].get(k,0) if current else 0))/1000 for k in items.STATS},'equipped':row['equipped'],'locked':row['locked'],'favorite':row['favorite'],'sell_coins':items.sale_price(registry,d.machine_id),'salvage':[{'resource_id':k,'name':holdings.definition(registry,k).display_name,'quantity':n} for k,n in d.salvage],'evaluation':items.evaluate(p,registry,identity,rules),'can_equip':can_equip_realm(state,registry,d.machine_id) and running and not row['equipped'] and not items.unknown(row,registry),'can_unequip':running and row['equipped'],'can_sell':running and safe,'can_salvage':running and safe,'can_flag':running})
     from src.application.combat_effect_views import equipment as effects_view
     for row in rows:
         row.update(effects_view(registry,row['definition_id']))

@@ -1,3 +1,4 @@
+import {WorldTimeline} from '../components/world-time.js';
 import {systemIcon,iconLabel} from '../components/item-icon.js';
 import {adapterFor} from '../building-adapters.js';
 import {el,heading,link,status,button} from '../components/dom.js';
@@ -7,17 +8,20 @@ const watches=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌'
 export function worldTimeBar(view){
  const host=el('section','panel sect-world-time'),time=view.time;
  host.setAttribute('aria-label','世界时间流转');
- const valid=Number.isFinite(time?.simulation_time_ms)&&time.simulation_time_ms>=0&&Number.isFinite(time?.day_length_ms)&&time.day_length_ms>0;
- const phase=valid?(time.simulation_time_ms%time.day_length_ms)/time.day_length_ms*12:0,index=Math.floor(phase);
- const caption=el('div','sect-time-caption');caption.append(el('span','','世界时间'),el('span','',valid?`第${Math.floor(time.simulation_time_ms/time.day_length_ms)+1}日 · ${watches[index]}时${view.world?.paused?' · 已暂停':''}`:'时间待同步'));host.append(caption);
- const track=el('div','sect-time-track');track.setAttribute('aria-hidden','true');
- for(const [i,name]of watches.entries()){
-  const part=el('div',`sect-time-watch${valid&&i===index?' is-current':''}`),rail=el('progress','sect-time-rail');
-  // Only committed simulation time drives this display, including pause and resync.
-  const progress=valid?(i<index?1:i===index?phase-index:0):0;
-  rail.setAttribute('max','1');rail.setAttribute('value',String(progress));part.append(rail,el('span','',name));track.append(part);
+ const caption=el('div','sect-time-caption'),label=el('span','','时间待同步');caption.append(el('span','','世界时间'),label);host.append(caption);
+ const track=el('div','sect-time-track');track.setAttribute('aria-hidden','true');const rails=[];
+ for(const name of watches){const part=el('div','sect-time-watch'),rail=el('progress','sect-time-rail');rail.setAttribute('max','1');part.append(rail,el('span','',name));track.append(part);rails.push({part,rail});}
+ const now=()=>globalThis.performance?.now?.()||0;
+ const snapshot={save_id:view.save_id,generation:view.generation,simulation_time_ms:time?.simulation_time_ms,day_length_ms:time?.day_length_ms,paused:!!view.world?.paused,pending:!!time?.pending};
+ const timeline=new WorldTimeline(snapshot,now());
+ function paint(at){const sample=timeline.sample(at),s=timeline.snapshot,phase=sample.valid?(sample.time%s.day_length_ms)/s.day_length_ms*12:0,index=Math.floor(phase);
+  const text=sample.valid?`第${Math.floor(sample.time/s.day_length_ms)+1}日 · ${watches[index]}时${s.paused?' · 已暂停':s.pending?' · 同步中':''}`:'时间待同步';
+  if(label.textContent!==text)label.textContent=text;
+  for(const [i,{part,rail}]of rails.entries()){const cls=`sect-time-watch${sample.valid&&i===index?' is-current':''}`;if(part.className!==cls)part.className=cls;const value=sample.valid?(i<index?1:i===index?phase-index:0):0;if(rail.value!==value)rail.value=value;}
+  return sample.animated;
  }
- host.append(track);return host;
+ host.__worldTime={get snapshot(){return timeline.snapshot;},update(s){timeline.update(s,now());paint(now());},paint};
+ host.append(track);paint(now());return host;
 }
 export function render(ctx){const host=el('section','sect-screen');host.append(worldTimeBar(ctx.data.view),heading('山中一日','照看宗门，静候大道。'));
  const summary=el('div','resource-strip sect-resource-overview');summary.setAttribute('aria-label','基础货币与资源');

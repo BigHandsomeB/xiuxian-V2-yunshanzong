@@ -24,7 +24,8 @@ def uid():
     return uuid.uuid4().hex
 
 class Catalog:
-    def __init__(self, root, template_file=None, seed_file=None):
+    def __init__(self, root, template_file=None, seed_file=None, merge_runtime=False):
+        self.merge_runtime = merge_runtime
         self.root = Path(root).absolute()
         require(self.root.resolve().is_relative_to(PROJECT), "Asset workspace must be inside V2")
         require(not self.root.is_symlink(), "Symlink workspace forbidden")
@@ -64,7 +65,7 @@ class Catalog:
         path = self.path(relative); path.parent.mkdir(parents=True, exist_ok=True)
         temp = self.path(relative + "." + uid() + ".tmp")
         mode = 0o644 if relative == "manifest.json" or relative.startswith("runtime/") else 0o600
-        fd = os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, mode)
+        fd = os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), mode)
         try:
             with os.fdopen(fd, "wb") as out:
                 out.write(data); out.flush(); os.fsync(out.fileno())
@@ -749,12 +750,18 @@ class Catalog:
 
     def publish(self):
         with self.transaction() as conn:
-            output = {}
+            # Linked workspaces can contain published Runtime without historical Catalog data.
+            # Keep those entries until explicitly replaced or unpublished, never fabricate history.
+            output = json.loads(self.path("manifest.json").read_text())["assets"] if self.merge_runtime else {}
             for (body,) in conn.execute("SELECT body FROM metadata WHERE kind='asset'"):
                 asset = json.loads(body); selected = asset["current_approved_version"]
                 from .lifecycle import asset_status
-                if selected is None or asset_status(asset)!="active":
+                if asset_status(asset)=="deprecated":
+                    output.pop(asset["asset_id"], None)
                     continue
+                if selected is None:
+                    continue
+                output.pop(asset["asset_id"], None)
                 value = self.version(asset, selected)
                 if value["art_status"] != "approved" or not value["runtime"]:
                     continue

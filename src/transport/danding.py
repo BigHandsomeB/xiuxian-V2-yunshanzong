@@ -127,9 +127,11 @@ def create_app(application,save_id,render_view,runtime_file,access_token,*,allow
     @app.post('/api/command')
     def command():
         with application() as game:
-            receipt=game.act(save_id,input_body());current=thaw_json(game.view(save_id))
+            receipt=game.act(save_id,input_body());current=compact_view(game.view(save_id))
         return jsonify(protocol_version=1,receipt={'request_id':receipt.request_id,'status':'completed',
-                       'committed_revision':receipt.committed_revision,'result':thaw_json(receipt.result)},time=current['time'])
+                       'committed_revision':receipt.committed_revision,'result':thaw_json(receipt.result)},
+                       save_id=save_id,generation=current['generation'],revision=current['revision'],
+                       time=current['time'],view=current,presentation=render_view(current),csrf=session['csrf'])
 
     @app.post('/api/settle')
     def settle():

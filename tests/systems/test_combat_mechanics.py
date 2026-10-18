@@ -284,7 +284,9 @@ class UpgradeTests(unittest.TestCase):
             result=run(root,True)
             json_backup=Path(result['backup']);database_backup=Path(result['database_backup'])
             self.addCleanup(json_backup.unlink,missing_ok=True);self.addCleanup(database_backup.unlink,missing_ok=True)
-            self.assertEqual(json_backup.stat().st_mode&0o777,0o600);self.assertEqual(database_backup.stat().st_mode&0o777,0o600)
+            import os
+            if os.name!='nt':
+                self.assertEqual(json_backup.stat().st_mode&0o777,0o600);self.assertEqual(database_backup.stat().st_mode&0o777,0o600)
             self.assertEqual(json.loads(json_backup.read_text()),before.to_dict())
             with SQLiteSave(database_backup,allowed_root=V2_ROOT/'.tmp') as backup_store:
                 self.assertEqual(EcologyApplication(backup_store,self.registry,self.clock).query(self.sid),before)

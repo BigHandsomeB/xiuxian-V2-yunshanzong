@@ -4,6 +4,7 @@
 @usedBy application/work, tests/systems/test_work
 @see ./INDEX.md
 """
+from src.core.state.projection import checked_partition
 from collections.abc import Mapping
 from src.core.state.envelope import freeze_json,thaw_json
 from src.core.validation import ValidationError,ConflictError,NotFoundError,integer,text
@@ -35,6 +36,7 @@ def allocations(partition,group_id):
     return claims
 
 
+@checked_partition
 def validate(partition,registry):
     if not isinstance(partition,Mapping) or set(partition)!={'groups','assignments','commitments'}:
         raise ValidationError('work requires groups/assignments/commitments')

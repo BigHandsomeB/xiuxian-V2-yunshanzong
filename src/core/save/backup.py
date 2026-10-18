@@ -1,5 +1,6 @@
 """Independent backup snapshots with CAS; never opens the gameplay database."""
 import os
+from contextlib import closing
 import sqlite3
 
 from src.core.save.codec import canonical, parse, sha, CorruptSaveError, PersistenceError
@@ -79,7 +80,7 @@ class BackupStore:
         if not self.path.exists():
             return None
         try:
-            with sqlite3.connect(self.path.as_uri() + '?mode=ro', uri=True, timeout=2) as db:
+            with closing(sqlite3.connect(self.path.as_uri() + '?mode=ro', uri=True, timeout=2)) as db:
                 return self._row(db.execute('SELECT body,digest FROM backups WHERE save_id=?', (save_id,)).fetchone())
         except sqlite3.Error as exc:
             raise PersistenceError('backup unavailable') from exc
@@ -91,9 +92,9 @@ class BackupStore:
         body = canonical(value)
         try:
             # Initialize this separate store only on an explicit PUT, with private permissions.
-            descriptor = os.open(self.path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+            descriptor = os.open(self.path, os.O_CREAT | os.O_RDWR | getattr(os, 'O_NOFOLLOW', 0), 0o600)
             os.close(descriptor)
-            with sqlite3.connect(self.path, timeout=2, isolation_level=None) as db:
+            with closing(sqlite3.connect(self.path, timeout=2, isolation_level=None)) as db:
                 db.execute('PRAGMA synchronous=FULL')
                 db.execute('CREATE TABLE IF NOT EXISTS backups (save_id TEXT PRIMARY KEY, body TEXT NOT NULL, digest TEXT NOT NULL, previous_body TEXT)')
                 db.execute('BEGIN IMMEDIATE')

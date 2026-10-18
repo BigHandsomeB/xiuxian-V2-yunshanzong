@@ -73,8 +73,7 @@ class EcologyViews:
         view = thaw_json(super().project_world(state))
         from src.systems.cultivation import techniques
         from src.application.cultivation import partition
-        combat=state.domains.get('combat',{}).get('battle') or {}
-        blocked=paused(state.time) or bool(state.time['pending']) or state.domains['dungeon']['auto']['enabled'] or combat.get('status') in ('ACTIVE','PLAYER_WIN')
+        blocked=bool(state.time['pending'])
         from src.systems.dungeons.progress import cleared
         view['techniques']=techniques.view(partition(state),self.registry,blocked,state.domains['inventory']['holdings'],cleared(state.domains['dungeon'],'thorn_path'),paused(state.time) or bool(state.time['pending']))
         if view['techniques']:

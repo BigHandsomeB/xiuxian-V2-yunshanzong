@@ -131,7 +131,21 @@ class DandingTests(unittest.TestCase):
     def test_restart_replay_idempotency(self):
         body=self.body('start');receipt=self.post('/api/command',body).json
         self.web=self.make_web();self.client=self.web.test_client();self.login()
-        self.assertEqual(self.post('/api/command',body).json,receipt);self.assertEqual(self.quantity('herb'),25)
+        replay=self.post('/api/command',body).json
+        self.assertEqual(replay['receipt'],receipt['receipt'])
+        self.assertEqual(replay['view'],receipt['view'])
+        self.assertEqual(replay['presentation'],receipt['presentation'])
+        self.assertEqual(replay['csrf'],self.view()['csrf'])  # New login, same committed intent.
+        self.assertEqual(self.quantity('herb'),25)
+    def test_command_snapshot_matches_authoritative_get(self):
+        body=self.body('unassign');response=self.post('/api/command',body)
+        self.assertEqual(response.status_code,200,response.json)
+        reply=response.json;current=self.view()
+        for key in ('view','presentation','csrf','save_id','generation','revision'):
+            self.assertEqual(reply[key],current[key],key)
+        self.assertEqual(reply['receipt']['request_id'],body['request_id'])
+        self.assertEqual(reply['receipt']['committed_revision'],reply['revision'])
+
     def test_chunked_settlement_same_gameplay_outcome(self):
         self.start();self.settle(10000);self.settle(10000);self.settle(10000)
         v=self.view()['view'];self.assertEqual((v['inventory']['herb']['quantity'],v['inventory']['pill']['quantity'],v['work']['working_count']),(25,1,0))

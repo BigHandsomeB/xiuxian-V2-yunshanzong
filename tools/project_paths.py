@@ -21,7 +21,7 @@ def write(target, text):
     resolved = guard(target)
     resolved.parent.mkdir(parents=True, exist_ok=True)
     resolved = guard(target)
-    fd = os.open(resolved, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW, 0o600)
+    fd = os.open(resolved, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | getattr(os, 'O_NOFOLLOW', 0), 0o600)
     with os.fdopen(fd, 'w', encoding='utf-8') as output:
         output.write(text)
 

@@ -1,5 +1,7 @@
 """Backup CAS and corruption checks, isolated from the live save."""
 import copy
+import os
+from contextlib import closing
 from pathlib import Path
 import sqlite3
 import tempfile
@@ -40,7 +42,8 @@ class BackupTests(unittest.TestCase):
         self.store.put(self.save, self.first, 0)
         self.assertEqual(self.store.read(self.save), self.first)
         self.assertEqual(self.store.put(self.save, self.first, 0), self.first)
-        self.assertEqual(self.path.stat().st_mode & 0o777, 0o600)
+        if os.name != 'nt':  # Windows uses inherited ACLs, not POSIX mode bits.
+            self.assertEqual(self.path.stat().st_mode & 0o777, 0o600)
 
     def test_stale_base_does_not_replace_current(self):
         self.store.put(self.save, self.first, 0)
@@ -77,7 +80,7 @@ class BackupTests(unittest.TestCase):
         self.store.put(self.save, self.first, 0)
         next_save = snapshot(self.raw, self.first)
         self.store.put(self.save, next_save, 1)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             previous = db.execute('SELECT previous_body FROM backups').fetchone()[0]
         self.assertIn(self.first['commitId'], previous)
 
@@ -97,7 +100,7 @@ class BackupTests(unittest.TestCase):
 
     def test_checksum_corruption_is_not_silent_empty_save(self):
         self.store.put(self.save, self.first, 0)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute("UPDATE backups SET body='{}'")
         with self.assertRaises(CorruptSaveError):
             self.store.read(self.save)

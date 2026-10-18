@@ -60,7 +60,7 @@ class _FrozenObject(Mapping):
 def freeze_json(value):
     """Detach caller containers; reject cycles/non-JSON/invalid numbers."""
     def freeze(item, active):
-        if type(item) is _FrozenObject or (draft.enabled() and type(item) is draft.DraftObject):
+        if type(item) is _FrozenObject or (type(item) is draft.DraftObject and draft.enabled()):
             return item
         if item is None or type(item) in (str, bool, int):
             return item

@@ -6,11 +6,20 @@
 
 手机竖屏 · 宗门经营 · 自动战斗 · 像素修仙
 
-**[下载 v0.3.0 · 法宝与功法秒制冷却](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0)**
+**[下载 Windows 桌面版 v0.3.0](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0-windows)**
 
 [游戏预览](#游戏预览) · [世界概况](#世界概况) · [已实现功能](#已实现功能) · [本地运行](#本地运行) · [在线部署](#在线部署) · [后续开发计划](#后续开发计划) · [版本历史](#版本历史)
 
 </div>
+
+## 选择运行方式
+
+| 独立版本 | 启动方式 | 下载与说明 |
+| --- | --- | --- |
+| **Windows 桌面版** | Windows 10/11 x64，完整解压后双击 EXE；无需 Python，不占用 HTTP 端口 | [Windows 发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0-windows) · [桌面说明](docs/windows/README.md) · [独立分支](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/tree/windows-desktop) |
+| **网页／服务器版** | Python 后端配合浏览器；支持本地网页与服务器部署 | [网页／服务器发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0) · [主分支说明](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong#本地运行) |
+
+**当前分支为 Windows 桌面版。** 两种版本并列独立发布；已有存档请先按各自升级说明备份和迁移。
 
 <!-- gameplay-screenshots:start -->
 ## 实机截图
@@ -123,8 +132,60 @@ GitHub 保存代码和素材，不会自动启动游戏。下载后运行 Python
 ### 1. 准备环境
 
 - Python **3.11 或更新版本**、Git。
-- Linux 或 macOS；Windows 请在 **WSL 的 Linux 终端**中执行下面的命令。项目使用 Unix 文件锁，不能直接照搬到 Windows PowerShell。[Python 文件锁说明](https://docs.python.org/3/library/fcntl.html)
+- 支持 Linux、macOS 和原生 Windows。Windows 使用下方快捷启动方式；后面的 Bash 命令供 Linux、macOS 或 WSL 使用。
 - 以下示例使用 Bash。安装依赖只需在自己的电脑或服务器上完成一次。
+
+### 本地素材管理器接入
+
+本地已与 [独立素材管理器仓库](https://github.com/BigHandsomeB/xianxiaV2-sucaiguanliqi) 的核心代码和模板核对，沿用预留的 **Asset ID → Manifest → Runtime → 游戏渲染** 接口，不另建游戏数据通道。
+
+在游戏「设置」中点击 **打开素材管理器**，或双击 **`启动素材管理器.vbs`**，会打开独立的素材工坊桌面窗口。也可以用 `start-asset-manager.cmd` 启动并查看终端错误。
+桌面窗口通过 QWebChannel 直接调用本进程中的 Python，图片上传和预览也走内部通道，不启动 HTTP 服务、不占用 TCP 端口、不需要浏览器或手动输入口令。重复打开会激活已有窗口；关闭素材工坊不影响游戏运行。首次应用此次更新需重开游戏窗口。
+
+- 管理器直接读写本项目 `assets/`，无需复制素材。选择“查看游戏已发布素材 / 创建替换草稿”可查看当前游戏正式素材。
+- GitHub 发布快照没有原图和历史管理数据库，因此历史 Runtime 以只读方式展示；“用此 ID 新建替换草稿”只登记新的工作记录，不伪造旧原图、版本或审核历史。
+- 替换已有素材：沿用原 asset_id 创建草稿，上传自己的新原图，预览、人工确认、构建并发布；草稿不会覆盖当前发布版本。只有通过原审核流程发布后才更新游戏。
+- 新建不同 asset_id 时，还需要在游戏展示绑定配置或内容定义中明确引用它，不能仅凭文件名自动接入。
+- 接入模式的发布会保留已有未纳入管理数据库的正式 Runtime，防止空数据库把游戏现有素材清单清空。主动废弃/撤回仍走管理器原有的显式流程。
+- 游戏下一次状态刷新时检测 Manifest 变化并更新显示；世界暂停时可在游戏设置中重新加载素材，或重开游戏窗口。
+
+上述桌面入口（`python -X utf8 -m tools.asset_manager.desktop`）默认启用合并发布保护。仍保留可选的 `python -X utf8 -m tools.asset_manager.local` 浏览器调试入口；日常使用无需启动它。管理器不读取或改写 `.game/` 游戏存档，窗口配置保存在 `.asset-manager/`。桌面会话自动完成内部认证，原有 CSRF、路径和图片校验、审核与显式发布规则继续生效。
+
+### Windows 独立桌面版（无端口）
+
+双击 **`启动云山宗.vbs`**，直接打开游戏窗口；首次缺少环境时自动转入安装步骤。
+也可双击 `start-desktop.cmd` 安装并启动。需要 Python 3.11+，桌面依赖见 `requirements-desktop.txt`。
+
+桌面版通过 Qt WebChannel 在窗口与 Python 之间直接调用；页面和素材通过内部 `yunshan://desktop/` 协议加载，**不启动 HTTP 服务，不监听本机或局域网端口，无需浏览器和登录口令**。
+世界暂停、挂机及战斗中均可穿脱装备、更换功法；暂停时调整配装不会推进世界时间，无需停止挂机；当前战斗仍使用开战快照，新配装从下一场战斗生效。离线续算完成前仍需等待，以免新配置追溯影响离线收益。
+桌面版复用未变化的纯素材展示数据，并在 `.game/desktop-artwork.json` 保留可再生的启动缓存；素材清单、展示配置或渲染代码变化时自动重建，缓存损坏也会回退到正常生成。点击重新加载素材可强制重建；游戏状态、存档与请求回执不缓存。
+桌面版世界状态约每 1 秒同步一次；时辰进度条在两次同步之间逐帧平滑显示，暂停、续算和后台隐藏时会停止动画。插值仅用于显示，实际时间、产物、战利品和奖励仍由 Python 结算。服务器网页模式保留原有轮询间隔。
+本地换装、更换功法直接使用最近确认的版本提交单个命令，不再额外生成一次结算展示；版本冲突和请求编号重放保护继续生效。等待按钮操作时只更新控件状态，完成后再更新页面内容。窗口还会按引用复用未变化的素材展示，避免每次传输重复数据。
+展示构建复用只读分支，并仅在本次投影中复用同一不可变分区已通过的检查；存档读取、写入和可变候选仍执行完整校验。普通后台进度的附加备份最多合并 5 秒，关键操作立即触发备份，主 SQLite 存档仍按每次提交即时落盘。
+首次启动或缓存失效时仍需生成素材展示；后续启动可直接复用。常规启动启用 Python 默认字节码缓存，`start-desktop.cmd` 仅在依赖缺失或版本不符时安装依赖。
+既有玩法、存档校验、CSRF、版本冲突检查及请求编号重放在进程内继续生效；使用原来的 `.game/` 存档，关闭窗口即退出。
+前端本地备份及设置单独存储于 `.game/desktop-profile/`，首次桌面启动以现有服务器存档为准。原浏览器中的未同步导入存档需先在原界面完成确认或导出。
+
+桌面版打开后不要再运行 `start-game.cmd`；网页模式保留为可选入口。安装依赖需要联网，游戏运行使用本地代码与素材。
+若窗口无法启动，查看 `.game/desktop-error.log`。开发者可用以下命令，在隔离存档上检查窗口、素材和桥接：
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 -B -m tools.playable.desktop --smoke-test
+```
+
+### Windows 原生快捷启动
+
+安装 Python **3.11+**（含 `py` 启动器）后，在项目目录双击 **`start-game.cmd`**。
+也可在 PowerShell 中运行：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\start-game.ps1
+```
+
+脚本自动建立 `.venv`、安装依赖，仅在没有存档时初始化新档，然后显示本次登录口令并启动服务。
+打开 **http://127.0.0.1:8000/game/**，输入终端显示的口令。窗口需保持运行，按 Ctrl+C 停止；下次再次双击即可继续，保留 `.game/` 目录。
+启动时启用 UTF-8，支持中文路径。服务仅监听本机，无需 WSL、Docker 或素材管理器。
+Windows 的存档访问权限继承所在目录的 ACL，请放在自己的用户目录中。
 
 ### 2. 下载源码
 

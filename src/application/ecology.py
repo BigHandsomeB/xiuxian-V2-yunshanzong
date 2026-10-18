@@ -269,7 +269,7 @@ class EcologyApplication(EcologyViews, ManagementApplication):
                 if saved.kind != 'command' or saved.intent != request.digest() or saved.committed_revision > original.revision:
                     raise ConflictError('重复请求内容不一致')
                 return self.foundation._decode_receipt(saved)
-            if request.name not in activities.COMMANDS:require_running(original.time)
+            if request.name not in (*activities.COMMANDS,'technique_equip','technique_unequip'):require_running(original.time)
             if request.expected_revision != original.revision or original.time['pending']:
                 raise ConflictError('请先完成续算并刷新状态')
             if request.version != 1:
@@ -290,8 +290,7 @@ class EcologyApplication(EcologyViews, ManagementApplication):
         if name in activities.COMMANDS:
             return sect_activities.transition(state,self.registry,name,payload,self._capacity(state)-reserved(state,self.registry))
         if name in techniques.COMMANDS:
-            battle=state.domains.get('combat',{}).get('battle') or {}
-            if name in ('technique_equip','technique_unequip') and (state.domains['dungeon']['auto']['enabled'] or battle.get('status') in ('ACTIVE','PLAYER_WIN')):raise ValidationError('请先停止挂机并结束或领取当前战斗，再更换功法。')
+            # Current battles retain growth/player snapshots; changes apply to the next encounter.
             stock=state.domains['inventory'];cost={}
             if name in ('technique_equip','technique_unequip'):grown=techniques.change(partition(state),self.registry,name,payload)
             else:

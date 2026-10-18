@@ -96,7 +96,7 @@ def view(p,registry,blocked=False,stock=None,cleared=0,source_blocked=None):
         if row['grade'] in c.get('sources',{}).get('first_clear',{}):alternatives.append(source_quote(p,registry,row['id'],stock or {},cleared,blocked if source_blocked is None else source_blocked,kind='claim'))
         if row['id'] in c.get('sources',{}).get('green_stone_ids',()):alternatives.append(source_quote(p,registry,row['id'],stock or {},cleared,blocked if source_blocked is None else source_blocked,kind='exchange'))
         catalog.append({**thaw_json(row),'owned':row['id'] in part['owned'],'source':source,'alternatives':alternatives,'max_level':c['grades'][row['grade']]})
-    return {'catalog':catalog,'sources':thaw_json(c.get('sources',{})),'page_count':(stock or {}).get('manual_page',0),'open':c['open'],'instances':rows,'slots':thaw_json(part['slots']),'can_change':not blocked,'blocking_reason':'请先恢复世界、完成续算并停止挂机，结束或领取当前战斗。' if blocked else '', 'kill_xp_requires_equipped':c['kill_xp_requires_equipped'],'grades':thaw_json(c['grades'])}
+    return {'catalog':catalog,'sources':thaw_json(c.get('sources',{})),'page_count':(stock or {}).get('manual_page',0),'open':c['open'],'instances':rows,'slots':thaw_json(part['slots']),'can_change':not blocked,'blocking_reason':'请先恢复世界并完成续算。' if blocked else '', 'kill_xp_requires_equipped':c['kill_xp_requires_equipped'],'grades':thaw_json(c['grades'])}
 
 
 def effective_bonus(c,row,L):
