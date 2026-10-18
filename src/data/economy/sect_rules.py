@@ -52,6 +52,8 @@ def register(registry,*,management=False,ecology=False):
         if extra['meal_bonus_bps']>10000 or extra['enhancement_max_level']>10:raise ValidationError('bounded management bonuses required')
     if ecology:
         if not management:raise ValidationError('ecology requires sect management')
+        # New ecological saves start with the level 1–100 pill; saved policies are untouched.
+        p['new_save_production']['alchemy']['recipe_id']='ju_qi_pill'
         from .ecology import content,register as register_ecology
         eco=content();register_ecology(registry,eco);p['ecology']=eco
         registry.register(ResourceDefinition('resources','manual_page','功法残页',(),False,None,'待定'))

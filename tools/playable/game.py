@@ -25,7 +25,10 @@ def backup_application(factory, save_id, root):
 def game_factory(path,root,clock=None,*,registry=None,application_class=None,settlement_budget_ms=SETTLEMENT_BUDGET_MS):
     integer(settlement_budget_ms,'settlement budget milliseconds',1)
     if settlement_budget_ms>5000:raise ValueError('settlement budget must not exceed 5000 milliseconds')
-    registry=registry if registry is not None else load_dungeons(management=True,cold_jade=True,ecology=True);clock=clock or SystemClock()
+    if registry is None:
+        from src.data.content_loader import load_current
+        registry=load_current()
+    clock=clock or SystemClock()
     if application_class is None:
         from src.data.economy.sect_rules import settings
         from src.application.sect_management import ManagementApplication
@@ -63,12 +66,17 @@ def configured_game():
     if root.is_symlink() or pointer.is_symlink():raise RuntimeError('scenario routing symlink rejected')
     save_id=pointer.read_text().strip();uuid4_id(save_id,'scenario save_id')
     import os
-    from src.data.economy.ecology import VERSION as ECOLOGY_VERSION
+    from src.data.content_compatibility import profile
     # Pure content selection preserves old saves until an explicit operator upgrade.
     with SQLiteSave(root/'danding.sqlite3',allowed_root=root) as store:
         current=store.inspect(save_id,include_recovery=False).current
         if current is None:raise RuntimeError('valid current scenario required')
-        registry=load_dungeons(management=True,cold_jade=True,ecology=current.content_version==ECOLOGY_VERSION)
+        selected=profile(current.content_version)
+        if selected.loader=='current':
+            from src.data.content_loader import load_current
+            registry=load_current()
+        else:
+            registry=load_dungeons(**dict(selected.flags))
     factory=game_factory(root/'danding.sqlite3',root,registry=registry,settlement_budget_ms=int(os.environ.get('GAME_SETTLE_BUDGET_MS',SETTLEMENT_BUDGET_MS)))
     with factory() as app:app.view(save_id)  # Fail closed; no auto repair/reset/reward.
     return factory,save_id

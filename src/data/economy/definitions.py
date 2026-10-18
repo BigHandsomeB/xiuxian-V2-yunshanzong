@@ -11,7 +11,8 @@ VERSION='economy-v1-6.3.0-r1'
 SOURCE_RECIPES=('herb','ore','wood')
 EQUIPMENT_IDS=('basic_left','basic_head')
 EQUIPMENT_SLOTS=(('left','武器'),('gloves','手套'),('belt','腰带'),('body','衣服'),('feet','鞋子'),('head','头盔'))
-EQUIPMENT_STATS=('max_hp_milli','attack_milli','armor_milli','pierce_milli','crit_bps','accuracy_bps','evasion_bps','speed_bps','reflect_bps','poison_resist_bps','execute_bps','crit_damage_bps','crit_resist_bps','lifesteal_bps','damage_bonus_bps','damage_reduction_bps')
+from src.data.combat.mechanics import STATS as EFFECT_STATS
+EQUIPMENT_STATS=('max_hp_milli','attack_milli','armor_milli','pierce_milli','crit_bps','accuracy_bps','evasion_bps','speed_bps','reflect_bps','poison_resist_bps','execute_bps','crit_damage_bps','crit_resist_bps','lifesteal_bps','damage_bonus_bps','damage_reduction_bps',*EFFECT_STATS)
 COMBAT_AFFIX_VERSION='combat-affix-v1'
 # Additive rolled affixes for newly acquired equipment; original saved base stats stay fixed.
 COMBAT_AFFIX_RANGES={'left':('crit_damage_bps',200,600,100),'gloves':('lifesteal_bps',100,300,100),'belt':('crit_resist_bps',200,400,100),'body':('damage_reduction_bps',100,300,100),'feet':('damage_bonus_bps',100,300,100),'head':('crit_resist_bps',100,300,100)}
@@ -28,6 +29,9 @@ class EquipmentDefinition(Definition):
     craft_recipe_id:str|None=None
     tradeable:bool=True
     stat_ranges:tuple=()
+    craft_fee_coins:int|None=None
+    craft_roll_version:str|None=None
+    craft_stat_ranges:tuple=()
     def __post_init__(self):
         super(EquipmentDefinition,self).__post_init__()
         if self.domain!='equipment' or self.slot not in dict(EQUIPMENT_SLOTS) or self.quality not in ('white','green','blue','rare') or type(self.tradeable) is not bool:raise ValidationError('invalid basic equipment definition')
@@ -43,6 +47,19 @@ class EquipmentDefinition(Definition):
             for n in (low,high,step):integer(n,'stat range',1)
             if high<low or (high-low)%step or not low<=dict(self.stats)[key]<=high or (dict(self.stats)[key]-low)%step:raise ValidationError('invalid equipment stat range')
             if key.endswith('_bps') and high>10000:raise ValidationError('range exceeds 100%')
+        if type(self.craft_stat_ranges) is not tuple:raise ValidationError('immutable crafting ranges required')
+        if self.craft_roll_version is None:
+            if self.craft_fee_coins is not None or self.craft_stat_ranges:raise ValidationError('crafting profile requires a version')
+        else:
+            if type(self.craft_roll_version) is not str or self.craft_roll_version=='thorn-roll-v2':raise ValidationError('separate crafting roll version required')
+            DefinitionKey('equipment_rolls',self.craft_roll_version.replace('-','_'))
+            integer(self.craft_fee_coins,'crafting fee',1)
+            if len(self.craft_stat_ranges)!=len(self.stat_ranges) or {v[0] for v in self.craft_stat_ranges}!=set(dict(self.stats)):raise ValidationError('crafting range keys must match drop ranges')
+            limits={k:(a,b,s) for k,a,b,s in self.stat_ranges}
+            for key,low,high,step in self.craft_stat_ranges:
+                for value in (low,high,step):integer(value,'crafting range',1)
+                a,b,s=limits[key]
+                if not a<=low<=high<=b or (low-a)%s or (high-a)%s or step%s or (high-low)%step:raise ValidationError('crafting range must be a subset of drop range')
         integer(self.sell_coins,'sale',1)
         for k,n in self.salvage:DefinitionKey('resources',k);integer(n,'salvage',1)
         refs=tuple(DefinitionKey('resources',k) for k,_ in self.salvage)

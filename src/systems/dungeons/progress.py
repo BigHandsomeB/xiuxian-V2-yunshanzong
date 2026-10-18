@@ -5,7 +5,7 @@ from src.core.time.model import Event,SimulationDomain
 from src.core.validation import ValidationError,ConflictError,integer
 from src.data.registry import DefinitionKey
 from src.data.dungeons.definitions import DungeonDefinition,ID
-from src.data.dungeons import expeditions
+from src.data.dungeons import expeditions, catalog
 
 def definition(registry,dungeon_id=ID):
     d=registry.lookup(DefinitionKey('dungeons',dungeon_id))
@@ -21,7 +21,7 @@ def validate(p,registry):
     if p['cleared_floor']>100:raise ValidationError('dungeon progress out of range')
     definition(registry,selected(p))
     extra=p.get('progress',{})
-    if not isinstance(extra,Mapping) or set(extra)-set(expeditions.ALL_IDS):raise ValidationError('invalid expedition progress')
+    if not isinstance(extra,Mapping) or set(extra)-(set(catalog.registered_ids(registry))-{ID}):raise ValidationError('invalid expedition progress')
     for did,n in extra.items():
         d=definition(registry,did);integer(n,'expedition cleared floor')
         if n>len(d.encounters):raise ValidationError('expedition progress out of range')
@@ -97,7 +97,7 @@ def view(p,registry,b=None,dungeon_id=None):
     return {'id':did,'name':d.display_name,'total_floors':total,'cleared_floor':high,'completed':high==total,'next_floor':min(high+1,total),'next_encounter_id':next_encounter(p,registry,did),'current_floor':f,'tier':d.tiers[f-1] if f else None,'elite_floors':[i+1 for i,t in enumerate(d.tiers) if t=='elite'],'boss_floor':total,'unlocked':unlocked(p,registry,did),'unlock_condition':condition,'auto':{k:v for k,v in p['auto'].items() if k not in ('wake','tick_ready')},'attack_interval_ms':INTERVAL_MS}
 
 def directory(p,registry):
-    return [view(p,registry,dungeon_id=did) for did in (ID,*expeditions.ALL_IDS) if registry.contains(DefinitionKey('dungeons',did))]
+    return [view(p,registry,dungeon_id=did) for did in catalog.registered_ids(registry)]
 
 
 def set_auto(p,registry,enabled,mode,floor,floor_count=None):

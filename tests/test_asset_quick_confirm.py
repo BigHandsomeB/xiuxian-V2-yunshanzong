@@ -151,7 +151,9 @@ class QuickConfirmTests(unittest.TestCase):
         p=self.preview();item=p['items'][0];self.c.path(item['preview_files'][0]['file']).write_bytes(b'corrupt test raster');r=confirm(self.c,p['preview_id'],True)
         self.assertEqual(sum(a['status']=='approved' for a in r['assets']),5);self.assertEqual(self.c.get('asset',item['asset_id'])['versions'][0]['art_status'],'needs_review')
     def test_failed_new_version_keeps_previous_published_version(self):
+        original=self.c.path(self.s['file']).read_bytes()
         p=self.preview();confirm(self.c,p['preview_id'],True);old=json.loads(self.c.path('manifest.json').read_text())['assets'][self.g['asset_ids'][0]]
+        self.s=self.c.upload('new-sheet.png',original,'resource_icon_v1',self.g['set_id'],self.p['prompt_id'])
         regions=copy.deepcopy(self.r);regions[0]['rect']=[0,0,15,15];p=self.preview(regions);confirm(self.c,p['preview_id'],True)
         self.assertEqual(json.loads(self.c.path('manifest.json').read_text())['assets'][self.g['asset_ids'][0]],old);self.assertEqual(len(self.c.get('asset',self.g['asset_ids'][0])['versions']),2)
 

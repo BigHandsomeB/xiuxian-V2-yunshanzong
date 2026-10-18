@@ -3,7 +3,7 @@ from tools.playable.game import PROJECT, game_factory
 from src.application.danding import initial_slice
 from src.core.save.sqlite import SQLiteSave
 from src.core.time.clock import SystemClock
-from src.data.dungeons.definitions import load_dungeons
+from src.data.content_loader import load_current
 
 
 def setup():
@@ -14,7 +14,7 @@ def setup():
     path, pointer = root / 'danding.sqlite3', root / 'save-id'
     if path.exists() or pointer.exists() or path.is_symlink() or pointer.is_symlink():
         raise RuntimeError('Save already exists; refusing to overwrite')
-    registry = load_dungeons(management=True, cold_jade=True, ecology=True)
+    registry = load_current()
     clock = SystemClock()
     state = initial_slice(registry, last_settled_at_ms=clock.now_ms())
     with SQLiteSave.initialize(path, allowed_root=root):
@@ -31,3 +31,4 @@ def setup():
 
 if __name__ == '__main__':
     print(setup())
+

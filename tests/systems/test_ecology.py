@@ -448,3 +448,109 @@ with SQLiteSave(Path(sys.argv[1]),allowed_root=Path(sys.argv[2])) as store:
                     self.assertEqual(quantity + species['periodic_outputs'].get(rid, 0),
                                      self.read().domains['inventory']['holdings'][rid])
                 self.assertNotIn(identity, self.read().domains['ecology']['batches'])
+
+
+    def test_preparation_costs_sources_and_views_are_pure(self):
+        before=self.read()
+        for _ in range(2):
+            p=self.view()['preparation']
+            self.assertEqual(p['phase'],'prepare')
+            self.assertEqual(p['sources']['bone_floor'],6)
+            self.assertFalse(p['sources']['bone_enterable'])
+            self.assertEqual(p['sources']['ingot_floor'],0)
+            costs={r['resource_id']:r for r in p['blade']['requirements']}
+            self.assertEqual({k:r['quantity'] for k,r in costs.items()},{'ingot':15,'thorn_boar_bone':15,'coins':300})
+            for rid,row in costs.items():
+                self.assertEqual(row['current'],before.domains['inventory']['holdings'].get(rid,0))
+                self.assertEqual(row['missing'],max(0,row['quantity']-row['current']))
+            self.assertEqual(before,self.read())
+
+    def test_preparation_owned_blade_and_defense_follow_actual_instances(self):
+        from src.application import equipment as equip
+        identities=[]
+        def acquire(state):
+            for key in ('thorn_fang_blade','thorn_pattern_robe'):
+                state,identity=equip.acquire(state,self.registry,key,'preparation:'+key)
+                identities.append(identity)
+            return state
+        self.fixture(acquire)
+        p=self.view()['preparation']
+        self.assertTrue(p['blade']['owned']);self.assertFalse(p['blade']['equipped'])
+        self.assertEqual(p['unequipped_defense'],1)
+        self.command('equipment_equip',{'instance_id':identities[0]})
+        self.command('equipment_equip',{'instance_id':identities[1]})
+        p=self.view()['preparation']
+        self.assertTrue(p['blade']['equipped']);self.assertEqual(p['unequipped_defense'],0)
+
+    def test_preparation_advanced_save_skips_crafting_and_respects_supply_target(self):
+        def advance(state):
+            dungeon=thaw_json(state.domains['dungeon']);dungeon['cleared_floor']=100;dungeon['selected_id']='red_copper_mine'
+            return replace(state,domains={**state.domains,'dungeon':dungeon})
+        self.fixture(advance)
+        p=self.view()['preparation']
+        self.assertEqual(p['cleared_floor'],100);self.assertFalse(p['selected_thorn'])
+        self.assertEqual(p['phase'],'supply')
+        self.command('ecology_supply',{'enabled':True,'target_days':7})
+        before=self.read();p=self.view()['preparation']
+        self.assertEqual(p['phase'],'development')
+        self.assertEqual(p['supply']['suggested_stock'],24)
+        self.assertEqual(p['supply']['target_days'],7)
+        self.assertEqual(before,self.read())
+
+    def test_preparation_spring_quote_for_advanced_save_without_spring(self):
+        def change(state):
+            sect=thaw_json(state.domains['sect'])
+            sect['buildings']={k:v for k,v in sect['buildings'].items() if v['definition_id']!='spring'}
+            dungeon=thaw_json(state.domains['dungeon']);dungeon['cleared_floor']=10
+            return replace(state,domains={**state.domains,'sect':sect,'dungeon':dungeon})
+        self.fixture(change)
+        p=self.view()['preparation'];self.assertEqual(p['phase'],'spring')
+        self.assertFalse(p['spring']['exists'])
+        self.assertEqual({r['resource_id']:r['quantity'] for r in p['spring']['requirements']},
+                         {'wood':15,'stone':10,'coins':150,'spirit_stone_low':1,'ordinary_wood':10})
+
+    def test_preparation_water_uses_actual_offers_prices_and_remaining_stock(self):
+        from src.systems.sect import market
+        with patch('src.systems.sect.market.current_offers',return_value=()):
+            self.assertFalse(self.view()['preparation']['water']['listed'])
+        with patch('src.systems.sect.market.current_offers',return_value=('spring_water',)):
+            view=self.view();water=view['preparation']['water'];offer=view['sect_services']['market']['offers'][0]
+            self.assertTrue(water['listed']);self.assertEqual(water['price'],offer['price'])
+            self.assertEqual(water['remaining'],offer['remaining_stock'])
+            self.command('market_buy',{'resource_id':'spring_water','quantity':100,'market_day':market.day(self.read()),
+                         'price_milli':market.price(self.registry,self.sid,market.day(self.read()),'spring_water')['buy_price_milli']})
+            water=self.view()['preparation']['water']
+            self.assertEqual(water['remaining'],0);self.assertEqual(water['max_quantity'],0)
+
+    def test_preparation_technique_uses_initial_bonus_and_saved_equipped_state(self):
+        key='manual_a00f304b07a9a'
+        p=self.view()['preparation']['technique']
+        self.assertFalse(p['owned']);self.assertEqual(p['level'],1)
+        self.assertEqual({r['name']:r['amount'] for r in p['bonuses']},{'生命':3,'护甲':0.1})
+        self.assertEqual(p['requirements'][0]['quantity'],200)
+        self.command('technique_buy',{'technique_id':key})
+        p=self.view()['preparation']['technique'];self.assertTrue(p['owned']);self.assertFalse(p['equipped'])
+        self.command('technique_equip',{'technique_id':key,'slot':'defense'})
+        before=self.read();p=self.view()['preparation']['technique']
+        self.assertTrue(p['equipped']);self.assertEqual(len(p['requirements']),0)
+        self.assertEqual(before,self.read())
+
+    def test_preparation_paused_view_reports_status_without_advancing(self):
+        self.command('world_pause',{})
+        before=self.read();p=self.view()['preparation']
+        self.assertTrue(p['paused']);self.assertFalse(p['pending']);self.assertEqual(before,self.read())
+
+
+    def test_preparation_pending_projection_is_pure_and_reports_continuation(self):
+        for kind,recipe in (('spring','sect_spring_water'),('mine','ore')):
+            self.assign(kind)
+            self.command('production_start',{'building_id':self.bid(kind),'recipe_id':recipe})
+        self.clock.advance(300000)
+        with SQLiteSave(self.path,allowed_root=self.root) as store:
+            app=EcologyApplication(store,self.registry,self.clock)
+            state=app.query(self.sid)
+            app.settle(SettlementRequest(self.sid,state.generation,state.revision,str(uuid4()),1,None))
+        before=self.read()
+        self.assertIsNotNone(before.time['pending'])
+        p=self.view()['preparation']
+        self.assertTrue(p['pending']);self.assertEqual(before,self.read())

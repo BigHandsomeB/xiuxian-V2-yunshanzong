@@ -222,12 +222,16 @@ export function mountBattle(host, options = {}) {
   function rest(view){for(const role of ['player','enemy'])play(role,view[role].hp===0?'death':'idle');}
   function clearFeedback(){for(const done of [...transients])done();for(const a of actors.filter(a=>a.role==='effect')){a.position.hidden=true;if(!fxPool.includes(a))fxPool.push(a);}actors=actors.filter(a=>a.role!=='effect');for(const n of numberPool)n.hidden=true;if(!config()){for(const child of Array.from(layers.effect.children))child.remove();for(const a of fxPool)a.detach();fxPool.length=0;numberPool.length=0;}schedule();}
   function effectAt(key,a){
+    if(destroyed||hostSuspended||!online()||doc.hidden||media?.matches)return false;
     const id=assets.effects?.[key]?.asset_id||(key==='slash'?assets.slash?.asset_id:null),meta=sprites[id];
     if(!meta||fxCount()>=cap())return false;
     const action=Object.keys(meta.actions)[0],spec={asset:id,action,x:finite(a.spec.x,50),y:58,playbackKey:++fxSerial};
     let fx=fxPool.find(x=>x.spec.asset===id);
     if(fx){fxPool.splice(fxPool.indexOf(fx),1);configure(fx,spec);fx.position.hidden=false;}else{
-      if(fxPool.length+actors.filter(x=>x.role==='effect').length>=cap())return false;
+      if(fxPool.length+actors.filter(x=>x.role==='effect').length>=cap()){
+        const retired=fxPool.shift();if(!retired)return false;
+        retired.detach();retired.position.remove();
+      }
       fx=actor('effect',spec,actors.length);
     }
     actors.push(fx);schedule();return true;
@@ -239,13 +243,15 @@ export function mountBattle(host, options = {}) {
     if(media?.matches){a.flashLeft=profile(a).flash_ms;motion(a,0);schedule();return;}
     if(fxCount()>=cap())return;
     let number=numberPool.find(n=>n.hidden);if(!number){if(numberPool.length>=cap())return;number=make('span','battle-damage-number');numberPool.push(number);}
-    number.fxDone?.();number.hidden=false;number.fxElapsed=0;number.dataset.spark='';number.style.opacity='1';number.textContent=event.kind==='miss'?'闪避':`−${Math.round(event.damage)}`;number.style.fontSize='var(--text-section)';number.fxScale=event.critical?(profile(a).critical_scale||1.5):1;number.style.left=a.position.style.left;number.style.top='48%';if(!Array.from(layers.effect.children).includes(number))layers.effect.append(number);
+    number.fxDone?.();number.hidden=false;number.fxElapsed=0;number.dataset.spark='';number.style.opacity='1';number.textContent=event.kind==='miss'?'闪避':`${['heal','lifesteal','revive','shield'].includes(event.kind)?'+':'−'}${Math.round(event.damage)}`;number.style.fontSize='var(--text-section)';number.fxScale=event.critical?(profile(a).critical_scale||1.5):1;number.style.left=a.position.style.left;number.style.top='48%';if(!Array.from(layers.effect.children).includes(number))layers.effect.append(number);
     let slash=null;
     if(event.kind==='miss'){a.motionAction='dodge';a.motionElapsed=0;}
     if(event.critical){a.critical=true;a.flashLeft=profile(a).flash_ms;effectAt('critical_fx',a);}
     if(!media?.matches){
-      const shown=effectAt(event.actor==='player'?'slash':'impact',a);
-      if(shown&&event.actor==='player')effectAt('impact',a);
+      const helpful=['heal','lifesteal','revive','shield'].includes(event.kind);
+      const custom=event.effect_key&&assets.effects?.[event.effect_key];
+      const shown=effectAt(helpful?(event.kind==='shield'?'shield_fx':'heal_fx'):custom?event.effect_key:event.actor==='player'?'slash':'impact',a);
+      if(shown&&!helpful&&!custom&&event.actor==='player')effectAt('impact',a);
       if(!shown){number.dataset.spark='generic';number.style.color=profile(a).color||config()?.colors.hit||'var(--accent-2)';}
     }
     const done=()=>{number.removeEventListener('animationend',done);transients.delete(done);number.hidden=true;slash?.remove();};transients.add(done);number.fxDone=done;number.addEventListener('animationend',done,{once:true});
@@ -273,6 +279,7 @@ export function mountBattle(host, options = {}) {
     for (const a of [...actors,...fxPool]) a.detach(); for (const remove of listeners) remove(); actors = []; root.remove();
   }
   cleanup.suspend=()=>{hostSuspended=true;clearFeedback();schedule();root.dataset.suspended='true';};cleanup.resume=()=>{hostSuspended=false;schedule();root.dataset.suspended=String(doc.hidden||!online());};
+  cleanup.effect=(role,key)=>{const a=actors.find(x=>x.role===role&&x.index===0);if(a&&online()&&!doc.hidden&&!media?.matches)effectAt(key,a);};
   cleanup.deathEffect=deathEffect;cleanup.update = update;cleanup.health=healthView;cleanup.play=play;cleanup.rest=rest;cleanup.feedback=feedback;cleanup.clearFeedback=clearFeedback;
   return cleanup;
 }

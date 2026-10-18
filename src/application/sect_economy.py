@@ -58,7 +58,7 @@ def craft_cost(registry,key):
 
 def craft_gate(state,registry,key):
     cfg=settings(registry).get('management',{});gate=cfg.get('craft_gates',{}).get(key)
-    if not gate:return 'thorn-roll-v2'
+    if not gate:return equip.items.definition(registry,key).craft_roll_version or 'thorn-roll-v2'
     from src.systems.dungeons import progress
     if rules.development(state.domains['sect'],registry,state.domains['dungeon']['cleared_floor'])['level']<cfg['new_craft_min_sect_level']:raise ValidationError('宗门二级解锁副本装备制造')
     if max((r['level'] for r in state.domains['sect']['buildings'].values() if r['definition_id']=='forge'),default=0)<gate['forge_level']:raise ValidationError('炼器阁等级不足')
@@ -102,6 +102,9 @@ class SectEconomyFeatures:
                 if set(p)!={'equipment_id'} or type(p['equipment_id']) is not str:raise ValidationError('请选择装备')
                 key=p['equipment_id'];version=craft_gate(state,self.registry,key);cost=craft_cost(self.registry,key);stock,_=operations.consume(state.domains['inventory'],self.registry,cost)
                 candidate=replace(state,domains={**state.domains,'inventory':stock})
+                from src.data.combat.mechanics import settings as effects_settings,ROLL_VERSION,CRAFT_ROLL_VERSION
+                if effects_settings(self.registry) and key in effects_settings(self.registry)['equipment']:
+                    version=CRAFT_ROLL_VERSION if effects_settings(self.registry)['equipment'][key].get('craft_ranges') else ROLL_VERSION
                 seed=f'{state.save_id}:{state.generation}:i:{state.identity["instance_counter"]+1}'
                 candidate,identity=equip.acquire(candidate,self.registry,key,seed,roll_version=version)
                 details.update(instance_id=identity,definition_id=key,amounts=cost)

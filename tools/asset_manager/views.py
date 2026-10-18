@@ -10,7 +10,7 @@ def asset_summary(asset):
     return value
 
 def source_summary(source):
-    return {**{k:v for k,v in source.items() if k in ('source_id','original_name','template_id','set_id','prompt_id','width','height','created_at')},'summary_only':True}
+    return {**{k:v for k,v in source.items() if k in ('source_id','original_name','template_id','set_id','prompt_id','width','height','created_at','file_deleted_at')},'summary_only':True}
 
 def prompt_summary(prompt):
     return {k:v for k,v in prompt.items() if k in ('prompt_id','template_id','asset_id','set_id','created_at','template_version','options')}

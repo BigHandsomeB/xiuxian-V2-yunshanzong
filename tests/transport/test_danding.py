@@ -285,3 +285,4 @@ class DandingTests(unittest.TestCase):
         self.assertEqual(response.status_code,409)
         self.assertEqual(response.json['current_revision'],current['revision'])
         self.assertEqual(self.view()['view'],current)
+

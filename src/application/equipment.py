@@ -39,6 +39,9 @@ def matches_projection(bonuses,definitions,base_stats=()):
     base_stats=base_stats or (0,)*size
     # Equipment fills only the remaining capacity after Growth (including techniques).
     caps=tuple(max(0,items.RATE_CAPS[k]-base_stats[i]) if k in items.RATE_CAPS else None for i,k in enumerate(items.STATS))
+    # Nonnegative contributions cannot undo a single item's excess, even at a cap.
+    groups=tuple(sorted((tuple(row for row in group if all((min(a,cap) if cap is not None else a)<=n for n,(a,_,_),cap in zip(bonuses,row,caps))) for group in groups),key=len))
+    if any(not group for group in groups):return False
     remaining=[(0,)*size for _ in range(len(groups)+1)]
     for i in range(len(groups)-1,-1,-1):remaining[i]=tuple(remaining[i+1][j]+max(row[j][1] for row in groups[i]) for j in range(size))
     def fits(low,high,steps,tail,final=False):
@@ -63,6 +66,15 @@ def matches_random_projection(bonuses,registry,base=None):
         key,low,high,step=COMBAT_AFFIX_RANGES[d.slot]
         ranges=d.stat_ranges or tuple((k,n,n,0) for k,n in d.stats)
         definitions.append((d.slot,(*d.stats,(key,low)),(*ranges,(key,low,high,step))))
+    from src.data.combat.mechanics import settings as effect_settings,equipment_ranges
+    if effect_settings(registry):
+        for d in registry._definitions.values():
+            if isinstance(d,EquipmentDefinition) and d.machine_id in effect_settings(registry)['equipment']:
+                ranges=equipment_ranges(d.machine_id)
+                stats=tuple((k,(a+b)//2) for k,a,b,_ in ranges)
+                definitions.append((d.slot,stats,ranges))
+                key,low,high,step=COMBAT_AFFIX_RANGES[d.slot]
+                definitions.append((d.slot,(*stats,(key,low)),(*ranges,(key,low,high,step))))
     from src.data.economy.sect_rules import settings
     cfg=(settings(registry) or {}).get('management',{})
     for slot,stats,ranges in tuple(definitions):
@@ -96,6 +108,13 @@ def attribute_rows(actor):
         if key=='crit_damage_bps':raw+=15000
         if key=='accuracy_bps':raw=min(10000,9500+raw) if any(k in actor for k in items.RATE_CAPS) or 'pierce_milli' in actor else 10000
         rows.append({'id':key,'name':name,'icon':icon,'value':raw/(100 if key.endswith('_bps') else 1000),'unit':'%' if key.endswith('_bps') else '', 'description':description})
+    from src.data.combat.mechanics import CAPS as effect_caps
+    names={'block_bps':'格挡','spirit_milli':'灵力','dot_reduction_bps':'持续伤害减免','heal_bonus_bps':'回复强化','shield_bonus_bps':'护盾强化','burn_apply_bps':'灼烧概率','burn_bonus_bps':'灼烧强化','chill_bonus_bps':'寒冷强化'}
+    for element,label in [('wood','木'),('earth','土'),('metal','金'),('water','水'),('fire','火'),('ice','冰'),('yin','阴'),('lightning','雷'),('poison','毒')]:
+        names[element+'_damage_bps']=label+'伤加成';names[element+'_resist_bps']='抗'+label
+    for key in effect_caps:
+        if key not in actor:continue
+        rows.append({'id':key,'name':names[key],'icon':'defense' if 'resist' in key or key in ('block_bps','shield_bonus_bps') else 'attack','value':actor[key]/(100 if key.endswith('_bps') else 1000),'unit':'%' if key.endswith('_bps') else '', 'description':'增强功法技能伤害；真气为每场独立的技能消耗资源' if key=='spirit_milli' else names[key]})
     return rows
 def validate(state,registry):
     growth.validate(partition(state),registry,state.save_id);items.validate(equipment(state),registry,state.save_id)
@@ -137,6 +156,11 @@ def validate(state,registry):
                     actor=dict(growth.projection(legacy,registry,state.save_id));actor.update(growth.leveling.legacy_stats(legacy,registry));actor.pop('speed_bps',None);actor.pop('evasion_bps',None);bases.append(actor)
                 else:bases.append(growth.projection(legacy,registry,state.save_id))
         for base in bases:
+            # A known equipped set is an exact witness; avoid a six-slot search.
+            equipped=[equipment(state)['instances'][i] for i in equipment(state)['slots'].values()]
+            if all(items.known_stats(row,items.definition(registry,row['definition_id'])) and items.known_affixes(row,items.definition(registry,row['definition_id'])) for row in equipped):
+                projected=items.projection(equipment(state),base)
+                if all(projected.get(k,0)==b['player_snapshot'].get(k,0) for k in items.STATS):valid=True;break
             bonuses=tuple(b['player_snapshot'].get(key,0)-base.get(key,0) for key in items.STATS)
             if matches_random_projection(bonuses,registry,base):valid=True;break
         if not valid:raise ValidationError('battle snapshot outside registered equipment/growth projections')
@@ -238,10 +262,13 @@ def view(state,registry):
     for identity,row in sorted(p['instances'].items()):
         d=items.definition(registry,row['definition_id']);current=p['instances'].get(p['slots'].get(d.slot));safe=not items.protected(row) and not items.unknown(row,registry)
         rows.append({'instance_id':identity,'definition_id':d.machine_id,'name':d.display_name,'quality':d.quality,'slot':d.slot,'slot_name':dict(EQUIPMENT_SLOTS)[d.slot],'asset_id':d.asset_id,'stats':growth.stats({'max_hp_milli':row['stats'].get('max_hp_milli',0),'attack_milli':row['stats'].get('attack_milli',0),'armor_milli':row['stats'].get('armor_milli',0)}),'comparison':{k:(row['stats'].get(k,0)-(current['stats'].get(k,0) if current else 0))/1000 for k in items.STATS},'equipped':row['equipped'],'locked':row['locked'],'favorite':row['favorite'],'sell_coins':items.sale_price(registry,d.machine_id),'salvage':[{'resource_id':k,'name':holdings.definition(registry,k).display_name,'quantity':n} for k,n in d.salvage],'evaluation':items.evaluate(p,registry,identity,rules),'can_equip':can_equip_realm(state,registry,d.machine_id) and running and not active(state) and not row['equipped'] and not items.unknown(row,registry),'can_unequip':running and not active(state) and row['equipped'],'can_sell':running and safe,'can_salvage':running and safe,'can_flag':running})
+    from src.application.combat_effect_views import equipment as effects_view
     for row in rows:
+        row.update(effects_view(registry,row['definition_id']))
         actual=items.effective_stats(p['instances'][row['instance_id']])
         row['stats']={key.removesuffix('_milli').removesuffix('_bps'):n/(100 if key.endswith('_bps') else 1000) for key,n in actual.items()}
-        row['stat_ranges']={k.removesuffix('_milli').removesuffix('_bps'):[a/(100 if k.endswith('_bps') else 1000),b/(100 if k.endswith('_bps') else 1000)] for k,a,b,step in items.definition(registry,row['definition_id']).stat_ranges}
+        ranges=items.equipment_ranges(row['definition_id'],craft=p['instances'][row['instance_id']].get('roll_version')==items.CRAFT_ROLL_VERSION) if p['instances'][row['instance_id']].get('roll_version') in (items.ROLL_VERSION,items.CRAFT_ROLL_VERSION) else items.definition(registry,row['definition_id']).stat_ranges
+        row['stat_ranges']={k.removesuffix('_milli').removesuffix('_bps'):[a/(100 if k.endswith('_bps') else 1000),b/(100 if k.endswith('_bps') else 1000)] for k,a,b,step in ranges}
         row['rolled']=bool(p['instances'][row['instance_id']].get('roll_version') or p['instances'][row['instance_id']]['affixes'])
         row['quality_name']={'white':'凡品','green':'灵品','blue':'玄品','rare':'稀有'}[row['quality']]
         saved=p['instances'][row['instance_id']]

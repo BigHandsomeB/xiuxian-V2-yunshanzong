@@ -28,3 +28,4 @@ def run(root=None):
         if before.time!=after.time or before.identity!=after.identity or any(after.domains[k]!=v for k,v in before.domains.items()):raise RuntimeError('upgrade preservation verification failed')
         print({'status':receipt.result['status'],'resource_changes':'NONE','prior_domains':'PRESERVED','clock':'PRESERVED','pause':'PRESERVED','policies':'DEFAULT_OFF','checkpoint':'EXISTING_FOUNDATION'})
 if __name__=='__main__':run()
+

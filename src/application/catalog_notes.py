@@ -60,3 +60,4 @@ class CatalogNotes:
             finally:
                 if name and os.path.exists(name):os.unlink(name)
             return row
+

@@ -2,7 +2,7 @@
 import hashlib,json,tempfile,unittest
 from dataclasses import replace
 from pathlib import Path
-from uuid import uuid4
+from uuid import UUID,uuid4
 from unittest.mock import patch
 from src.application.danding import initial_slice
 from src.application.dungeons import DungeonApplication
@@ -22,6 +22,7 @@ from src.data.registry import DefinitionKey
 from src.systems.dungeons import progress
 from src.systems.combat import battle
 from src.systems.equipment import items
+from src.systems.cultivation import leveling
 from tests.fixtures.time import ManualClock
 from tests.systems import test_expeditions as helper_module
 
@@ -120,18 +121,48 @@ class ColdJadeTests(unittest.TestCase):
   with self.assertRaises(ValidationError):self.execute(self.command('combat_abandon',{'battle_id':bid}))
   self.assertEqual(self.read(),settled)
  def test_auto_push_and_last_floor_stop(self):
-  self.create(cold=99,gear=True);self.select(DID)
-  # Use registered six-slot equipment and the real combat/auto settlement.
-  with SQLiteSave(self.path,allowed_root=self.root) as st:
-   app=DungeonApplication(st,self.r,self.clock);s=app.query(self.sid)
-   candidate=s
-   for index in (11,3,5,12,9,10):
-    candidate,identity=equip.acquire(candidate,self.r,f'cold_jade_cave_equipment_{index:02d}','auto-boss-fixture',roll_version='cold_jade_cave-roll-v1')
-    candidate=replace(candidate,domains={**candidate.domains,'equipment':items.equip(equip.equipment(candidate),self.r,identity,False)})
-   candidate=replace(candidate,revision=s.revision+1)
-   with st.transaction():st.commit(s,candidate,StoredReceipt(s.save_id,s.generation,str(uuid4()),'0'*64,candidate.revision,'command',{}))
-  self.execute(self.command('dungeon_auto',{'enabled':True,'mode':'push','floor':1}));self.clock.advance(120000);self.settle()
-  s=self.read();self.assertEqual(progress.cleared(s.domains['dungeon'],DID),100);self.assertEqual(s.domains['dungeon']['auto']['reason'],'COMPLETED');self.assertFalse(s.domains['dungeon']['auto']['enabled'])
+  # Fixed legal win/loss fixtures test auto termination, not Boss balance.
+  original=(self.path,self.clock,self.sid)
+  try:
+   cases=(('00000000-0000-4000-8000-000000000002',100,'COMPLETED','SETTLED',1),
+          ('00000000-0000-4000-8000-000000000001',99,'DEFEATED','PLAYER_LOSE',0))
+   for seed,floor,reason,status,wins in cases:
+    with self.subTest(seed=seed,reason=reason):
+     self.path=self.root/(seed+'.sqlite3');self.clock=ManualClock()
+     with patch('src.core.state.envelope.uuid4',return_value=UUID(seed)):
+      self.create(cold=99,gear=True)
+     self.select(DID)
+     with SQLiteSave(self.path,allowed_root=self.root) as st:
+      app=DungeonApplication(st,self.r,self.clock);before=app.query(self.sid);candidate=before
+      for index in (11,3,5,12,9,10):
+       candidate,identity=equip.acquire(candidate,self.r,f'cold_jade_cave_equipment_{index:02d}','auto-boss-fixture',roll_version='cold_jade_cave-roll-v1')
+       candidate=replace(candidate,domains={**candidate.domains,'equipment':items.equip(equip.equipment(candidate),self.r,identity,False)})
+      c=leveling.config(self.r);grown=leveling.normalized(candidate.domains['cultivation'],self.r,self.sid)
+      grown['total_xp']=leveling.table(c)[1000]
+      # Unrelated production must not allocate Job IDs ahead of the seeded battle.
+      automatic=thaw_json(candidate.domains['automation'])
+      for row in automatic['production'].values():row['enabled']=False
+      candidate=replace(candidate,revision=before.revision+1,domains={**candidate.domains,'cultivation':grown,'automation':automatic})
+      candidate=app.engine.wake(candidate)
+      app.foundation.validate_state(candidate)
+      self.assertFalse(candidate.domains['production']['jobs'])
+      self.assertEqual(leveling.level(grown,c),1000)
+      saved=thaw_json(candidate.domains['equipment']['instances'])
+      with st.transaction():st.commit(before,candidate,StoredReceipt(before.save_id,before.generation,str(uuid4()),'0'*64,candidate.revision,'command',{}))
+     self.execute(self.command('dungeon_auto',{'enabled':True,'mode':'push','floor':1}))
+     self.clock.advance(120000);self.settle();after=self.read();auto=after.domains['dungeon']['auto']
+     self.assertEqual(progress.cleared(after.domains['dungeon'],DID),floor)
+     self.assertEqual((auto['reason'],auto['wins']),(reason,wins))
+     self.assertFalse(auto['enabled']);self.assertIsNone(auto['wake'])
+     self.assertEqual(after.domains['combat']['battle']['encounter_id'],'cold_jade_cave_v1_100')
+     self.assertEqual(after.domains['combat']['battle']['battle_id'],f"{seed}:1:i:{candidate.identity['instance_counter']+1}")
+     self.assertFalse(after.domains['production']['jobs'])
+     self.assertEqual(after.domains['combat']['battle']['status'],status)
+     for identity,row in saved.items():
+      self.assertEqual(after.domains['equipment']['instances'][identity]['stats'],row['stats'])
+      self.assertEqual(after.domains['equipment']['instances'][identity].get('roll_version'),row.get('roll_version'))
+     self.view();self.assertEqual(self.read(),after)
+  finally:self.path,self.clock,self.sid=original
  def test_runtime_and_bindings_no_missing_assets(self):
   from src.rendering.game import _battle,bindings,_icon
   from src.rendering.game_runtime import GameRuntimeAssets

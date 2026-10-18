@@ -65,6 +65,12 @@ class ExpeditionTests(unittest.TestCase):
   for key,d in old._definitions.items():
    if key==DefinitionKey('loot','thorn_path'):
     self.assertEqual(self.r.lookup(key).references,d.references);self.assertEqual(self.r.lookup(key).display_name,'thorn-loot-v2')
+   elif key==DefinitionKey('equipment','thorn_fang_blade'):
+    current=self.r.lookup(key)
+    self.assertEqual((d.craft_fee_coins,d.craft_roll_version,d.craft_stat_ranges),(None,None,()))
+    self.assertEqual((current.craft_fee_coins,current.craft_roll_version,current.craft_stat_ranges),
+                     (300,'thorn-forge-v1',(('attack_milli',6000,7000,1000),('crit_bps',500,600,100))))
+    self.assertEqual(replace(current,craft_fee_coins=None,craft_roll_version=None,craft_stat_ranges=()),d)
    else:self.assertEqual(self.r.lookup(key),d)
   for floor in (1,10,99,100):
    b={'encounter_id':progress.definition(old).encounters[floor-1],'battle_id':'frozen','loot_version':'thorn-loot-v2'};self.assertEqual(loot.plan(old,b),loot.plan(self.r,b))
@@ -179,8 +185,20 @@ class ExpeditionTests(unittest.TestCase):
      if row['boss_only'] or row['slot']=='left':continue
      s,identity=equip.acquire(s,self.r,row['id'],'mixed-fixture',roll_version=expeditions.content(did)['loot']['roll_version']);s=replace(s,domains={**s.domains,'equipment':items.equip(equip.equipment(s),self.r,identity,False)})
     p=progress.choose(s.domains['dungeon'],self.r,did);counter=s.identity['instance_counter']+1
-    part=battle.start(battle.initial(),self.r,self.sid,f'{self.sid}:1:i:{counter}',progress.definition(self.r,did).encounters[0],player_snapshot=app.player_projection(s));candidate=replace(s,identity={**s.identity,'instance_counter':counter},domains={**s.domains,'dungeon':p,'combat':part});app.foundation.validate_state(candidate)
-    later={**candidate.domains['cultivation'],'progress':4000};app.foundation.validate_state(replace(candidate,domains={**candidate.domains,'cultivation':later}))
+    # Match GameApplication's real opening contract: freeze Growth with the actor.
+    part=battle.start(battle.initial(),self.r,self.sid,f'{self.sid}:1:i:{counter}',progress.definition(self.r,did).encounters[0],player_snapshot=app.player_projection(s),growth_snapshot=s.domains['cultivation'])
+    candidate=replace(s,identity={**s.identity,'instance_counter':counter},domains={**s.domains,'dungeon':p,'combat':part})
+    app.foundation.validate_state(candidate)
+    c=growth.leveling.config(self.r);before=candidate.domains['cultivation']
+    later,_=growth.leveling.gain(before,self.r,self.sid,growth.leveling.table(c)[833]-growth.leveling.xp(before,c))
+    self.assertEqual(growth.leveling.level(later,c),833)
+    changed=replace(candidate,domains={**candidate.domains,'cultivation':later})
+    app.foundation.validate_state(changed)
+    self.assertEqual(changed.domains['combat'],candidate.domains['combat'])
+    self.assertEqual(changed.domains['combat']['battle']['growth_snapshot'],before)
+    tampered=thaw_json(changed.domains['combat']);tampered['battle']['player_snapshot']['attack_milli']+=10**12
+    with self.assertRaises(ValidationError):
+     app.foundation.validate_state(replace(changed,domains={**changed.domains,'combat':tampered}))
     for identity,row in saved_old.items():self.assertEqual(candidate.domains['equipment']['instances'][identity]['stats'],row['stats'])
  def test_persisted_active_battle_cannot_be_from_another_selected_dungeon(self):
   self.create();self.start('thorn_path');s=self.read();p=progress.choose(s.domains['dungeon'],self.r,'red_copper_mine')

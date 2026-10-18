@@ -8,7 +8,8 @@ from src.data.economy.definitions import EquipmentDefinition,EQUIPMENT_STATS,NEW
 
 AUDIT_LIMIT=512
 STATS=EQUIPMENT_STATS
-RATE_CAPS={'crit_bps':3000,'accuracy_bps':10000,'evasion_bps':2500,'speed_bps':3000,'reflect_bps':3500,'poison_resist_bps':7500,'execute_bps':2000,**NEW_STAT_CAPS}
+from src.data.combat.mechanics import CAPS as EFFECT_CAPS, ROLL_VERSION, CRAFT_ROLL_VERSION, equipment_ranges
+RATE_CAPS={**EFFECT_CAPS,'crit_bps':3000,'accuracy_bps':10000,'evasion_bps':2500,'speed_bps':3000,'reflect_bps':3500,'poison_resist_bps':7500,'execute_bps':2000,**NEW_STAT_CAPS}
 FIELDS={'definition_id','stats','affixes','owner','equipped','locked','favorite','tradeable','status','provenance','policy_epoch','evaluation'}
 def definition(registry,key):
     d=registry.lookup(DefinitionKey('equipment',key))
@@ -60,6 +61,7 @@ def get(p,identity):
     if identity not in p['instances']:raise NotFoundError('装备已不存在，请更新仓库')
     return p['instances'][identity]
 def valid_roll(registry,d,version):
+    if d.craft_roll_version and version==d.craft_roll_version:return True
     if version=='thorn-roll-v2':return True  # Existing roll contract accepts every registered range definition.
     if not isinstance(version,str):return False
     key=DefinitionKey('equipment_rolls',version.replace('-','_'))
@@ -67,7 +69,10 @@ def valid_roll(registry,d,version):
 
 def rolled_stats(d,provenance,version='thorn-roll-v2'):
     result={}
-    for key,low,high,step in d.stat_ranges:
+    if version in (ROLL_VERSION,CRAFT_ROLL_VERSION):
+        ranges=equipment_ranges(d.machine_id,craft=version==CRAFT_ROLL_VERSION)
+    else:ranges=d.craft_stat_ranges if d.craft_roll_version and version==d.craft_roll_version else d.stat_ranges
+    for key,low,high,step in ranges:
         seed=f'{provenance}|{d.machine_id}|{version}|{key}'
         value=int.from_bytes(hashlib.sha256(seed.encode()).digest()[:8],'big')
         result[key]=low+(value%((high-low)//step+1))*step

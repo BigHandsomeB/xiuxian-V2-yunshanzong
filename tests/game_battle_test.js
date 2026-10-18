@@ -1,5 +1,5 @@
 // Native isolate harness, matching danding_ui_test.js; also usable as an ES module.
-export function testGameBattle(metadataSource, battleSource) {
+export function testGameBattle(metadataSource, battleSource, effectConfig=null, context={}) {
   const assert = (v, message) => { if (!v) throw Error(message); };
   const metadata = new Function(metadataSource.replace(/export /g, '') + ';return {validateSprite,runtimeURL,frameAt};')();
   const { validateSprite, runtimeURL, frameAt } = metadata;
@@ -15,16 +15,16 @@ export function testGameBattle(metadataSource, battleSource) {
   const events = new Map(), requests = new Map(), observers = []; let serial = 0;
   const eventTarget = () => ({ addEventListener(k, f) { events.set(this.key + k, f); }, removeEventListener(k) { events.delete(this.key + k); } });
   const media = { ...eventTarget(), key: 'media', matches: false };
-  const win = { ...eventTarget(), key: 'win', innerWidth: 400, innerHeight: 800, matchMedia: () => media,
+  const win = { ...eventTarget(), key: 'win', innerWidth: context.width||400, innerHeight: 800, matchMedia: () => media,
     requestAnimationFrame(f) { requests.set(++serial, f); return serial; }, cancelAnimationFrame(id) { requests.delete(id); },
     IntersectionObserver: class { constructor(f) { this.callback = f; observers.push(this); } observe() {} disconnect() { this.disconnected = true; } } };
-  const doc = { ...eventTarget(), key: 'doc', hidden: false, defaultView: win, createElement: () => node() };
+  const doc = { ...eventTarget(), key: 'doc', hidden: false, defaultView: win, documentElement:{dataset:{theme:context.theme||'light'}}, createElement: () => node() };
   function node(tagName = 'div') { return { ...eventTarget(), key: String(++serial), tagName: tagName.toUpperCase(), ownerDocument: doc, style: {}, children: [], attrs: {}, dataset:{}, hidden: false,
     append(...nodes) { for (const n of nodes) { n.parent = this; this.children.push(n); } },
     replaceChildren(...nodes) { for (const n of this.children) n.parent = null; this.children = []; this.append(...nodes); },
     remove() { if (this.parent) this.parent.children = this.parent.children.filter(n => n !== this); },
     setAttribute(k, v) { this.attrs[k] = v; }, getAttribute(k) { return this.attrs[k]; }, removeAttribute(k) { delete this.attrs[k]; }, set src(v) { this.attrs.src = v; },
-    getBoundingClientRect: () => ({ width: 400, height: 500, top: 0, left: 0, right: 400, bottom: 500 }) }; }
+    getBoundingClientRect: () => ({ width: context.width||400, height: 500, top: 0, left: 0, right: context.width||400, bottom: 500 }) }; }
   const mountBattle = new Function('validateSprite', 'runtimeURL', 'frameAt', battleSource.replace(/^import[^\n]+\n/, '').replace(/export /g, '') + ';return mountBattle;')(validateSprite, runtimeURL, frameAt);
   const host = node(), triggered = [], errors = [];
   const state = { player: { asset: 'hero', x: 25, y: 70, scale: 2, facing: 'left', z: 7 }, effects: [{ asset: 'hero', x: 50 }] };
@@ -75,7 +75,25 @@ export function testGameBattle(metadataSource, battleSource) {
   backgroundScene.update({}, {background:backgroundTwo});assert(layer.children.includes(second),'New dungeon background remains stable on refresh');
   backgroundScene.update({}, {});assert(!layer.children.some(n=>n.className==='battle-background'),'Missing background uses landscape fallback');backgroundScene();
   assert(!events.size&&!requests.size,'Background switch cleanup releases listeners');
-  return { tests: 33, status: 'PASS' };
+  let extra=0;
+  if(effectConfig){
+    const effectHost=node(),sprites={still},effects={};
+    for(let i=0;i<13;i++){sprites['fx'+i]={...fx,actions:{effect:{...fx.actions.effect,frames:fx.actions.effect.frames.map(f=>({...f,url:'/game/runtime/fx'+i+'.png'}))}}};effects['effect'+i]={asset_id:'fx'+i};}
+    const reuse=mountBattle(effectHost,{combat:true,assets:{sprites,effects,fx_config:effectConfig},state:{player:{asset:'still'},enemies:[{asset:'still'}]}}),effectLayer=effectHost.children[0].children[3];
+    observers[observers.length-1].callback([{isIntersecting:true}]);
+    let clock=1000;
+    for(let i=0;i<13;i++){
+      reuse.effect('enemy','effect'+i);
+      assert(effectLayer.children.some(n=>!n.hidden&&n.children?.[0]?.children?.[0]?.attrs.src==='/game/runtime/fx'+i+'.png'),'New effect remains playable after pool fills');extra++;
+      for(let j=0;j<4;j++){clock+=100;fxTick(clock);}
+      assert(effectLayer.children.length<=effectConfig.max_effects,'Pool remains bounded');extra++;
+    }
+    reuse.clearFeedback();reuse.feedback({kind:'damage',target:'enemy',actor:'player',damage:2,effect_key:'effect12'});
+    assert(effectLayer.children.filter(n=>n.className==='battle-position'&&!n.hidden).length===1,'Elemental feedback uses custom effect without generic slash');extra++;
+    reuse.suspend();const count=effectLayer.children.length;reuse.effect('enemy','effect0');assert(effectLayer.children.length===count&&!requests.size,'Suspended scene cannot spawn new effects');extra++;
+    reuse();assert(!requests.size&&!events.size,'Expanded effect pool cleans up listeners and RAF');extra++;
+  }
+  return { tests: 33+extra, status: 'PASS' };
 }
 
 // sources = {metadata: metadata.js text, renderer: renderer.js text}.

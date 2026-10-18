@@ -160,5 +160,23 @@
         100
       ]
     }
+  },
+  "crafting": {
+    "thorn_fang_blade": {
+      "fee_coins": 300,
+      "roll_version": "thorn-forge-v1",
+      "stat_ranges": {
+        "attack_milli": [
+          6000,
+          7000,
+          1000
+        ],
+        "crit_bps": [
+          500,
+          600,
+          100
+        ]
+      }
+    }
   }
 }

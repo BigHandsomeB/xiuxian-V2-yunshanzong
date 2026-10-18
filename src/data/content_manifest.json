@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "profile": "ecology_current",
+  "content_version": "sect-effects-v1-6.3.0-r1",
+  "packages": [
+    {
+      "id": "foundation",
+      "sources": [
+        "src/data/items/resources.json",
+        "src/data/buildings/buildings.json",
+        "src/data/disciples/work.json",
+        "src/data/recipes/production.json",
+        "src/data/recipes/alchemy.json",
+        "src/data/combat/content.json",
+        "src/data/cultivation/content.json"
+      ]
+    },
+    {
+      "id": "cultivation",
+      "sources": [
+        "src/data/cultivation/leveling.json",
+        "src/data/cultivation/techniques.json"
+      ]
+    },
+    {
+      "id": "thorn_path",
+      "sources": [
+        "src/data/dungeons/thorn_path.json",
+        "src/data/dungeons/balance.json",
+        "src/data/dungeons/combat_tuning.json",
+        "src/data/dungeons/thorn_loot.json",
+        "src/data/dungeons/equipment_ranges.json"
+      ]
+    },
+    {
+      "id": "expeditions",
+      "sources": [
+        "src/data/dungeons/red_copper_mine.json",
+        "src/data/dungeons/mist_marsh.json",
+        "src/data/dungeons/cold_jade_cave.json",
+        "src/data/dungeons/expedition_materials.json",
+        "src/data/dungeons/fire_elixir_ruins.json"
+      ]
+    },
+    {
+      "id": "sect_economy",
+      "sources": [
+        "src/data/economy/sect_rules.json",
+        "src/data/economy/sect_management.json",
+        "src/data/economy/market.json"
+      ]
+    },
+    {
+      "id": "ecology",
+      "sources": [
+        "src/data/economy/ecology.json"
+      ]
+    },
+    {
+      "id": "activities",
+      "sources": [
+        "src/data/economy/activities.json"
+      ]
+    },
+    {
+      "id": "combat_mechanics",
+      "sources": [
+        "src/data/combat/mechanics.json"
+      ]
+    }
+  ]
+}

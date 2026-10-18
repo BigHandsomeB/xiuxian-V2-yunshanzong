@@ -7,3 +7,4 @@ Source/Master/Component/Runtime、Registry与Manifest的正式Schema/信任边�
 宗门总览与独立内景的构图/环境连续性按Visual North Star；不额外强制单张全景图。
 人物Runtime与背景分离；完整Scene State可按锁定Master表现固定工作位的通用姿态，但不能将正式弟子身份/Assignment写死在背景。场景模板例外与Review见Asset Pipeline；不创建Gameplay映射。
 大型Master和中间产物Git限制见 [git](git.md)。
+

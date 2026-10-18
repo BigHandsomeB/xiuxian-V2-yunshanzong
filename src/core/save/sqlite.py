@@ -338,3 +338,4 @@ class SQLiteSave:
         self._connection.execute('DELETE FROM receipts WHERE save_id=? AND generation<>?',
                                  (request.save_id, candidate.generation))
         self._insert_receipt(receipt)
+

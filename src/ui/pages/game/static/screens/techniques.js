@@ -4,7 +4,7 @@ import {resourceIcon} from '../components/item-icon.js';
 import {techniqueRules,techniqueIcon} from '../components/technique-slots.js';
 
 const categories=[['all','全部'],['movement','身法'],['defense','防御'],['special','绝技'],['ultimate','终极'],['passive','内功']];
-const names={max_hp_milli:'生命',attack_milli:'攻击',armor_milli:'护甲',pierce_milli:'破甲',speed_bps:'攻速',evasion_bps:'闪避',accuracy_bps:'命中加成',crit_bps:'暴击',crit_resist_bps:'抗暴',crit_damage_bps:'暴伤加成',damage_reduction_bps:'减伤',damage_bonus_bps:'增伤',lifesteal_bps:'吸血',execute_bps:'斩杀增伤',poison_resist_bps:'抗毒',reflect_bps:'反伤'};
+const names={"block_bps":"格挡","spirit_milli":"灵力","dot_reduction_bps":"持续伤害减免","heal_bonus_bps":"回复强化","shield_bonus_bps":"护盾强化","burn_apply_bps":"灼烧概率","burn_bonus_bps":"灼烧强化","chill_bonus_bps":"寒冷强化","wood_damage_bps":"木伤加成","wood_resist_bps":"抗木","earth_damage_bps":"土伤加成","earth_resist_bps":"抗土","metal_damage_bps":"金伤加成","metal_resist_bps":"抗金","water_damage_bps":"水伤加成","water_resist_bps":"抗水","fire_damage_bps":"火伤加成","fire_resist_bps":"抗火","ice_damage_bps":"冰伤加成","ice_resist_bps":"抗冰","yin_damage_bps":"阴伤加成","yin_resist_bps":"抗阴","lightning_damage_bps":"雷伤加成","lightning_resist_bps":"抗雷","poison_damage_bps":"毒伤加成","poison_resist_bps":"抗毒",max_hp_milli:'生命',attack_milli:'攻击',armor_milli:'护甲',pierce_milli:'破甲',speed_bps:'攻速',evasion_bps:'闪避',accuracy_bps:'命中加成',crit_bps:'暴击',crit_resist_bps:'抗暴',crit_damage_bps:'暴伤加成',damage_reduction_bps:'减伤',damage_bonus_bps:'增伤',lifesteal_bps:'吸血',execute_bps:'斩杀增伤',poison_resist_bps:'抗毒',reflect_bps:'反伤'};
 function techniqueDetail(ctx,identity){
  const view=ctx.data.view.techniques,owned=view?.instances.find(r=>r.id===identity),row=owned||view?.catalog.find(r=>r.id===identity);if(!row)return;
  const body=el('div','item-detail technique-detail'),title=el('h2','technique-name',row.name);title.dataset.grade=row.grade;
@@ -12,7 +12,8 @@ function techniqueDetail(ctx,identity){
  if(owned)body.append(el('p','',row.level===row.max_level?'功法已满级':`功法经验 ${row.progress} / ${row.threshold}`));
  body.append(el('h3','',owned?'当前加成':'满级加成'));
  for(const [key,n]of Object.entries(owned?row.bonus:row.max_bonus))body.append(el('p','',`${names[key]||key} +${Math.round(n/(key.endsWith('_bps')?100:1000))}${key.endsWith('_bps')?'%':''}`));
- body.append(el('p','muted','装备后击杀获得功法经验，Lv提升增加属性；合计加成遵守现有上限。主动招式后续开放。'));
+ body.append(el('p','muted','装备后击杀获得功法经验，Lv提升增加属性；合计加成遵守现有上限。'));
+ if(row.effect_rules?.length){body.append(el('h3','','特殊效果'));for(const text of row.effect_rules)body.append(el('p','',text));}
  const actions=el('div','action-grid');
  if(owned){
   for(const slot of techniqueRules.slots.filter(s=>row.category==='passive'?s.id.startsWith('passive_'):s.id===row.category)){

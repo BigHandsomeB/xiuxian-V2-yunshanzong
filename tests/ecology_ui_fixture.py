@@ -42,6 +42,7 @@ def sources():
                     parts.append(part)
             read(Path(*parts))
     read(Path('src/ui/pages/game/static/screens/ecology.js'))
+    read(Path('src/ui/pages/game/static/screens/sect-management.js'))
     read(Path('src/ui/pages/game/static/components/patch.js'))
     read(Path('src/ui/pages/game/static/adapters.js'))
     values['src/ui/pages/game/static/game.css'] = Path('src/ui/pages/game/static/game.css').read_text()

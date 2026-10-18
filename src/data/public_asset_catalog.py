@@ -37,3 +37,4 @@ def read_catalog(root, snapshot):
         return {'available': True, 'groups': groups}
     except (OSError, ValueError, TypeError, AttributeError):
         return empty
+

@@ -1,7 +1,7 @@
 """True floor progression, reward atomicity and compatible save preservation."""
 import tempfile,unittest
 from pathlib import Path
-from uuid import uuid4
+from uuid import UUID,uuid4
 from dataclasses import replace
 from unittest.mock import patch
 from src.application.danding import initial_slice
@@ -187,15 +187,63 @@ class DungeonTests(unittest.TestCase):
   finally:self.path=original
   self.assertEqual(one.domains,many.domains);self.assertEqual(one.identity,many.identity);self.assertEqual(one.time,many.time)
 
- def test_server_auto_advanced_realm_requires_gear_at_80_elite(self):
-  from src.systems.cultivation import growth
-  s=self.read();g=thaw_json(s.domains.get('cultivation',growth.initial(s.save_id)));g.update(current_realm=growth.realm(self.r,g['current_realm']).next_realm_id,growth_revision=1,progress=0)
-  path=self.root/'advanced.sqlite3'
-  with SQLiteSave.initialize(path,allowed_root=self.root) as st:DungeonApplication(st,self.r,self.clock).create(replace(s,domains={**s.domains,'cultivation':g}))
-  original=self.path;self.path=path
+ def test_server_auto_advanced_realm_uses_valid_xp_and_stops_on_defeat(self):
+  from src.systems.cultivation import growth,leveling
+  from src.application.settlement import SettlementRequest
+  from src.core.time.model import Continuation
+  with patch('src.core.state.envelope.uuid4',return_value=UUID('00000000-0000-4000-8000-000000000003')):
+   seed=initial_slice(self.r,last_settled_at_ms=self.clock.now_ms())
+  initial=leveling.normalized(growth.initial(seed.save_id),self.r,seed.save_id)
+  invalid={**initial,'current_realm':'realm_1','growth_revision':1}
+  legacy={**growth.initial(seed.save_id),'current_realm':'realm_1','growth_revision':1}
+  grown=leveling.normalized(legacy,self.r,seed.save_id);c=leveling.config(self.r)
+  original=(self.path,self.sid)
+  self.path=self.root/'advanced.sqlite3';self.sid=seed.save_id
   try:
-   self.auto();self.clock.advance(2000000);self.drain();after=self.read();self.assertEqual(after.domains['dungeon']['cleared_floor'],79);self.assertEqual(after.domains['dungeon']['auto']['wins'],79);self.assertEqual(after.domains['dungeon']['auto']['reason'],'DEFEATED');self.assertFalse(after.domains['dungeon']['auto']['enabled']);self.assertEqual(after.domains['combat']['battle']['encounter_id'],'thorn_path_v2_080');self.assertEqual(after.domains['combat']['battle']['status'],'PLAYER_LOSE')
-  finally:self.path=original
+   with SQLiteSave.initialize(self.path,allowed_root=self.root) as st:
+    app=DungeonApplication(st,self.r,self.clock)
+    with self.assertRaisesRegex(ValidationError,'XP outside realm gate'):
+     app.create(replace(seed,domains={**seed.domains,'cultivation':invalid}))
+    self.assertIsNone(st.inspect(seed.save_id,include_recovery=False).current)
+    app.create(replace(seed,domains={**seed.domains,'cultivation':grown}))
+   self.assertEqual((leveling.level(grown,c),grown['total_xp']),(501,leveling.table(c)[501]))
+   self.auto();ready=self.read();reference=self.root/'advanced-reference.sqlite3'
+   with SQLiteSave.initialize(reference,allowed_root=self.root) as st:
+    app=DungeonApplication(st,self.r,self.clock);app.create(ready)
+    self.assertEqual(app.query(self.sid),ready)
+   self.clock.advance(2000000);self.drain();after=self.read()
+   auto=after.domains['dungeon']['auto'];b=after.domains['combat']['battle']
+   failed_floor=progress.floor_of(self.r,b['encounter_id'])
+   self.assertEqual(b['status'],'PLAYER_LOSE');self.assertEqual(auto['reason'],'DEFEATED')
+   self.assertFalse(auto['enabled']);self.assertIsNone(auto['wake'])
+   self.assertEqual(after.domains['dungeon']['cleared_floor'],failed_floor-1)
+   self.assertEqual(auto['wins'],failed_floor-1)
+   with SQLiteSave(reference,allowed_root=self.root) as st:
+    app=DungeonApplication(st,self.r,self.clock);app.engine.result_path=False
+    for _ in range(1000):
+     current=app.query(self.sid)
+     result=app.settle(SettlementRequest(self.sid,current.generation,current.revision,str(uuid4()),32,Continuation.for_state(current) if current.time['pending'] else None))
+     if result.result.status=='COMPLETE':break
+    else:self.fail('reference settlement did not drain')
+    actual=app.query(self.sid)
+    compact=thaw_json(after.domains);detailed=thaw_json(actual.domains)
+    # Compression emits only the terminal event; every gameplay snapshot field must match.
+    compact_events=compact['combat']['battle']['latest_events']
+    detailed_events=detailed['combat']['battle']['latest_events']
+    self.assertEqual(compact_events,[detailed_events[-1]])
+    self.assertEqual(compact_events[-1]['kind'],'battle_lost')
+    self.assertTrue(any(event['kind']=='damage' for event in detailed_events))
+    detailed['combat']['battle']['latest_events']=compact_events
+    # Each report records its own actual commit revision, not a simulation result.
+    self.assertEqual(len(compact['offline_reports']['unread']),1)
+    self.assertEqual(len(detailed['offline_reports']['unread']),1)
+    self.assertEqual(compact['offline_reports']['unread'][0]['completed_revision'],after.revision)
+    self.assertEqual(detailed['offline_reports']['unread'][0]['completed_revision'],actual.revision)
+    detailed['offline_reports']['unread'][0]['completed_revision']=after.revision
+    self.assertEqual(detailed,compact)
+    self.assertEqual(actual.identity,after.identity);self.assertEqual(actual.time,after.time)
+   self.assertEqual(self.read(),after)
+  finally:self.path,self.sid=original
 
 class DungeonUpgradeTests(unittest.TestCase):
  def test_upgrade_preserves_old_battle_world_stock_identity_and_receipts(self):

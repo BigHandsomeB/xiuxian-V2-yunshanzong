@@ -2,7 +2,7 @@ import {stopReasonName,simulationStamp} from '../components/offline-report.js';
 import {el,heading,link,status,button} from '../components/dom.js';
 import {itemIcon} from '../components/item-icon.js';
 import {featureTab,detailSheet,recipeCard} from '../components/features.js';
-const plannedDungeons=[["red_copper_mine", "赤铜废矿"], ["mist_marsh", "雾隐灵泽"], ["cold_jade_cave", "寒玉冰窟"], ["fire_pill_ruins", "离火丹墟"], ["thunder_sword_tomb", "玄雷剑冢"], ["earth_vein_city", "地脉古城"], ["moon_underworld", "太阴幽府"], ["star_palace", "星陨天宫"], ["xuanhuang_seal", "玄黄封仙台"]];
+const plannedDungeons=[["red_copper_mine", "赤铜废矿"], ["mist_marsh", "雾隐灵泽"], ["cold_jade_cave", "寒玉冰窟"], ["fire_elixir_ruins", "离火丹墟"], ["thunder_sword_tomb", "玄雷剑冢"], ["earth_vein_city", "地脉古城"], ["moon_underworld", "太阴幽府"], ["star_palace", "星陨天宫"], ["xuanhuang_seal", "玄黄封仙台"]];
 function dungeonList(ctx,combat){
  const list=el('div','dungeon-list'),rows=combat.dungeons||[combat.dungeon],known=new Set(rows.map(d=>d.id));
  for(const d of rows)list.append(dungeonCard(ctx,combat,d));

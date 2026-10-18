@@ -23,3 +23,4 @@
 Simulation与Animation FPS彻底解耦：视觉后台/屏外/低FPS可暂停，数值按显式Settlement正确推进；动画结束不发奖或写Save。正式依据：[TIME_SETTLEMENT_MODEL](../decisions/TIME_SETTLEMENT_MODEL.md)、[Time Contract](../architecture/time-contract.md)。
 
 Phase13 protagonist exception: higher-frame combat repertoire is authorized as a future player_combat_v1 template requirement; ordinary monster remains compact. [Current visual authority](visual-north-star.md) and [readiness](../gameplay/player-combat-readiness.md). No current Asset template/profile changes.
+

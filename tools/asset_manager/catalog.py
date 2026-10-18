@@ -388,6 +388,7 @@ class Catalog:
         return value
 
     def source_image(self, source):
+        require(not source.get("file_deleted_at"), "原图已清理，重新切图请上传新原图；现有切块和运行素材仍可使用。")
         data = self.path(source["file"]).read_bytes()
         require(hashlib.sha256(data).hexdigest() == source["sha256"], "Source changed since import")
         return decode(data, source["original_name"])
@@ -433,19 +434,19 @@ class Catalog:
         source=self.get('source',source_id);spec=canonical_spec(self.source_spec(source))
         require(spec.get('source_container')=='sheet','自动定位需要素材表及冻结Cell Mapping')
         require(type(contours) is bool,'Invalid contour option')
-        if contours:
+        if contours and spec.get('sheet_semantics')!='effect_frames':
             from .contours import locate_contours
             result=locate_contours(self.source_image(source),spec)
         else:
             image=self.source_image(source);result=locate(image,spec)
-            # Rectangle envelopes can overlap although complete silhouettes are separate.
-            # Offer only validated, reviewable contours; never force missing/extra objects.
-            if spec.get('asset_list') and result['status']=='FAILED' and result['detected_count']==result['expected_count']:
+            # Disconnected fragments and overlapping rectangle envelopes may still
+            # have a valid layout-guided contour. Its own ambiguity guards apply.
+            if spec.get('asset_list') and result['status']=='FAILED':
                 from .contours import locate_contours
                 candidate=locate_contours(image,spec)
                 if candidate['status']=='NEEDS_REVIEW':
                     result=candidate;result['automatic_contour_fallback']=True
-                    result['message']='矩形框有交叠，已改用轮廓建议。'+result['message']
+                    result['message']='主体矩形定位不确定，已改用轮廓建议。'+result['message']
         return dict(result,source_id=source_id,source_sha256=source['sha256'])
 
     def plan(self, source_id, counts=None, mode='grid', options=None, regions=None, detection=None):
@@ -738,7 +739,12 @@ class Catalog:
                 output[asset["asset_id"]] = dict(version=selected, build_version=value["runtime"].get("build_version"), export_origin=value["runtime"].get("export_origin"), files=files, format=value["runtime"]["format"], sampling="nearest", runtime_profile=value["runtime"].get("profile"), subject_logic_size=value["runtime"].get("subject_logic_size"), anchor=value["runtime"].get("anchor"))
             document = dict(schema_version=1, assets=output)
             self.atomic("manifest.json", (json.dumps(document, ensure_ascii=False, indent=2) + "\n").encode())
+        self.clean_source_files()
         return document
+
+    def clean_source_files(self, all_originals=False):
+        from .source_cleanup import clean
+        return clean(self, all_originals=all_originals)
 
     def completeness(self, set_id, group=None, assets=None):
         group = group if group is not None else self.get("set", set_id); states = {}

@@ -55,6 +55,53 @@ def _padded_boxes(boxes, width, height):
     return output
 
 
+def _effect_frames(image, cells, pixels, mask, width, height, result):
+    """Find low-coverage seams near frozen frame positions, not particle identities.
+
+    Keep whole frame compartments: disconnected particles and thin touching halos
+    belong to animation cells. Refuse absent frames and dense/ambiguous seams.
+    """
+    result.update(algorithm='layout_effect_frames_v1',
+                  message='特效帧分界不明确或存在空帧，请人工调整。')
+    rows=max(c['row'] for c in cells)+1;columns=max(c['column'] for c in cells)+1
+    weights=[p[3] if visible else 0 for p,visible in zip(pixels,mask)] if result['foreground_method']=='alpha' else [255*v for v in mask]
+
+    def seams(projection, count):
+        boundaries=[0];size=len(projection);span=size/count
+        if span<8:return None
+        for i in range(1,count):
+            center=size*i/count
+            low=max(2,math.ceil(center-span*.18));high=min(size-3,math.floor(center+span*.18))
+            if low>high:return None
+            score=lambda k:sum(projection[k-1:k+2])
+            cut=min(range(low,high+1),key=lambda k:(score(k),abs(k-center)))
+            peak=max(projection[max(0,int(center-span*.65)):min(size,math.ceil(center+span*.65))])
+            if not peak or score(cut)>peak*3*.18:return None
+            boundaries.append(cut)
+        return boundaries+[size]
+
+    ys=seams([sum(weights[y*width:(y+1)*width]) for y in range(height)],rows)
+    if ys is None:return result
+    regions=[];areas=[]
+    for row,(top,bottom) in enumerate(zip(ys,ys[1:])):
+        xs=seams([sum(weights[y*width+x] for y in range(top,bottom)) for x in range(width)],columns)
+        if xs is None:return result
+        for c in sorted((c for c in cells if c['row']==row),key=lambda c:c['column']):
+            left,right=xs[c['column']:c['column']+2]
+            area=sum(mask[y*width+x] for y in range(top,bottom) for x in range(left,right))
+            if area<max(4,math.ceil((right-left)*(bottom-top)*.003)):
+                result['detected_count']=len(regions);return result
+            areas.append(area)
+            x0=left*image.width//width;y0=top*image.height//height
+            x1=right*image.width//width;y1=bottom*image.height//height
+            regions.append(dict(c,rect=[x0,y0,x1-x0,y1-y0]))
+    if min(areas)<max(areas)*.003:return result
+    result.update(status='NEEDS_REVIEW',detected_count=len(regions),regions=regions,
+                  candidate_boxes=[r['rect'] for r in regions],
+                  message='已按透明度低谷定位特效帧，保留帧内粒子与光晕。请核对名称、帧序及相邻帧边缘；分界处的微弱光晕可能被切开。')
+    return result
+
+
 def locate(image, spec, thumbnail_limit=512):
     """Return suggested regions only; does not mutate Source, Snapshot or image."""
     integer(thumbnail_limit,64,512)
@@ -77,6 +124,8 @@ def locate(image, spec, thumbnail_limit=512):
         mask=bytearray(max(abs(p[k]-bg[k]) for k in range(3))>36 for p in pixels)
         result['background_estimate']=bg
     if sum(mask)>len(mask)*.75 or not any(mask):return result
+    if spec.get('sheet_semantics')=='effect_frames':
+        return _effect_frames(image,cells,pixels,mask,width,height,result)
     pieces=_components(mask,width,height)
     noise=max(2,math.ceil(width*height*.00004))
     pieces=sorted((p for p in pieces if p['area']>=noise),key=lambda p:(-p['area'],p['box'][1],p['box'][0]))

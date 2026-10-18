@@ -89,3 +89,4 @@ def main():
         path.write_text(json.dumps(cfg,ensure_ascii=False,indent=2)+'\n')
     print(f'{len(model["recipes"])+len(model.get("foundation_pills",[]))+len(model.get("sect_management_recipes",[]))} recipes and management costs: '+('verified' if args.check else 'generated'))
 if __name__=='__main__':main()
+

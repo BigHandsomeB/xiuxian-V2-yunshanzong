@@ -18,7 +18,10 @@ class LifecycleTests(unittest.TestCase):
         self.c.import_static_set(self.c.plan(self.s['source_id']),True)
         for aid in self.ids:
             self.c.review(aid,1,'needs_review');self.c.review(aid,1,'approved',dict.fromkeys(REVIEW,True));self.c.build(aid,1);self.c.select(aid,1)
-        self.c.publish();self.s=self.c.get("source",self.s["source_id"])
+        # These lifecycle cases exercise retained originals; auto-retirement is tested separately.
+        with patch.object(self.c, "clean_source_files"):
+            self.c.publish()
+        self.s=self.c.get("source",self.s["source_id"])
     def preview(self,op,key=None,kind='asset'):return prepare(self.c,kind,key or self.aid,op)
     def do(self,op,key=None,kind='asset',**opts):
         p=self.preview(op,key,kind);return apply(self.c,p['confirmation_id'],True,**opts)

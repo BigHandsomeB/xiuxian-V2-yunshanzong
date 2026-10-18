@@ -24,10 +24,17 @@ def register(registry,*,current=True):
         registry.register(ResourceDefinition('resources',row['id'],row['name'],(),True,row['grade']))
     ranges=json.loads(Path(__file__).with_name('equipment_ranges.json').read_text())
     if ranges['version']!='thorn-roll-v2' or set(ranges['equipment'])!={r['id'] for r in p['equipment']}:raise ValidationError('invalid roll range package')
+    crafting=ranges.get('crafting',{}) if current else {}
+    if not isinstance(crafting,dict) or set(crafting)-set(ranges['equipment']):raise ValidationError('invalid crafting equipment profiles')
     for row in p['equipment']:
         _fields(row,('id','name','slot','quality','stats','asset_id','sell_coins','salvage','boss_only'))
         salvage=tuple(sorted(row['salvage'].items()))
-        registry.register(EquipmentDefinition('equipment',row['id'],row['name'],tuple(DefinitionKey('resources',k) for k,_ in salvage),row['slot'],row['quality'],tuple(sorted(row['stats'].items())),row['asset_id'],row['sell_coins'],salvage,None,True,tuple((k,*v) for k,v in sorted(ranges['equipment'][row['id']].items()))))
+        profile=crafting.get(row['id'])
+        if profile is not None:_fields(profile,('fee_coins','roll_version','stat_ranges'))
+        registry.register(EquipmentDefinition('equipment',row['id'],row['name'],tuple(DefinitionKey('resources',k) for k,_ in salvage),row['slot'],row['quality'],tuple(sorted(row['stats'].items())),row['asset_id'],row['sell_coins'],salvage,None,True,tuple((k,*v) for k,v in sorted(ranges['equipment'][row['id']].items())),
+            craft_fee_coins=profile['fee_coins'] if profile else None,
+            craft_roll_version=profile['roll_version'] if profile else None,
+            craft_stat_ranges=tuple((k,*v) for k,v in sorted(profile['stat_ranges'].items())) if profile else ()))
     if len(p['normal_materials'])!=10 or len(p['elite_materials'])!=5:raise ValidationError('invalid material source maps')
     refs=[DefinitionKey('resources',k) for k in (*p['normal_materials'],*p['elite_materials'])]
     for tier in ('normal','elite','boss'):
@@ -42,9 +49,10 @@ def register(registry,*,current=True):
 def roll(identity,salt):return int.from_bytes(hashlib.sha256((identity+'|'+salt).encode()).digest()[:8],'big')%10000
 
 def _plan(registry,b):
-    from .expeditions import ALL_IDS,owner
+    from .expeditions import owner
+    from . import catalog
     did=owner(registry,b['encounter_id'])
-    if did in ALL_IDS:return expedition_plan(registry,b,did)
+    if did is not None and catalog.entry(did).kind=='expedition':return expedition_plan(registry,b,did)
     if not registry.contains(DefinitionKey('loot','thorn_path')) or b.get('loot_version') not in ('thorn-loot-v1','thorn-loot-v2') or not b['encounter_id'].startswith('thorn_path_'):return {'amounts':{},'equipment':None}
     # Immutable v1 salt and battle identity: retries, failed storage and offline replay
     # cannot reroll. Future table revisions must use a new version, not edit this salt.
@@ -66,6 +74,11 @@ def expedition_plan(registry,b,did):
     def award(k,n):amounts[k]=amounts.get(k,0)+n
     if roll(seed,'material')<r['material_bps']:
         keys=[v['id'] for v in p['materials'] if v['boss_only']] if tier=='boss' else [table['elite_materials'][(floor//p['elite_interval']-1)%len(table['elite_materials'])]] if tier=='elite' else [table['normal_materials'][(floor-1-(floor-1)//p['elite_interval'])%len(table['normal_materials'])]]
+        if p.get('schedule') and tier!='boss':
+            encounter=registry.lookup(DefinitionKey('encounters',b['encounter_id']))
+            enemy=registry.lookup(DefinitionKey('monsters',encounter.monster_id))
+            template=next(row for row in p['monsters'] if row['asset_id']==enemy.asset_id)
+            keys=[table['elite_materials' if tier=='elite' else 'normal_materials'][template['order']]]
         for k in keys:award(k,r['material_quantity'])
     extra=table['extra_rates']
     for pool in (('theme','beast') if tier=='normal' else ('rare',)):
@@ -78,9 +91,13 @@ def expedition_plan(registry,b,did):
 
 
 def equipment_roll_version(b):
-    from .expeditions import ALL_IDS,content
+    from src.data.combat.mechanics import VERSION,ROLL_VERSION
+    if b.get('mechanics',{}).get('version')==VERSION:return ROLL_VERSION
+    from .expeditions import content
+    from . import catalog
     if b.get('loot_version') in ('thorn-loot-v2',):return 'thorn-roll-v2'
-    for did in ALL_IDS:
+    for did in catalog.expedition_ids(current=True):
+        if b.get('loot_version')!=did+'-loot-v1':continue
         table=content(did)['loot']
         if b.get('loot_version') in (table['version'],):return table['roll_version']
     return None

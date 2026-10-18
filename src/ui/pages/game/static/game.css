@@ -179,3 +179,5 @@ h3{font-size:var(--text-card)}.danger-action{color:var(--danger);border-color:va
 .technique-slot>.item-icon[data-profile]{width:32px;height:32px}.technique-slot>.item-icon .runtime-icon{width:100%;height:100%}
 
 .catalog-notes-summary{display:flex;flex-direction:column;gap:3px;width:100%;min-width:0;text-align:left}.catalog-notes-summary small{font-size:var(--text-min);line-height:1.4;overflow-wrap:anywhere;color:var(--muted)}.catalog-notes-editor input,.catalog-notes-editor textarea{width:100%;min-width:0;box-sizing:border-box;font-size:var(--text-input);padding:8px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink)}
+
+.settings-actions.action-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:16px 0}.settings-actions.action-grid>.secondary{margin:0;font-size:var(--text-body)}.settings-actions .icon-label{min-width:0;overflow-wrap:anywhere}

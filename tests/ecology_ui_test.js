@@ -60,6 +60,41 @@ async function testEcologyUI(sources, fixture, realFetcher=null) {
   check(!all(node).some(n=>n.textContent.includes('干粮')),'new UI contains no dry-food concepts');
  }
  const allowed=data.view.ecology.available;data.view.ecology.available=false;ctx.ui.ecologyTabs.pasture='purchase';let pausedPage=screen.renderHusbandry(ctx,'pasture');all(pausedPage).find(n=>n.dataset.id==='species-pasture_species_02').emit('click');check(all(shown.content).filter(n=>n.tagName==='BUTTON').every(n=>n.disabled),'paused purchase controls disabled');data.view.ecology.available=allowed;
+ const hall=load(base+'screens/sect-management.js'),originalPreparation=clone(data.view.preparation);
+ const savedCommands=commands.length,savedFetches=fetches.length;
+ for(const width of [320,390,430])for(const theme of ['LIGHT','DARK']){
+  win.innerWidth=width;ctx.theme={mode:theme,set(){}};data.view.preparation=clone(originalPreparation);
+  let card=hall.renderPreparation(ctx);
+  check(all(hall.renderHallServices(ctx)).some(n=>n.dataset.id==='current-preparation'),'hall includes current preparation');
+  check(all(card).some(n=>n.textContent==='当前备战 · 荆棘古道'),'explicit thorn target');
+  const ids=all(card).filter(n=>n.classList?.contains('item-icon'));
+  const detail=all(card).find(n=>n.dataset.id==='preparation-technique');detail.open=true;
+  patch.patchPanel(card,hall.renderPreparation(ctx));check(ids.every(n=>all(card).includes(n)),'preparation retains unchanged icons');
+  check(all(card).includes(detail)&&detail.open,'optional technique detail stays open on refresh');
+  check(all(card).some(n=>n.textContent.includes('护甲 +0.1')),'initial technique bonus keeps decimal precision');
+  check(all(card).filter(n=>n.tagName==='A').every(n=>n.href.startsWith('#')),'only existing local navigation links');
+  check(!all(card).some(n=>n.tagName==='BUTTON'),'card has no gameplay command buttons');
+  data.view.preparation.blade.owned=true;data.view.preparation.blade.equipped=false;
+  card=hall.renderPreparation(ctx);check(all(card).some(n=>n.textContent==='已有短刃，尚未穿戴'),'owned blade requires equip, not recraft');
+  check(!all(card).some(n=>n.dataset.id?.startsWith('preparation-blade:')),'owned blade suppresses crafting shopping list');
+  data.view.preparation.phase='spring';card=hall.renderPreparation(ctx);
+  check(all(card).some(n=>n.href==='#building/abyss'),'spring uses registered abyss route');
+  data.view.preparation.phase='supply';card=hall.renderPreparation(ctx);
+  check(all(card).some(n=>n.href==='#building/kitchen'),'supply links to current kitchen');
+  data.view.preparation.phase='development';card=hall.renderPreparation(ctx);
+  check(all(card).some(n=>n.href==='#building/hall'),'advanced save sees development');
+  data.view.preparation=clone(originalPreparation);data.view.preparation.water.listed=false;
+  card=hall.renderPreparation(ctx);check(all(card).some(n=>n.textContent.includes('今日泉水未上架')),'unlisted water never promised available');
+  data.view.preparation.water.listed=true;data.view.preparation.water.remaining=0;
+  card=hall.renderPreparation(ctx);check(all(card).some(n=>n.textContent==='今日泉水已售罄'),'sold out state');
+  data.view.preparation.selected_thorn=false;data.view.preparation.pending=true;ctx.busy=true;
+  card=hall.renderPreparation(ctx);check(all(card).some(n=>n.textContent.includes('当前选择其他副本')),'other dungeon not treated as thorn progress');
+  check(all(card).some(n=>n.textContent.includes('进度续算中')),'pending state');ctx.busy=false;
+ }
+ delete data.view.preparation;
+ check(!all(hall.renderHallServices(ctx)).some(n=>n.dataset.id==='current-preparation'),'old responses omit card safely');
+ data.view.preparation=originalPreparation;
+ check(commands.length===savedCommands&&fetches.length===savedFetches,'preparation rendering and links emit zero commands or requests');
  const css=sources[base+'game.css'];check(/\.recipe-grid\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/.test(css),'shared grid has exactly two columns');check(!/\.ecology[^}]*grid-template-columns:repeat\([134]/.test(css),'no ecology override introduces another card count');
  return {checks,context:'native DOM at 320/390/430 with light/dark contexts; no device painting claim'};
 }

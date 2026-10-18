@@ -5,6 +5,7 @@ from pathlib import Path
 from src.core.state.envelope import freeze_json
 from src.core.validation import ValidationError, integer
 from src.data.registry import Definition, DefinitionKey
+from src.data.dungeons import catalog
 
 @dataclass(frozen=True,slots=True)
 class MarketRules(Definition):
@@ -23,12 +24,13 @@ def register(registry,*,ecology=False):
     if cfg['price_variation_permille']>200 or len(cfg['items'])<cfg['offers_per_day']:raise ValidationError('market pool/price bounds invalid')
     for weight in cfg['tier_weights']:integer(weight,'market weight',1)
     if any(a<=b for a,b in zip(cfg['tier_weights'],cfg['tier_weights'][1:])):raise ValidationError('market weights must decrease')
+    dungeon_ids=set(catalog.all_ids())
     for rid,row in cfg['items'].items():
         DefinitionKey('resources',rid)
         integer(row['level'],'shop material level',1)
         integer(row['buy_coins'],'base purchase price',1);integer(row['sell_coins'],'base sale price',1)
         integer(row['value_coins'],'material value',1);integer(row['daily_quantity'],'daily stock',1);integer(row['sect_level'],'sect level',1)
-        if type(row['boss_only']) is not bool or set(row['unlock'])-{'thorn_path','red_copper_mine','mist_marsh'}:raise ValidationError('invalid material source')
+        if type(row['boss_only']) is not bool or set(row['unlock'])-dungeon_ids:raise ValidationError('invalid material source')
         for n in row['unlock'].values():
             integer(n,'source floor',1)
             if n>100:raise ValidationError('source floor outside dungeon')

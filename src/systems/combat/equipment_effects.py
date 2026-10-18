@@ -4,7 +4,8 @@ from src.core.validation import ValidationError,integer
 
 from src.data.economy.definitions import NEW_STAT_CAPS
 NEW_CAPS=NEW_STAT_CAPS
-CAPS={'crit_bps':3000,'accuracy_bps':10000,'evasion_bps':2500,'speed_bps':3000,'reflect_bps':3500,'poison_resist_bps':7500,'execute_bps':2000,'pierce_milli':100000,**NEW_CAPS}
+from src.data.combat.mechanics import CAPS as EFFECT_CAPS
+CAPS={**EFFECT_CAPS,'crit_bps':3000,'accuracy_bps':10000,'evasion_bps':2500,'speed_bps':3000,'reflect_bps':3500,'poison_resist_bps':7500,'execute_bps':2000,'pierce_milli':100000,**NEW_CAPS}
 def validate(p):
     for key,limit in CAPS.items():
         if key in p:

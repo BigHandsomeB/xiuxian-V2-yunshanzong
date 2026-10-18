@@ -31,6 +31,9 @@ class EconomyApplication(WorldApplication):
         validators={**sect.validators(self.registry),'production':lambda p:jobs.validate(p,self.registry),'disciples':lambda p:work.validate(p,self.registry),'automation':lambda p:policy.validate(p,self.registry)}
         return equip.EconomyPersistence(self.store,self.registry,specs,references=lambda s:references(s,self.registry),validators=validators,settlement_engine=self.engine,clock=self.clock)
     def player_projection(self,state):return items.projection(equip.equipment(state),growth.projection(partition(state),self.registry,state.save_id))
+    def combat_equipment(self,state):
+        p=equip.equipment(state)
+        return tuple(p['instances'][identity]['definition_id'] for identity in p['slots'].values())
     def player_source(self):return '等级、里程碑、境界、装备与功法属性 · 开战快照'
     def project_cultivation(self,state):
         v=thaw_json(super().project_cultivation(state));actor=self.player_projection(state);v['combat_projection']=growth.stats(actor)
@@ -202,12 +205,18 @@ class EconomyApplication(WorldApplication):
     def crafting_equipment_preview(self,definition_id,quantity):
         from src.data.economy.definitions import EQUIPMENT_SLOTS
         d=items.definition(self.registry,definition_id)
+        ranges=d.craft_stat_ranges or d.stat_ranges
+        stats=dict(d.stats)
+        from src.data.combat.mechanics import settings as effect_settings,equipment_ranges
+        effects=effect_settings(self.registry)
+        if effects and definition_id in effects['equipment']:
+            ranges=equipment_ranges(definition_id,craft=True);stats={key:(low+high)//2 for key,low,high,step in ranges}
         return {'definition_id':d.machine_id,'name':d.display_name,'asset_id':d.asset_id,
                 'quantity':quantity,'quality':d.quality,
                 'quality_name':{'white':'凡品','green':'灵品','blue':'玄品','rare':'稀有'}[d.quality],
                 'slot_name':dict(EQUIPMENT_SLOTS)[d.slot],
-                'stats':{k.removesuffix('_milli').removesuffix('_bps'):n/(100 if k.endswith('_bps') else 1000) for k,n in d.stats},
-                'stat_ranges':{k.removesuffix('_milli').removesuffix('_bps'):[a/(100 if k.endswith('_bps') else 1000),b/(100 if k.endswith('_bps') else 1000)] for k,a,b,step in d.stat_ranges}}
+                'stats':{k.removesuffix('_milli').removesuffix('_bps'):n/(100 if k.endswith('_bps') else 1000) for k,n in stats.items()},
+                'stat_ranges':{k.removesuffix('_milli').removesuffix('_bps'):[a/(100 if k.endswith('_bps') else 1000),b/(100 if k.endswith('_bps') else 1000)] for k,a,b,step in ranges}}
 
     def project_economy(self,state):
         from src.data.economy.sect_rules import settings

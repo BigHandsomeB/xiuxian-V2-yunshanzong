@@ -160,7 +160,7 @@ def inspect(c,kind,key,operation,conn):
         for value in manifest['assets'].values():shared.update(f['file'] for f in value['files'])
         if target['file'] in {f['file'] for value in manifest['assets'].values() for f in value['files']}:block(key,'Manifest仍引用该原图文件',True)
         files={path:f for path,f in candidates.items() if path not in shared and safe_file(c,f).exists()}
-        files[target['file']]=target
+        if safe_file(c,target).exists():files[target['file']]=target
     elif operation=='clean_runtime':
         files=asset_files(target,True,True)
         if key in manifest['assets']:block(key,'Manifest仍引用该素材，请先废弃',True)

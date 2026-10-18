@@ -51,3 +51,4 @@ class PublicCatalogTests(unittest.TestCase):
         first = metadata(self.root, self.snapshot)
         first['groups'][0]['items'][0]['name'] = 'changed'
         self.assertEqual(metadata(self.root, self.snapshot)['groups'][0]['items'][0]['name'], '灵草')
+

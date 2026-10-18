@@ -47,12 +47,13 @@ async function testAssetUiSheetFrames(source,fixture){
  const flush=async()=>{for(let i=0;i<20;i++)await Promise.resolve();};
  page(fixture.source);await flush();
  if(fixture.frame_collection){
-   if(find('#static-import-mode').value!=='grid'||calls!==0)throw Error('Effect frame collections must default to frozen grid');
+   if(find('#static-import-mode').value!=='auto'||calls!==1)throw Error('Effect frame collections must default to frame localization');
    if(maps.length!==8||!drawn.includes('剑气斩击 · 4帧')||!drawn.includes('命中闪光 · 1帧'))throw Error('Named effect/frame labels lost');
    await find('#static-validate').onclick();await flush();
-   if(captured.mode!=='grid'||captured.regions.length!==8||new Set(captured.regions.map(r=>r.asset_id)).size!==2)throw Error('Effect frames merged across assets');
+   if(captured.mode!=='auto'||captured.regions.length!==8||new Set(captured.regions.map(r=>r.asset_id)).size!==2)throw Error('Effect frames merged across assets');
    if(new Set(captured.regions.map(r=>r.asset_id+':'+r.action+':'+r.frame)).size!==8)throw Error('Effect frame keys collide');
-   return 'PASS: effect group defaults to grid and preserves two named four-frame assets';
+   if(!find('#locate-status').textContent.includes('个特效帧'))throw Error('Effect cells mislabeled as subjects');
+   return 'PASS: effect group defaults to auto and preserves two named four-frame assets';
  }
  if(find('#static-import-mode').value!=='auto'||calls!==1)throw Error('Action sheets must use the common localization page');
  if(maps.length!==20||!drawn.includes('待机 · 1帧')||!drawn.includes('行走 · 4帧'))throw Error('Frame cell labels/keys lost for a shared character Asset');

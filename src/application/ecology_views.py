@@ -9,6 +9,65 @@ from src.systems.disciples import work
 
 
 class EcologyViews:
+    def preparation_view(self, state, view):
+        """Current-snapshot advice only; existing screens retain all command authority."""
+        from src.application import equipment as equip
+        from src.application.sect_economy import craft_cost
+        from src.systems.cultivation import techniques
+        from src.systems.dungeons import progress
+        from src.data.dungeons import loot
+        stock = state.domains['inventory']['holdings']
+        floor = progress.cleared(state.domains['dungeon'], 'thorn_path')
+        def requirements(cost):
+            return [{'resource_id': rid, 'name': self.registry.lookup(DefinitionKey('resources', rid)).display_name,
+                     'quantity': n, 'current': stock.get(rid, 0), 'missing': max(0, n-stock.get(rid, 0))}
+                    for rid, n in cost.items()]
+        equipment = equip.equipment(state)['instances']
+        blades = [row for row in equipment.values() if row['definition_id']=='thorn_fang_blade']
+        defense = sum(not row['equipped'] and not equip.items.unknown(row,self.registry)
+                      and equip.items.definition(self.registry,row['definition_id']).quality=='white'
+                      and equip.items.definition(self.registry,row['definition_id']).slot!='left'
+                      and equip.can_equip_realm(state,self.registry,row['definition_id']) for row in equipment.values())
+        spring = self.facility_quote(state, 'spring')
+        supply = view['ecology']['supply']
+        phase = 'prepare' if floor<10 else 'spring' if not spring['exists'] else 'supply'
+        if phase=='supply' and supply['enabled'] and supply['active'] and supply['basic_stock']>=supply['people']*3:
+            phase='development'
+        table = loot.content()['normal_materials']
+        sources = [f for f in range(1,100) if f%10 and table[(f-1-(f-1)//10)%len(table)]=='thorn_boar_bone']
+        source_floor = sources[0] if sources else None
+        recipe = jobs.definition(self.registry,'ingot')
+        from src.data.economy.sect_rules import settings as sect_settings
+        unlock = sect_settings(self.registry).get('recipe_unlock_overrides',{}).get('ingot',{'floor':recipe.unlock_floor,'realm':recipe.unlock_realm})
+        config = techniques.config(self.registry)
+        key = 'manual_a00f304b07a9a'
+        row = techniques.definition(config,key)
+        owned = next((r for r in view['techniques']['instances'] if r['id']==key),None)
+        quote = next(r for r in view['techniques']['catalog'] if r['id']==key)['source']
+        level = owned['level'] if owned else 1
+        bonus = owned['bonus'] if owned else techniques.effective_bonus(config,row,1)
+        water = next((r for r in view['sect_services']['market']['offers'] if r['resource_id']=='spring_water'),None)
+        return {'phase':phase, 'cleared_floor':floor, 'selected_thorn':progress.selected(state.domains['dungeon'])=='thorn_path',
+                'pending':bool(state.time['pending']), 'paused':paused(state.time),
+                'blade':{'name':equip.items.definition(self.registry,'thorn_fang_blade').display_name,
+                         'owned':bool(blades),'equipped':any(r['equipped'] for r in blades),
+                         'requirements':requirements(craft_cost(self.registry,'thorn_fang_blade'))},
+                'sources':{'bone_floor':source_floor,'bone_enterable':source_floor is not None and source_floor<=floor+1,
+                           'ingot_floor':unlock['floor']},
+                'unequipped_defense':defense,
+                'technique':{'name':row['name'],'owned':bool(owned),'level':level,
+                             'equipped':bool(owned and owned['equipped_slot']),
+                             'bonuses':[{'name':{'max_hp_milli':'生命','armor_milli':'护甲'}.get(k,k),'amount':n/1000} for k,n in bonus.items()],
+                             'requirements':requirements(quote['cost']) if not owned else [],
+                             'blocking_reasons':quote['blocking_reasons'] if not owned else []},
+                'spring':{'exists':spring['exists'],'can_build':spring['can_build'],'requirements':requirements(spring['cost']),
+                          'blocking_reasons':spring['blocking_reasons']},
+                'supply':{'people':supply['people'],'stock':supply['basic_stock'],'suggested_stock':supply['people']*3,
+                          'target_days':supply['target_days'],'enabled':supply['enabled'],'active':supply['active'],
+                          'hungry':supply['hungry_count'],'day_seconds':supply['day_seconds']},
+                'water':{'listed':water is not None,'remaining':water['remaining_stock'] if water else 0,
+                         'price':water['price'] if water else None,'max_quantity':water['max_quantity'] if water else 0}}
+
     def project_world(self, state):
         state=self.prepare_economy_state(state)
         view = thaw_json(super().project_world(state))
@@ -18,6 +77,9 @@ class EcologyViews:
         blocked=paused(state.time) or bool(state.time['pending']) or state.domains['dungeon']['auto']['enabled'] or combat.get('status') in ('ACTIVE','PLAYER_WIN')
         from src.systems.dungeons.progress import cleared
         view['techniques']=techniques.view(partition(state),self.registry,blocked,state.domains['inventory']['holdings'],cleared(state.domains['dungeon'],'thorn_path'),paused(state.time) or bool(state.time['pending']))
+        if view['techniques']:
+            from src.application.combat_effect_views import technique as effect_view
+            for row in (*view['techniques']['instances'],*view['techniques']['catalog']):row.update(effect_view(self.registry,row['id']))
         view['inventory'].setdefault('manual_page',{'name':'功法残页','quantity':state.domains['inventory']['holdings'].get('manual_page',0),'source_label':'100层Boss结算、首通宝箱或贡献兑换','use_label':'功法阁定向兑换橙、红阶功法'})
         from src.systems.sect import activities
         from src.application.sect_economy import reserved
@@ -94,6 +156,7 @@ class EcologyViews:
                            'installed_facilities': thaw_json(part['facilities']),
                            'basic_meal_ids': list(nutrition.basic_ids(self.registry)),
                            'available': available}
+        view['preparation'] = self.preparation_view(state, view)
         return freeze_json(view)
 
     def project_economy(self, state):

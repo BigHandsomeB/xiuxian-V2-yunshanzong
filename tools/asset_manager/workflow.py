@@ -66,7 +66,7 @@ def prepare(c,source_id=None,regions=None,mode='manual',options=None,counts=None
                 require(not spec.get('legacy'),'Historical specifications require advanced review')
                 item=dict(asset_id=a['asset_id'],name_zh=a['name_zh'],fingerprint=fingerprint(a),version=v['version'],master=a['state']=='master',frozen_spec=spec,plan=copy.deepcopy(v['plan']),preview_files=copy.deepcopy(v['files']),issues=[])
                 try:
-                    c.source_image(source)
+                    if not source.get("file_deleted_at"):c.source_image(source)
                     require(spec['template_id']==a['template_id'],'Version Template reference mismatch')
                     if item['master']:require(len(v['files'])==1 and v['files'][0]['action']=='master','Invalid Master Components')
                     else:mapping(spec['template_snapshot'],v['files'],v['plan']['counts'])
@@ -176,7 +176,8 @@ def confirm(c,preview_id,confirmed=False,excluded=None,excluded_actions=None,act
                 if not skip and item['valid'] and not issues:
                     conn.execute('SAVEPOINT quick_item')
                     try:
-                        c.source_image(c.get('source',v['source_id'],conn))
+                        source=c.get('source',v['source_id'],conn)
+                        if not source.get('file_deleted_at'):c.source_image(source)
                         for f in item['preview_files']:
                             require(hashlib.sha256(c.path(f['file']).read_bytes()).hexdigest()==f['sha256'],'Preview changed after confirmation')
                         checks=REVIEW+(INTERIOR_REVIEW if item['frozen_spec']['template_snapshot']['master_required'] and not item['master'] else [])

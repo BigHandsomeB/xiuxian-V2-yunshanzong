@@ -8,19 +8,26 @@ from src.data.registry import Definition,DefinitionKey
 from src.data.items.resources import ResourceDefinition
 from src.data.economy.definitions import EquipmentDefinition
 from src.data.combat.definitions import MonsterDefinition,EncounterDefinition
-from . import balance
+from . import balance, catalog
 
-IDS=('red_copper_mine','mist_marsh')
-ALL_IDS=(*IDS,'cold_jade_cave')
+# Frozen public compatibility aliases; current enumeration uses catalog APIs.
+IDS=catalog.HISTORICAL_IDS
+ALL_IDS=catalog.HISTORICAL_COLD_JADE_IDS
 
 @lru_cache(maxsize=3)
 def content(dungeon_id):
-    if dungeon_id not in ALL_IDS:raise ValidationError('unknown expedition')
-    p=json.loads(Path(__file__).with_name(dungeon_id+'.json').read_text())
-    if set(p)!={'schema_version','id','name','floors','elite_interval','unlock','background_asset_id','monsters','balance','reward','materials','equipment','loot'} or p['schema_version']!=1 or p['id']!=dungeon_id:raise ValidationError('invalid expedition package')
+    row=catalog.entry(dungeon_id)
+    if row.kind!='expedition':raise ValidationError('unknown expedition')
+    p=json.loads(catalog.source_path(row).read_text())
+    if set(p)-{'theme_resources','schedule'}!={'schema_version','id','name','floors','elite_interval','unlock','background_asset_id','monsters','balance','reward','materials','equipment','loot'} or p['schema_version']!=1 or p['id']!=dungeon_id:raise ValidationError('invalid expedition package')
     integer(p['floors'],'floors',1);integer(p['elite_interval'],'elite interval',1)
-    previous=('thorn_path',*ALL_IDS)[ALL_IDS.index(dungeon_id)]
-    if p['floors']!=100 or p['elite_interval']!=10 or set(p['unlock'])!={'dungeon_id','cleared_floor'} or p['unlock']['dungeon_id']!=previous:raise ValidationError('invalid expedition structure/unlock')
+    if p['floors']!=100 or p['elite_interval']!=10 or set(p['unlock'])!={'dungeon_id','cleared_floor'}:raise ValidationError('invalid expedition structure/unlock')
+    if 'schedule' in p:
+        schedule=p['schedule']
+        if not isinstance(schedule,dict) or set(schedule)!={'elite_floors'} or type(schedule['elite_floors']) is not list:raise ValidationError('invalid explicit expedition schedule')
+        floors=schedule['elite_floors']
+        if len(floors)!=5 or any(type(f) is not int or not 1<=f<100 for f in floors) or sorted(set(floors))!=floors:raise ValidationError('five ordered unique elite floors required')
+    DefinitionKey('dungeons',p['unlock']['dungeon_id'])
     integer(p['unlock']['cleared_floor'],'unlock cleared floor',1)
     if p['unlock']['cleared_floor']>100:raise ValidationError('unlock floor out of range')
     balance.validate_content(p['balance'],dungeon_id+'-balance-v1')
@@ -28,8 +35,11 @@ def content(dungeon_id):
     if [sum(m['tier']==t for m in p['monsters']) for t in ('normal','elite','boss')]!=[10,5,1] or set(p['balance']['profiles'])!={m['name'] for m in p['monsters']}:raise ValidationError('invalid expedition monster profiles')
     if len({m['id'] for m in p['monsters']})!=16 or len({m['asset_id'] for m in p['monsters']})!=16:raise ValidationError('duplicate expedition enemies')
     for m in p['monsters']:
-        if set(m)!={'id','name','tier','order','asset_id','poison_milli'}:raise ValidationError('invalid expedition monster')
+        if set(m)-{'base_stats'}!={'id','name','tier','order','asset_id','poison_milli'}:raise ValidationError('invalid expedition monster')
         integer(m['order'],'monster order');integer(m['poison_milli'],'poison')
+        if 'base_stats' in m:
+            if not isinstance(m['base_stats'],list) or len(m['base_stats'])!=3:raise ValidationError('base monster HP/attack/defense triple required')
+            for i,n in enumerate(m['base_stats']):integer(n,'base monster stat',1 if i==0 else 0)
     for tier in ('normal','elite','boss'):
         rows=[m for m in p['monsters'] if m['tier']==tier]
         if [m['order'] for m in rows]!=list(range(len(rows))):raise ValidationError('invalid expedition order')
@@ -50,7 +60,7 @@ def content(dungeon_id):
     # Immutable content can also be consumed by the existing decimal stat calculator.
     return freeze_json(p)
 
-def register(registry,dungeon_type,*,cold_jade=False):
+def register(registry,dungeon_type,*,cold_jade=False,current=False):
     shared=json.loads(Path(__file__).with_name('expedition_materials.json').read_text())
     if set(shared)!={'schema_version','materials'} or shared['schema_version']!=1:raise ValidationError('invalid common expedition materials')
     for row in shared['materials']:
@@ -59,8 +69,10 @@ def register(registry,dungeon_type,*,cold_jade=False):
     if cold_jade:
         for identity,name in (('cold_jade_ore','寒玉矿'),('ice_crystal_ore','冰晶矿')):
             registry.register(ResourceDefinition('resources',identity,name,(),True,1,'待定'))
-    for did in ALL_IDS if cold_jade else IDS:
+    for did in catalog.expedition_ids(cold_jade=cold_jade,current=current):
         p=content(did);table=p['loot']
+        for row in p.get('theme_resources',()):
+            registry.register(ResourceDefinition('resources',row['id'],row['name'],(),True,row['grade'],row['tier']))
         for row in p['materials']:
             if set(row)!={'id','name','asset_id','grade','tier','boss_only'} or type(row['boss_only']) is not bool:raise ValidationError('invalid expedition material')
             registry.register(ResourceDefinition('resources',row['id'],row['name'],(),True,row['grade'],row['tier']))
@@ -74,18 +86,25 @@ def register(registry,dungeon_type,*,cold_jade=False):
         registry.register(Definition('equipment_rolls',table['roll_version'].replace('-','_'),table['roll_version'],tuple(DefinitionKey('equipment',r['id']) for r in p['equipment'])))
         ids=[];tiers=[];families={t:[m for m in p['monsters'] if m['tier']==t] for t in ('normal','elite','boss')}
         for f in range(1,p['floors']+1):
-            tier='boss' if f==p['floors'] else 'elite' if f%p['elite_interval']==0 else 'normal'
+            elite_floors=p.get('schedule',{}).get('elite_floors',tuple(range(10,100,10)))
+            tier='boss' if f==p['floors'] else 'elite' if f in elite_floors else 'normal'
             index=0 if tier=='boss' else (f//p['elite_interval']-1)%len(families[tier]) if tier=='elite' else (f-1-(f-1)//p['elite_interval'])%len(families[tier])
+            if p.get('schedule'):
+                index=0 if tier=='boss' else elite_floors.index(f) if tier=='elite' else min(9,((f-1)//20)*2+(f-1)%2)
             m=families[tier][index];mid=f'{did}_v1_enemy_{f:03d}';eid=f'{did}_v1_{f:03d}'
-            hp,attack,armor=balance.stats(p['balance'],f,tier,m['name']);reward=tuple(sorted(p['reward'].items()))
+            hp,attack,armor=balance.stats(p['balance'],f,tier,m['name'])
+            if 'base_stats' in m:
+                h,a,d=m['base_stats'];factor=200+f-1
+                hp=((h*factor+199)//200)*1000;attack=((a*factor+199)//200)*1000;armor=(d*factor//200)*1000
+            reward=tuple(sorted(p['reward'].items()))
             registry.register(MonsterDefinition('monsters',mid,m['name'],tuple(DefinitionKey('resources',k) for k,_ in reward),hp,attack,armor,m['asset_id'],reward,m['poison_milli'],500 if tier=='elite' else 1000 if tier=='boss' else 0))
             registry.register(EncounterDefinition('encounters',eid,f'{p["name"]} · 第{f}层',(DefinitionKey('monsters',mid),DefinitionKey('players','hero')),mid,p['background_asset_id']))
             ids.append(eid);tiers.append(tier)
-        registry.register(dungeon_type('dungeons',did,p['name'],tuple(DefinitionKey('encounters',k) for k in ids),tuple(ids),tuple(tiers)))
+        registry.register(dungeon_type('dungeons',did,p['name'],tuple(DefinitionKey('encounters',k) for k in ids),tuple(ids),tuple(tiers),elite_floors=tuple(p.get('schedule',{}).get('elite_floors',()))))
 
 def owner(registry,encounter_id):
     if not isinstance(encounter_id,str):return None
-    for did in ('thorn_path',*ALL_IDS):
+    for did in catalog.registered_ids(registry):
         key=DefinitionKey('dungeons',did)
         if registry.contains(key):
             d=registry.lookup(key)
@@ -94,7 +113,7 @@ def owner(registry,encounter_id):
 
 def loot_version(registry,encounter_id):
     # Legacy loaders also carry loot without the current DungeonDefinition being registered yet.
-    for did in ('thorn_path',*ALL_IDS):
+    for did in catalog.all_ids():
         key=DefinitionKey('loot',did)
         if encounter_id.startswith(did+'_') and registry.contains(key):return registry.lookup(key).display_name
     return None

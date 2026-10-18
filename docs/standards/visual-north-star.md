@@ -46,3 +46,4 @@ Use existing Flask/HTML/CSS/ES Modules/native JS, no new frontend engine/framewo
 Implementation runs the complete screen sequence before polish. Tests verify navigation, real Domain wiring, asset resolution/fallback, unavailable feature nonmutation and restart/refresh. Real iPhone/Safari rendering and touch acceptance must be reported separately from HTTP and DOM harness checks. No invented phone pass.
 
 Phase14 separately authorized2026-10-07: Minimal real Combat now uses the established five-layer Battle Scene and semantic event presentation. Daily ICON FIRST remains unchanged. Actual iPhone Safari fallback combat layout accepted; no formal-art quality claim or player template expansion. Phase15 separately authorized2026-10-07; real Cultivation upgrades existing ICON FIRST screen only. No new Scene/Pipeline/templates; actual phone breakthrough acceptance remains pending real resources.
+

@@ -35,3 +35,4 @@ coverage/
 # Agent-only work records and internal audit metadata
 .codex/
 .agents/
+

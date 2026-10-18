@@ -1,7 +1,7 @@
 """Basic shipping-rule checks using real isolated SQLite commands and receipts."""
 import unittest,tempfile,json
 from pathlib import Path
-from uuid import uuid4
+from uuid import UUID,uuid4
 from dataclasses import replace
 from unittest.mock import patch
 from src.application.dungeons import DungeonApplication
@@ -219,3 +219,116 @@ class SectEconomyTests(unittest.TestCase):
  def test_batch_does_not_bypass_retired_equipment_gate(self):
   self.s,retired=equip.acquire(self.s,self.r,'basic_head','legacy-retired')
   self.s,live=equip.acquire(self.s,self.r,'thorn_fang_blade','live-item',roll_version='thorn-roll-v2');self.create(self.rich());self.assertRejected('equipment_sell',{'instance_ids':[live,retired]})
+
+
+class EcologyNewSavePillTests(unittest.TestCase):
+ """New-save recipe selection, real production and persisted policy compatibility."""
+ @classmethod
+ def setUpClass(cls):
+  from src.application.ecology import EcologyApplication
+  cls.application_type=EcologyApplication
+  cls.registry=load_dungeons(management=True,cold_jade=True,ecology=True)
+ def initial(self,recipe=None):
+  with patch('src.core.state.envelope.uuid4',return_value=UUID('00000000-0000-4000-8000-000000000001')):
+   state=initial_slice(self.registry,last_settled_at_ms=1000)
+  if recipe is not None:
+   auto=thaw_json(state.domains['automation'])
+   bid=next(k for k,v in state.domains['sect']['buildings'].items() if v['definition_id']=='alchemy')
+   auto['production'][bid]['recipe_id']=recipe
+   state=replace(state,domains={**state.domains,'automation':auto})
+  return state
+ def command(self,app,sid,name,payload):
+  s=app.query(sid)
+  return app.execute(Command(sid,s.generation,s.revision,str(uuid4()),name,payload))
+ def settle(self,app,sid,clock,elapsed):
+  clock.advance(elapsed)
+  for _ in range(100):
+   s=app.query(sid)
+   app.settle(SettlementRequest(sid,s.generation,s.revision,str(uuid4()),128,Continuation.for_state(s) if s.time['pending'] else None))
+   if not app.query(sid).time['pending']:return app.query(sid)
+  self.fail('bounded new-save settlement did not complete')
+ def test_ecology_default_is_early_pill_without_changing_other_starting_rules(self):
+  old=load_dungeons(management=True,cold_jade=True)
+  before=thaw_json(settings(old)['new_save_production'])
+  expected=thaw_json(before);expected['alchemy']['recipe_id']='ju_qi_pill'
+  self.assertEqual(expected,thaw_json(settings(self.registry)['new_save_production']))
+  s=self.initial();bid=next(k for k,v in s.domains['sect']['buildings'].items() if v['definition_id']=='alchemy')
+  self.assertEqual({'enabled':True,'recipe_id':'ju_qi_pill','target':30,'max_consumption':10,'reserves':{}},thaw_json(s.domains['automation']['production'][bid]))
+  self.assertEqual({'herb':30},thaw_json(s.domains['inventory']['holdings']))
+  self.assertEqual(sum(v['count'] for v in s.domains['disciples']['groups'].values()),8)
+  for key in ('pill','ju_qi_pill'):
+   old_recipe=jobs.definition(old,key);new_recipe=jobs.definition(self.registry,key)
+   self.assertEqual(old_recipe,new_recipe)
+ def test_non_ecology_and_historical_registries_keep_existing_defaults(self):
+  for options in ({},{'management':True},{'cold_jade':True,'management':True},{'expansion_legacy':True}):
+   with self.subTest(options=options):
+    r=load_dungeons(**options)
+    self.assertEqual(settings(r)['new_save_production']['alchemy']['recipe_id'],'pill')
+  for options in ({'legacy':True},{'balance_legacy':True}):
+   with self.subTest(options=options):self.assertIsNone(settings(load_dungeons(**options)))
+  self.assertEqual(settings(self.registry)['new_save_production']['alchemy']['recipe_id'],'ju_qi_pill')
+ def test_new_save_automatically_produces_usable_pill_and_use_is_replay_safe(self):
+  clock=ManualClock();state=self.initial();sid=state.save_id
+  with tempfile.TemporaryDirectory(prefix='new-pill-',dir=V2_ROOT/'tests') as directory:
+   root=Path(directory)
+   with SQLiteSave.initialize(root/'new.sqlite3',allowed_root=root) as store:
+    app=self.application_type(store,self.registry,clock);app.create(state)
+    after=self.settle(app,sid,clock,30000)
+    self.assertEqual(after.domains['inventory']['holdings']['ju_qi_pill'],2)
+    self.assertNotIn('pill',after.domains['inventory']['holdings'])
+    before_level=growth.leveling.level(after.domains['cultivation'],growth.leveling.config(self.registry))
+    q=Command(sid,after.generation,after.revision,str(uuid4()),'cultivation_use_pill',{'item_id':'ju_qi_pill','count':1})
+    receipt=app.execute(q);used=app.query(sid)
+    self.assertGreater(growth.leveling.level(used.domains['cultivation'],growth.leveling.config(self.registry)),before_level)
+    self.assertEqual(used.domains['inventory']['holdings']['ju_qi_pill'],1)
+    self.assertEqual(app.execute(q),receipt);self.assertEqual(app.query(sid),used)
+ def test_saved_condensing_pill_policy_and_active_job_survive_restart(self):
+  clock=ManualClock();state=self.initial('pill');sid=state.save_id
+  bid=next(k for k,v in state.domains['sect']['buildings'].items() if v['definition_id']=='alchemy')
+  auto=thaw_json(state.domains['automation'])
+  saved={'enabled':False,'recipe_id':'pill','target':7,'max_consumption':10,'reserves':{'herb':1}}
+  auto['production'][bid]=saved
+  inventory=thaw_json(state.domains['inventory']);inventory['holdings']['pill']=5
+  state=replace(state,domains={**state.domains,'automation':auto,'inventory':inventory})
+  with tempfile.TemporaryDirectory(prefix='old-pill-',dir=V2_ROOT/'tests') as directory:
+   root=Path(directory);path=root/'old.sqlite3'
+   with SQLiteSave.initialize(path,allowed_root=root) as store:
+    app=self.application_type(store,self.registry,clock);app.create(state)
+    self.command(app,sid,'production_start',{'building_id':bid,'recipe_id':'pill'})
+    before=app.query(sid);job=before.domains['production']['jobs'][bid]
+    self.assertEqual(job['recipe_id'],'pill');self.assertEqual(job['status'],'WORKING')
+   with SQLiteSave(path,allowed_root=root) as store:
+    app=self.application_type(store,self.registry,clock)
+    self.assertEqual(before,app.query(sid));app.view(sid);self.assertEqual(before,app.query(sid))
+    self.assertEqual(saved,thaw_json(app.query(sid).domains['automation']['production'][bid]))
+    after=self.settle(app,sid,clock,30000)
+    self.assertEqual(after.domains['inventory']['holdings']['pill'],7)
+    self.assertNotIn('ju_qi_pill',after.domains['inventory']['holdings'])
+    self.assertEqual(saved,thaw_json(after.domains['automation']['production'][bid]))
+    self.assertEqual(after.domains['production']['jobs'][bid]['recipe_id'],'pill')
+ def test_thirty_minute_economy_matches_previous_default_except_pill_identity(self):
+  from src.systems.inventory import holdings
+  results=[]
+  for recipe in ('pill','ju_qi_pill'):
+   clock=ManualClock();state=self.initial(recipe);sid=state.save_id
+   with tempfile.TemporaryDirectory(prefix='pill-economy-',dir=V2_ROOT/'tests') as directory:
+    root=Path(directory)
+    with SQLiteSave.initialize(root/'model.sqlite3',allowed_root=root) as store:
+     app=self.application_type(store,self.registry,clock);app.create(state)
+     metrics={'ready_attempts':0,'blocked_attempts':0}
+     original=app.engine.deliver
+     def measured(candidate):
+      metrics['ready_attempts']+=sum(j['status']=='OUTPUT_READY' for j in candidate.domains['production']['jobs'].values())
+      result=original(candidate)
+      metrics['blocked_attempts']+=sum(j['status']=='OUTPUT_READY' for j in result.domains['production']['jobs'].values())
+      return result
+     app.engine.deliver=measured
+     after=self.settle(app,sid,clock,1800000)
+     stock=thaw_json(after.domains['inventory']['holdings']);self.assertEqual(stock.pop(recipe),6)
+     self.assertNotIn('ju_qi_pill' if recipe=='pill' else 'pill',stock)
+     self.assertEqual(stock.get('coins',0),0)
+     self.assertEqual(metrics['blocked_attempts'],0)
+     metrics['warehouse_net_units']=holdings.stock_size(after.domains['inventory'],self.registry)-holdings.stock_size(state.domains['inventory'],self.registry)
+     metrics['coins_per_hour']=0
+     results.append((stock,metrics))
+  self.assertEqual(results[0],results[1])

@@ -682,3 +682,4 @@ with SQLiteSave(Path(sys.argv[1]), allowed_root=Path(sys.argv[2])) as store:
         for suffix in ('-wal', '-shm', '-journal'):
             self.assertFalse(Path(str(self.path) + suffix).exists())
         self.assertTrue(self.path.is_relative_to(V2_ROOT / '.tmp'))
+

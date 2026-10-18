@@ -152,3 +152,4 @@ Prompt compilation reads the saved members, not another pasted list. Frozen Asse
 
 ## 通用集合整理契约
 collection是Catalog metadata中的轻量目录，不是制作模板或Runtime类别。collection_id可附在set或不属于set的asset；组内资产从set解析父集合。整理、移动、重命名不改变Asset ID、冻结规格、Source、Prompt、批准、Manifest或游戏引用。新建时验证父集合在同一事务存在，拆组独立素材继承父集合；非空集合不可删除。集合内可并列任意类型制作组，集合不自动生成配置/素材/游戏物品。
+

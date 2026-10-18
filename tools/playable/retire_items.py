@@ -31,3 +31,4 @@ def run(root=None,*,expected_revision=195,expected_dewleaf=3):
         assert app.retire_owned(q)==r
         print(json.dumps({'status':'REMOVED','dewleaf_removed':expected_dewleaf,'head_removed':1,'sword_removed':0,'compensation':'NONE','other_resources':'EXACTLY_PRESERVED','time_pause':'EXACTLY_PRESERVED','identity_counters':'EXACTLY_PRESERVED','old_receipts_checkpoint':'PRESERVED','revision':after.revision,'replay':'PASS'},ensure_ascii=False))
 if __name__=='__main__':run()
+

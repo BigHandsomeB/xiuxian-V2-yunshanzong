@@ -34,8 +34,15 @@ async function testFormalTechniqueUI(sources,fixture,styles) {
   let collection=library.renderTechniqueLibrary(ctx);check(all(collection).filter(n=>n.dataset.id?.startsWith('manual_')).length===2,'owned starters');
   all(collection).find(n=>n.textContent==='功法图鉴').emit('click');collection=library.renderTechniqueLibrary(ctx);check(all(collection).filter(n=>n.dataset.id?.startsWith('manual_')).length===fixture.view.techniques.catalog.length,'catalog cards');
   const unowned=fixture.view.techniques.catalog.find(r=>r.grade==='green'&&!r.owned);all(collection).find(n=>n.dataset.id===unowned.id).emit('click');
+  if(unowned.effects_version){check(all(sheet).some(n=>n.textContent==='特殊效果'),'special effect section');check(all(sheet).some(n=>n.textContent===unowned.effect_rules[0]),'effect explanation comes from server');}
   const buy=all(sheet).find(n=>n.textContent==='购买功法');check(!buy.disabled,'affordable buy');buy.emit('click');all(sheet).find(n=>n.textContent==='确认').emit('click');check(commands.at(-1).name==='technique_buy','purchase intent');
   collection=library.renderTechniqueLibrary(ctx);const red=fixture.view.techniques.catalog.find(r=>r.grade==='red');all(collection).find(n=>n.dataset.id===red.id).emit('click');check(all(sheet).some(n=>n.textContent.includes('仙品灵石')),'stone cost');check(all(sheet).some(n=>n.textContent.includes('功法残页')),'page cost');
+  if(ctx.data.view.combat?.dungeons?.some(d=>d.id==='fire_elixir_ruins')){
+   const adventure=load(base+'screens/adventure.js').render(ctx),cards=all(adventure).filter(n=>n.dataset.dungeonId==='fire_elixir_ruins');
+   check(cards.length===1,'fifth dungeon has one playable registry card');check(!all(cards[0]).some(n=>n.textContent==='尚未开放'),'registered fifth dungeon is not a planned placeholder');
+  }
+  const effectGear=ctx.data.view.equipment?.instances.find(r=>r.effect_rules?.length);
+  if(effectGear){load(base+'screens/equipment.js').equipmentDetail(ctx,effectGear);check(all(sheet).some(n=>n.textContent===effectGear.effect_rules[0]),'equipment special effect is explained');}
   const shop=library.renderTechniqueLibrary(ctx,{shop:true});check(all(shop).filter(n=>n.dataset.id?.startsWith('manual_')).every(n=>fixture.view.techniques.catalog.find(r=>r.id===n.dataset.id).grade==='green'||fixture.view.techniques.catalog.find(r=>r.id===n.dataset.id).grade==='white'),'low grade shop');
  }
  return {checks,device_visual_verified:false};

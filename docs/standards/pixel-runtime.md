@@ -21,3 +21,4 @@ Sprite Sheet frame尺寸、裁帧区域必须严格匹配，禁止相邻帧泄�
 正式数值确定后建立Decision并做真实手机验收。Master/Runtime分离见assets标准。
 
 物品导出升级见[ASSET_ITEM_ICON_PROFILE_V2](../decisions/ASSET_ITEM_ICON_PROFILE_V2.md)：仅游戏内容物品Profile改变，导航/HUD Profile不变；历史生成规格与当前导出规格独立追溯，尺寸数值仍只由上述Template数据读取。
+

@@ -45,6 +45,7 @@ class GameApplication(DandingApplication):
                                validators=validators,settlement_engine=self.engine,clock=self.clock)
 
     def player_projection(self,state):return battle.player(self.registry,state.save_id)
+    def combat_equipment(self,state):return ()
     def player_source(self):return "V1基础主角 · 未接入成长加成"
 
     def default_encounter(self,state):return 'thorn_first'
@@ -68,10 +69,14 @@ class GameApplication(DandingApplication):
             view['animation_allowed']=b.get('visual_events_online',True) and not (state.time['pending'] and state.time['pending']['accepted_ms']>OFFLINE_COMBAT_RECENT_MS)
             view.update(battle_id=b['battle_id'],status=b['status'],step=b['step'],available_commands=available,reward_state=b['reward_state'])
             view['player']['hp']=b['player_hp_milli']/1000;view['enemy']['hp']=b['enemy_hp_milli']/1000
-            view['latest_events']=[{'kind':e['kind'],'actor':e['actor'],'target':e['target'],'damage':e['damage_milli']/1000,'formula_damage':e['formula_damage_milli']/1000,'target_hp':e['target_hp_milli']/1000} for e in b['latest_events']]
+            from src.application.combat_effect_views import event_source
+            view['latest_events']=[{'kind':e['kind'],'actor':e['actor'],'target':e['target'],'damage':e['damage_milli']/1000,'formula_damage':e['formula_damage_milli']/1000,'target_hp':e['target_hp_milli']/1000,**({'source_name':event_source(self.registry,e)} if 'mechanics' in b else {}),**({'status_id':e['status_id']} if 'status_id' in e else {}),**({k:e[k] for k in ('element','damage_kind')} if 'element' in e else {})} for e in b['latest_events']]
             view['reward']=[{'resource_id':key,'name':holdings.definition(self.registry,key).display_name,'quantity':amount} for key,amount in sorted(b['reward'].items())]
             if view['enemy']['hp']==0:view['presentation_hints']['enemy_action']='death'
             if view['player']['hp']==0:view['presentation_hints']['player_action']='death'
+        if b:
+            from src.application.combat_effect_views import battle as effects_view
+            view.update(effects_view(self.registry,b))
         return freeze_json(view)
 
     def view(self,save_id):
@@ -109,7 +114,7 @@ class GameApplication(DandingApplication):
                 if set(p)!={'encounter_id'}:raise ValidationError('exact encounter intent required')
                 counter=state.identity['instance_counter']+1
                 identity={**state.identity,'instance_counter':counter}
-                partition=battle.start(partition,self.registry,state.save_id,f'{state.save_id}:{state.generation}:i:{counter}',self.prepare_combat_start(state,p['encounter_id']),player_snapshot=self.player_projection(state),growth_snapshot=state.domains.get('cultivation',growth.initial(state.save_id)))
+                partition=battle.start(partition,self.registry,state.save_id,f'{state.save_id}:{state.generation}:i:{counter}',self.prepare_combat_start(state,p['encounter_id']),player_snapshot=self.player_projection(state),growth_snapshot=state.domains.get('cultivation',growth.initial(state.save_id)),equipment_sources=self.combat_equipment(state))
             else:
                 if set(p)!={'battle_id'}:raise ValidationError('exact battle intent required')
                 if request.name=='combat_attack':partition=battle.attack(partition,self.registry,state.save_id,p['battle_id'])

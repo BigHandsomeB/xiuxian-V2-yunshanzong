@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from src.core.validation import ValidationError,integer
 from src.data.registry import Definition,DefinitionKey,_fields
 from src.data.economy.definitions import load_economy
+from . import catalog
 from src.data.combat.definitions import MonsterDefinition,EncounterDefinition
 LEGACY_VERSION='dungeons-v1-6.3.0-r1'
 LOOT_VERSION='dungeons-loot-v1-6.3.0-r1'
@@ -19,20 +20,24 @@ class DungeonDefinition(Definition):
     encounters:tuple=()
     tiers:tuple=()
     legacy_encounters:tuple=()
+    elite_floors:tuple=()
     def __post_init__(self):
         super(DungeonDefinition,self).__post_init__()
-        if self.domain!='dungeons' or self.machine_id not in (ID,'red_copper_mine','mist_marsh','cold_jade_cave') or len(self.encounters)!=100 or len(set(self.encounters))!=100 or len(self.tiers)!=100:raise ValidationError('exact 100-floor dungeon required')
-        if self.tiers!=tuple('boss' if f==100 else 'elite' if f%10==0 else 'normal' for f in range(1,101)):raise ValidationError('invalid dungeon tier order')
+        if self.domain!='dungeons' or self.machine_id not in catalog.all_ids() or len(self.encounters)!=100 or len(set(self.encounters))!=100 or len(self.tiers)!=100:raise ValidationError('exact 100-floor dungeon required')
+        if self.elite_floors and (type(self.elite_floors) is not tuple or tuple(sorted(set(self.elite_floors)))!=self.elite_floors or any(type(f) is not int or not 1<=f<100 for f in self.elite_floors)):raise ValidationError('invalid explicit elite floors')
+        if self.tiers!=tuple('boss' if f==100 else 'elite' if (f in self.elite_floors if self.elite_floors else f%10==0) else 'normal' for f in range(1,101)):raise ValidationError('invalid dungeon tier order')
         if self.legacy_encounters and (len(self.legacy_encounters)!=100 or len(set(self.legacy_encounters))!=100 or set(self.encounters)&set(self.legacy_encounters)):raise ValidationError('invalid historical dungeon encounters')
         if self.references!=tuple(DefinitionKey('encounters',k) for k in (*self.encounters,*self.legacy_encounters)):raise ValidationError('dungeon encounter references mismatch')
 
-def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,management=False,cold_jade=False,ecology=False):
+def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,management=False,cold_jade=False,ecology=False,mechanics=False):
     if cold_jade and (legacy or balance_legacy or expansion_legacy):raise ValidationError('cold jade requires current expeditions')
     if management and (legacy or balance_legacy or expansion_legacy):raise ValidationError('management requires current expeditions')
     input_overrides=json.loads(Path(__file__).parents[1].joinpath('economy/sect_management.json').read_text()).get('production_input_overrides',{}) if management else {}
     if ecology and not (management and cold_jade):raise ValidationError('ecology requires current management and cold jade content')
     from src.data.economy.ecology import VERSION as ECOLOGY_VERSION
-    r=load_economy(seal=False,production_input_overrides=input_overrides,content_version=ECOLOGY_VERSION if ecology else (COLD_JADE_MANAGEMENT_VERSION if management else COLD_JADE_VERSION) if cold_jade else MANAGEMENT_VERSION if management else LEGACY_VERSION if legacy else LOOT_VERSION if balance_legacy else EXPANSION_LEGACY_VERSION if expansion_legacy else VERSION)
+    if mechanics and not ecology:raise ValidationError('effects require ecological content')
+    from src.data.combat.mechanics import CONTENT_VERSION
+    r=load_economy(seal=False,production_input_overrides=input_overrides,content_version=CONTENT_VERSION if mechanics else ECOLOGY_VERSION if ecology else (COLD_JADE_MANAGEMENT_VERSION if management else COLD_JADE_VERSION) if cold_jade else MANAGEMENT_VERSION if management else LEGACY_VERSION if legacy else LOOT_VERSION if balance_legacy else EXPANSION_LEGACY_VERSION if expansion_legacy else VERSION)
     if not legacy:
         from src.data.dungeons.loot import register
         register(r,current=not (balance_legacy or expansion_legacy))
@@ -72,5 +77,8 @@ def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,man
         register_sect_rules(r,management=management,ecology=ecology)
     if not (legacy or balance_legacy or expansion_legacy):
         from .expeditions import register as register_expeditions
-        register_expeditions(r,DungeonDefinition,cold_jade=cold_jade)
+        register_expeditions(r,DungeonDefinition,cold_jade=cold_jade,current=mechanics)
+    if mechanics:
+        from src.data.combat.mechanics import register as register_mechanics
+        register_mechanics(r)
     r.seal();return r

@@ -10,7 +10,8 @@ from src.systems.disciples import work
 from src.core.save.codec import StoredReceipt
 from src.core.state.envelope import freeze_json,thaw_json
 from src.core.validation import ValidationError,ConflictError
-from src.systems.cultivation import growth
+from src.systems.cultivation import growth,item_effects
+from src.data.item_effects import bindings_for
 CultivationBlocked=growth.CultivationBlocked
 from src.systems.inventory import operations
 
@@ -27,6 +28,10 @@ def validate_growth(state,registry):
 class CultivationPersistence(GamePersistence):
     def _validate(self,state):return validate_growth(super()._validate(state),self.registry)
 class CultivationApplication(GameApplication):
+    def __init__(self,store,registry,clock):
+        self.item_use_bindings=bindings_for(registry)
+        item_effects.validate_handlers(self.item_use_bindings)
+        super().__init__(store,registry,clock)
     def _application(self,specs):
         validators={**sect.validators(self.registry),'production':lambda p:jobs.validate(p,self.registry),'disciples':lambda p:work.validate(p,self.registry)}
         return CultivationPersistence(self.store,self.registry,specs,references=lambda s:references(s,self.registry),validators=validators,settlement_engine=self.engine,clock=self.clock)
@@ -59,10 +64,10 @@ class CultivationApplication(GameApplication):
             from src.core.time.world import require_running
             require_running(state.time)
             p=partition(state);stock=state.domains['inventory'];before=growth.stats(self.player_projection(state))
-            if q.name=='cultivation_train':
-                new,events=growth.train(p,self.registry,state.save_id,stock['holdings'],active(state),count=q.payload.get('count',1),world_ms=state.time['sim_time_ms']);cost={events[0]['item_id']:events[0]['quantity']}
-            elif q.name=='cultivation_use_pill':
-                new,events=growth.use_foundation_pill(p,self.registry,state.save_id,stock['holdings'],q.payload['item_id'],active(state),count=q.payload.get('count',1),world_ms=state.time['sim_time_ms']);cost={events[0]['item_id']:events[0]['quantity']}
+            if q.name in ('cultivation_train','cultivation_use_pill'):
+                item_id='pill' if q.name=='cultivation_train' else q.payload['item_id']
+                effect=item_effects.apply(self.item_use_bindings,q.name,item_id,p,self.registry,state.save_id,stock['holdings'],active(state),count=q.payload.get('count',1),world_ms=state.time['sim_time_ms'])
+                new,events,cost=effect.cultivation,effect.events,effect.costs
             else:
                 new,events=growth.breakthrough(p,self.registry,state.save_id,stock['holdings'],active(state));cost=dict(growth.realm(self.registry,p['current_realm']).cost)
             inventory,_=operations.consume(stock,self.registry,cost)

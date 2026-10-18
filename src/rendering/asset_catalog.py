@@ -74,3 +74,4 @@ def metadata(root, snapshot):
         return {'available':True,'groups':list(published.values())}
     except (OSError,sqlite3.Error,ValueError,TypeError,AttributeError):
         return read_catalog(root, snapshot)
+

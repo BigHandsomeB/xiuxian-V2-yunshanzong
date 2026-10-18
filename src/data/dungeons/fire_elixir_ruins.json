@@ -1,0 +1,914 @@
+{
+  "schema_version": 1,
+  "id": "fire_elixir_ruins",
+  "name": "离火丹墟",
+  "floors": 100,
+  "elite_interval": 10,
+  "unlock": {
+    "dungeon_id": "cold_jade_cave",
+    "cleared_floor": 100
+  },
+  "background_asset_id": "scene.environment.a7e975e3c6013.scene",
+  "monsters": [
+    {
+      "id": "fire_elixir_ruins_template_normal_1",
+      "name": "炉灰鼠",
+      "tier": "normal",
+      "order": 0,
+      "asset_id": "monster.static.a1124b359e188",
+      "poison_milli": 0,
+      "base_stats": [
+        304,
+        47,
+        12
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_2",
+      "name": "赤焰药蛾",
+      "tier": "normal",
+      "order": 1,
+      "asset_id": "monster.static.a89c3440ed3b9",
+      "poison_milli": 0,
+      "base_stats": [
+        380,
+        42,
+        12
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_3",
+      "name": "焦枝木精",
+      "tier": "normal",
+      "order": 2,
+      "asset_id": "monster.static.a6715103b02f2",
+      "poison_milli": 0,
+      "base_stats": [
+        285,
+        56,
+        11
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_4",
+      "name": "火纹石蟾",
+      "tier": "normal",
+      "order": 3,
+      "asset_id": "monster.static.afb14cdca6591",
+      "poison_milli": 0,
+      "base_stats": [
+        266,
+        54,
+        12
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_5",
+      "name": "朱砂丹灵",
+      "tier": "normal",
+      "order": 4,
+      "asset_id": "monster.static.a631683deb1fb",
+      "poison_milli": 0,
+      "base_stats": [
+        475,
+        40,
+        14
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_6",
+      "name": "铜炉小傀",
+      "tier": "normal",
+      "order": 5,
+      "asset_id": "monster.static.ae5b2027dbff8",
+      "poison_milli": 0,
+      "base_stats": [
+        323,
+        52,
+        12
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_7",
+      "name": "炽鳞蜥",
+      "tier": "normal",
+      "order": 6,
+      "asset_id": "monster.static.a5498cf978d5c",
+      "poison_milli": 0,
+      "base_stats": [
+        437,
+        47,
+        13
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_8",
+      "name": "烟骨纸兵",
+      "tier": "normal",
+      "order": 7,
+      "asset_id": "monster.static.acb484478dff1",
+      "poison_milli": 0,
+      "base_stats": [
+        342,
+        54,
+        12
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_9",
+      "name": "熔芯蛇",
+      "tier": "normal",
+      "order": 8,
+      "asset_id": "monster.static.a80bf22f67237",
+      "poison_milli": 0,
+      "base_stats": [
+        456,
+        42,
+        13
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_normal_10",
+      "name": "灰烬巡灯",
+      "tier": "normal",
+      "order": 9,
+      "asset_id": "monster.static.a1ecd3d5765f2",
+      "poison_milli": 0,
+      "base_stats": [
+        418,
+        49,
+        13
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_elite_1",
+      "name": "离火丹侍",
+      "tier": "elite",
+      "order": 0,
+      "asset_id": "monster.static.a4e443d17dee7",
+      "poison_milli": 0,
+      "base_stats": [
+        760,
+        59,
+        14
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_elite_2",
+      "name": "九孔铜炉傀",
+      "tier": "elite",
+      "order": 1,
+      "asset_id": "monster.static.a4b224a1aa3bf",
+      "poison_milli": 0,
+      "base_stats": [
+        836,
+        52,
+        15
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_elite_3",
+      "name": "赤髓火蟒",
+      "tier": "elite",
+      "order": 2,
+      "asset_id": "monster.static.a99174e093fa3",
+      "poison_milli": 0,
+      "base_stats": [
+        684,
+        63,
+        13
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_elite_4",
+      "name": "焚枝树卫",
+      "tier": "elite",
+      "order": 3,
+      "asset_id": "monster.static.a89b4bfcf7444",
+      "poison_milli": 0,
+      "base_stats": [
+        912,
+        54,
+        15
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_elite_5",
+      "name": "熔甲守炉将",
+      "tier": "elite",
+      "order": 4,
+      "asset_id": "monster.static.a0f3f7cb0e199",
+      "poison_milli": 0,
+      "base_stats": [
+        798,
+        61,
+        14
+      ]
+    },
+    {
+      "id": "fire_elixir_ruins_template_boss_1",
+      "name": "离火丹魔",
+      "tier": "boss",
+      "order": 0,
+      "asset_id": "boss.static.ae688da59e55a",
+      "poison_milli": 0,
+      "base_stats": [
+        1900,
+        66,
+        18
+      ]
+    }
+  ],
+  "balance": {
+    "version": "fire_elixir_ruins-balance-v1",
+    "curve": {
+      "hp": [
+        "80",
+        "3.0",
+        "0.015"
+      ],
+      "attack": [
+        "7.0",
+        "0.210",
+        "0.0004375"
+      ],
+      "armor": [
+        "3",
+        "0.03",
+        "0.0001"
+      ]
+    },
+    "tiers": {
+      "normal": [
+        "1",
+        "1",
+        "0"
+      ],
+      "elite": [
+        "1.65",
+        "1.35",
+        "0.8"
+      ],
+      "boss": [
+        "1.8",
+        "1.45",
+        "1"
+      ]
+    },
+    "profiles": {
+      "炉灰鼠": [
+        "1",
+        "1",
+        "0"
+      ],
+      "赤焰药蛾": [
+        "1",
+        "1",
+        "0"
+      ],
+      "焦枝木精": [
+        "1",
+        "1",
+        "0"
+      ],
+      "火纹石蟾": [
+        "1",
+        "1",
+        "0"
+      ],
+      "朱砂丹灵": [
+        "1",
+        "1",
+        "0"
+      ],
+      "铜炉小傀": [
+        "1",
+        "1",
+        "0"
+      ],
+      "炽鳞蜥": [
+        "1",
+        "1",
+        "0"
+      ],
+      "烟骨纸兵": [
+        "1",
+        "1",
+        "0"
+      ],
+      "熔芯蛇": [
+        "1",
+        "1",
+        "0"
+      ],
+      "灰烬巡灯": [
+        "1",
+        "1",
+        "0"
+      ],
+      "离火丹侍": [
+        "1",
+        "1",
+        "0"
+      ],
+      "九孔铜炉傀": [
+        "1",
+        "1",
+        "0"
+      ],
+      "赤髓火蟒": [
+        "1",
+        "1",
+        "0"
+      ],
+      "焚枝树卫": [
+        "1",
+        "1",
+        "0"
+      ],
+      "熔甲守炉将": [
+        "1",
+        "1",
+        "0"
+      ],
+      "离火丹魔": [
+        "1",
+        "1",
+        "0"
+      ]
+    }
+  },
+  "reward": {
+    "coins": 1
+  },
+  "materials": [
+    {
+      "id": "fire_elixir_ruins_material_01",
+      "name": "炉灰结晶",
+      "asset_id": "icon.equipment.a1e48c3250767",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_02",
+      "name": "赤焰蛾粉",
+      "asset_id": "icon.equipment.ac34357377d6a",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_03",
+      "name": "焦木灵芯",
+      "asset_id": "icon.equipment.a359617178f6c",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_04",
+      "name": "火纹蟾石",
+      "asset_id": "icon.equipment.a792975016e95",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_05",
+      "name": "朱砂丹砂",
+      "asset_id": "icon.equipment.ae4647ae804c2",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_06",
+      "name": "铜炉机关片",
+      "asset_id": "icon.equipment.a4b45c2898441",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_07",
+      "name": "炽鳞火皮",
+      "asset_id": "icon.equipment.a95ba3c6be196",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_08",
+      "name": "烟骨符灰",
+      "asset_id": "icon.equipment.a596d70904851",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_09",
+      "name": "熔芯蛇胆",
+      "asset_id": "icon.equipment.a68978efe0e60",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_10",
+      "name": "烬灯火芯",
+      "asset_id": "icon.equipment.afcf403331f38",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": false
+    },
+    {
+      "id": "fire_elixir_ruins_material_11",
+      "name": "离火魔丹",
+      "asset_id": "icon.equipment.ab36e42e300af",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    },
+    {
+      "id": "fire_elixir_ruins_material_12",
+      "name": "丹墟炉心",
+      "asset_id": "icon.equipment.a5c891db9b013",
+      "grade": 1,
+      "tier": "待定",
+      "boss_only": true
+    }
+  ],
+  "equipment": [
+    {
+      "id": "fire_elixir_ruins_equipment_01",
+      "name": "离火短刃",
+      "slot": "left",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 15000,
+        "crit_bps": 1250
+      },
+      "asset_id": "icon.equipment.a00bba97ed23d",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_01": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          12500,
+          17500,
+          2500
+        ],
+        "crit_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_02",
+      "name": "熔炉重锤",
+      "slot": "left",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 12500,
+        "pierce_milli": 5000
+      },
+      "asset_id": "icon.equipment.af786bf012d11",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_02": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          10000,
+          15000,
+          2500
+        ],
+        "pierce_milli": [
+          2500,
+          7500,
+          2500
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_03",
+      "name": "赤砂火拳",
+      "slot": "gloves",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 7500,
+        "accuracy_bps": 1250
+      },
+      "asset_id": "icon.equipment.ae86ad0db02ff",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_03": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "attack_milli": [
+          5000,
+          10000,
+          2500
+        ],
+        "accuracy_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_04",
+      "name": "铜炉护手",
+      "slot": "gloves",
+      "quality": "rare",
+      "stats": {
+        "armor_milli": 2500,
+        "reflect_bps": 2500
+      },
+      "asset_id": "icon.equipment.a51b294b9e9dd",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_04": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          2000,
+          3000,
+          250
+        ],
+        "reflect_bps": [
+          2000,
+          3000,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_05",
+      "name": "丹纹束腰",
+      "slot": "belt",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 62500,
+        "armor_milli": 1250
+      },
+      "asset_id": "icon.equipment.a16e9c20e6639",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_05": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          50000,
+          75000,
+          2500
+        ],
+        "armor_milli": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_06",
+      "name": "熔芯腰甲",
+      "slot": "belt",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 75000,
+        "poison_resist_bps": 7500
+      },
+      "asset_id": "icon.equipment.a99014126ec9e",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_06": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          60000,
+          90000,
+          2500
+        ],
+        "poison_resist_bps": [
+          6000,
+          9000,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_07",
+      "name": "赤焰丹袍",
+      "slot": "body",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 87500,
+        "armor_milli": 3750
+      },
+      "asset_id": "icon.equipment.a39a54477d9c3",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_07": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "max_hp_milli": [
+          70000,
+          105000,
+          2500
+        ],
+        "armor_milli": [
+          3000,
+          4500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_08",
+      "name": "炉甲战衣",
+      "slot": "body",
+      "quality": "rare",
+      "stats": {
+        "armor_milli": 5000,
+        "reflect_bps": 3750
+      },
+      "asset_id": "icon.equipment.ad3d2f23ed927",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_08": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "armor_milli": [
+          4000,
+          6000,
+          250
+        ],
+        "reflect_bps": [
+          3000,
+          4500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_09",
+      "name": "烬火踏靴",
+      "slot": "feet",
+      "quality": "rare",
+      "stats": {
+        "speed_bps": 2500,
+        "evasion_bps": 1250
+      },
+      "asset_id": "icon.equipment.a38284ffa1115",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_09": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "speed_bps": [
+          2000,
+          3000,
+          250
+        ],
+        "evasion_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_10",
+      "name": "朱砂丹冠",
+      "slot": "head",
+      "quality": "rare",
+      "stats": {
+        "accuracy_bps": 1250,
+        "evasion_bps": 1250
+      },
+      "asset_id": "icon.equipment.a7637f78a9286",
+      "sell_coins": 20,
+      "salvage": {
+        "fire_elixir_ruins_material_10": 2,
+        "coins": 10
+      },
+      "boss_only": false,
+      "stat_ranges": {
+        "accuracy_bps": [
+          1000,
+          1500,
+          250
+        ],
+        "evasion_bps": [
+          1000,
+          1500,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_11",
+      "name": "离火焚丹刃",
+      "slot": "left",
+      "quality": "rare",
+      "stats": {
+        "attack_milli": 30000,
+        "crit_bps": 2000,
+        "pierce_milli": 7500,
+        "execute_bps": 5000
+      },
+      "asset_id": "icon.equipment.abc6a4539fc51",
+      "sell_coins": 60,
+      "salvage": {
+        "fire_elixir_ruins_material_11": 2,
+        "coins": 10
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "attack_milli": [
+          25000,
+          35000,
+          2500
+        ],
+        "crit_bps": [
+          1500,
+          2500,
+          250
+        ],
+        "pierce_milli": [
+          5000,
+          10000,
+          2500
+        ],
+        "execute_bps": [
+          4000,
+          5000,
+          250
+        ]
+      }
+    },
+    {
+      "id": "fire_elixir_ruins_equipment_12",
+      "name": "丹墟镇炉甲",
+      "slot": "body",
+      "quality": "rare",
+      "stats": {
+        "max_hp_milli": 137500,
+        "armor_milli": 5000,
+        "reflect_bps": 5000
+      },
+      "asset_id": "icon.equipment.a47d855f29ee9",
+      "sell_coins": 60,
+      "salvage": {
+        "fire_elixir_ruins_material_12": 2,
+        "coins": 10
+      },
+      "boss_only": true,
+      "stat_ranges": {
+        "max_hp_milli": [
+          110000,
+          165000,
+          2500
+        ],
+        "armor_milli": [
+          4000,
+          6000,
+          250
+        ],
+        "reflect_bps": [
+          4000,
+          6000,
+          250
+        ]
+      }
+    }
+  ],
+  "loot": {
+    "version": "fire_elixir_ruins-loot-v1",
+    "roll_version": "fire_elixir_ruins-roll-v1",
+    "rates": {
+      "normal": {
+        "material_bps": 8000,
+        "material_quantity": 1,
+        "equipment_bps": 1500
+      },
+      "elite": {
+        "material_bps": 10000,
+        "material_quantity": 2,
+        "equipment_bps": 5000
+      },
+      "boss": {
+        "material_bps": 10000,
+        "material_quantity": 1,
+        "equipment_bps": 10000
+      }
+    },
+    "normal_materials": [
+      "fire_elixir_ruins_material_01",
+      "fire_elixir_ruins_material_02",
+      "fire_elixir_ruins_material_03",
+      "fire_elixir_ruins_material_04",
+      "fire_elixir_ruins_material_05",
+      "fire_elixir_ruins_material_06",
+      "fire_elixir_ruins_material_07",
+      "fire_elixir_ruins_material_08",
+      "fire_elixir_ruins_material_09",
+      "fire_elixir_ruins_material_10"
+    ],
+    "elite_materials": [
+      "fire_elixir_ruins_material_05",
+      "fire_elixir_ruins_material_06",
+      "fire_elixir_ruins_material_09",
+      "fire_elixir_ruins_material_03",
+      "fire_elixir_ruins_material_06"
+    ],
+    "theme_materials": [
+      "fire_spirit_stone",
+      "flame_crystal_ore",
+      "dark_flame_ore",
+      "li_fire_crystal"
+    ],
+    "beast_materials": [
+      "beast_bone",
+      "hide",
+      "beast_sinew"
+    ],
+    "rare_materials": [
+      "beast_core",
+      "spirit_beast_blood",
+      "crafting_essence",
+      "equipment_blank"
+    ],
+    "extra_rates": {
+      "theme_bps": 8000,
+      "theme_quantity": 1,
+      "beast_bps": 3000,
+      "beast_quantity": 1,
+      "rare_bps": 5000,
+      "rare_quantity": 1
+    }
+  },
+  "theme_resources": [
+    {
+      "id": "fire_spirit_stone",
+      "name": "火灵石",
+      "asset_id": "icon.resource.a0c38137e3a97",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "flame_crystal_ore",
+      "name": "炎晶矿",
+      "asset_id": "icon.resource.ad1cc512e9dbd",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "dark_flame_ore",
+      "name": "玄炎矿",
+      "asset_id": "icon.resource.a02e348e9010f",
+      "grade": 1,
+      "tier": "待定"
+    },
+    {
+      "id": "li_fire_crystal",
+      "name": "离火晶",
+      "asset_id": "icon.resource.af19f356d6776",
+      "grade": 1,
+      "tier": "待定"
+    }
+  ],
+  "schedule": {
+    "elite_floors": [
+      10,
+      30,
+      50,
+      70,
+      90
+    ]
+  }
+}
