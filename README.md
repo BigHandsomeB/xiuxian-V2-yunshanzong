@@ -6,7 +6,7 @@
 
 手机竖屏 · 宗门经营 · 自动战斗 · 像素修仙
 
-**[下载当前 main 版本 · 法宝与秒制冷却](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/archive/refs/heads/main.zip)**
+**[下载 v0.3.0 · 法宝与功法秒制冷却](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0)**
 
 [游戏预览](#游戏预览) · [世界概况](#世界概况) · [已实现功能](#已实现功能) · [本地运行](#本地运行) · [在线部署](#在线部署) · [后续开发计划](#后续开发计划) · [版本历史](#版本历史)
 
@@ -49,7 +49,7 @@
 
 云山宗是一款持续开发中的修仙宗门经营网页游戏。日常以资源、建筑和弟子岗位管理为主，冒险以独立场景中的单主角回合战斗为主。每一次炼丹、生产、掉落和突破，都连接同一份服务器存档。
 
-当前 **main 快照已更新至2026-10-18的法宝与功法秒制冷却版本**，内容标识`sect-artifacts-v1-6.3.0-r1`。[本次更新](docs/project/RELEASE.md) · [已有存档升级](docs/project/UPGRADE-main-artifacts.md)。最近的独立发行版[v0.2.0](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.2.0)保留。
+当前版本为 **v0.3.0 · 法宝与功法秒制冷却（2026-10-18）**，内容标识`sect-artifacts-v1-6.3.0-r1`。[本次发行说明](docs/project/RELEASE-v0.3.0.md) · [已有存档升级](docs/project/UPGRADE-main-artifacts.md)。历史发行版[v0.2.0](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.2.0)保留。
 
 
 ## 游戏预览
