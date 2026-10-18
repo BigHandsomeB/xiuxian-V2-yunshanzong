@@ -1,0 +1,86 @@
+name: Windows Desktop Release
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/windows-desktop-release.yml']
+permissions:
+  contents: write
+concurrency:
+  group: windows-desktop-v0.3.0
+  cancel-in-progress: false
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: windows-desktop
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: |
+            requirements-build.txt
+            requirements-desktop.txt
+            requirements-asset-manager.txt
+      - name: Install Windows desktop build dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Build and verify executable and public source archives
+        env:
+          PYTHONUTF8: '1'
+        run: python -m tools.release.build_windows --output .tmp/windows-release --version v0.3.0
+      - name: Keep tested release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: YunshanZong-v0.3.0-Windows
+          path: .tmp/windows-release/release/*
+      - name: Publish distinct Windows and web release entries
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const cp = require('child_process');
+            const {owner,repo} = context.repo;
+            const sha = cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+            const tag = 'v0.3.0-windows';
+            const body = [
+              '# v0.3.0 · Windows 独立桌面版',
+              '',
+              '运行方式：Windows 10/11 x64，免安装 Python。下载 Windows-x64.zip，完整解压后双击 YunshanZong.exe。不要只移动 EXE。',
+              '',
+              '- 游戏与素材工坊使用独立窗口和 Python 直接调用，不启动 HTTP 服务。',
+              '- 包含五件法宝、法宝培养、秒制技能冷却及前五副本。',
+              '- 保留本地暂停配装、图标缓存和平滑时辰条。',
+              '- Windows-source.zip 是源码包，需要 Python；SHA256SUMS.txt 提供两个 ZIP 的摘要。',
+              '',
+              '已有存档先关闭旧程序并完整备份 .game，先用原版完成离线续算，再运行新包的 升级存档.cmd。升级不赠送法宝或材料，原装备、库存、世界时间和当前战斗保留。',
+              '',
+              '发行包不含玩家存档、口令、制作数据库或原图。EXE 构建后通过包完整性检查、游戏窗口和素材工坊无端口验收；不将自动化验收当作长时游玩或所有显卡设备验收。',
+              '',
+              `Windows 源码提交：${sha}`,
+              '',
+              '[Windows 运行与升级说明](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/blob/windows-desktop/docs/windows/README.md) · [网页／服务器版 v0.3.0](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0)'
+            ].join('\n');
+            let release;
+            try { release = (await github.rest.repos.getReleaseByTag({owner,repo,tag})).data; }
+            catch (error) {
+              if (error.status !== 404) throw error;
+              release = (await github.rest.repos.createRelease({owner,repo,tag_name:tag,target_commitish:sha,name:'v0.3.0 · Windows 桌面版（x64，免安装 Python）',body,draft:true,prerelease:false,make_latest:'false'})).data;
+            }
+            const existing = await github.paginate(github.rest.repos.listReleaseAssets,{owner,repo,release_id:release.id});
+            const directory = '.tmp/windows-release/release';
+            for (const name of fs.readdirSync(directory).sort()) {
+              if (existing.some(asset=>asset.name===name)) continue;
+              const data = fs.readFileSync(path.join(directory,name));
+              await github.rest.repos.uploadReleaseAsset({owner,repo,release_id:release.id,name,data,headers:{'content-type':name.endsWith('.zip')?'application/zip':'text/plain','content-length':data.length}});
+            }
+            await github.rest.repos.updateRelease({owner,repo,release_id:release.id,name:'v0.3.0 · Windows 桌面版（x64，免安装 Python）',body,draft:false,make_latest:'false'});
+            const web = (await github.rest.repos.getReleaseByTag({owner,repo,tag:'v0.3.0'})).data;
+            const marker = '运行方式：网页／服务器源码';
+            const webBody = (web.body||'').includes(marker) ? web.body : marker+'（需要 Python 后端与浏览器）。Windows 用户请下载[独立桌面版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0-windows)。\n\n'+(web.body||'');
+            await github.rest.repos.updateRelease({owner,repo,release_id:web.id,name:'v0.3.0 · 网页／服务器版 · 法宝与功法秒制冷却',body:webBody});
+            core.summary.addHeading('Windows release published').addLink('Windows desktop',release.html_url).addLink('Web / server',web.html_url).write();
+
