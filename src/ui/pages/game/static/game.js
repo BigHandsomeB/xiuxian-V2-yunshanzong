@@ -1,4 +1,5 @@
-import {offlineReportPresenter,settlementMessage} from './components/offline-report.js';
+import {startupScreen,enterSect} from './components/startup.js';
+import {offlineReportPresenter,settlementMessage,offlineBattlePreference} from './components/offline-report.js';
 import {startIconDebug} from './components/icon-debug.js';
 import {pageCache} from './components/page-cache.js';
 import {retainScreen} from './components/retained-screen.js';
@@ -19,6 +20,8 @@ import {el,button} from './components/dom.js';
 const $=id=>document.getElementById(id),host=$('screen'),connection=$('connection');
 startIconDebug(window,host);
 const previewMode=document.body?.dataset?.uiReview==='true';
+const startup=startupScreen(document);
+if(!previewMode)enterSect(location,history);
 const client=previewMode?new ReviewClient({fetcher:fetch.bind(window),search:location.search}):new GameClient({fetcher:fetch.bind(window),storage:sessionStorage,uuid:()=>crypto.randomUUID(),notify:toast});
 let saves=null,lastSavedRevision='';
 if(!previewMode)client.canWrite=()=>!!saves?.canWrite;
@@ -31,7 +34,8 @@ function connected(){health.connected();connectionHealth();}
 function closeSheet(){reportPresenter.dismiss();if($('sheet').open)$('sheet').close();}
 function sheet(title,content){$('sheet-title').textContent=title;if(data)decorateControls(content,data);$('sheet-content').replaceChildren(content);if(!$('sheet').open)$('sheet').showModal();}
 let reportStorage=null;try{reportStorage=window.localStorage;}catch{}
-const reportPresenter=offlineReportPresenter({sheet,isOpen:()=>$('sheet').open,isCurrent:node=>$('sheet-content').children[0]===node,close:closeSheet,canPresent:()=>!previewMode&&!busy&&!document.hidden&&(!!data?.view.latest_battle_report||saves?.canWrite),acknowledge:acceptReport,loadReport:id=>client.api('offline-report/'+encodeURIComponent(id)),storage:reportStorage});
+const reportPreference=offlineBattlePreference(reportStorage);
+const reportPresenter=offlineReportPresenter({battleEnabled:()=>reportPreference.enabled,sheet,isOpen:()=>$('sheet').open,isCurrent:node=>$('sheet-content').children[0]===node,close:closeSheet,canPresent:()=>!previewMode&&!busy&&!document.hidden&&(!!data?.view.latest_battle_report||saves?.canWrite),acknowledge:acceptReport,loadReport:id=>client.api('offline-report/'+encodeURIComponent(id)),storage:reportStorage});
 $('sheet').addEventListener('close',()=>reportPresenter.dismiss());
 async function acceptReport(report_id){if(syncFlight)await syncFlight;if(busy)throw new Error('正在结算，请稍后收下。');busy=true;clearTimeout(timer);try{data=gameView(await client.acknowledgeReport(report_id));closeSheet();connected();}catch(error){if(client.current)data=gameView(client.current);throw error;}finally{busy=false;render();schedule();}}
 function reportStatus(){const progress=client.settlementProgress||(data?.view.time?.pending&&data.view.time.offline_duration_ms!==undefined?{phase:'catchup',duration_ms:data.view.time.offline_duration_ms,percent:Math.max(0,Math.min(99,Math.floor(100*((data.view.time.simulation_time_ms??data.view.time.sim_time_ms)-data.view.time.from_sim_ms)/Math.max(1,data.view.time.target_sim_ms-data.view.time.from_sim_ms))))}:null);return settlementMessage(progress);}
@@ -53,7 +57,7 @@ function render(routeChange=false){
  const cached=changed?pages.get(key):null;
  if(cached){host.replaceChildren(cached.node);cleanup=cached.controller;context=cached.ctx;context.combatReceipt=client.combatReceipt;context.cultivationReceipt=client.cultivationReceipt;context.combatProgress=client.combatProgress;lifetime.mount(cleanup);cleanup.update?.({...data,assetManifest:client.assetManifest},controlBusy,client.combatReceipt,client.combatProgress);decorateControls(host,data);if(document.hidden||world?.paused)lifetime.suspend();else lifetime.resume();window.scrollTo(0,y);host.focus({preventScroll:true});return;}
  if(!changed)discardCurrent();
- const ctx={theme,saves,data:{...data,assetManifest:client.assetManifest},route,ui,busy:controlBusy,sheet,sync,action,combatAction,cultivationAction,economyAction,cultivationReceipt:client.cultivationReceipt,combatReceipt:client.combatReceipt,combatProgress:client.combatProgress,redraw:()=>render(true),reloadAssets,afterMount:null};host.replaceChildren(screens[route.name].render(ctx));decorateControls(host,data);cleanup=ctx.afterMount?ctx.afterMount():retainScreen(host.children[0],ctx,screens[route.name].render,fresh=>decorateControls(fresh,data));context=ctx;pages.put(key,{node:host.children[0],controller:cleanup,ctx});lifetime.mount(cleanup);if(document.hidden||data.view.world?.paused)lifetime.suspend();
+ const ctx={theme,saves,reportPreference,data:{...data,assetManifest:client.assetManifest},route,ui,busy:controlBusy,sheet,sync,action,combatAction,cultivationAction,economyAction,cultivationReceipt:client.cultivationReceipt,combatReceipt:client.combatReceipt,combatProgress:client.combatProgress,redraw:()=>render(true),reloadAssets,afterMount:null};host.replaceChildren(screens[route.name].render(ctx));decorateControls(host,data);cleanup=ctx.afterMount?ctx.afterMount():retainScreen(host.children[0],ctx,screens[route.name].render,fresh=>decorateControls(fresh,data));context=ctx;pages.put(key,{node:host.children[0],controller:cleanup,ctx});lifetime.mount(cleanup);if(document.hidden||data.view.world?.paused)lifetime.suspend();
  window.scrollTo(0,y);if(changed)host.focus({preventScroll:true});
 }
 function schedule(){clearTimeout(timer);if(previewMode)return;if(foregroundRefresh&&!document.hidden&&!busy){foregroundRefresh=false;timer=setTimeout(()=>sync(true,'前台恢复'),0);return;}if(document.hidden||!navigator.onLine||busy||health.state==='AUTH_REQUIRED')return;
@@ -98,6 +102,6 @@ async function start(){render();if(previewMode){sync(true,'前台恢复');return
  client.onSettlementProgress=()=>{if(data){text($('world-status'),reportStatus()||(data.view.world?.paused?'世界已暂停':'世界运行中'));connectionHealth();}};
  client.onCombatProgress=()=>{if(busy&&client.current){data=gameView(client.current);render();}};
  client.onSnapshot=view=>{const signature=[view.save_id,view.generation,view.revision].join(':');if(signature!==lastSavedRevision){lastSavedRevision=signature;saves.refreshServer();}};
- await saves.start(client.current.view.save_id);render();sync(true,'前台恢复');
- }catch(error){failed(error);render();}}
+ await saves.start(client.current.view.save_id);render();await startup.finish();sync(true,'前台恢复');
+ }catch(error){failed(error);render();startup.fail(error);}}
 start();

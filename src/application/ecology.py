@@ -22,7 +22,8 @@ from src.systems.inventory import operations, holdings
 from src.application.ecology_views import EcologyViews
 
 from src.systems.sect import activities
-from src.application import sect_activities
+from src.application import sect_activities, exploration as exploration_app
+from src.systems.sect import exploration
 from src.application.sect_economy import reserved
 from src.systems.cultivation import techniques
 from src.application.cultivation import partition
@@ -30,10 +31,12 @@ from src.systems.artifacts import artifacts
 from src.data.artifacts.definitions import settings as artifact_settings
 from src.application import artifacts as artifact_app
 
-COMMANDS = (*artifacts.COMMANDS, *activities.COMMANDS, *techniques.COMMANDS, 'ecology_buy', 'ecology_collect', 'ecology_supply', 'ecology_meal')
+COMMANDS = (*exploration.COMMANDS, *artifacts.COMMANDS, *activities.COMMANDS, *techniques.COMMANDS, 'ecology_buy', 'ecology_collect', 'ecology_supply', 'ecology_meal')
 
 
 def validate_state(state, registry):
+    if 'exploration' in state.domains['sect_management']:
+        exploration.validate_state(state,registry)
     if artifact_settings(registry):
         artifact_app.validate_state(state,registry)
     part = state.domains[ecology.DOMAIN]
@@ -285,6 +288,8 @@ class EcologyApplication(EcologyViews, ManagementApplication):
             return receipt
 
     def transition(self, state, name, payload):
+        if name in exploration.COMMANDS:
+            return exploration_app.transition(state,self.registry,name,payload,self._capacity(state)-reserved(state,self.registry))
         if name in artifacts.COMMANDS:
             return artifact_app.transition(state,self.registry,name,payload)
         if name in activities.COMMANDS:

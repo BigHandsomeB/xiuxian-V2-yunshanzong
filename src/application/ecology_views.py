@@ -84,6 +84,8 @@ class EcologyViews:
         from src.systems.sect import activities
         from src.application.sect_economy import reserved
         view['sect_activities']=activities.view(state,self.registry,max(0,self._capacity(state)-reserved(state,self.registry)))
+        from src.systems.sect import exploration
+        view['exploration']=exploration.view(state,self.registry,max(0,self._capacity(state)-reserved(state,self.registry)))
         config = settings(self.registry)
         part = state.domains[ecology.DOMAIN]
         now, day = state.time['sim_time_ms'], state.time['day_length_ms']
@@ -192,6 +194,7 @@ class EcologyViews:
                 row['ecology_category'] = 'feed'
             elif row['recipe_id'].startswith('supplement_recipe_'):
                 row['ecology_category'] = 'material'
-        if state.domains[ecology.DOMAIN]['wake']:
+        journey = state.domains['sect_management'].get('exploration', {}).get('active')
+        if state.domains[ecology.DOMAIN]['wake'] or (journey and journey['due_ms'] > state.time['sim_time_ms']):
             view['needs_poll'] = view['needs_settlement'] = True
         return view

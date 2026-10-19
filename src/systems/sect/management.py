@@ -18,7 +18,16 @@ def housing(state,registry):
     occupied=sum(sum(work.allocations(state.domains['disciples'],gid).values()) for gid in state.domains['disciples']['groups'])
     return {'people':people,'beds':beds,'limit':limit,'reserved':reserved,'available':max(0,limit-people-reserved),'idle':people-occupied,'occupied':occupied}
 def validate(p,registry):
-    if not isinstance(p,Mapping) or set(p)-{'commerce','activities'}!={'recruit','supply','log','material_reserves'}:raise ValidationError('invalid sect management partition')
+    if not isinstance(p,Mapping) or set(p)-{'commerce','activities','restock','exploration','story'}!={'recruit','supply','log','material_reserves'}:raise ValidationError('invalid sect management partition')
+    if 'story' in p:
+        from .story import validate as validate_story
+        validate_story(p['story'])
+    if 'exploration' in p:
+        from .exploration import validate as validate_exploration
+        validate_exploration(p['exploration'],registry)
+    if 'restock' in p:
+        from .restock import validate as validate_restock
+        validate_restock(p['restock'],registry)
     if 'activities' in p:
         from .activities import validate as validate_activities
         validate_activities(p['activities'],registry)
@@ -50,8 +59,14 @@ def simulation(registry):
         rows=[];r=p['recruit'];w=p['supply']['wake']
         if r and not r['ready']:rows.append(Event(r['event_id'],'sect_management',r['due_ms'],3,{'kind':'recruit'}))
         if w:rows.append(Event(w['event_id'],'sect_management',w['due_ms'],4,{'kind':'meal'}))
+        restock_wake=p.get('restock',{}).get('wake')
+        if restock_wake:rows.append(Event(restock_wake['event_id'],'sect_management',restock_wake['due_ms'],5,{'kind':'restock'}))
         return tuple(rows)
     def apply(p,event):
         if event.payload['kind']=='recruit':p['recruit']['ready']=True
+        elif event.payload['kind']=='restock':
+            wake=p['restock']['wake']
+            if wake['next_event_id'] is None:raise ValidationError('restock successor required')
+            p['restock']['wake']={'event_id':wake['next_event_id'],'next_event_id':None,'due_ms':event.due_sim_ms+1}
         else:p['supply']['wake']=None;p['supply']['tick_ready']=True
     return SimulationDomain(events,apply,None,lambda p:validate(p,registry))

@@ -180,7 +180,7 @@ h3{font-size:var(--text-card)}.danger-action{color:var(--danger);border-color:va
 
 .catalog-notes-summary{display:flex;flex-direction:column;gap:3px;width:100%;min-width:0;text-align:left}.catalog-notes-summary small{font-size:var(--text-min);line-height:1.4;overflow-wrap:anywhere;color:var(--muted)}.catalog-notes-editor input,.catalog-notes-editor textarea{width:100%;min-width:0;box-sizing:border-box;font-size:var(--text-input);padding:8px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink)}
 
-.settings-actions.action-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:16px 0}.settings-actions.action-grid>.secondary{margin:0;font-size:var(--text-body)}.settings-actions .icon-label{min-width:0;overflow-wrap:anywhere}
+.settings-actions.action-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:16px 0}.settings-actions.action-grid>.secondary{margin:0;font-size:var(--text-body)}.settings-actions .icon-label{display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;gap:8px;width:100%;min-width:0;text-align:left;overflow-wrap:anywhere}.settings-actions .icon-label>.system-icon{justify-self:start;margin:0}.settings-actions.action-grid>.secondary{justify-content:flex-start;text-align:left}.report-preference{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;margin:20px 0}.report-preference h2{margin:0;font-size:var(--text-card)}.report-preference p{grid-column:1/-1}.report-preference [role=switch][aria-checked=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 
 .artifact-library>.panel{display:block;max-width:100%;text-align:left;overflow-wrap:anywhere;box-sizing:border-box}
 .artifact-library .policy-field>*{max-width:100%;min-width:0}
@@ -189,3 +189,12 @@ h3{font-size:var(--text-card)}.danger-action{color:var(--danger);border-color:va
 .artifact-card>.item-icon[data-profile]{width:100%;max-width:128px;height:auto;aspect-ratio:1;flex-shrink:0}.artifact-card>.item-icon .runtime-icon{padding:0;object-fit:contain}
 .artifact-card-name{font:600 var(--text-help)/1.4 var(--font-title)}.artifact-card-status,.artifact-card-effect{font-size:var(--text-min);line-height:1.5;max-width:100%}.artifact-card-status{font-variant-numeric:tabular-nums}
 .artifact-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Approved mountain arrival illustration, with shared theme and native text. */
+body.game-starting{overflow:hidden}
+.startup-screen{position:fixed;inset:0;z-index:100;display:grid;place-items:center;min-height:100vh;min-height:100dvh;padding:calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));background:var(--bg);color:var(--ink);text-align:center}
+.startup-brand{display:grid;justify-items:center;gap:16px;max-width:100%}
+.startup-art{display:block;width:min(80vw,320px,48svh);height:auto;max-width:100%;aspect-ratio:1;object-fit:contain;image-rendering:pixelated}
+.startup-brand h1{margin:0;font-size:var(--text-page);letter-spacing:.16em}
+.startup-brand p{margin:0;font-size:var(--text-body);color:var(--muted)}
+.startup-retry{display:grid;place-items:center;min-height:var(--control-h);padding:8px 20px;border:2px solid var(--line);border-radius:var(--radius);background:var(--surface);font-size:var(--text-body)}

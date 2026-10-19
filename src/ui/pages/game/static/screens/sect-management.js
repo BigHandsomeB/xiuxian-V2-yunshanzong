@@ -2,6 +2,7 @@ import {renderCommissions,renderContributionExchange} from './activities.js';
 import {patchPanel} from '../components/patch.js';
 import {deferIconLoads,activateIconLoads} from '../components/icon-loading.js';
 import {renderOrders,renderAuctions} from './commerce.js';
+import {renderRestock} from './market-restock.js';
 import {renderTechniqueLibrary} from './techniques.js';
 import {el,button,facts,link} from '../components/dom.js';
 import {quantityControls,confirmSheet,featureTab} from '../components/features.js';
@@ -102,7 +103,8 @@ function buyDetail(ctx,r){
 function renderMaterialGoods(ctx){
  const box=el('section','market-panel'),services=ctx.data.view.sect_services,market=services.market;
  box.dataset.systemIcon='sect-material-trade';const tab=ctx.ui.marketTab||'buy';
- box.append(featureTab([['buy','材料购买'],['sell','材料收购'],['equipment','装备收购'],['orders','收购订单'],['auctions','珍品拍卖']],tab,key=>{ctx.ui.marketTab=key;ctx.redraw();}));
+ box.append(featureTab([['buy','材料购买'],['sell','材料收购'],['equipment','装备收购'],['orders','收购订单'],['auctions','珍品拍卖'],['restock','自动补货']],tab,key=>{ctx.ui.marketTab=key;ctx.redraw();}));
+ if(tab==='restock'){box.append(renderRestock(ctx));return box;}
  if(tab==='orders'){box.append(renderOrders(ctx));return box;}
  if(tab==='auctions'){box.append(renderAuctions(ctx));return box;}
  if(tab==='equipment'){box.append(renderTrade(ctx));return box;}

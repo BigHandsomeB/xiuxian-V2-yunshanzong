@@ -1,0 +1,1075 @@
+{
+  "schema_version": 1,
+  "release": "story-stage1-v1",
+  "chapters": [
+    {
+      "id": "chapter_1",
+      "title": "荆棘古道"
+    },
+    {
+      "id": "chapter_2",
+      "title": "赤铜废矿"
+    },
+    {
+      "id": "chapter_3",
+      "title": "雾隐灵泽"
+    },
+    {
+      "id": "chapter_4",
+      "title": "寒玉冰窟"
+    },
+    {
+      "id": "chapter_5",
+      "title": "离火丹墟"
+    },
+    {
+      "id": "cultivation",
+      "title": "问道山响"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "chapter_1_01",
+      "chapter": "chapter_1",
+      "order": 101,
+      "title": "雨停与残破的山门",
+      "track": "main",
+      "condition": {
+        "kind": "always"
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（翻着手中的旧账簿）掌门，账我核过了，库存不宽裕。山门外的刺藤越抽越多，下山的路不好走，来歇脚买药的散修也越来越少。"
+        },
+        {
+          "speaker": "主角",
+          "text": "山上大家吃穿还够吗？后山和灵田还能照常出产吗？"
+        },
+        {
+          "speaker": "张老",
+          "text": "能是能，但外围不安生，采摘的弟子不敢走太远。老宗主当年领着咱们在这古宗门遗址上修修补补、续下这香火，可不能砸在咱们手里。"
+        },
+        {
+          "speaker": "主角",
+          "text": "把门看好，照常安排生产。山门外的路，我去趟一趟。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_1_02",
+      "chapter": "chapter_1",
+      "order": 102,
+      "title": "第一斧柴火",
+      "track": "side",
+      "condition": {
+        "kind": "event",
+        "event_id": "wood_harvest"
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（清点运回的木料，拿笔记录）这批硬木沉实，拿去修缮宗务殿漏风的窗棂正好。"
+        },
+        {
+          "speaker": "主角",
+          "text": "叫弟子们砍柴时就在近处，别冒进。"
+        },
+        {
+          "speaker": "张老",
+          "text": "放心，我都交代过了。只要手脚不懒，柴火总不会断。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_1_03",
+      "chapter": "chapter_1",
+      "order": 103,
+      "title": "踏入荆棘古道",
+      "track": "main",
+      "condition": {
+        "kind": "entered",
+        "dungeon_id": "thorn_path"
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（检查主角行装，拉了拉背囊扣带）这古道以前能直通山下集市。刺藤疯长后，杂草比人都高。"
+        },
+        {
+          "speaker": "主角",
+          "text": "我只沿路往前探探，顺便搜搜看有没有可用的材料。"
+        },
+        {
+          "speaker": "张老",
+          "text": "行装扣紧了。探不通就回，别硬撑，山上还等你吃晚饭。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_1_04",
+      "chapter": "chapter_1",
+      "order": 104,
+      "title": "草丛中的异样",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "thorn_path",
+        "minimum": 20
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（砍开挡路的枯藤，蹲下查看地表石碑角落）这里有一处不起眼的云纹标记……毒藤疯长得有些不合常理。"
+        },
+        {
+          "speaker": "主角",
+          "text": "仔细看，藤根都朝着山谷深处同一个方向扎过去，像是被什么东西吸引着。"
+        },
+        {
+          "speaker": "主角",
+          "text": "那边究竟有什么？得再往前走走看。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_1_05",
+      "chapter": "chapter_1",
+      "order": 105,
+      "title": "温暖的弟子居",
+      "track": "side",
+      "condition": {
+        "kind": "building_level",
+        "building_kind": "house",
+        "minimum": 2
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（拿着锤子和木料，在屋檐下补钉子）屋顶重新铺了草苫，铺位也垫高了，今晚起风也不怕冻着那几个小崽子。"
+        },
+        {
+          "speaker": "主角",
+          "text": "辛苦张老了。"
+        },
+        {
+          "speaker": "张老",
+          "text": "辛苦啥，屋子像个屋子，人才留得住。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_1_06",
+      "chapter": "chapter_1",
+      "order": 106,
+      "title": "古道深处的嘶吼",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "thorn_path",
+        "minimum": 99
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（看着前方被巨大刺藤盘绕的古老石门，握紧手中武器）前面的腥味最重，那头怪物就在石门后面。"
+        },
+        {
+          "speaker": "主角",
+          "text": "只要把它除掉，这条堵了很久的古道就能重新打通。"
+        },
+        {
+          "speaker": "主角",
+          "text": "吸一口气，准备动手。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_1_07",
+      "chapter": "chapter_1",
+      "order": 107,
+      "title": "古树根旁的石碑",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "thorn_path",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（看着山魈王倒下后逐渐枯萎的藤蔓）巨大的刺藤开始退散了，路……通了。"
+        },
+        {
+          "speaker": "主角",
+          "text": "（走到山魈王原本盘踞的古树根旁，抚摸半埋的石碑）这上面镌刻着一段残缺的法宝图录，写着《斩妖飞剑》。"
+        },
+        {
+          "speaker": "主角",
+          "text": "先把这图录记下，日后材料凑齐了，回炼器阁试试。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_1_08",
+      "chapter": "chapter_1",
+      "order": 108,
+      "title": "门前的茶水",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "thorn_path",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "山下有人来问，明日能不能借咱们门前歇脚。"
+        },
+        {
+          "speaker": "主角",
+          "text": "让他们来吧，主道已经能走了，偏僻处先别去。"
+        },
+        {
+          "speaker": "张老",
+          "text": "那我叫人多烧一锅水。"
+        },
+        {
+          "speaker": "主角",
+          "text": "张老，粮食还够吗？"
+        },
+        {
+          "speaker": "张老",
+          "text": "够。账我算过了。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_2_01",
+      "chapter": "chapter_2",
+      "order": 201,
+      "title": "断掉的旧账",
+      "track": "main",
+      "condition": {
+        "kind": "selected",
+        "dungeon_id": "red_copper_mine"
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（翻着册子）整理老宗主留下的旧账，翻到了赤铜废矿的记录。早些年，还有人从那里送矿出来。"
+        },
+        {
+          "speaker": "主角",
+          "text": "后来为什么停了？"
+        },
+        {
+          "speaker": "张老",
+          "text": "守矿的傀儡开始伤人，矿道也塌了几处。往后的账，就断在这里了。"
+        },
+        {
+          "speaker": "主角",
+          "text": "我去看看。先弄清那些傀儡出了什么事。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_2_02",
+      "chapter": "chapter_2",
+      "order": 202,
+      "title": "踏入赤铜废矿",
+      "track": "main",
+      "condition": {
+        "kind": "entered",
+        "dungeon_id": "red_copper_mine"
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（递过一盏防风旧油灯）矿洞里黑，脚下都是乱石。"
+        },
+        {
+          "speaker": "主角",
+          "text": "张老可知这些傀儡是多久前留下来的？"
+        },
+        {
+          "speaker": "张老",
+          "text": "记不清了，只知道比老宗主来这儿时早得多。它们本来只呆在矿坑深处，这几年动静才越来越大。小心些。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_2_03",
+      "chapter": "chapter_2",
+      "order": 203,
+      "title": "矛盾的痕迹",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "red_copper_mine",
+        "minimum": 20
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（查看卡在塌方处的傀儡残躯，注意到其关节旁刻着一处不起眼的云纹标记）双臂还撑着石梁……它停下之前，是在护住这条路？"
+        },
+        {
+          "speaker": "主角",
+          "text": "可另一边的石壁，又全是它砸出来的痕迹。"
+        },
+        {
+          "speaker": "主角",
+          "text": "同一尊守矿机关，为什么会做出两种相反的事？"
+        }
+      ]
+    },
+    {
+      "id": "chapter_2_04",
+      "chapter": "chapter_2",
+      "order": 204,
+      "title": "地底异化的核心",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "red_copper_mine",
+        "minimum": 99
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（看着矿坑尽头庞大的铁躯傀儡）就是它了……镇矿傀身上泛着不正常的猩红光泽，机括声急促得像在哀鸣。"
+        },
+        {
+          "speaker": "主角",
+          "text": "它已经被某种力量侵蚀失控了，再由它暴走下去，整座废矿都会坍塌。"
+        },
+        {
+          "speaker": "主角",
+          "text": "得让它安息下来。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_2_05",
+      "chapter": "chapter_2",
+      "order": 205,
+      "title": "检修台上的鼎图",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "red_copper_mine",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（镇矿傀停下后，胸腔里的暗红光芒仍断续闪着）这东西停了，里面的异光却还没散。"
+        },
+        {
+          "speaker": "主角",
+          "text": "（在检修台旁拂开积灰，露出与古道石碑相同的云纹）这里刻着一幅鼎形器图……旁边写着“镇岳”。"
+        },
+        {
+          "speaker": "主角",
+          "text": "图上的几处纹路，和傀儡机芯上的很像。两者有什么关系？"
+        },
+        {
+          "speaker": "主角",
+          "text": "先把器图记下，回去慢慢查。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_2_06",
+      "chapter": "chapter_2",
+      "order": 206,
+      "title": "归途与警惕",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "red_copper_mine",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "废矿里的撞击声……停了？"
+        },
+        {
+          "speaker": "主角",
+          "text": "失控的镇矿傀停下了。主矿道暂时安静了，里面还得小心，偏僻岔道先不要靠近。"
+        },
+        {
+          "speaker": "张老",
+          "text": "（拿笔在旧账册旁边补上“暂歇”二字，长舒一口气）消停了就好。只要后山和山路稳当，咱们宗门的日子就能越过越顺。"
+        },
+        {
+          "speaker": "主角",
+          "text": "嗯，先把眼前的家守好。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_3_01",
+      "chapter": "chapter_3",
+      "order": 301,
+      "title": "商人的传闻",
+      "track": "main",
+      "condition": {
+        "kind": "selected",
+        "dungeon_id": "mist_marsh"
+      },
+      "lines": [
+        {
+          "speaker": "钱多宝",
+          "text": "雾隐灵泽的东西，山外一直有人收。只是旧水路不稳，运一趟货，谁也说不准能不能回来。"
+        },
+        {
+          "speaker": "主角",
+          "text": "你想让我探路？"
+        },
+        {
+          "speaker": "钱多宝",
+          "text": "我想做长久买卖。路上的消息，知道多少，我就说多少。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_3_02",
+      "chapter": "chapter_3",
+      "order": 302,
+      "title": "踏入雾隐灵泽",
+      "track": "main",
+      "condition": {
+        "kind": "entered",
+        "dungeon_id": "mist_marsh"
+      },
+      "lines": [
+        {
+          "speaker": "钱多宝",
+          "text": "（在山门前远眺水泽雾气，压低声音）掌门小心，山下的老船户都说，那是天生天长的大毒沼，进去容易迷路。"
+        },
+        {
+          "speaker": "主角",
+          "text": "这雾气聚在水面上，倒像是被什么东西锁在山谷里似的。"
+        },
+        {
+          "speaker": "钱多宝",
+          "text": "嗨，天地险地不都这样嘛。探得通就探，探不通咱再想别的辙。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_3_03",
+      "chapter": "chapter_3",
+      "order": 303,
+      "title": "水下的码头",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "mist_marsh",
+        "minimum": 20
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（拨开水草）石岸下面还有台阶……这里以前能停船。"
+        },
+        {
+          "speaker": "主角",
+          "text": "几处水口都朝着同一座石台，边缘还有开凿的槽。"
+        },
+        {
+          "speaker": "主角",
+          "text": "若这里从来只是荒沼，这些东西是谁修的？钱掌柜听来的说法，恐怕不全。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_3_04",
+      "chapter": "chapter_3",
+      "order": 304,
+      "title": "收回的前言",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "mist_marsh",
+        "minimum": 50
+      },
+      "lines": [
+        {
+          "speaker": "钱多宝",
+          "text": "掌门，旧渡口的路，我又问了几个船户，口径对不上。"
+        },
+        {
+          "speaker": "主角",
+          "text": "怎么？"
+        },
+        {
+          "speaker": "钱多宝",
+          "text": "没核实的地方，我另标出来，你先别当准信。"
+        },
+        {
+          "speaker": "张老",
+          "text": "那就记清楚，别把听说当准信。"
+        },
+        {
+          "speaker": "钱多宝",
+          "text": "是。你别照着我先前的话冒险。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_3_05",
+      "chapter": "chapter_3",
+      "order": 305,
+      "title": "旧渡口的水道",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "mist_marsh",
+        "minimum": 99
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（看着前方被大雾包围的巨大蛟影）蛟身一动，石台周围的瘴气就往上翻。"
+        },
+        {
+          "speaker": "主角",
+          "text": "它把通向旧渡口的水道占住了，得先逼它离开这里。"
+        },
+        {
+          "speaker": "主角",
+          "text": "准备动手。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_3_06",
+      "chapter": "chapter_3",
+      "order": 306,
+      "title": "串联的标记",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "mist_marsh",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（泽蛟退散后，拂开石台上的水垢与苔藓）这石台上刻着一幅旗幡图纹，旁边写着“噬魂”……"
+        },
+        {
+          "speaker": "主角",
+          "text": "（视线移向图纹下方的角落）等等，这个角上的云纹符印……"
+        },
+        {
+          "speaker": "主角",
+          "text": "这标记，与古道石碑、废矿检修台上的标记一模一样！"
+        },
+        {
+          "speaker": "主角",
+          "text": "古道、废矿、灵泽……这三个地方，难道属于同一套旧设施？"
+        }
+      ]
+    },
+    {
+      "id": "chapter_3_07",
+      "chapter": "chapter_3",
+      "order": 307,
+      "title": "谨慎的留白",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "mist_marsh",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "钱多宝",
+          "text": "那片水泽，真有人修过码头？"
+        },
+        {
+          "speaker": "主角",
+          "text": "不止码头。水下还有石台，上面的标记，我在另外两处也见过。"
+        },
+        {
+          "speaker": "钱多宝",
+          "text": "（将旧路线图折起）看来我听来的那些话，得重新问了。"
+        },
+        {
+          "speaker": "张老",
+          "text": "水路呢？"
+        },
+        {
+          "speaker": "主角",
+          "text": "旧渡口附近暂时能走，深水处还不清楚。"
+        },
+        {
+          "speaker": "钱多宝",
+          "text": "那就只记这一段。没探过的地方，先留白。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_4_01",
+      "chapter": "chapter_4",
+      "order": 401,
+      "title": "核实与前往",
+      "track": "main",
+      "condition": {
+        "kind": "selected",
+        "dungeon_id": "cold_jade_cave"
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（帮主角检查背囊）寒玉冰窟路远干冷，账册上可没记过几笔，专程跑这一趟有凭据吗？"
+        },
+        {
+          "speaker": "主角",
+          "text": "钱掌柜问到一名走过冰窟外围的采药人，说入口石柱上也有云纹。我想亲自核实。"
+        },
+        {
+          "speaker": "张老",
+          "text": "那就先看实物，别急着认定。路上冷，探不通就回。"
+        },
+        {
+          "speaker": "主角",
+          "text": "明白。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_4_02",
+      "chapter": "chapter_4",
+      "order": 402,
+      "title": "冰窟前的同行者",
+      "track": "main",
+      "condition": {
+        "kind": "entered",
+        "dungeon_id": "cold_jade_cave"
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（看着冰面上新鲜的脚印，叫住前方的清冷女修）阁下也是为了这处冰窟来的？"
+        },
+        {
+          "speaker": "凌霜",
+          "text": "（停下脚步，按住剑柄，语气防备）我手上有份旧抄本，来核对些记录，与你无关。"
+        },
+        {
+          "speaker": "主角",
+          "text": "我只核实石柱上的标记，不抢里面的东西。"
+        },
+        {
+          "speaker": "凌霜",
+          "text": "（打量主角，微松剑柄）各自探路，互不干扰。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_4_03",
+      "chapter": "chapter_4",
+      "order": 403,
+      "title": "补缝与开口",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "cold_jade_cave",
+        "minimum": 20
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（抚摸冰壁上带有云纹的石柱，顺着缝隙看去，注意到侧面刻着“北涵三号”的残痕）这道石缝被补过，侧面却又凿出了窄口。"
+        },
+        {
+          "speaker": "主角",
+          "text": "先堵上，再打开？还是两处原本就有不同用途？"
+        },
+        {
+          "speaker": "主角",
+          "text": "光看这两处痕迹，还说不清缘由。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_4_04",
+      "chapter": "chapter_4",
+      "order": 404,
+      "title": "抄本与实物的冲突",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "cold_jade_cave",
+        "minimum": 50
+      },
+      "lines": [
+        {
+          "speaker": "凌霜",
+          "text": "（看着受损的冰壁，翻开手中旧抄本）抄本说，这里封闭之后，再没人进去过。"
+        },
+        {
+          "speaker": "主角",
+          "text": "可这道开口穿过了补上的石层。至少有人动过它。"
+        },
+        {
+          "speaker": "凌霜",
+          "text": "（重新看向断口，手指抚过凿痕）那份记录，可能漏了一段。"
+        },
+        {
+          "speaker": "主角",
+          "text": "先把抄本和断口都记下来。缺的这一段，还得找别的证据。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_4_05",
+      "chapter": "chapter_4",
+      "order": 405,
+      "title": "狭道的阻碍",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "cold_jade_cave",
+        "minimum": 99
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（看着前方盘踞在冰道中央的巨大蛟龙）它一直撞着裂隙，冰道已经被碎冰堵住了。"
+        },
+        {
+          "speaker": "主角",
+          "text": "一靠近就会遭到攻击，得先制住它，才能查看后面的石壁。"
+        },
+        {
+          "speaker": "主角",
+          "text": "准备动手。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_4_06",
+      "chapter": "chapter_4",
+      "order": 406,
+      "title": "被凿去的一行",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "cold_jade_cave",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（螭龙退散后，走到核心石壁前）这里也有寒魄印的图文。下面这一行，却被凿去了。"
+        },
+        {
+          "speaker": "主角",
+          "text": "补缝、开口、凿字……哪些发生在前，哪些发生在后？"
+        },
+        {
+          "speaker": "主角",
+          "text": "有人改动过这里。可改动的缘由，还不能确定。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_4_07",
+      "chapter": "chapter_4",
+      "order": 407,
+      "title": "查准与定心",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "cold_jade_cave",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（递上一碗热茶）查明白了？"
+        },
+        {
+          "speaker": "主角",
+          "text": "找到更多痕迹，反倒有些对不上。"
+        },
+        {
+          "speaker": "张老",
+          "text": "那就记下来，别急着替古人下结论。"
+        },
+        {
+          "speaker": "主角",
+          "text": "你不担心这些旧事？"
+        },
+        {
+          "speaker": "张老",
+          "text": "担心。所以才得查准。先喝口热的，再慢慢说。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_5_01",
+      "chapter": "chapter_5",
+      "order": 501,
+      "title": "寻找源头",
+      "track": "main",
+      "condition": {
+        "kind": "selected",
+        "dungeon_id": "fire_elixir_ruins"
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "（帮主角整理行装）前几处地方都找到了云纹，这离火丹墟是眼下线索指向的下一处了。账册上提到过，以前这里是炼丹烧砖的地方。"
+        },
+        {
+          "speaker": "主角",
+          "text": "冰窟里改动的痕迹还没查明白。丹墟是地热最重的地方，若它们真是一套设施，这里应该有线索。"
+        },
+        {
+          "speaker": "张老",
+          "text": "地热毒辣，凡事别逞强。查得动就查，探不通就退出来。"
+        },
+        {
+          "speaker": "主角",
+          "text": "明白。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_5_02",
+      "chapter": "chapter_5",
+      "order": 502,
+      "title": "残缺的设施总图",
+      "track": "main",
+      "condition": {
+        "kind": "entered",
+        "dungeon_id": "fire_elixir_ruins"
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（在废墟石台下拂去灰烬，露出石板上的刻纹）这是一幅……设施总图？"
+        },
+        {
+          "speaker": "主角",
+          "text": "上面标着五个节点的位置与云纹，古道、废矿、灵泽、冰窟，全在上面。"
+        },
+        {
+          "speaker": "主角",
+          "text": "它们最初确实属于同一套调理地脉的设施。只可惜总图残缺了一角，有些用途细节看不全了。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_5_03",
+      "chapter": "chapter_5",
+      "order": 503,
+      "title": "北涵三号",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "fire_elixir_ruins",
+        "minimum": 20
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（站在高处的石梁上，看着通向北方的粗大耐火涵道）闸座上刻着“北涵三号”，旁边还残存着一行小字：“引北涵寒流，分丹墟急热”。"
+        },
+        {
+          "speaker": "主角",
+          "text": "这个编号，与冰窟侧面开口旁的编号完全一致！"
+        },
+        {
+          "speaker": "主角",
+          "text": "残刻所指的引寒通道，应该就是这一条。冰窟侧面的那处开口，是为了分担丹墟的负荷。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_5_04",
+      "chapter": "chapter_5",
+      "order": 504,
+      "title": "信息核对",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "fire_elixir_ruins",
+        "minimum": 50
+      },
+      "lines": [
+        {
+          "speaker": "钱多宝",
+          "text": "（拿着几张旧路线图）掌门，我核对了后来流传的地名和旧水路，几处旧地名和水路走向能对上，断掉的部分还核不清。"
+        },
+        {
+          "speaker": "主角",
+          "text": "这五处地方原本连在一起，是为了让这片山水安稳。"
+        },
+        {
+          "speaker": "张老",
+          "text": "（抽了口烟）原来古人当年也是为了在山里求个安稳日子。"
+        },
+        {
+          "speaker": "钱多宝",
+          "text": "只可惜这路线断了好多年，后来到底出了啥变故，谁也说不清。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_5_05",
+      "chapter": "chapter_5",
+      "order": 505,
+      "title": "死守的残识",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "fire_elixir_ruins",
+        "minimum": 99
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（看着前方伫立在熔岩枢纽前的影迹）离火丹魔……它反复念着“守炉、不得擅离”，动作也一直重复……像是仍在执行旧命令。"
+        },
+        {
+          "speaker": "主角",
+          "text": "看仔细了，侧面的泄火渠还通着，闸板却被它压死了。每次它松手，火流都会转向渠里。"
+        },
+        {
+          "speaker": "主角",
+          "text": "它仍在守着当年的命令，可这里的情形已经变了。得先打倒它，把闸门导通。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_5_06",
+      "chapter": "chapter_5",
+      "order": 506,
+      "title": "泄火渠畅通",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "fire_elixir_ruins",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "主角",
+          "text": "（丹魔伏倒，残识消散，闸板随之松开）闸门打开了，火流开始顺着泄火渠慢慢流走，这一处的火毒暂时平息了。"
+        },
+        {
+          "speaker": "主角",
+          "text": "（在闸座旁看到一幅完整的葫芦形器纹，旁边写着“赤焰”）这也是当年控驭地火的法宝记录……"
+        },
+        {
+          "speaker": "主角",
+          "text": "（看着逐渐恢复平稳的火流）当年的法子，或许救下过很多人。"
+        },
+        {
+          "speaker": "主角",
+          "text": "可留下来的命令，已经回答不了今天的问题了。"
+        }
+      ]
+    },
+    {
+      "id": "chapter_5_07",
+      "chapter": "chapter_5",
+      "order": 507,
+      "title": "查实的与未明的",
+      "track": "main",
+      "condition": {
+        "kind": "floor",
+        "dungeon_id": "fire_elixir_ruins",
+        "minimum": 100
+      },
+      "lines": [
+        {
+          "speaker": "张老",
+          "text": "这回，总算查明白些了？"
+        },
+        {
+          "speaker": "主角",
+          "text": "五处地方原本连在一起。冰窟那道开口，是为了救急，不是随意破坏。"
+        },
+        {
+          "speaker": "张老",
+          "text": "那就把查实的记下，没查明的另留一页。"
+        },
+        {
+          "speaker": "主角",
+          "text": "还有一件事——当年的异常究竟从哪里开始，又牵连了多少地方？"
+        },
+        {
+          "speaker": "张老",
+          "text": "（把记录整理好收起）留着。先把这些带回来的记录收好，往后接着查。"
+        }
+      ]
+    },
+    {
+      "id": "cultivation_foundation_01",
+      "chapter": "cultivation",
+      "order": 1000,
+      "title": "筑基突破·问道山响",
+      "track": "independent",
+      "condition": {
+        "kind": "realm",
+        "minimum": 1
+      },
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "体内奔涌的灵力渐渐平稳。主角收息时，峰顶传来一声低鸣，短得几乎混在风里。"
+        },
+        {
+          "speaker": "主角",
+          "text": "（望向旧石碑）刚才……是那边的声音？"
+        },
+        {
+          "speaker": "旁白",
+          "text": "石碑寂然，再没有动静。"
+        },
+        {
+          "speaker": "张老",
+          "text": "（提着茶壶走近）成了？"
+        },
+        {
+          "speaker": "主角",
+          "text": "嗯，筑基了。"
+        },
+        {
+          "speaker": "张老",
+          "text": "（放下茶壶）那就先歇一会儿。茶还热着。"
+        },
+        {
+          "speaker": "旁白",
+          "text": "山下有人招呼同伴收拾工具，灵膳房升起炊烟。接手宗门以来，主角总在盘算还缺什么、下一步该做什么，此刻才静下来听了片刻。"
+        },
+        {
+          "speaker": "主角",
+          "text": "以前总想着，先把眼前这一关熬过去。"
+        },
+        {
+          "speaker": "张老",
+          "text": "现在呢？"
+        },
+        {
+          "speaker": "主角",
+          "text": "想让大家往后的日子，也有个着落。"
+        },
+        {
+          "speaker": "张老",
+          "text": "（斟上茶）那就慢慢做。明日的事，明日接着商量。"
+        }
+      ]
+    }
+  ]
+}

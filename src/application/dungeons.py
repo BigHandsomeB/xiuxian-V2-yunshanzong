@@ -138,6 +138,8 @@ class DungeonApplication(SectEconomyFeatures,RetiredEconomyApplication):
                 if b and b['status'] in ('ACTIVE','PLAYER_WIN'):raise ConflictError('请先结束当前战斗并领取战利品')
                 p=progress.choose(partition(s),self.registry,q.payload['dungeon_id'])
                 candidate=replace(s,domains={**s.domains,'dungeon':p})
+                from src.systems.sect import story
+                candidate=story.observe(candidate,self.registry)
                 if candidate!=s:candidate=replace(candidate,revision=s.revision+1)
                 self.foundation.validate_state(candidate)
                 receipt=Receipt(q.request_id,candidate.revision,{'operation':q.name,'combat':self.project_combat(candidate)})

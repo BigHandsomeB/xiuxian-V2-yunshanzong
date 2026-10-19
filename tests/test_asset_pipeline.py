@@ -529,7 +529,7 @@ class WebTests(unittest.TestCase):
         from werkzeug.test import Client
         mounted=ProxyFix(DispatcherMiddleware(Response("Not found",status=404),{"/tools/assets":self.app}),x_proto=1)
         client=Client(mounted,Response)
-        response=client.post("/tools/assets/login",data={"token":self.token},headers={"X-Forwarded-Proto":"https","Host":"localhost:8443","Origin":"https://localhost:8443"})
+        response=client.post("/tools/assets/login",data={"token":self.token},headers={"X-Forwarded-Proto":"https","Host":"localhost:2053","Origin":"https://localhost:2053"})
         self.assertEqual(response.status_code,302)
         self.assertEqual(response.headers["Location"],"/tools/assets/")
         response=client.get("/tools/assets/")

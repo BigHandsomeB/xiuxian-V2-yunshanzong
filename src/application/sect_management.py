@@ -15,13 +15,16 @@ from src.systems.sect import management,buildings,rules
 from src.systems.sect import market
 from src.systems.sect import commerce
 from src.application import commerce as commerce_app
+from src.application import market_restock
+from src.application import story as story_app
+from src.systems.sect import story
 from src.data.economy.market import settings as market_settings
 from src.systems.resources import jobs
 from src.systems.inventory import operations
 from src.systems.dungeons import progress
 from src.systems.equipment import items
 
-COMMANDS=('sect_recruit','sect_supply','sect_facility_build','material_sell','material_reserve','equipment_enhance','sect_stone_buy','market_buy',*commerce_app.COMMANDS,'offline_report_ack')
+COMMANDS=('sect_recruit','sect_supply','sect_facility_build','material_sell','material_reserve','equipment_enhance','sect_stone_buy','market_buy',*commerce_app.COMMANDS,*market_restock.COMMANDS,*story_app.COMMANDS,'offline_report_ack')
 class ManagementApplication(DungeonApplication):
     def require_management_command(self,state,name):
         if name in ('market_bid','market_consign','market_auction_claim','market_consignment_claim'):require_running(state.time)
@@ -45,6 +48,7 @@ class ManagementApplication(DungeonApplication):
         return candidate
     def execute(self,q):
         if not isinstance(q,Command):raise ValidationError('Command required')
+        if q.name in story_app.COMMANDS:return story_app.execute(self,q)
         if q.name not in COMMANDS:return super().execute(q)
         with self.store.transaction():
             original=self.query(q.save_id)
@@ -62,11 +66,13 @@ class ManagementApplication(DungeonApplication):
                 receipt=Receipt(q.request_id,candidate.revision,{'operation':q.name,'report_id':q.payload['report_id']})
                 self.store.commit(original,candidate,StoredReceipt(q.save_id,q.generation,q.request_id,q.digest(),candidate.revision,'command',thaw_json(receipt.result)))
                 return receipt
-            self.require_management_command(original,q.name)
+            if q.name not in market_restock.COMMANDS:self.require_management_command(original,q.name)
             if q.expected_revision!=original.revision or original.time['pending']:raise ConflictError('状态已变化或正在续算，请更新')
             if q.version!=1:raise ValidationError('未知命令版本')
             state=self.prepare_economy_state(original);p=q.payload;cfg=management.config(self.registry);part=thaw_json(state.domains['sect_management']);details={'operation':q.name};candidate=state
-            if q.name=='sect_recruit':
+            if q.name in market_restock.COMMANDS:
+                candidate=market_restock.configure(state,self.registry,q.name,p)
+            elif q.name=='sect_recruit':
                 if set(p) not in ({'group_id','count'},{'count'}):raise ValidationError('请选择招募人数')
                 integer(p['count'],'招募人数',1);h=management.housing(state,self.registry)
                 if part['recruit'] or p['count']>min(h['available'],cfg['max_recruit_count']):raise ValidationError('招募进行中或住房/宗门名额不足')
@@ -200,6 +206,8 @@ class ManagementApplication(DungeonApplication):
             price=market.price(self.registry,state.save_id,market_day,rid);cost=price['buy_price_milli']
             offers.append({'resource_id':rid,'name':self.registry.lookup(DefinitionKey('resources',rid)).display_name,'shop_level':market_settings(self.registry)['items'][rid]['level'],'boss_only':market_settings(self.registry)['items'][rid]['boss_only'],'remaining_stock':market.stock_remaining(state,self.registry,rid),'price':cost/1000,'price_milli':cost,'market_day':market_day,'variation_percent':price['variation_permille']/10,'quantity':state.domains['inventory']['holdings'].get(rid,0),'max_quantity':min(market_settings(self.registry)['max_purchase_quantity'],market.stock_remaining(state,self.registry,rid),state.domains['inventory']['holdings'].get('coins',0)*1000//cost,free) if running else 0})
         v['sect_services']['market']={'day':market_day,'display_day':market_day+1,'remaining_seconds':(state.time['day_length_ms']-now%state.time['day_length_ms']+999)//1000,'day_seconds':state.time['day_length_ms']//1000,'offers':offers}
+        v['sect_services']['restock']=market_restock.view(state,self.registry)
+        v['story']=story.projection(state,self.registry)
         orders=commerce.orders(state,self.registry)
         for row in orders:
             row['name']=self.registry.lookup(DefinitionKey('resources',row['resource_id'])).display_name
@@ -220,5 +228,5 @@ class ManagementApplication(DungeonApplication):
         return freeze_json(v)
     def project_economy(self,state):
         v=super().project_economy(state);p=state.domains['sect_management']
-        if p['recruit'] or p['supply']['wake']:v['needs_poll']=v['needs_settlement']=True
+        if p['recruit'] or p['supply']['wake'] or p.get('restock',{}).get('wake'):v['needs_poll']=v['needs_settlement']=True
         return v

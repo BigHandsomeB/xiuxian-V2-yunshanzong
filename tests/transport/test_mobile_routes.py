@@ -39,6 +39,24 @@ class MobileRoutesTests(unittest.TestCase):
                 self.assertTrue((path.parent/target).resolve().is_file(),(path,target))
         response=c.get('/game/static/game.css');self.assertEqual(response.status_code,200);response.close()
 
+    def test_startup_cover_and_preview_template(self):
+        from flask import Flask,render_template
+        c=self.mounted();page=c.get('/game/')
+        self.assertIn('id="startup"',page.text)
+        self.assertIn('ui.state.sect_arrival',page.text)
+        self.assertIn('fetchpriority="high"',page.text)
+        self.assertIn('游戏加载中…',page.text)
+        self.assertIn('inert aria-hidden="true"',page.text)
+        self.assertIn('href="./"',page.text)
+        app=Flask(__name__,template_folder=str(UI),static_folder=str(UI/'static'))
+        app.add_url_rule('/runtime/<asset_id>/<digest>',endpoint='runtime',view_func=lambda **kw:'')
+        app.add_url_rule('/guide',endpoint='guide',view_func=lambda:'')
+        app.add_url_rule('/preview',endpoint='preview',view_func=lambda:'')
+        with app.test_request_context('/'):
+            preview=render_template('index.html',review=True)
+        self.assertNotIn('id="startup"',preview)
+        self.assertNotIn('inert aria-hidden="true"',preview)
+
     def test_game_cookie_csrf_manifest_and_private_routes(self):
         c=self.mounted();view=c.get('/game/api/view');self.assertEqual(view.status_code,200)
         self.assertEqual(c.get('/game/api/assets').status_code,200)

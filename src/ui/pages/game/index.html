@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="zh-CN">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#172d32"><script src="{{ url_for('static', filename='theme-bootstrap.js') }}"></script><title>云山宗 · 修仙宗门</title><link rel="stylesheet" href="{{ url_for('static', filename='game.css') }}"><script type="module" src="{{ url_for('static', filename='game.js') }}"></script>{% if review %}<link rel="stylesheet" href="{{ url_for('static', filename='review.css') }}">{% endif %}</head>
-<body data-ui-review="{{ 'true' if review else 'false' }}">
+<body class="{{ '' if review else 'game-starting' }}" data-ui-review="{{ 'true' if review else 'false' }}">
 {% if review %}<aside class="review-banner"><strong>只读UI预览 · 演示数据</strong><a href="{{ url_for('guide') }}">评审目录</a><a href="{{ url_for('preview') }}?case=normal#battle">普通</a><a href="{{ url_for('preview') }}?case=elite#battle">精英</a><a href="{{ url_for('preview') }}?case=boss#battle">Boss</a><a href="{{ url_for('preview') }}?case=production#building/alchemy">生产</a></aside>{% endif %}
-<div class="game-shell">
+{% if not review %}<section id="startup" class="startup-screen" aria-label="游戏加载" role="status" aria-live="polite"><div class="startup-brand"><img class="startup-art" src="{{ url_for('runtime', asset_id='ui.state.sect_arrival', digest='602bb45ebd5b3b9f7812eb72e80850ddffaa794e5ac39bfa11ec412ca7be19d7') }}" width="384" height="384" alt="云山宗山门，石阶通往云海仙山，两侧环绕青玉云纹" fetchpriority="high" decoding="async"><h1>云山宗</h1><p id="startup-message">游戏加载中…</p><a id="startup-retry" class="startup-retry" href="./" hidden>重新进入游戏</a><noscript><p>请启用 JavaScript 后进入游戏。</p></noscript></div></section>{% endif %}
+<div class="game-shell"{% if not review %} inert aria-hidden="true"{% endif %}>
 <header class="game-top"><div class="sect-seal" aria-hidden="true">山</div><a class="game-name" href="#sect">云山宗</a><div id="world-bar" class="world-bar"><span id="world-status" role="status" aria-live="polite">正在连接…</span><button id="world-toggle" class="world-toggle" aria-label="暂停世界" title="暂停世界" disabled>Ⅱ</button></div><button id="refresh" class="icon-button" aria-label="更新游戏状态" hidden>↻</button><a href="#settings" class="icon-button" aria-label="设置与帮助">☰</a></header>
 <p id="world-paused-notice" class="world-paused-notice" role="status" hidden>世界已暂停：战斗与生产不推进；买卖、升级、打造等操作可用</p>
 <div id="connection" class="connection" role="status" aria-live="polite" hidden></div>

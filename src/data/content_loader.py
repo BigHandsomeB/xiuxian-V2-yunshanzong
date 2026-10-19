@@ -134,11 +134,13 @@ def _assemble_profile(profile):
     # Existing immutable registries and player snapshots are never mutated.
     from src.data.dungeons import loot, expeditions, durability
     from src.data.economy import activities
-    for reader in (loot.content, expeditions.content, durability.settings, activities.content):
+    from src.data.exploration import definitions as exploration
+    for reader in (loot.content, expeditions.content, durability.settings, activities.content, exploration.content):
         reader.cache_clear()
     from src.data.dungeons.definitions import load_dungeons
     registry = load_dungeons(management=True, cold_jade=True, ecology=True, mechanics=True, skill_timing=True, artifacts=True)
     catalog.validate_registry(registry)
+    exploration.settings(registry)
     from src.data.item_effects import bindings_for
     bindings_for(registry)
     return registry

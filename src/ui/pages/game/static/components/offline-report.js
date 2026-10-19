@@ -1,6 +1,12 @@
 import {el,button} from './dom.js';
 import {resourceIcon} from './item-icon.js';
 
+// Browser-only presentation preference, independent of settlement and report receipts.
+export function offlineBattlePreference(storage=null){
+ const key='xianxia-offline-battle-popup-v1';let enabled=true;
+ try{enabled=storage?.getItem(key)!=='off';}catch{}
+ return {get enabled(){return enabled;},set(value){enabled=!!value;try{storage?.setItem(key,enabled?'on':'off');}catch{}}};
+}
 export const EQUIPMENT_PAGE_SIZE=50;
 const qualityNames={white:'凡品',green:'灵品',blue:'玄品',rare:'稀有'};
 const signed=n=>n>0?'+'+n:String(n);
@@ -72,14 +78,16 @@ export function offlineReportContent(data,report,onAccept,loadReport=null){
 }
 
 // Opening/dismissing never acknowledges. A fresh page can present the persisted unread queue.
-export function offlineReportPresenter({sheet,isOpen,canPresent,acknowledge,isCurrent=()=>false,close=()=>{},loadReport=null,storage=null}){
+export function offlineReportPresenter({sheet,isOpen,canPresent,acknowledge,isCurrent=()=>false,close=()=>{},loadReport=null,storage=null,battleEnabled=()=>true}){
  const presented=new Set();let identity='',current=null;
  function dismiss(){if(!current?.war||current.dismissed)return;current.dismissed=true;try{storage?.setItem('xianxia-offline-battle-read-v1:'+identity,current.id);}catch{}}
  function show(data,report){presented.add(report.report_id);const war=Number.isSafeInteger(report.battles);const content=war?offlineBattleContent(data,report,()=>{dismiss();close();}):offlineReportContent(data,report,acknowledge,loadReport);current={id:report.report_id,content,war};sheet(war?'离线战报':'离线收益报告',content);}
  return {dismiss,update(data){const v=data.view,key=`${v.save_id}:${v.generation}`;if(identity!==key){if(current&&isCurrent(current.content))close();presented.clear();current=null;identity=key;}
    if(!canPresent()||v.time?.pending)return;
-   const report=v.latest_battle_report||v.offline_reports?.[0];
-   if(v.latest_battle_report){try{if(storage?.getItem('xianxia-offline-battle-read-v1:'+identity)===report.report_id)return;}catch{}}
+   const allowBattle=battleEnabled();
+   if(!allowBattle&&current?.war){if(isCurrent(current.content))close();current=null;}
+   const report=(allowBattle?v.latest_battle_report:null)||v.offline_reports?.[0];
+   if(report&&report===v.latest_battle_report){try{if(storage?.getItem('xianxia-offline-battle-read-v1:'+identity)===report.report_id)return;}catch{}}
    // A queue merge or another tab's acknowledgement can replace the displayed ID.
    if(current&&isOpen()&&isCurrent(current.content)&&!(v.latest_battle_report?.report_id===current.id||v.offline_reports?.some(r=>r.report_id===current.id))){
     if(report)show(data,report);else{close();current=null;}return;

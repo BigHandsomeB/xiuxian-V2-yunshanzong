@@ -1,3 +1,9 @@
+# 当前网页／服务器版：v0.4.0
+
+[下载发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.4.0) · [完整说明](RELEASE-v0.4.0.md)。
+
+Windows独立桌面版仍为v0.3.0-windows，独立分支和下载入口保留。本文件以下保留最初公开发布的打包与资源边界说明。
+
 # v0.3.0 发布说明（2026-10-18）
 
 ## main · 法宝与功法秒制冷却（2026-10-18）

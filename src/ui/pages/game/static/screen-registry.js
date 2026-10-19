@@ -7,4 +7,5 @@ import * as inventory from './screens/inventory.js';
 import * as adventure from './screens/adventure.js';
 import * as battle from './screens/battle.js';
 import * as settings from './screens/settings.js';
-export const screens={sect,building,disciples,disciple_detail:discipleDetail,cultivation,inventory,adventure,battle,settings};
+import * as story from './screens/story.js';
+export const screens={sect,building,disciples,disciple_detail:discipleDetail,cultivation,inventory,adventure,battle,settings,story};

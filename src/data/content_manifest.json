@@ -73,6 +73,12 @@
       "sources": [
         "src/data/artifacts/catalog.json"
       ]
+    },
+    {
+      "id": "exploration",
+      "sources": [
+        "src/data/exploration/content.json"
+      ]
     }
   ]
 }

@@ -1,7 +1,9 @@
+import {renderExploration,renderEvents} from './exploration.js';
+import {storyEntry} from './story.js';
 import {stopReasonName,simulationStamp} from '../components/offline-report.js';
-import {el,heading,link,status,button} from '../components/dom.js';
+import {el,heading,link,status} from '../components/dom.js';
 import {itemIcon} from '../components/item-icon.js';
-import {featureTab,detailSheet,recipeCard} from '../components/features.js';
+import {featureTab,recipeCard} from '../components/features.js';
 const plannedDungeons=[["red_copper_mine", "赤铜废矿"], ["mist_marsh", "雾隐灵泽"], ["cold_jade_cave", "寒玉冰窟"], ["fire_elixir_ruins", "离火丹墟"], ["thunder_sword_tomb", "玄雷剑冢"], ["earth_vein_city", "地脉古城"], ["moon_underworld", "太阴幽府"], ["star_palace", "星陨天宫"], ["xuanhuang_seal", "玄黄封仙台"]];
 function dungeonList(ctx,combat){
  const list=el('div','dungeon-list'),rows=combat.dungeons||[combat.dungeon],known=new Set(rows.map(d=>d.id));
@@ -27,8 +29,10 @@ export function render(ctx){const node=el('section','adventure-screen');node.app
   if(reason==='STORAGE_FULL')notice.append(link('去万宝库','#inventory/trade','external-link'),link(' 查看材料折算设置','#settings','external-link'));node.append(notice);
  }
  if(!combat?.dungeon){const gate=link('','#battle','battle-gate');gate.append(el('h2','',combat?combat.encounter.name:'战斗场景'),status(combat?'进入试炼':'系统开发中'));node.append(gate);}
- const tabs=['地图 / 区域','秘境塔','普通副本','Boss','特殊探索','事件','战斗记录'],selected=ctx.ui.adventureTab||tabs[0];node.append(featureTab(tabs.map(k=>[k,k]),selected,key=>{ctx.ui.adventureTab=key;ctx.redraw();}));
+ const tabs=[['地图 / 区域','地图 / 区域'],['特殊探索','探索'],['事件','特殊事件'],['战斗记录','战斗记录']],selected=tabs.some(([key])=>key===ctx.ui.adventureTab)?ctx.ui.adventureTab:tabs[0][0];const navigation=featureTab(tabs,selected,key=>{ctx.ui.adventureTab=key;ctx.redraw();});const story=storyEntry(ctx);if(story){story.className='filter-chip';navigation.append(story);}node.append(navigation);
  if(selected==='战斗记录'&&combat?.battle_id){node.append(el('p','',combat.encounter.name),el('p','',combat.status==='SETTLED'?'胜利 · 奖励已入库':combat.status==='ACTIVE'?'当前战斗进行中':'当前战斗已结束'));node.append(link('查看当前战斗','#battle','external-link'));}
- else if(combat?.dungeon&&['地图 / 区域','秘境塔','普通副本','Boss'].includes(selected)){node.append(['地图 / 区域','普通副本'].includes(selected)?dungeonList(ctx,combat):dungeonCard(ctx,combat));}
+ else if(combat?.dungeon&&selected==='地图 / 区域')node.append(dungeonList(ctx,combat));
+ else if(selected==='特殊探索')node.append(renderExploration(ctx));
+ else if(selected==='事件')node.append(renderEvents(ctx));
  else node.append(recipeCard(ctx,selected,`${selected}结构已预留。正式规则尚未开放，不产生假探索、掉落或战报。`));
- for(const name of ['探索','特殊事件'])node.append(button(name,()=>detailSheet(ctx,name,'入口和内容结构预留；对应玩法尚未开放。'),'locked-module'));return node;}
+ return node;}

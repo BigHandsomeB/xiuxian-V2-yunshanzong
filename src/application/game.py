@@ -141,6 +141,8 @@ class GameApplication(DandingApplication):
                         if any(result['discarded'].values()):raise ValidationError('combat cannot discard reward')
                         partition=ready
             candidate=replace(state,identity=identity,domains={**state.domains,'combat':partition,'inventory':stock})
+            from src.systems.sect import story
+            candidate=story.observe(candidate,self.registry)
             if candidate!=state:candidate=replace(candidate,revision=state.revision+1)
             self.foundation.validate_state(candidate)
             result={'operation':request.name,'combat':self.project_combat(candidate)}

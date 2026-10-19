@@ -3397,7 +3397,7 @@
           "asset_id": "icon.resource.ad79fb075d8b7.2",
           "name": "功法阁",
           "category": "resource",
-          "version": 1
+          "version": 2
         }
       ]
     },
@@ -4937,6 +4937,20 @@
           "asset_id": "artifact.static.a7977d695ee35",
           "name": "赤焰葫",
           "category": "artifact",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "set_id": "public.startup.art",
+      "name": "云山宗入山主视觉",
+      "category": "ui",
+      "grade": null,
+      "items": [
+        {
+          "asset_id": "ui.state.sect_arrival",
+          "name": "云山宗·入山加载主视觉",
+          "category": "ui",
           "version": 1
         }
       ]

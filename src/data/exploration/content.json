@@ -1,0 +1,526 @@
+{
+  "schema_version": 1,
+  "history_limit": 30,
+  "regions": [
+    {
+      "id": "thorn_outskirts",
+      "name": "古道林缘",
+      "dungeon_id": "thorn_path",
+      "duration_days": 1,
+      "description": "古道旁草木深密，旧日行人的足迹仍隐约可见。",
+      "rewards": {
+        "ordinary_wood": 2
+      },
+      "events": [
+        {
+          "id": "mist_fork",
+          "name": "迷雾岔路",
+          "description": "山雾遮住岔口，一侧传来泉声，另一侧隐约露出采药人的路标。",
+          "choices": [
+            {
+              "id": "follow",
+              "name": "循路标探查",
+              "cost": {},
+              "rewards": {
+                "spring_water": 2
+              },
+              "success_bps": 10000,
+              "success_text": "循着旧路标，你找到一眼清泉，取水而归。",
+              "failure_text": ""
+            },
+            {
+              "id": "deep",
+              "name": "深入雾中",
+              "cost": {},
+              "rewards": {
+                "herb": 3
+              },
+              "success_bps": 6000,
+              "success_text": "雾后藏着一小片药草，你采下成熟植株。",
+              "failure_text": "雾气久久不散。你折返林缘，此行没有额外收获。"
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "wounded_wanderer",
+          "name": "受伤散修",
+          "description": "树下有位散修正在裹伤。他愿以随身药材答谢施水之恩。",
+          "choices": [
+            {
+              "id": "help",
+              "name": "赠水相助",
+              "cost": {
+                "spring_water": 2
+              },
+              "rewards": {
+                "herb": 3
+              },
+              "success_bps": 10000,
+              "success_text": "散修谢过援手，将完好的药草交给你。",
+              "failure_text": ""
+            },
+            {
+              "id": "guide",
+              "name": "指明归途",
+              "cost": {},
+              "rewards": {
+                "coins": 5
+              },
+              "success_bps": 10000,
+              "success_text": "你指出安全的小路，散修以几枚灵钱致谢。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "abandoned_garden",
+          "name": "废弃药圃",
+          "description": "残垣内几株药草已经成熟，旁边还留着尚未结籽的幼苗。",
+          "choices": [
+            {
+              "id": "harvest",
+              "name": "只采成熟药草",
+              "cost": {},
+              "rewards": {
+                "herb": 2
+              },
+              "success_bps": 10000,
+              "success_text": "你留下幼苗，只收取成熟的药草。",
+              "failure_text": ""
+            },
+            {
+              "id": "tend",
+              "name": "引水照料药圃",
+              "cost": {
+                "spring_water": 2
+              },
+              "rewards": {
+                "herb": 4
+              },
+              "success_bps": 10000,
+              "success_text": "你疏通沟渠，挑出几株成熟好药，余下幼苗继续生长。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "copper_passage",
+      "name": "废矿支洞",
+      "dungeon_id": "red_copper_mine",
+      "duration_days": 2,
+      "description": "锈轨伸入黑暗，矿壁上偶有细碎铜光。",
+      "rewards": {
+        "purple_copper": 2
+      },
+      "events": [
+        {
+          "id": "broken_cart",
+          "name": "断轨矿车",
+          "description": "一辆矿车卡在断轨边，车底压着还能使用的矿料。",
+          "choices": [
+            {
+              "id": "pick",
+              "name": "拾取散落矿石",
+              "cost": {},
+              "rewards": {
+                "purple_copper": 2
+              },
+              "success_bps": 10000,
+              "success_text": "你避开松动车架，收好地上的矿石。",
+              "failure_text": ""
+            },
+            {
+              "id": "brace",
+              "name": "用木料支稳矿车",
+              "cost": {
+                "ordinary_wood": 3
+              },
+              "rewards": {
+                "purple_copper": 5
+              },
+              "success_bps": 10000,
+              "success_text": "木架撑住车身，你取出了底部的矿料。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "travelling_trader",
+          "name": "行脚商人",
+          "description": "矿洞口的行脚商人正在歇脚，愿出售一小包精拣铜矿。",
+          "choices": [
+            {
+              "id": "trade",
+              "name": "买下铜矿包",
+              "cost": {
+                "coins": 15
+              },
+              "rewards": {
+                "purple_copper": 5
+              },
+              "success_bps": 10000,
+              "success_text": "你验过矿色，付钱收下铜矿。",
+              "failure_text": ""
+            },
+            {
+              "id": "ask",
+              "name": "询问附近矿脉",
+              "cost": {},
+              "rewards": {
+                "purple_copper": 1
+              },
+              "success_bps": 10000,
+              "success_text": "商人指出不远处的浅矿脉，你顺路拾得一块铜矿。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "echo_vein",
+          "name": "回声矿脉",
+          "description": "敲击岩壁传来空响，裂隙深处似乎还有一层矿脉。",
+          "choices": [
+            {
+              "id": "surface",
+              "name": "采集表层",
+              "cost": {},
+              "rewards": {
+                "purple_copper": 2
+              },
+              "success_bps": 10000,
+              "success_text": "你沿坚实的岩面收取了浅层矿石。",
+              "failure_text": ""
+            },
+            {
+              "id": "probe",
+              "name": "试探深层裂隙",
+              "cost": {},
+              "rewards": {
+                "purple_copper": 6
+              },
+              "success_bps": 5000,
+              "success_text": "裂隙后果然有矿，你收好矿石及时退出。",
+              "failure_text": "碎石滑落，你及时退到安全处，没有取到深层矿石。"
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marsh_islet",
+      "name": "灵泽浅滩",
+      "dungeon_id": "mist_marsh",
+      "duration_days": 2,
+      "description": "薄雾浮在水面，芦苇间藏着旧舟与灵草。",
+      "rewards": {
+        "herb": 3
+      },
+      "events": [
+        {
+          "id": "reed_herbs",
+          "name": "芦荡灵草",
+          "description": "药草生在芦荡深处，岸边有一条较稳妥的小径。",
+          "choices": [
+            {
+              "id": "shore",
+              "name": "沿岸采药",
+              "cost": {},
+              "rewards": {
+                "herb": 3
+              },
+              "success_bps": 10000,
+              "success_text": "你沿浅岸采得数株药草。",
+              "failure_text": ""
+            },
+            {
+              "id": "raft",
+              "name": "结筏深入芦荡",
+              "cost": {
+                "ordinary_wood": 4
+              },
+              "rewards": {
+                "herb": 7
+              },
+              "success_bps": 10000,
+              "success_text": "简易木筏穿过泥水，你采到了芦荡中的药草。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "sunken_boat",
+          "name": "半沉旧舟",
+          "description": "一只旧舟陷在泥里，舟头的木匣尚未完全浸水。",
+          "choices": [
+            {
+              "id": "salvage",
+              "name": "拾取岸边遗物",
+              "cost": {},
+              "rewards": {
+                "coins": 10
+              },
+              "success_bps": 10000,
+              "success_text": "你从岸边拾到散落的灵钱。",
+              "failure_text": ""
+            },
+            {
+              "id": "reach",
+              "name": "设法取出木匣",
+              "cost": {},
+              "rewards": {
+                "coins": 30
+              },
+              "success_bps": 6000,
+              "success_text": "你赶在旧舟倾倒前取出木匣，匣中灵钱尚且完好。",
+              "failure_text": "泥水渐深，你放弃木匣退回岸边。"
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "marsh_stele",
+          "name": "泽畔古碑",
+          "description": "水边古碑刻着辨识草木的残文，雨后字迹比平日清楚。",
+          "choices": [
+            {
+              "id": "study",
+              "name": "辨读草木残文",
+              "cost": {},
+              "rewards": {
+                "herb": 3
+              },
+              "success_bps": 10000,
+              "success_text": "按碑文所述，你在附近辨出可用药草。",
+              "failure_text": ""
+            },
+            {
+              "id": "clean",
+              "name": "清洗碑面细读",
+              "cost": {
+                "spring_water": 3
+              },
+              "rewards": {
+                "herb": 6
+              },
+              "success_bps": 10000,
+              "success_text": "洗去浮泥后，几行旧字重现，你循其记载采得药草。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jade_ledge",
+      "name": "冰窟外崖",
+      "dungeon_id": "cold_jade_cave",
+      "duration_days": 3,
+      "description": "寒泉凝雾，冰壁旁仍有背风的采集路径。",
+      "rewards": {
+        "stone": 4
+      },
+      "events": [
+        {
+          "id": "frozen_spring",
+          "name": "冰封寒泉",
+          "description": "冰层下有细水流动，浅处的泉水可以安全取用。",
+          "choices": [
+            {
+              "id": "shallow",
+              "name": "取浅层泉水",
+              "cost": {},
+              "rewards": {
+                "spring_water": 4
+              },
+              "success_bps": 10000,
+              "success_text": "你凿开薄冰，装好清冽泉水。",
+              "failure_text": ""
+            },
+            {
+              "id": "channel",
+              "name": "铺木引出泉流",
+              "cost": {
+                "ordinary_wood": 4
+              },
+              "rewards": {
+                "spring_water": 9
+              },
+              "success_bps": 10000,
+              "success_text": "引水槽避开了锋利冰棱，寒泉顺槽流入容器。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "snow_cache",
+          "name": "雪下行囊",
+          "description": "崖边积雪下露出一角旧行囊，周围没有新近的足迹。",
+          "choices": [
+            {
+              "id": "edge",
+              "name": "查看崖边散物",
+              "cost": {},
+              "rewards": {
+                "coins": 15
+              },
+              "success_bps": 10000,
+              "success_text": "你清理平地上的积雪，找到一些散落灵钱。",
+              "failure_text": ""
+            },
+            {
+              "id": "dig",
+              "name": "探取雪下行囊",
+              "cost": {},
+              "rewards": {
+                "coins": 45
+              },
+              "success_bps": 5000,
+              "success_text": "你从厚雪下取出旧行囊，里面还留着灵钱。",
+              "failure_text": "雪层松软，无法安全靠近。你收手返回。"
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        },
+        {
+          "id": "ice_inscription",
+          "name": "冰壁旧刻",
+          "description": "冰壁上留有辨岩口诀，一处松散岩层正适合取材。",
+          "choices": [
+            {
+              "id": "read",
+              "name": "循旧刻寻找石材",
+              "cost": {},
+              "rewards": {
+                "stone": 5
+              },
+              "success_bps": 10000,
+              "success_text": "依照刻痕，你找到坚实而易于采集的石材。",
+              "failure_text": ""
+            },
+            {
+              "id": "support",
+              "name": "支护岩层再采集",
+              "cost": {
+                "ordinary_wood": 4
+              },
+              "rewards": {
+                "stone": 10
+              },
+              "success_bps": 10000,
+              "success_text": "木撑稳住岩层，你收集了一批可用石材。",
+              "failure_text": ""
+            },
+            {
+              "id": "leave",
+              "name": "谨慎离开",
+              "cost": {},
+              "rewards": {},
+              "success_bps": 10000,
+              "success_text": "你记下此处方位，沿原路平安返回。",
+              "failure_text": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

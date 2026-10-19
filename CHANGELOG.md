@@ -2,6 +2,15 @@
 
 本文件整理已完成的开发节点；不将预留配置写成已开放玩法，不记录真实玩家身份、存档、服务器地址或部署口令。日期来自本地提交与任务记录；本次 GitHub 仓库建立自完整快照，不导入原 Git 历史。
 
+## v0.4.0 · 山外探索与宗门旧事（2026-10-19）
+
+[发行下载](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.4.0) · [完整说明](docs/project/RELEASE-v0.4.0.md)。
+
+- 四地探索与十二事件、36段主线和独立筑基记事、万宝楼自动补货。
+- 主线记录移至冒险顶部战斗记录之后；默认进入宗门，山门云海加载页与功法阁新图标。
+- 设置新增离线战报自动弹出开关，四工具按钮图标固定左侧。
+- 本次更新网页／服务器版；Windows独立发行版保持v0.3.0-windows。
+
 ## v0.3.0 · 法宝与功法秒制冷却（2026-10-18）
 
 [发布与下载](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0) · [完整说明](docs/project/RELEASE-v0.3.0.md)。

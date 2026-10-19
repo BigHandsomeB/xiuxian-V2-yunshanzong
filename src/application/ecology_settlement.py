@@ -13,6 +13,7 @@ from src.systems.inventory import operations, holdings
 from src.systems.economy import policy
 from src.systems.dungeons import progress
 from src.data.economy.ecology import lookup
+from src.systems.sect import story
 
 
 class EcologySettlement(ManagementSettlement):
@@ -114,6 +115,7 @@ class EcologySettlement(ManagementSettlement):
         return replace(state, domains={**state.domains, ecology.DOMAIN: part})
 
     def wake(self, state):
+        state = story.observe(state, self.registry)
         state = super().wake(state)
         if paused(state.time):
             return state
@@ -203,6 +205,8 @@ class EcologySettlement(ManagementSettlement):
             if any(result['discarded'].values()):
                 raise ValidationError('产物必须完整入库')
             job['status'] = 'COMPLETE'
+            if amounts.get('wood', 0) or amounts.get('ordinary_wood', 0):
+                state = story.observe(state, self.registry, {'wood_harvest'})
             state = reports.observe_production(state, job, amounts, int(bool(definition.equipment_output_id)))
         active = {row['job_id'] for row in production['jobs'].values() if row['status'] == 'WORKING'}
         current = {row['job_id'] for row in production['jobs'].values()}

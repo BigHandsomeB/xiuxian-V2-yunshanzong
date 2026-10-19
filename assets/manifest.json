@@ -32935,7 +32935,7 @@
       }
     },
     "icon.resource.ad79fb075d8b7.2": {
-      "version": 1,
+      "version": 2,
       "build_version": 1,
       "export_origin": {
         "pixel_profile_id": "material_icon_v1",
@@ -32955,10 +32955,10 @@
       "files": [
         {
           "action": "icon",
-          "file": "runtime/icon.resource.ad79fb075d8b7.2/v1/b63db1a5f2b74df1a613629cf440417a.png",
+          "file": "runtime/icon.resource.ad79fb075d8b7.2/v2/f65ce4ea789b4b819dfe3ed1df3c6b5e.png",
           "frame": 1,
           "height": 48,
-          "sha256": "63879219fdfa1b596ae60ee3c5f39852a5b8334adf360a89c105e348d999f7b6",
+          "sha256": "4d8a09e701ff56eb1f11bb24d7cf3aafb5f7b2ade4ffb0d7cbdba897aea3059d",
           "width": 48
         }
       ],
@@ -39582,6 +39582,45 @@
       "subject_logic_size": [
         96,
         96
+      ],
+      "anchor": {
+        "baseline_from_bottom": 0,
+        "type": "center"
+      }
+    },
+    "ui.state.sect_arrival": {
+      "version": 1,
+      "build_version": 1,
+      "export_origin": {
+        "pixel_profile_version": 1,
+        "policy": "frozen",
+        "template_id": "ui_state_v1",
+        "template_version": 1
+      },
+      "files": [
+        {
+          "action": "default",
+          "file": "runtime/ui.state.sect_arrival/v1/654a8e6eda4246ff8cc1f4725df1b2ee.png",
+          "frame": 1,
+          "height": 384,
+          "sha256": "602bb45ebd5b3b9f7812eb72e80850ddffaa794e5ac39bfa11ec412ca7be19d7",
+          "width": 384
+        }
+      ],
+      "format": "png",
+      "sampling": "nearest",
+      "runtime_profile": {
+        "frame_size": [
+          384,
+          384
+        ],
+        "policy": "crop_subject",
+        "profile_id": "navigation_icon_v1",
+        "sampling": "nearest"
+      },
+      "subject_logic_size": [
+        384,
+        384
       ],
       "anchor": {
         "baseline_from_bottom": 0,
