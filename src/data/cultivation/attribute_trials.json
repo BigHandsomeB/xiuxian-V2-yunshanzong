@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "max_wave": 1000,
+  "max_level": 1000,
+  "xp_per_first_wave": 20,
+  "xp_per_extra_wave": 4,
+  "first_level_xp": 100,
+  "level_cost_growth": 20,
+  "hp_growth_bps": 1500,
+  "attack_growth_bps": 900,
+  "armor_growth_milli": 50,
+  "gains": {"max_hp_milli": 4000, "attack_milli": 500, "armor_milli": 100}
+}

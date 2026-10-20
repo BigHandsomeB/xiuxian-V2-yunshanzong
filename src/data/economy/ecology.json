@@ -2366,7 +2366,7 @@
       "days": 3,
       "feed_id": "beast_feed_basic",
       "feed_quantity": 4,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 24,
       "periodic_outputs": {
         "sect_product_27": 3
@@ -2383,7 +2383,7 @@
       "days": 3,
       "feed_id": "beast_feed_basic",
       "feed_quantity": 4,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 18,
       "periodic_outputs": {},
       "harvest_outputs": {
@@ -2398,7 +2398,7 @@
       "days": 2,
       "feed_id": "beast_feed_basic",
       "feed_quantity": 3,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 22,
       "periodic_outputs": {
         "sect_product_17": 4,
@@ -2416,7 +2416,7 @@
       "days": 4,
       "feed_id": "beast_feed_basic",
       "feed_quantity": 4,
-      "slots": 3,
+      "slots": 1,
       "purchase_coins": 35,
       "periodic_outputs": {
         "sect_product_12": 5
@@ -2433,7 +2433,7 @@
       "days": 3,
       "feed_id": "beast_feed_refined",
       "feed_quantity": 2,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 38,
       "periodic_outputs": {
         "sect_product_45": 2,
@@ -2466,7 +2466,7 @@
       "days": 4,
       "feed_id": "beast_feed_refined",
       "feed_quantity": 3,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 42,
       "periodic_outputs": {
         "sect_product_09": 3
@@ -2483,7 +2483,7 @@
       "days": 4,
       "feed_id": "beast_feed_refined",
       "feed_quantity": 3,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 42,
       "periodic_outputs": {
         "sect_product_08": 2
@@ -2500,7 +2500,7 @@
       "days": 5,
       "feed_id": "beast_feed_refined",
       "feed_quantity": 4,
-      "slots": 3,
+      "slots": 1,
       "purchase_coins": 65,
       "periodic_outputs": {},
       "harvest_outputs": {
@@ -2515,7 +2515,7 @@
       "days": 3,
       "feed_id": "beast_feed_refined",
       "feed_quantity": 3,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 36,
       "periodic_outputs": {
         "sect_product_36": 3
@@ -2561,7 +2561,7 @@
       "days": 3,
       "feed_id": "fish_feed_basic",
       "feed_quantity": 3,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 12,
       "periodic_outputs": {
         "sect_product_25": 1
@@ -2591,7 +2591,7 @@
       "days": 3,
       "feed_id": "fish_feed_refined",
       "feed_quantity": 2,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 14,
       "periodic_outputs": {},
       "harvest_outputs": {
@@ -2606,7 +2606,7 @@
       "days": 3,
       "feed_id": "fish_feed_refined",
       "feed_quantity": 2,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 14,
       "periodic_outputs": {},
       "harvest_outputs": {
@@ -2666,7 +2666,7 @@
       "days": 4,
       "feed_id": "fish_feed_refined",
       "feed_quantity": 2,
-      "slots": 2,
+      "slots": 1,
       "purchase_coins": 20,
       "periodic_outputs": {
         "sect_product_32": 1
@@ -2697,7 +2697,7 @@
       "days": 5,
       "feed_id": "fish_feed_refined",
       "feed_quantity": 4,
-      "slots": 3,
+      "slots": 1,
       "purchase_coins": 32,
       "periodic_outputs": {
         "sect_product_28": 1

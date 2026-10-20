@@ -8,6 +8,8 @@ export function itemIcon(options={}){
  const placeholder=el('span','icon-placeholder',glyphs[model.fallback]);placeholder.setAttribute('aria-hidden','true');box.append(placeholder);
  if(model.asset?.url){const image=el('img','runtime-icon');image.alt='';image.loading='lazy';image.decoding='async';image.width=model.asset.width||48;image.height=model.asset.height||48;placeholder.hidden=true;image.addEventListener('error',()=>{image.remove();placeholder.hidden=false;box.dataset.assetFallback='true';},{once:true});setIconSource(image,model.asset.url);box.append(image);}
  else box.dataset.assetFallback='true';
+ const refinement=options.refinement_element;
+ if(model.fallback==='equipment'&&['wood','earth','metal','water','fire','ice','poison','yin'].includes(refinement))box.classList.add('refined','refined-'+refinement);
  const enhancement=options.enhancement_level;
  if(model.fallback==='equipment'&&Number.isSafeInteger(enhancement)&&enhancement>0){box.append(el('span','icon-quantity',`+${enhancement}`));}
  else if(model.quantity!==null)box.append(el('span','icon-quantity',`×${model.quantity}`));if(model.locked)box.append(el('span','icon-lock','锁'));return box;

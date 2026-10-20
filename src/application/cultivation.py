@@ -16,7 +16,9 @@ CultivationBlocked=growth.CultivationBlocked
 from src.systems.inventory import operations
 
 def partition(state):return state.domains.get('cultivation',growth.initial(state.save_id))
-def active(state):return state.domains.get('combat',{}).get('battle',{}).get('status')=='ACTIVE' if state.domains.get('combat',{}).get('battle') else False
+def active(state):
+    if state.domains.get('cultivation',{}).get('attribute_trial',{}).get('running'):return True
+    return state.domains.get('combat',{}).get('battle',{}).get('status')=='ACTIVE' if state.domains.get('combat',{}).get('battle') else False
 def validate_growth(state,registry):
     p=partition(state);growth.validate(p,registry,state.save_id)
     b=state.domains.get('combat',{}).get('battle')

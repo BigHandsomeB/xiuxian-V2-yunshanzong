@@ -1,3 +1,9 @@
+# 当前网页／服务器版：v0.5.0
+
+[下载发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.5.0) · [完整说明](RELEASE-v0.5.0.md)。
+
+Windows独立桌面版保持v0.3.0-windows。以下为历史发行说明。
+
 # 当前网页／服务器版：v0.4.0
 
 [下载发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.4.0) · [完整说明](RELEASE-v0.4.0.md)。

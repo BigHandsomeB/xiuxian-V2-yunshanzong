@@ -12,7 +12,7 @@ from src.data.items.resources import ResourceDefinition
 class SectRules(Definition):
     values:object=None
 
-def register(registry,*,management=False,ecology=False):
+def register(registry,*,management=False,ecology=False,refinement=False):
     def unique(pairs):
         result={}
         for k,v in pairs:
@@ -22,10 +22,15 @@ def register(registry,*,management=False,ecology=False):
     p=json.loads(Path(__file__).with_suffix('.json').read_text(),object_pairs_hook=unique)
     p['leveling']=json.loads(Path(__file__).parents[1].joinpath('cultivation/leveling.json').read_text(),object_pairs_hook=unique)
     if ecology:p['techniques']=json.loads(Path(__file__).parents[1].joinpath('cultivation/techniques.json').read_text(),object_pairs_hook=unique)
+    if ecology:
+        from src.data.cultivation.attribute_trials import validate_config as validate_trial_config
+        p['attribute_trials']=json.loads(Path(__file__).parents[1].joinpath('cultivation/attribute_trials.json').read_text(),object_pairs_hook=unique)
+        validate_trial_config(p['attribute_trials'])
     from src.data.cultivation.levels import validate_config
     validate_config(p['leveling'])
     if management:
         extra=json.loads(Path(__file__).with_name('sect_management.json').read_text(),object_pairs_hook=unique)
+        refinement_config=extra.pop('refinement',None)
         p['management']=extra
         p['material_caps'].update({rid:extra['material_retention_cap'] for rid in extra['sale_prices']})
         p['additional_recipes']=[{**row,'inputs':extra['pill_inputs'].get(row['machine_id'],row['inputs'])} for row in p['additional_recipes']]+extra['recipes']
@@ -119,6 +124,9 @@ def register(registry,*,management=False,ecology=False):
     refs|={DefinitionKey('buildings',k) for k in p.get('production_building_overrides',{}).values()}
     refs|={DefinitionKey('resources',k) for k in foundation['pills']} if foundation else set()
     refs|={DefinitionKey('buildings',k) for k in (*p['new_save_production'],*p['building_upgrade']['materials'],*p['read_default_buildings'])}
+    if management and refinement:
+        from .refinement import register as register_refinement
+        register_refinement(registry,refinement_config)
     registry.register(SectRules('sect_rules','shipping','宗门经营规则',tuple(sorted(refs,key=lambda x:(x.domain,x.machine_id))),freeze_json(p)))
     if management:
         from .market import register as register_market

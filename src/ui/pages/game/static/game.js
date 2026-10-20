@@ -62,7 +62,7 @@ function render(routeChange=false){
 }
 function schedule(){clearTimeout(timer);if(previewMode)return;if(foregroundRefresh&&!document.hidden&&!busy){foregroundRefresh=false;timer=setTimeout(()=>sync(true,'前台恢复'),0);return;}if(document.hidden||!navigator.onLine||busy||health.state==='AUTH_REQUIRED')return;
  if(health.state==='DEGRADED'||health.state==='RECONNECTING'){const delay=health.retryDelay();if(delay!==null)timer=setTimeout(()=>sync(false,'轮询'),delay);return;}
- if(!data||data.view.world?.paused||(['battle','cultivation'].includes(currentRoute?.name)&&!data.view.combat?.auto?.enabled))return;if(needsSimulationPoll(currentRoute,data.view))timer=setTimeout(()=>sync(false,'轮询'),data.view.combat?.auto?.enabled?2000:4000);
+ if(!data||data.view.world?.paused||(['battle','cultivation'].includes(currentRoute?.name)&&!data.view.combat?.auto?.enabled&&!data.view.cultivation?.attribute_trials?.running))return;if(needsSimulationPoll(currentRoute,data.view))timer=setTimeout(()=>sync(false,'轮询'),data.view.combat?.auto?.enabled?2000:4000);
 }
 function failed(error){if(error.cancelled||error.name==='AbortError')return;health.failed(error,navigator.onLine);if(error.transport||error.login||!navigator.onLine){connectionHealth();lifetime.suspend();}else showConnection(error.message,error.status===409?'stale':'error');
  if(!data&&!error.transport&&!error.login){const box=el('div','error-state');box.append(el('p','',error.message),button('更新状态',()=>sync(true),'primary'));host.replaceChildren(box);}

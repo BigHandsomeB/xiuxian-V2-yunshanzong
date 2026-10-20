@@ -51,7 +51,7 @@ def validate(partition,registry,save_id):
     b=partition['battle']
     if b is None:return
     fields={'battle_id','encounter_id','player_id','enemy_id','status','player_hp_milli','enemy_hp_milli','step','latest_events','reward_state','reward'}
-    if not isinstance(b,Mapping) or not fields<=set(b) or set(b)-fields-{'player_snapshot','loot_version','rules_version','enemy_hp_scale_bps','reward_compensation_bps','visual_events_online','growth_snapshot','mechanics','artifact_snapshot'}:raise ValidationError('exact battle state required')
+    if not isinstance(b,Mapping) or not fields<=set(b) or set(b)-fields-{'player_snapshot','loot_version','rules_version','enemy_hp_scale_bps','reward_compensation_bps','visual_events_online','growth_snapshot','mechanics','artifact_snapshot','equipment_snapshot'}:raise ValidationError('exact battle state required')
     for key in ('enemy_hp_scale_bps','reward_compensation_bps'):
         if key in b:integer(b[key],key,10000)
     if 'visual_events_online' in b and type(b['visual_events_online']) is not bool:raise ValidationError('boolean visual event source required')
@@ -109,7 +109,7 @@ def validate_player_input(p,registry,save_id):
     for k in ("max_hp_milli","attack_milli"):integer(p[k],k,1)
     integer(p["armor_milli"],"armor")
 
-def start(partition,registry,save_id,battle_id,encounter_id,*,player_snapshot=None,growth_snapshot=None,equipment_sources=(),artifact_snapshot=None):
+def start(partition,registry,save_id,battle_id,encounter_id,*,player_snapshot=None,growth_snapshot=None,equipment_sources=(),artifact_snapshot=None,equipment_snapshot=None):
     validate(partition,registry,save_id)
     old=partition['battle']
     if old and old['status'] in ('ACTIVE','PLAYER_WIN'):raise ConflictError('finish or settle current battle before start')
@@ -122,6 +122,7 @@ def start(partition,registry,save_id,battle_id,encounter_id,*,player_snapshot=No
     b['enemy_hp_milli']=effective_monster(registry,b).base_hp_milli
     if player_snapshot is not None:b['player_snapshot']=p
     if growth_snapshot is not None:b['growth_snapshot']=growth_snapshot
+    if equipment_snapshot is not None:b['equipment_snapshot']=freeze_json(equipment_snapshot)
     if artifact_snapshot is not None:
         from src.systems.artifacts.artifacts import validate_snapshot
         validate_snapshot(artifact_snapshot,registry);b['artifact_snapshot']=artifact_snapshot

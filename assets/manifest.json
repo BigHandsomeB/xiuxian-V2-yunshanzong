@@ -39588,6 +39588,123 @@
         "type": "center"
       }
     },
+    "ui.state.garden_plot": {
+      "version": 1,
+      "build_version": 1,
+      "export_origin": {
+        "pixel_profile_version": 1,
+        "policy": "frozen",
+        "template_id": "ui_state_v1",
+        "template_version": 1
+      },
+      "files": [
+        {
+          "action": "default",
+          "file": "runtime/ui.state.garden_plot/v1/da6e2a6f65394018abc6d50ac22dfb75.png",
+          "frame": 1,
+          "height": 128,
+          "sha256": "f0e637044aa6e12532d59116a843b8be3a91c5f95e09373808d879cbf28058f0",
+          "width": 128
+        }
+      ],
+      "format": "png",
+      "sampling": "nearest",
+      "runtime_profile": {
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "crop_subject",
+        "profile_id": "navigation_icon_v1",
+        "sampling": "nearest"
+      },
+      "subject_logic_size": [
+        128,
+        128
+      ],
+      "anchor": {
+        "baseline_from_bottom": 0,
+        "type": "center"
+      }
+    },
+    "ui.state.habitat_enclosure": {
+      "version": 1,
+      "build_version": 1,
+      "export_origin": {
+        "pixel_profile_version": 1,
+        "policy": "frozen",
+        "template_id": "ui_state_v1",
+        "template_version": 1
+      },
+      "files": [
+        {
+          "action": "default",
+          "file": "runtime/ui.state.habitat_enclosure/v1/6c5a61c8dbe84fc4aaf2677b9d616df3.png",
+          "frame": 1,
+          "height": 128,
+          "sha256": "319c42aff140f712b8f0f8bbbda85b5391e0543e53e124823fedca03b25a5430",
+          "width": 128
+        }
+      ],
+      "format": "png",
+      "sampling": "nearest",
+      "runtime_profile": {
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "crop_subject",
+        "profile_id": "navigation_icon_v1",
+        "sampling": "nearest"
+      },
+      "subject_logic_size": [
+        128,
+        128
+      ],
+      "anchor": {
+        "baseline_from_bottom": 0,
+        "type": "center"
+      }
+    },
+    "ui.state.habitat_pool": {
+      "version": 1,
+      "build_version": 1,
+      "export_origin": {
+        "pixel_profile_version": 1,
+        "policy": "frozen",
+        "template_id": "ui_state_v1",
+        "template_version": 1
+      },
+      "files": [
+        {
+          "action": "default",
+          "file": "runtime/ui.state.habitat_pool/v1/f88cf19dff0c4d16a0d6284a3f799b07.png",
+          "frame": 1,
+          "height": 128,
+          "sha256": "8b2f6fd691f20561b3df71a9601cf328a4d41caaaed462541c6e11271fd4c049",
+          "width": 128
+        }
+      ],
+      "format": "png",
+      "sampling": "nearest",
+      "runtime_profile": {
+        "frame_size": [
+          128,
+          128
+        ],
+        "policy": "crop_subject",
+        "profile_id": "navigation_icon_v1",
+        "sampling": "nearest"
+      },
+      "subject_logic_size": [
+        128,
+        128
+      ],
+      "anchor": {
+        "baseline_from_bottom": 0,
+        "type": "center"
+      }
+    },
     "ui.state.sect_arrival": {
       "version": 1,
       "build_version": 1,

@@ -19,7 +19,8 @@
       "id": "cultivation",
       "sources": [
         "src/data/cultivation/leveling.json",
-        "src/data/cultivation/techniques.json"
+        "src/data/cultivation/techniques.json",
+        "src/data/cultivation/attribute_trials.json"
       ]
     },
     {

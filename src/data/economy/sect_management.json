@@ -94,8 +94,12 @@
   "recruit_duration_ms": 90000,
   "meal_period_ms": 300000,
   "production_input_overrides": {
-    "herb": {"spring_water": 1},
-    "grain": {"spring_water": 1}
+    "herb": {
+      "spring_water": 1
+    },
+    "grain": {
+      "spring_water": 1
+    }
   },
   "recipes": [
     {
@@ -709,6 +713,867 @@
     "5": {
       "coins": 3000,
       "crafting_essence": 5
+    }
+  },
+  "refinement": {
+    "version": "material-refine-v1",
+    "coin_cost": 100,
+    "min_forge_level": 1,
+    "slots": [
+      {
+        "name": "主材",
+        "weight_bps": 10000
+      },
+      {
+        "name": "辅材",
+        "weight_bps": 7000
+      },
+      {
+        "name": "灵引",
+        "weight_bps": 5000
+      }
+    ],
+    "materials": {
+      "ore": {
+        "element": "metal",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "attack_milli": 500,
+          "armor_milli": 200
+        }
+      },
+      "copper": {
+        "element": "metal",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "pierce_milli": 300,
+          "metal_resist_bps": 100
+        }
+      },
+      "red_ore": {
+        "element": "fire",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "fire_damage_bps": 150,
+          "fire_resist_bps": 100
+        }
+      },
+      "spirit_ore": {
+        "element": "wood",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "spirit_milli": 1000,
+          "wood_resist_bps": 100
+        }
+      },
+      "star_ore": {
+        "element": "yin",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "crit_bps": 100,
+          "yin_resist_bps": 100
+        }
+      },
+      "purple_copper": {
+        "element": "metal",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "metal_damage_bps": 150,
+          "armor_milli": 250
+        }
+      },
+      "black_gold": {
+        "element": "metal",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "attack_milli": 750,
+          "block_bps": 100
+        }
+      },
+      "fire_pattern_stone": {
+        "element": "fire",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "fire_damage_bps": 200,
+          "fire_resist_bps": 150
+        }
+      },
+      "beast_bone": {
+        "element": "earth",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "attack_milli": 600,
+          "max_hp_milli": 2500
+        }
+      },
+      "beast_sinew": {
+        "element": "wood",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "speed_bps": 100,
+          "evasion_bps": 100
+        }
+      },
+      "beast_core": {
+        "element": "yin",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "spirit_milli": 1500,
+          "yin_resist_bps": 150
+        }
+      },
+      "spirit_beast_blood": {
+        "element": "wood",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "max_hp_milli": 4000,
+          "heal_bonus_bps": 150
+        }
+      },
+      "water_spirit_stone": {
+        "element": "water",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "water_damage_bps": 200,
+          "water_resist_bps": 150
+        }
+      },
+      "wood_spirit_stone": {
+        "element": "wood",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "wood_damage_bps": 200,
+          "wood_resist_bps": 150
+        }
+      },
+      "green_spirit_stone": {
+        "element": "wood",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "accuracy_bps": 150,
+          "heal_bonus_bps": 150
+        }
+      },
+      "condensed_spirit_crystal": {
+        "element": "water",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "spirit_milli": 1500,
+          "shield_bonus_bps": 150
+        }
+      },
+      "spirit_iron_ore": {
+        "element": "metal",
+        "source": "宗门采矿与副本共通掉落",
+        "description": "矿性与灵性凝入装备；具体来源沿用现有采集和掉落规则。",
+        "quantity": 5,
+        "stats": {
+          "pierce_milli": 500,
+          "metal_resist_bps": 150
+        }
+      },
+      "thorn_spine": {
+        "element": "earth",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；荆棘硬刺",
+        "quantity": 5,
+        "stats": {
+          "pierce_milli": 400,
+          "reflect_bps": 150
+        }
+      },
+      "thorn_moss_fur": {
+        "element": "wood",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；青苔绒毛",
+        "quantity": 5,
+        "stats": {
+          "max_hp_milli": 3000,
+          "poison_resist_bps": 150
+        }
+      },
+      "thorn_feather": {
+        "element": "wood",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；灰羽",
+        "quantity": 5,
+        "stats": {
+          "accuracy_bps": 150,
+          "evasion_bps": 100
+        }
+      },
+      "thorn_scale": {
+        "element": "earth",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；石蜥硬鳞",
+        "quantity": 5,
+        "stats": {
+          "armor_milli": 500,
+          "earth_resist_bps": 150
+        }
+      },
+      "thorn_fox_fur": {
+        "element": "fire",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；赤狐尾绒",
+        "quantity": 5,
+        "stats": {
+          "crit_bps": 150,
+          "fire_resist_bps": 100
+        }
+      },
+      "thorn_boar_bone": {
+        "element": "earth",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；青牙兽骨",
+        "quantity": 5,
+        "stats": {
+          "attack_milli": 750,
+          "max_hp_milli": 2500
+        }
+      },
+      "thorn_sickle": {
+        "element": "wood",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；枯枝镰片",
+        "quantity": 5,
+        "stats": {
+          "attack_milli": 500,
+          "accuracy_bps": 150
+        }
+      },
+      "thorn_centipede_shell": {
+        "element": "poison",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；毒须节甲",
+        "quantity": 5,
+        "stats": {
+          "poison_damage_bps": 150,
+          "poison_resist_bps": 200
+        }
+      },
+      "thorn_vine_core": {
+        "element": "wood",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；古藤芯",
+        "quantity": 5,
+        "stats": {
+          "heal_bonus_bps": 200,
+          "max_hp_milli": 3000
+        }
+      },
+      "thorn_earth_core": {
+        "element": "earth",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；凝土灵核",
+        "quantity": 5,
+        "stats": {
+          "armor_milli": 600,
+          "earth_resist_bps": 200
+        }
+      },
+      "thorn_king_tusk": {
+        "element": "earth",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；山魈王獠牙",
+        "quantity": 5,
+        "stats": {
+          "crit_bps": 200,
+          "pierce_milli": 800
+        }
+      },
+      "thorn_king_core": {
+        "element": "wood",
+        "source": "荆棘古道",
+        "description": "木土毒与野兽特性；荆王妖核",
+        "quantity": 5,
+        "stats": {
+          "reflect_bps": 250,
+          "max_hp_milli": 6000
+        }
+      },
+      "red_copper_mine_material_01": {
+        "element": "metal",
+        "source": "赤铜废矿",
+        "description": "赤铜矿晶的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "pierce_milli": 800,
+          "metal_resist_bps": 200
+        }
+      },
+      "red_copper_mine_material_02": {
+        "element": "earth",
+        "source": "赤铜废矿",
+        "description": "铁甲碎片的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "armor_milli": 800,
+          "block_bps": 200
+        }
+      },
+      "red_copper_mine_material_03": {
+        "element": "poison",
+        "source": "赤铜废矿",
+        "description": "赤砂毒尾的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "poison_damage_bps": 250,
+          "poison_resist_bps": 250
+        }
+      },
+      "red_copper_mine_material_04": {
+        "element": "metal",
+        "source": "赤铜废矿",
+        "description": "磁石核心的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "accuracy_bps": 250,
+          "metal_resist_bps": 200
+        }
+      },
+      "red_copper_mine_material_05": {
+        "element": "yin",
+        "source": "赤铜废矿",
+        "description": "灰蝠翼膜的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "evasion_bps": 200,
+          "yin_resist_bps": 200
+        }
+      },
+      "red_copper_mine_material_06": {
+        "element": "metal",
+        "source": "赤铜废矿",
+        "description": "铜锈机关片的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "reflect_bps": 250,
+          "armor_milli": 500
+        }
+      },
+      "red_copper_mine_material_07": {
+        "element": "yin",
+        "source": "赤铜废矿",
+        "description": "幽矿残晶的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "spirit_milli": 2000,
+          "yin_resist_bps": 250
+        }
+      },
+      "red_copper_mine_material_08": {
+        "element": "metal",
+        "source": "赤铜废矿",
+        "description": "断镐铁片的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "attack_milli": 1200,
+          "pierce_milli": 500
+        }
+      },
+      "red_copper_mine_material_09": {
+        "element": "fire",
+        "source": "赤铜废矿",
+        "description": "硫火粉尘的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "fire_damage_bps": 250,
+          "poison_resist_bps": 200
+        }
+      },
+      "red_copper_mine_material_10": {
+        "element": "metal",
+        "source": "赤铜废矿",
+        "description": "乌金蛇鳞的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "block_bps": 250,
+          "armor_milli": 700
+        }
+      },
+      "red_copper_mine_material_11": {
+        "element": "earth",
+        "source": "赤铜废矿",
+        "description": "镇矿傀心的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "max_hp_milli": 10000,
+          "block_bps": 300
+        }
+      },
+      "red_copper_mine_material_12": {
+        "element": "metal",
+        "source": "赤铜废矿",
+        "description": "赤铜灵髓的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "metal_damage_bps": 350,
+          "pierce_milli": 1200
+        }
+      },
+      "mist_marsh_material_01": {
+        "element": "water",
+        "source": "雾隐灵泽",
+        "description": "雾鳞软皮的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "evasion_bps": 250,
+          "water_resist_bps": 250
+        }
+      },
+      "mist_marsh_material_02": {
+        "element": "poison",
+        "source": "雾隐灵泽",
+        "description": "苇妖毒囊的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "poison_damage_bps": 300,
+          "poison_resist_bps": 300
+        }
+      },
+      "mist_marsh_material_03": {
+        "element": "water",
+        "source": "雾隐灵泽",
+        "description": "浮萍灵珠的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "heal_bonus_bps": 300,
+          "max_hp_milli": 6000
+        }
+      },
+      "mist_marsh_material_04": {
+        "element": "water",
+        "source": "雾隐灵泽",
+        "description": "青须虾甲的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "accuracy_bps": 250,
+          "armor_milli": 800
+        }
+      },
+      "mist_marsh_material_05": {
+        "element": "earth",
+        "source": "雾隐灵泽",
+        "description": "腐木鳄皮的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "max_hp_milli": 8000,
+          "armor_milli": 1000
+        }
+      },
+      "mist_marsh_material_06": {
+        "element": "poison",
+        "source": "雾隐灵泽",
+        "description": "紫瘴晶粉的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "poison_damage_bps": 350,
+          "poison_resist_bps": 300
+        }
+      },
+      "mist_marsh_material_07": {
+        "element": "water",
+        "source": "雾隐灵泽",
+        "description": "水纹蟹壳的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "block_bps": 300,
+          "water_resist_bps": 300
+        }
+      },
+      "mist_marsh_material_08": {
+        "element": "water",
+        "source": "雾隐灵泽",
+        "description": "芦羽灵翎的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "speed_bps": 200,
+          "evasion_bps": 250
+        }
+      },
+      "mist_marsh_material_09": {
+        "element": "yin",
+        "source": "雾隐灵泽",
+        "description": "溺魂纸灰的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "yin_damage_bps": 300,
+          "yin_resist_bps": 300
+        }
+      },
+      "mist_marsh_material_10": {
+        "element": "water",
+        "source": "雾隐灵泽",
+        "description": "荧藻鱼珠的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "spirit_milli": 3000,
+          "heal_bonus_bps": 300
+        }
+      },
+      "mist_marsh_material_11": {
+        "element": "poison",
+        "source": "雾隐灵泽",
+        "description": "碧瘴蛟鳞的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "dot_reduction_bps": 400,
+          "poison_resist_bps": 400
+        }
+      },
+      "mist_marsh_material_12": {
+        "element": "water",
+        "source": "雾隐灵泽",
+        "description": "泽蛟灵珠的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "water_damage_bps": 400,
+          "max_hp_milli": 12000
+        }
+      },
+      "cold_jade_cave_material_01": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "霜鼠寒须的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "accuracy_bps": 300,
+          "ice_resist_bps": 300
+        }
+      },
+      "cold_jade_cave_material_02": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "寒玉蛛丝的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "chill_bonus_bps": 300,
+          "shield_bonus_bps": 300
+        }
+      },
+      "cold_jade_cave_material_03": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "雪狼冰鬃的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "attack_milli": 1800,
+          "ice_resist_bps": 300
+        }
+      },
+      "cold_jade_cave_material_04": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "冰壳蟹甲的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "block_bps": 350,
+          "armor_milli": 1400
+        }
+      },
+      "cold_jade_cave_material_05": {
+        "element": "wood",
+        "source": "寒玉冰窟",
+        "description": "冻苔灵芯的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "heal_bonus_bps": 350,
+          "max_hp_milli": 9000
+        }
+      },
+      "cold_jade_cave_material_06": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "蓝晶蝠翼的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "evasion_bps": 300,
+          "ice_resist_bps": 300
+        }
+      },
+      "cold_jade_cave_material_07": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "霜鸮寒羽的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "speed_bps": 250,
+          "evasion_bps": 300
+        }
+      },
+      "cold_jade_cave_material_08": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "雪蟒冰鳞的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "armor_milli": 1500,
+          "ice_resist_bps": 350
+        }
+      },
+      "cold_jade_cave_material_09": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "寒焰幽晶的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "ice_damage_bps": 350,
+          "yin_resist_bps": 300
+        }
+      },
+      "cold_jade_cave_material_10": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "冰甲残片的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "armor_milli": 1800,
+          "block_bps": 300
+        }
+      },
+      "cold_jade_cave_material_11": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "寒玉螭鳞的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "shield_bonus_bps": 500,
+          "ice_resist_bps": 450
+        }
+      },
+      "cold_jade_cave_material_12": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "玄冰龙髓的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "ice_damage_bps": 500,
+          "crit_bps": 350
+        }
+      },
+      "fire_elixir_ruins_material_01": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "炉灰结晶的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "fire_resist_bps": 350,
+          "armor_milli": 1600
+        }
+      },
+      "fire_elixir_ruins_material_02": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "赤焰蛾粉的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "burn_bonus_bps": 400,
+          "fire_resist_bps": 350
+        }
+      },
+      "fire_elixir_ruins_material_03": {
+        "element": "wood",
+        "source": "离火丹墟",
+        "description": "焦木灵芯的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "max_hp_milli": 12000,
+          "heal_bonus_bps": 400
+        }
+      },
+      "fire_elixir_ruins_material_04": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "火纹蟾石的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "fire_damage_bps": 400,
+          "fire_resist_bps": 400
+        }
+      },
+      "fire_elixir_ruins_material_05": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "朱砂丹砂的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "crit_bps": 300,
+          "spirit_milli": 4000
+        }
+      },
+      "fire_elixir_ruins_material_06": {
+        "element": "metal",
+        "source": "离火丹墟",
+        "description": "铜炉机关片的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "block_bps": 400,
+          "armor_milli": 2000
+        }
+      },
+      "fire_elixir_ruins_material_07": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "炽鳞火皮的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "fire_resist_bps": 450,
+          "max_hp_milli": 14000
+        }
+      },
+      "fire_elixir_ruins_material_08": {
+        "element": "yin",
+        "source": "离火丹墟",
+        "description": "烟骨符灰的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "yin_damage_bps": 400,
+          "dot_reduction_bps": 350
+        }
+      },
+      "fire_elixir_ruins_material_09": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "熔芯蛇胆的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "burn_apply_bps": 350,
+          "poison_resist_bps": 400
+        }
+      },
+      "fire_elixir_ruins_material_10": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "烬灯火芯的副本特性凝入装备。",
+        "quantity": 5,
+        "stats": {
+          "burn_bonus_bps": 450,
+          "fire_resist_bps": 400
+        }
+      },
+      "fire_elixir_ruins_material_11": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "离火魔丹的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "fire_damage_bps": 600,
+          "burn_bonus_bps": 500
+        }
+      },
+      "fire_elixir_ruins_material_12": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "丹墟炉心的副本特性凝入装备。",
+        "quantity": 1,
+        "stats": {
+          "shield_bonus_bps": 600,
+          "fire_resist_bps": 600
+        }
+      },
+      "gem": {
+        "element": "water",
+        "source": "宗门与现有副本灵晶来源",
+        "description": "矿性与灵性凝入装备，沿用现有获取途径。",
+        "quantity": 5,
+        "stats": {
+          "spirit_milli": 1000,
+          "shield_bonus_bps": 150
+        }
+      },
+      "sect_product_04": {
+        "element": "ice",
+        "source": "宗门养殖",
+        "description": "矿性与灵性凝入装备，沿用现有获取途径。",
+        "quantity": 5,
+        "stats": {
+          "armor_milli": 600,
+          "ice_resist_bps": 200
+        }
+      },
+      "cold_jade_ore": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "矿性与灵性凝入装备，沿用现有获取途径。",
+        "quantity": 5,
+        "stats": {
+          "ice_damage_bps": 250,
+          "ice_resist_bps": 250
+        }
+      },
+      "ice_crystal_ore": {
+        "element": "ice",
+        "source": "寒玉冰窟",
+        "description": "矿性与灵性凝入装备，沿用现有获取途径。",
+        "quantity": 5,
+        "stats": {
+          "chill_bonus_bps": 350,
+          "ice_resist_bps": 300
+        }
+      },
+      "flame_crystal_ore": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "矿性与灵性凝入装备，沿用现有获取途径。",
+        "quantity": 5,
+        "stats": {
+          "fire_damage_bps": 350,
+          "fire_resist_bps": 300
+        }
+      },
+      "dark_flame_ore": {
+        "element": "yin",
+        "source": "离火丹墟",
+        "description": "矿性与灵性凝入装备，沿用现有获取途径。",
+        "quantity": 5,
+        "stats": {
+          "yin_damage_bps": 350,
+          "fire_resist_bps": 250
+        }
+      },
+      "li_fire_crystal": {
+        "element": "fire",
+        "source": "离火丹墟",
+        "description": "矿性与灵性凝入装备，沿用现有获取途径。",
+        "quantity": 5,
+        "stats": {
+          "burn_bonus_bps": 350,
+          "fire_resist_bps": 350
+        }
+      }
     }
   }
 }

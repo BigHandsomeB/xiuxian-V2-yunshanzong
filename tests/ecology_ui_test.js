@@ -32,16 +32,25 @@ async function testEcologyUI(sources, fixture, realFetcher=null) {
  for(const width of [320,390,430])for(const theme of ['LIGHT','DARK']){
   win.innerWidth=width;ctx.theme={mode:theme,set(){}};
   ctx.ui.ecologyTabs={};
-  let node=screen.renderGarden(ctx);check(all(node).some(n=>n.className==='recipe-grid'),width+'/'+theme+' garden shared grid');
-  check(all(node).filter(n=>n.dataset.recipeId?.startsWith('grow_sect_crop_')).length===17,'all seventeen new crops');
+  let node=screen.renderGarden(ctx);check(all(node).some(n=>n.className==='garden-grid'),width+'/'+theme+' garden five-column plot grid');
+  check(all(node).filter(n=>n.dataset.plotState).length===data.view.ecology.gardens[0].capacity,'only authoritative available plots');
   const icons=all(node).filter(n=>n.classList?.contains('item-icon'));patch.patchPanel(node,screen.renderGarden(ctx));check(icons.every(n=>all(node).includes(n)),'garden icons retained during world update');
-  ctx.ui.ecologyTabs.pasture='purchase';node=screen.renderHusbandry(ctx,'pasture');
-  check(all(node).filter(n=>n.dataset.id?.startsWith('species-pasture')).length===12,'all twelve beasts');
-  all(node).find(n=>n.dataset.id==='species-pasture_species_02').emit('click');
-  check(shown.title==='金羽灵鸡','purchase detail names exact species');clickText(shown.content,'购入幼体');confirm();
-  check(commands.at(-1).name==='ecology_buy'&&commands.at(-1).payload.species_id==='pasture_species_02'&&commands.at(-1).payload.count===1,'purchase emits exact transaction intent');
-  ctx.ui.ecologyTabs.spring='purchase';node=screen.renderHusbandry(ctx,'spring');check(all(node).filter(n=>n.dataset.id?.startsWith('species-spring')).length===12,'all twelve aquatics');
-  ctx.ui.ecologyTabs.pasture='stock';node=screen.renderHusbandry(ctx,'pasture');const owned=all(node).find(n=>n.dataset.id?.startsWith('batch-'));check(!!owned,'real owned batch');owned.emit('click');
+  node=screen.renderHusbandry(ctx,'pasture');const pens=data.view.ecology.habitats.find(h=>h.kind==='pasture'),emptyPen=pens.cells.find(c=>!c.batch_id).index;
+  check(all(node).filter(n=>n.dataset.habitatIndex!==undefined).length===pens.capacity,'real enclosure cell count');
+  check(all(node).some(n=>n.dataset.assetId===data.presentation.system_icons.habitat_enclosure.asset_id),'immortal stone enclosure artwork');
+  const penIcons=all(node).filter(n=>n.classList?.contains('item-icon'));patch.patchPanel(node,screen.renderHusbandry(ctx,'pasture'));check(penIcons.every(n=>all(node).includes(n)),'enclosure sprites retained');
+  all(node).find(n=>n.dataset.habitatIndex===String(emptyPen)).emit('click');
+  check(all(shown.content).filter(n=>n.dataset.id?.startsWith('habitat-species-pasture')).length===12,'twelve beasts in cell picker');
+  all(shown.content).find(n=>n.dataset.id==='habitat-species-pasture_species_02').emit('click');
+  check(shown.title==='安置金羽灵鸡','exact chosen species');clickText(shown.content,'购入并安置');
+  check(commands.at(-1).name==='habitat_stock'&&commands.at(-1).payload.slot_index===emptyPen&&commands.at(-1).payload.species_id==='pasture_species_02','stock targets exact empty pen');
+  node=screen.renderHusbandry(ctx,'spring');const pools=data.view.ecology.habitats.find(h=>h.kind==='spring');
+  check(all(node).filter(n=>n.dataset.habitatIndex!==undefined).length===pools.capacity,'real spirit pool cell count');
+  check(all(node).some(n=>n.dataset.assetId===data.presentation.system_icons.habitat_pool.asset_id),'spirit pool artwork differs from pen');
+  all(node).find(n=>n.dataset.habitatIndex==='0').emit('click');check(all(shown.content).filter(n=>n.dataset.id?.startsWith('habitat-species-spring')).length===12,'twelve aquatic choices');
+  node=screen.renderHusbandry(ctx,'pasture');const occupied=pens.cells.find(c=>c.batch_id&&c.primary).index;
+  all(node).find(n=>n.dataset.habitatIndex===String(occupied)).emit('click');
+  clickText(shown.content,'开启自动续养');check(commands.at(-1).name==='habitat_repeat'&&commands.at(-1).payload.enabled,'repeat command targets actual stock');
   clickText(shown.content,'采集产物');check(commands.at(-1).name==='ecology_collect'&&commands.at(-1).payload.mode==='periodic','periodic action exact batch');
   clickText(shown.content,'屠宰收获');confirm();check(commands.at(-1).payload.mode==='harvest','destructive harvest requires confirmation');
   ctx.ui.ecologyTabs.meals='basic';node=screen.renderMeals(ctx);check(all(node).filter(n=>n.dataset.recipeId?.startsWith('meal_')||n.dataset.recipeId?.startsWith('supplement_recipe_')).length===19,'six original base recipes plus thirteen shanhai variants');
@@ -59,7 +68,23 @@ async function testEcologyUI(sources, fixture, realFetcher=null) {
   }
   check(!all(node).some(n=>n.textContent.includes('干粮')),'new UI contains no dry-food concepts');
  }
- const allowed=data.view.ecology.available;data.view.ecology.available=false;ctx.ui.ecologyTabs.pasture='purchase';let pausedPage=screen.renderHusbandry(ctx,'pasture');all(pausedPage).find(n=>n.dataset.id==='species-pasture_species_02').emit('click');check(all(shown.content).filter(n=>n.tagName==='BUTTON').every(n=>n.disabled),'paused purchase controls disabled');data.view.ecology.available=allowed;
+ const gardenData=data.view.ecology.gardens[0],originalPlots=clone(gardenData.plots),bid=gardenData.building_id;
+ let gardenNode=screen.renderGarden(ctx),tile=all(gardenNode).find(n=>n.dataset.plotState==='UNCULTIVATED');tile.emit('click');clickText(shown.content,'开垦此田');check(commands.at(-1).name==='garden_reclaim'&&commands.at(-1).payload.plot_index===0,'reclaim targets exact plot');
+ gardenData.plots[0]={index:0,state:'EMPTY'};gardenNode=screen.renderGarden(ctx);tile=all(gardenNode).find(n=>n.dataset.plotState==='EMPTY');tile.emit('click');
+ check(shown.title==='选择灵植','plus opens plant picker');check(all(shown.content).filter(n=>n.dataset.recipeId?.startsWith('grow_sect_crop_')).length===17,'all seventeen crop choices retained');
+ const herbChoice=all(shown.content).find(n=>n.dataset.recipeId==='herb');check(!!herbChoice,'original herb remains available');herbChoice.emit('click');check(all(shown.content).some(n=>n.textContent==='1 人'),'one worker per plot');
+ const herb=gardenData.choices.find(r=>r.recipe_id==='herb'),originalHerb=clone(herb);herb.can_plant=true;herb.blocking_reasons=[];
+ tile.emit('click');all(shown.content).find(n=>n.dataset.recipeId==='herb').emit('click');clickText(shown.content,'种植');
+ check(commands.at(-1).name==='garden_plant'&&commands.at(-1).payload.building_id===bid&&commands.at(-1).payload.plot_index===0&&commands.at(-1).payload.recipe_id==='herb'&&commands.at(-1).payload.repeat===true,'picker emits exact plot/recipe intent through command path');
+ gardenData.plots[0]={index:0,state:'GROWING',recipe_id:'herb',resource_id:'herb',name:'灵草',progress_percent:30,remaining_seconds:20};
+ gardenNode=screen.renderGarden(ctx);const planted=all(gardenNode).find(n=>n.dataset.plotState==='GROWING');check(all(planted).some(n=>n.classList?.contains('garden-plant')),'plant appears on occupied plot');check(!all(planted).some(n=>n.className==='garden-plus'),'planted plot has no plus');
+ planted.emit('click');clickText(shown.content,'开启重复种植');check(commands.at(-1).name==='garden_repeat'&&commands.at(-1).payload.enabled,'plot repeat switch emits exact command');
+ const retained=all(planted).find(n=>n.classList?.contains('garden-plant'));gardenData.plots[0].progress_percent=40;patch.patchPanel(gardenNode,screen.renderGarden(ctx));check(all(gardenNode).includes(retained),'growing sprite persists through progress refresh');
+ ctx.busy=true;gardenData.plots[0]={index:0,state:'UNCULTIVATED'};gardenNode=screen.renderGarden(ctx);all(gardenNode).find(n=>n.dataset.plotState==='UNCULTIVATED').emit('click');check(all(shown.content).find(n=>n.textContent==='开垦此田').disabled,'busy reclaim disabled');ctx.busy=false;
+ const commandCount=commands.length;all(gardenNode).find(n=>n.dataset.id?.startsWith('garden-locked-')).emit('click');check(all(shown.content).some(n=>n.href==='#building/construction'),'locked plot links to upgrade');check(commands.length===commandCount,'locked tile never grants a plot');
+ gardenData.plots=originalPlots;Object.assign(herb,originalHerb);
+ const allowed=data.view.ecology.available;data.view.ecology.available=false;let pausedPage=screen.renderHusbandry(ctx,'pasture');const pen=data.view.ecology.habitats.find(h=>h.kind==='pasture'),emptyIndex=pen.cells.find(c=>!c.batch_id).index;all(pausedPage).find(n=>n.dataset.habitatIndex===String(emptyIndex)).emit('click');all(shown.content).find(n=>n.dataset.id==='habitat-species-pasture_species_02').emit('click');check(all(shown.content).find(n=>n.textContent==='购入并安置').disabled,'paused placement disabled');data.view.ecology.available=allowed;
+ const savedHabitats=data.view.ecology.habitats;data.view.ecology.habitats=savedHabitats.filter(h=>h.kind!=='pasture');const preview=screen.renderHusbandry(ctx,'pasture');check(all(preview).filter(n=>n.classList?.contains('habitat-preview')).length===5,'unbuilt building still shows locked visual cells');check(!all(preview).some(n=>n.dataset.habitatIndex!==undefined),'preview grants no capacity');data.view.ecology.habitats=savedHabitats;
  const hall=load(base+'screens/sect-management.js'),originalPreparation=clone(data.view.preparation);
  const savedCommands=commands.length,savedFetches=fetches.length;
  for(const width of [320,390,430])for(const theme of ['LIGHT','DARK']){
@@ -95,6 +120,6 @@ async function testEcologyUI(sources, fixture, realFetcher=null) {
  check(!all(hall.renderHallServices(ctx)).some(n=>n.dataset.id==='current-preparation'),'old responses omit card safely');
  data.view.preparation=originalPreparation;
  check(commands.length===savedCommands&&fetches.length===savedFetches,'preparation rendering and links emit zero commands or requests');
- const css=sources[base+'game.css'];check(/\.recipe-grid\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/.test(css),'shared grid has exactly two columns');check(!/\.ecology[^}]*grid-template-columns:repeat\([134]/.test(css),'no ecology override introduces another card count');
+ const css=sources[base+'game.css'];check(/\.recipe-grid\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/.test(css),'shared grid has exactly two columns');check(/\.garden-grid\{[^}]*grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/.test(css),'garden has exactly five columns');check(/aspect-ratio:1/.test(css),'plots remain square');
  return {checks,context:'native DOM at 320/390/430 with light/dark contexts; no device painting claim'};
 }

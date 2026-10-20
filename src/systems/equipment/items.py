@@ -33,7 +33,7 @@ def validate(p,registry,save_id):
         if type(a['instance_id']) is not str or type(a['provenance']) is not str or not isinstance(a['amounts'],Mapping):raise ValidationError('invalid audit identity')
         for k,n in a['amounts'].items():registry.lookup(DefinitionKey('resources',k));integer(n,'audit quantity',1)
     for identity,row in p['instances'].items():
-        if type(identity) is not str or not isinstance(row,Mapping) or not FIELDS<=set(row) or bool(set(row)-FIELDS-{'roll_version','enhancement'}):raise ValidationError('invalid equipment instance')
+        if type(identity) is not str or not isinstance(row,Mapping) or not FIELDS<=set(row) or bool(set(row)-FIELDS-{'roll_version','enhancement','refinement'}):raise ValidationError('invalid equipment instance')
         d=definition(registry,row['definition_id'])
         if not isinstance(row['stats'],Mapping) or not row['stats']:raise ValidationError('actual equipment stats required')
         for k,n in row['stats'].items():
@@ -52,6 +52,9 @@ def validate(p,registry,save_id):
             if not cfg or not isinstance(e,Mapping) or set(e)!={'level','bonus_bps','version'}:raise ValidationError('invalid enhancement metadata')
             integer(e['level'],'enhancement level',1)
             if e['level']>cfg['enhancement_max_level'] or type(e['bonus_bps']) is not int or e['bonus_bps']!=e['level']*cfg['enhancement_bonus_bps_per_level'] or e['version']!='sect-enhance-v1' or unknown(row,registry):raise ValidationError('invalid enhancement level or base stats')
+        if 'refinement' in row:
+            from .refinement import validate as validate_refinement
+            validate_refinement(row['refinement'],registry)
         if row['equipped'] and p['slots'].get(d.slot)!=identity:raise ValidationError('equip slot/owner mismatch')
     for slot,identity in p['slots'].items():
         row=p['instances'].get(identity)
@@ -131,6 +134,8 @@ def effective_stats(row):
     for affix in row.get('affixes',[]):
         if affix.get('version')==COMBAT_AFFIX_VERSION:
             key=affix['stat'];stats[key]=stats.get(key,0)+affix['value']
+    for key,value in row.get('refinement',{}).get('stats',{}).items():
+        stats[key]=stats.get(key,0)+value
     return stats
 
 def projection(p,base):
@@ -143,7 +148,7 @@ def projection(p,base):
     return freeze_json(stats)
 def evaluate(p,registry,identity,rules):
     row=get(p,identity);d=definition(registry,row['definition_id'])
-    if protected(row) or row.get('enhancement',{}).get('level',0):return 'KEEP'
+    if protected(row) or row.get('enhancement',{}).get('level',0) or row.get('refinement'):return 'KEEP'
     if unknown(row,registry):return 'REVIEW'
     if rules['mode']=='OFF':return 'KEEP'
     current=p['instances'].get(p['slots'].get(d.slot),{'stats':{}})

@@ -1,3 +1,4 @@
+import {renderAttributeTrials} from '../components/attribute-trials.js';
 import {renderTechniqueSlots} from '../components/technique-slots.js';
 import {render as renderInventory} from './inventory.js';
 import {portraitIcon} from '../components/item-icon.js';
@@ -9,6 +10,7 @@ export function render(ctx={}){
  const v=ctx.data?.view.cultivation,node=el('section','cultivation-screen');
  if(!v){node.append(heading('问道修炼','山中静坐，待大道初开。'));const seal=el('div','cultivation-seal');seal.append(el('span','','道'),el('p','','修炼系统尚未开放'));node.append(seal);for(const name of ['境界与修为','突破','功法','修炼丹药','闭关']){const row=el('div','locked-module');row.append(el('strong','',name),status('尚未开放'));node.append(row);}return node;}
  if(!ctx.embedded)node.append(heading('问道修炼','击杀积修为，服丹助修行。'));
+ if(!ctx.embedded&&v.attribute_trials)node.append(renderAttributeTrials(ctx));
  const portrait=el('div','growth-identity');portrait.append(portraitIcon(ctx),el('strong','',v.player.name),status(v.level?`${v.realm_name} · 第 ${v.level} 级`:v.realm_name));node.append(portrait);
  const progress=el('div','growth-progress'),meter=el('progress');meter.id='cultivation-progress';meter.max=v.threshold||1;meter.value=v.threshold?v.progress:1;meter.setAttribute('aria-label','修为');meter.setAttribute('aria-valuenow',String(v.progress));meter.setAttribute('aria-valuemax',String(v.threshold));progress.append(systemIcon(ctx,'cultivation'),el('h2','',v.foundation?'筑基修为':'修为'),el('p','growth-amount',v.status==='MAX_FOR_PHASE'&&!v.level?'当前阶段已达到可开放的最高境界':`${compact(v.progress)} / ${compact(v.threshold)}`),meter);node.append(progress);
  if(v.stage?.name){const box=el('section','panel');box.append(el('h2','',`${v.realm_name} · ${v.stage.name}`),el('p','',`基础生命、攻击加成 ${v.stage.bonus_bps/100}%`),el('p','',v.stage.remaining?`下一档需修为 ${v.stage.next_progress}，还需 ${v.stage.remaining}`:v.foundation?'筑基修为已满，本批暂无下一境界':'修为已满，可按突破需求破境'));node.append(box);}

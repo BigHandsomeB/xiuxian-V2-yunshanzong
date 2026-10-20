@@ -9,6 +9,7 @@ from src.core.state.envelope import freeze_json,thaw_json
 from src.core.validation import ValidationError,ConflictError,NotFoundError,integer,text
 from src.data.registry import DefinitionKey
 from src.data.disciples.work import WorkGroupDefinition,initial_sources
+from . import recipe_allocations
 
 
 def group_definition(registry,key):
@@ -26,17 +27,12 @@ def initial(registry,save_id,generation,counter):
 
 
 def allocations(partition,group_id):
-    """Per-target max(configured,committed), never duplicate shared workers."""
-    claims=dict(partition['assignments'].get(group_id,{}));held={}
-    for c in partition['commitments'].values():
-        n=c['workers'].get(group_id,0);target=c['building_id']
-        held[target]=held.get(target,0)+n
-    for target,n in held.items():claims[target]=max(claims.get(target,0),n)
-    return claims
+    """Per-recipe held labor plus future assignments; no worker is reused early."""
+    return recipe_allocations.claims(partition,group_id)
 
 
 def validate(partition,registry):
-    if not isinstance(partition,Mapping) or set(partition)!={'groups','assignments','commitments'}:
+    if not isinstance(partition,Mapping) or not {'groups','assignments','commitments'}<=set(partition) or set(partition)-{'groups','assignments','commitments','recipe_assignments'}:
         raise ValidationError('work requires groups/assignments/commitments')
     if any(not isinstance(partition[k],Mapping) for k in partition):raise ValidationError('work partitions must be objects')
     for group,row in partition['groups'].items():
@@ -54,10 +50,12 @@ def validate(partition,registry):
         for target,n in targets.items():
             if type(target) is not str:raise ValidationError('assignment building reference required')
             integer(n,'assigned count',1)
+    recipe_allocations.validate(partition,registry)
     for job,c in partition['commitments'].items():
-        if type(job) is not str or not isinstance(c,Mapping) or set(c)!={'building_id','workers'} or type(c['building_id']) is not str:
+        if type(job) is not str or not isinstance(c,Mapping) or not {'building_id','workers'}<=set(c) or set(c)-{'building_id','workers','recipe_id'} or type(c['building_id']) is not str:
             raise ValidationError('invalid work commitment')
         workers(c['workers'])
+        if 'recipe_id' in c:registry.lookup(DefinitionKey('production',c['recipe_id']))
     for group,row in partition['groups'].items():
         if sum(allocations(partition,group).values())>row['count']:raise ConflictError('worker already allocated or held')
     return partition
@@ -80,6 +78,7 @@ def unassign(partition,registry,group_id,building_id):
     if building_id not in partition['assignments'].get(group_id,{}):raise NotFoundError('assignment not found')
     result=thaw_json(partition);del result['assignments'][group_id][building_id]
     if not result['assignments'][group_id]:del result['assignments'][group_id]
+    recipe_allocations.remove_group(result,group_id,building_id)
     # Existing job commitments remain authoritative until explicit settlement.
     validate(result,registry);return freeze_json(result)
 
@@ -93,7 +92,7 @@ def assign_shared(partition,registry,building_id,count):
         take=min(free,remaining)
         if take:
             targets=result['assignments'].setdefault(group,{})
-            targets[building_id]=allocations(partition,group).get(building_id,0)+take
+            targets[building_id]=(targets.get(building_id,0) if recipe_allocations.planned(partition,building_id) else allocations(partition,group).get(building_id,0))+take
             remaining-=take
         if not remaining:break
     if remaining:raise ConflictError('未分配弟子数量不足')
@@ -119,22 +118,31 @@ def reassign(partition,registry,group_id,from_building,to_building):
     if any(c['building_id']==from_building and c['workers'].get(group_id,0) for c in partition['commitments'].values()):
         raise ConflictError('committed worker cannot be reassigned yet')
     result=thaw_json(partition);n=result['assignments'][group_id].pop(from_building)
-    result['assignments'][group_id][to_building]=n;validate(result,registry);return freeze_json(result)
+    result['assignments'][group_id][to_building]=n;recipe_allocations.remove_group(result,group_id,from_building);validate(result,registry);return freeze_json(result)
 
 
-def capability(partition,registry,building_id):
-    validate(partition,registry)
+def recipe_workers(partition,registry,building_id,recipe_id=None):
     assigned={g:targets[building_id] for g,targets in partition['assignments'].items() if building_id in targets}
+    if recipe_id is None or not recipe_allocations.planned(partition,building_id):return assigned
+    d=registry.lookup(DefinitionKey('production',recipe_id))
+    if getattr(d,'facility_output_id',None):
+        return {g:n for g,count in assigned.items() if (n:=count-sum(rows.get(g,0) for rows in partition['recipe_assignments'][building_id].values()))>0}
+    return dict(recipe_allocations.workers(partition,building_id,recipe_id))
+
+def capability(partition,registry,building_id,recipe_id=None):
+    validate(partition,registry)
+    assigned=recipe_workers(partition,registry,building_id,recipe_id)
     count=sum(assigned.values())
     return freeze_json({'workers':count,'worker_power_milli':count*1000,'work_rate_milli':1000})
 
 
-def commit_job(partition,registry,job_id,building_id):
+def commit_job(partition,registry,job_id,building_id,recipe_id=None):
     validate(partition,registry)
     if job_id in partition['commitments'] or any(c['building_id']==building_id for c in partition['commitments'].values()):raise ConflictError('duplicate work commitment')
-    workers={g:targets[building_id] for g,targets in partition['assignments'].items() if building_id in targets}
+    workers=recipe_workers(partition,registry,building_id,recipe_id)
     if not workers:raise ValidationError('no assigned workforce')
     result=thaw_json(partition);result['commitments'][job_id]={'building_id':building_id,'workers':workers}
+    if recipe_id is not None and recipe_allocations.planned(partition,building_id) and not getattr(registry.lookup(DefinitionKey('production',recipe_id)),'facility_output_id',None):result['commitments'][job_id]['recipe_id']=recipe_id
     validate(result,registry);return freeze_json(result)
 
 

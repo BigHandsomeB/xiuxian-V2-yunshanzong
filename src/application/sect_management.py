@@ -15,6 +15,8 @@ from src.systems.sect import management,buildings,rules
 from src.systems.sect import market
 from src.systems.sect import commerce
 from src.application import commerce as commerce_app
+from src.application import recipe_staffing
+from src.application import refinement as refinement_app
 from src.application import market_restock
 from src.application import story as story_app
 from src.systems.sect import story
@@ -24,7 +26,7 @@ from src.systems.inventory import operations
 from src.systems.dungeons import progress
 from src.systems.equipment import items
 
-COMMANDS=('sect_recruit','sect_supply','sect_facility_build','material_sell','material_reserve','equipment_enhance','sect_stone_buy','market_buy',*commerce_app.COMMANDS,*market_restock.COMMANDS,*story_app.COMMANDS,'offline_report_ack')
+COMMANDS=('sect_recruit','sect_supply','sect_facility_build','material_sell','material_reserve','equipment_enhance','equipment_refine',recipe_staffing.COMMAND,'sect_stone_buy','market_buy',*commerce_app.COMMANDS,*market_restock.COMMANDS,*story_app.COMMANDS,'offline_report_ack')
 class ManagementApplication(DungeonApplication):
     def require_management_command(self,state,name):
         if name in ('market_bid','market_consign','market_auction_claim','market_consignment_claim'):require_running(state.time)
@@ -72,6 +74,10 @@ class ManagementApplication(DungeonApplication):
             state=self.prepare_economy_state(original);p=q.payload;cfg=management.config(self.registry);part=thaw_json(state.domains['sect_management']);details={'operation':q.name};candidate=state
             if q.name in market_restock.COMMANDS:
                 candidate=market_restock.configure(state,self.registry,q.name,p)
+            elif q.name==recipe_staffing.COMMAND:
+                candidate,details=recipe_staffing.transition(state,self.registry,p)
+            elif q.name=='equipment_refine':
+                candidate,details=refinement_app.transition(state,self.registry,p)
             elif q.name=='sect_recruit':
                 if set(p) not in ({'group_id','count'},{'count'}):raise ValidationError('请选择招募人数')
                 integer(p['count'],'招募人数',1);h=management.housing(state,self.registry)
@@ -207,6 +213,13 @@ class ManagementApplication(DungeonApplication):
             offers.append({'resource_id':rid,'name':self.registry.lookup(DefinitionKey('resources',rid)).display_name,'shop_level':market_settings(self.registry)['items'][rid]['level'],'boss_only':market_settings(self.registry)['items'][rid]['boss_only'],'remaining_stock':market.stock_remaining(state,self.registry,rid),'price':cost/1000,'price_milli':cost,'market_day':market_day,'variation_percent':price['variation_permille']/10,'quantity':state.domains['inventory']['holdings'].get(rid,0),'max_quantity':min(market_settings(self.registry)['max_purchase_quantity'],market.stock_remaining(state,self.registry,rid),state.domains['inventory']['holdings'].get('coins',0)*1000//cost,free) if running else 0})
         v['sect_services']['market']={'day':market_day,'display_day':market_day+1,'remaining_seconds':(state.time['day_length_ms']-now%state.time['day_length_ms']+999)//1000,'day_seconds':state.time['day_length_ms']//1000,'offers':offers}
         v['sect_services']['restock']=market_restock.view(state,self.registry)
+        v['recipe_staffing']=recipe_staffing.view(self,state)
+        v['refinement']=refinement_app.view(state,self.registry)
+        if v['refinement']:
+            for material in v['refinement']['materials']:
+                for section in ('inventory','holdings'):
+                    row=v.get(section,{}).get(material['resource_id'])
+                    if row is not None:row['use_label']=row.get('use_label','材料')+'；可在炼器阁精炼装备'
         v['story']=story.projection(state,self.registry)
         orders=commerce.orders(state,self.registry)
         for row in orders:

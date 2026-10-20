@@ -488,7 +488,10 @@
     "sect_reputation": "icon.material.a55d6fcde3f55",
     "sect_material_pack": "icon.material.ae702e2fbe9b0",
     "boss_choice_chest": "icon.material.a67d9e44263ba",
-    "dungeon_fire_elixir_ruins": "icon.dungeon.ae51e6c2611a5"
+    "dungeon_fire_elixir_ruins": "icon.dungeon.ae51e6c2611a5",
+    "garden_soil": "ui.state.garden_plot",
+    "habitat_enclosure": "ui.state.habitat_enclosure",
+    "habitat_pool": "ui.state.habitat_pool"
   },
   "combat_actions": {
     "player.combat.hero": {

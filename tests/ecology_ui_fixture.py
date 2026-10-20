@@ -16,6 +16,14 @@ def fixture():
         case.assign('pasture')
         case.buy()
         case.settle(240000)
+        def expand(state):
+            from dataclasses import replace
+            sect=thaw_json(state.domains['sect']);sect['buildings'][case.bid('pasture')]['level']=2
+            return replace(state,domains={**state.domains,'sect':sect})
+        case.fixture(expand)
+        case.command('work_unassign',{'building_id':case.bid('pasture')})
+        case.command('work_assign',{'building_id':case.bid('pasture'),'count':2})
+        case.assign('spring')
         view = thaw_json(case.view())
         presentation = present(view, GameRuntimeAssets(Path('assets')))
         return {'protocol_version': 1, 'view': view,

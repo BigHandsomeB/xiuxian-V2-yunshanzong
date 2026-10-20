@@ -78,7 +78,7 @@ def load_dungeons(*,legacy=False,balance_legacy=False,expansion_legacy=False,man
     r.register(DungeonDefinition('dungeons',ID,p['name'],tuple(DefinitionKey('encounters',k) for k in (*ids,*historical)),tuple(ids),tuple(tiers),tuple(historical)))
     if not (legacy or balance_legacy):
         from src.data.economy.sect_rules import register as register_sect_rules
-        register_sect_rules(r,management=management,ecology=ecology)
+        register_sect_rules(r,management=management,ecology=ecology,refinement=mechanics)
     if not (legacy or balance_legacy or expansion_legacy):
         from .expeditions import register as register_expeditions
         register_expeditions(r,DungeonDefinition,cold_jade=cold_jade,current=mechanics)

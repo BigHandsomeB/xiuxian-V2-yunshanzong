@@ -6,7 +6,7 @@
 
 手机竖屏 · 宗门经营 · 自动战斗 · 像素修仙
 
-**[下载 v0.4.0 · 网页／服务器版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.4.0)**
+**[下载 v0.5.0 · 网页／服务器版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.5.0)**
 
 [游戏预览](#游戏预览) · [世界概况](#世界概况) · [已实现功能](#已实现功能) · [本地运行](#本地运行) · [在线部署](#在线部署) · [后续开发计划](#后续开发计划) · [版本历史](#版本历史)
 
@@ -17,9 +17,13 @@
 | 独立版本 | 启动方式 | 下载与说明 |
 | --- | --- | --- |
 | **Windows 桌面版** | Windows 10/11 x64，完整解压后双击 EXE；无需另装 Python，不启动 HTTP 服务 | [Windows 发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.3.0-windows) · [桌面说明](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/blob/windows-desktop/docs/windows/README.md) · [独立 Windows 分支](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/tree/windows-desktop) |
-| **网页／服务器版** | Python 后端与浏览器；本机网页或服务器部署 | [网页／服务器发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.4.0) · [本地运行](#本地运行) · [在线部署](#在线部署) |
+| **网页／服务器版** | Python 后端与浏览器；本机网页或服务器部署 | [网页／服务器发行版](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.5.0) · [本地运行](#本地运行) · [在线部署](#在线部署) |
 
-两种运行方式并列独立发布：网页／服务器版更新至 `v0.4.0`；Windows 独立桌面版保持 `v0.3.0-windows`，使用独立分支和发行包。已有存档先按对应说明备份并显式升级，发行包不包含玩家存档。
+两种运行方式并列独立发布：网页／服务器版更新至 `v0.5.0`；Windows 独立桌面版保持 `v0.3.0-windows`，使用独立分支和发行包。已有存档先按对应说明备份并显式升级，发行包不包含玩家存档。
+
+## v0.5.0 新内容
+
+所有灵植、灵兽和水产每个只占1格；逐格自动种养、装备三材料精炼与光晕、弟子居按建筑和配方加减人数。原存档和生长进度兼容保留。[完整说明](docs/project/RELEASE-v0.5.0.md)。
 
 ## v0.4.0 新内容
 

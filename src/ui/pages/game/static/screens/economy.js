@@ -4,13 +4,13 @@ import {jobProgress,productionSnapshot} from '../components/job-progress.js';
 import {el,button,facts,empty,link} from '../components/dom.js';
 import {resourceIcon,itemIcon} from '../components/item-icon.js';
 import {requirementRow,confirmSheet,quantityControls} from '../components/features.js';
-export function workerControls(ctx,buildingId){const box=el('div','assignment-actions'),v=ctx.data.view;box.append(button('分配弟子',()=>{const body=el('div'),groups=v.disciples.groups,b=v.buildings[buildingId],idle=groups.reduce((n,g)=>n+g.available_count,0),assigned=groups.reduce((n,g)=>n+(g.assignments.find(a=>a.building_id===buildingId)?.count||0),0),occupied=groups.reduce((n,g)=>n+(g.allocations?.[buildingId]||0),0),running=!ctx.busy&&!v.time?.pending;
+export function workerControls(ctx,buildingId){const box=el('div','assignment-actions'),v=ctx.data.view;if(v.recipe_staffing?.buildings.find(row=>row.building_id===buildingId)?.recipe_mode){box.append(link('按配方安排弟子','#disciple_detail/'+encodeURIComponent(buildingId),'external-link'));return box;}box.append(button('分配弟子',()=>{const body=el('div'),groups=v.disciples.groups,b=v.buildings[buildingId],idle=groups.reduce((n,g)=>n+g.available_count,0),assigned=groups.reduce((n,g)=>n+(g.assignments.find(a=>a.building_id===buildingId)?.count||0),0),occupied=groups.reduce((n,g)=>n+(g.allocations?.[buildingId]||0),0),running=!ctx.busy&&!v.time?.pending;
  body.append(el('p','',`未分配 ${idle} 人 · 当前岗位 ${occupied} 人 · 容量 ${b.slot_capacity} 人`),el('p','muted','弟子的职业由当前工作决定。解除岗位后，进行中的工作完成才释放弟子。'));
  body.append(quantityControls(ctx,{label:'分配人数',max:running?Math.max(0,Math.min(idle,b.slot_capacity-occupied)):0,text:'安排工作弟子',onSubmit:count=>ctx.economyAction('work_assign',{building_id:buildingId,count})}));
  if(assigned){const btn=button('解除岗位',()=>confirmSheet(ctx,'解除岗位',`解除 ${b.name} 的 ${assigned} 名弟子；进行中的工作完成后释放。`,()=>ctx.economyAction('work_unassign',{building_id:buildingId})),'secondary');btn.disabled=!running;body.append(btn);}
  ctx.sheet(b.name+' · 分配弟子',body);},'secondary'));return box;}
 export function automationControls(ctx,buildingId,recipeId){
- const configured=ctx.data.view.economy?.automation?.production?.[buildingId],p=configured?.recipe_id===recipeId?configured:null,box=el('div','automation-panel');
+ const auto=ctx.data.view.economy?.automation,queue=auto?.recipe_production?.[buildingId],configured=queue?queue.recipes?.[recipeId]:auto?.production?.[buildingId],p=configured?.recipe_id===recipeId?configured:null,box=el('div','automation-panel');
  box.append(systemIcon(ctx,'automation'),el('p','',p?.enabled?('自动生产已开启 · '+(p.waiting_reason||'库存不足时自动生产')):(configured?.enabled?'另一配方正在自动生产':'自动生产关闭')),button('配置自动生产',()=>{
   const body=el('div'),target=el('input');target.type='number';target.min='1';target.max='10000';target.step='1';target.value=String(p?.target||30);
   const label=el('label','policy-field','库存低于');label.append(target,el('span','','时自动开始生产'));body.append(label);

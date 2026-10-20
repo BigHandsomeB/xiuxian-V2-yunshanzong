@@ -20,9 +20,14 @@ from src.systems.disciples import work
 from src.systems.economy import policy
 from src.systems.inventory import operations, holdings
 from src.application.ecology_views import EcologyViews
+from src.application import garden as garden_app
+from src.application import habitats as habitat_app
+from src.systems.sect import habitats
+from src.systems.sect import garden
 
 from src.systems.sect import activities
-from src.application import sect_activities, exploration as exploration_app
+from src.application import sect_activities, exploration as exploration_app, attribute_trials as trial_app
+from src.systems.cultivation import attribute_trials as trial_rules
 from src.systems.sect import exploration
 from src.application.sect_economy import reserved
 from src.systems.cultivation import techniques
@@ -31,16 +36,18 @@ from src.systems.artifacts import artifacts
 from src.data.artifacts.definitions import settings as artifact_settings
 from src.application import artifacts as artifact_app
 
-COMMANDS = (*exploration.COMMANDS, *artifacts.COMMANDS, *activities.COMMANDS, *techniques.COMMANDS, 'ecology_buy', 'ecology_collect', 'ecology_supply', 'ecology_meal')
+COMMANDS = (*habitats.COMMANDS, *garden.COMMANDS, *trial_rules.COMMANDS, *exploration.COMMANDS, *artifacts.COMMANDS, *activities.COMMANDS, *techniques.COMMANDS, 'ecology_buy', 'ecology_collect', 'ecology_supply', 'ecology_meal')
 
 
 def validate_state(state, registry):
+    trial_app.validate_state(state,registry)
     if 'exploration' in state.domains['sect_management']:
         exploration.validate_state(state,registry)
     if artifact_settings(registry):
         artifact_app.validate_state(state,registry)
     part = state.domains[ecology.DOMAIN]
     ecology.validate(part, registry)
+    garden_app.validate_state(state, registry)
     actual = state.domains['sect']['buildings']
     identities = set(actual) | set(state.domains['disciples']['groups'])
     identities |= {row['job_id'] for row in state.domains['production']['jobs'].values()}
@@ -76,6 +83,8 @@ def validate_state(state, registry):
     for bid in {row['building_id'] for row in part['batches'].values()}:
         if ecology.occupied(part, registry, bid) > ecology.capacity(state, registry, bid):
             raise ValidationError('兽栏或水池容量不足')
+    for bid in {row['building_id'] for row in part['batches'].values()}:
+        habitats.layout(part, registry, bid, ecology.capacity(state, registry, bid))
     for bid, installed in part['facilities'].items():
         if bid not in actual:
             raise ValidationError('facility building missing')
@@ -244,6 +253,15 @@ class EcologyApplication(EcologyViews, ManagementApplication):
                 view['choice_chest']={'chest_id':did,'name':definition(self.registry,did).display_name+'首通宝箱','tier':row['tier'],'state':'READY_IN_WAREHOUSE'}
         return freeze_json(view)
 
+    def project_economy(self,state):
+        view=thaw_json(super().project_economy(state))
+        if trial_rules.running(partition(state)):view['needs_poll']=view['needs_settlement']=True
+        return freeze_json(view)
+
+    def require_manual_combat(self,state):
+        if trial_rules.running(partition(state)):raise ConflictError('请先停止属性试炼，再进入冒险战斗。')
+        return super().require_manual_combat(state)
+
     def require_management_command(self,state,name):
         require_running(state.time)
 
@@ -272,7 +290,7 @@ class EcologyApplication(EcologyViews, ManagementApplication):
                 if saved.kind != 'command' or saved.intent != request.digest() or saved.committed_revision > original.revision:
                     raise ConflictError('重复请求内容不一致')
                 return self.foundation._decode_receipt(saved)
-            if request.name not in activities.COMMANDS:require_running(original.time)
+            if request.name not in (*activities.COMMANDS,'attribute_trial_stop'):require_running(original.time)
             if request.expected_revision != original.revision or original.time['pending']:
                 raise ConflictError('请先完成续算并刷新状态')
             if request.version != 1:
@@ -288,6 +306,10 @@ class EcologyApplication(EcologyViews, ManagementApplication):
             return receipt
 
     def transition(self, state, name, payload):
+        if name in habitats.COMMANDS:return habitat_app.transition(self,state,name,payload)
+        if name in garden.COMMANDS:return garden_app.transition(self,state,name,payload)
+        if name in trial_rules.COMMANDS:return trial_app.transition(self,state,name,payload)
+        if trial_rules.running(partition(state)) and name in ('technique_equip','technique_unequip','artifact_equip','artifact_unequip','artifact_feed','artifact_enhance'):raise ConflictError('请先停止属性试炼再调整功法或法宝。')
         if name in exploration.COMMANDS:
             return exploration_app.transition(state,self.registry,name,payload,self._capacity(state)-reserved(state,self.registry))
         if name in artifacts.COMMANDS:
@@ -408,10 +430,12 @@ class EcologyApplication(EcologyViews, ManagementApplication):
     def start_candidate(self, state, building_id, recipe_id, policy_row=None):
         definition = jobs.definition(self.registry, recipe_id)
         config = settings(self.registry)
+        if definition.building_kind == 'garden' and any(garden.plots(state.domains['ecology'], building_id).values()):
+            raise ValidationError('田中已有灵植，请等待收获后再营造或开始整批生产')
         if recipe_id in config['retired_recipes']:
             raise ValidationError('旧配方已退出，请使用灵膳和存栏养殖')
         if recipe_id.startswith('grow_sect_crop_'):
-            if work.capability(state.domains['disciples'], self.registry, building_id)['workers'] > ecology.capacity(state, self.registry, building_id):
+            if work.capability(state.domains['disciples'], self.registry, building_id, recipe_id)['workers'] > ecology.capacity(state, self.registry, building_id):
                 raise ValidationError('种植人数超过田块，请减少岗位人数或增设田块')
         if definition.facility_output_id:
             candidate = self.start_facility(state, building_id, definition, policy_row)
@@ -419,7 +443,7 @@ class EcologyApplication(EcologyViews, ManagementApplication):
             basic = set(nutrition.basic_ids(self.registry))
             priority = bool(basic & {rid for rid, _ in definition.outputs}) or recipe_id.startswith('grow_')
             if not priority:
-                cap = work.capability(state.domains['disciples'], self.registry, building_id)
+                cap = work.capability(state.domains['disciples'], self.registry, building_id, recipe_id)
                 for rid, required in nutrition.protected_inputs(state, self.registry).items():
                     consumed = dict(definition.inputs).get(rid, 0) * cap['workers']
                     if consumed and state.domains['inventory']['holdings'].get(rid, 0) - consumed < required:
@@ -446,7 +470,7 @@ class EcologyApplication(EcologyViews, ManagementApplication):
             raise ValidationError('建筑未建成或设施不匹配')
         if installed >= (building['level'] if facility['per_level'] else 1):
             raise ValidationError('当前等级的设施已经建齐')
-        cap = work.capability(state.domains['disciples'], self.registry, bid)
+        cap = work.capability(state.domains['disciples'], self.registry, bid, definition.machine_id)
         if not cap['workers']:
             raise ValidationError('请先安排施工弟子')
         stock, _ = operations.consume(state.domains['inventory'], self.registry, dict(definition.inputs))

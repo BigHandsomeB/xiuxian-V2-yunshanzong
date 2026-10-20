@@ -57,12 +57,15 @@ class WorkSettlement:
             capacity=buildings.work_slots(state.domains['sect'],self.registry,target)
             occupied=sum(work.allocations(partition,g).get(target,0) for g in partition['groups'])
             if capacity==0 or occupied>capacity:raise ValidationError('invalid/inactive building or exceeded work slots')
+        for bid,recipes in partition.get('recipe_assignments',{}).items():
+            row=buildings.get_building(state.domains['sect'],self.registry,bid)
+            if any(jobs.definition(self.registry,rid).building_kind!=row['definition_id'] for rid in recipes):raise ValidationError('recipe assignment target mismatch')
         for building,job in state.domains['production']['jobs'].items():
             if job['status']=='WORKING':active[job['job_id']]=(building,job)
         if set(reserved)!=set(active):raise ValidationError('working jobs require exactly matching labor commitments')
         for job_id,c in reserved.items():
             building,job=active[job_id]
-            if c['building_id']!=building or sum(c['workers'].values())!=job['workers']:
+            if c['building_id']!=building or sum(c['workers'].values())!=job['workers'] or ('recipe_id' in c and c['recipe_id']!=job['recipe_id']):
                 raise ValidationError('job and work commitment disagree')
         return state
 
@@ -116,13 +119,13 @@ class WorkApplication(ProductionApplication):
             raise ValidationError('formal Production does not accept external worker power/count/rate')
         for key in ('building_id','recipe_id'):text(p[key],key)
         for key in ('unlock_floor','unlock_realm'):integer(p[key],key)
-        cap=work.capability(state.domains['disciples'],self.registry,p['building_id'])
+        cap=work.capability(state.domains['disciples'],self.registry,p['building_id'],p.get('recipe_id'))
         if cap['workers']==0:raise ValidationError('Production requires assigned workforce')
         return {**p,**cap}
 
     def _start_domains(self,state,production,stock,job_id,p):
         domains=super()._start_domains(state,production,stock,job_id,p)
-        domains['disciples']=work.commit_job(state.domains['disciples'],self.registry,job_id,p['building_id'])
+        domains['disciples']=work.commit_job(state.domains['disciples'],self.registry,job_id,p['building_id'],p.get('recipe_id'))
         return domains
 
     def execute(self,request):

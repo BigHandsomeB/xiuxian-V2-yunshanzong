@@ -19,9 +19,11 @@ def xp(p,c):
 def level(p,c):return min((realm_index(p)+1)*500,max(realm_index(p)*500+1,bisect_right(table(c),xp(p,c))-1))
 def validate(p,registry,save):
     required={'player_id','current_realm','growth_revision'}
-    allowed=required|{'progress','total_xp','legacy_stat_floor','pill_window_start_ms','pill_count','latest_xp','techniques'}
+    allowed=required|{'progress','total_xp','legacy_stat_floor','pill_window_start_ms','pill_count','latest_xp','techniques','trial_attributes','attribute_trial'}
     if not isinstance(p,Mapping) or not required<=set(p) or set(p)-allowed or ('total_xp' not in p and 'progress' not in p):raise ValidationError('invalid cumulative Growth fields')
     if p['player_id']!=save+':hero':raise ValidationError('invalid Growth player')
+    from .attribute_trials import validate_growth
+    validate_growth(p,registry)
     c=config(registry)
     if p['current_realm'] not in tuple(row['id'] for row in c['realms'][:c['open_realms']]):raise ValidationError('realm is not open')
     i=realm_index(p)
@@ -67,6 +69,8 @@ def projection(p,registry,save):
     stats=stat_totals(L,i,c)
     floor=p.get('legacy_stat_floor',legacy_stats(p,registry) if 'total_xp' not in p else {})
     for key,n in floor.items():stats[key]=max(stats[key],n)
+    from .attribute_trials import bonuses as trial_bonuses
+    for key,n in trial_bonuses(p,registry).items():stats[key]=stats.get(key,0)+n
     from . import techniques
     for key,n in techniques.bonuses(p,registry).items():stats[key]=stats.get(key,0)+n
     for key,limit in [('speed_bps',3000),('evasion_bps',2500)]:

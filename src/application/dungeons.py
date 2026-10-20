@@ -132,6 +132,7 @@ class DungeonApplication(SectEconomyFeatures,RetiredEconomyApplication):
             require_running(s.time)
             if q.expected_revision!=s.revision or s.time['pending']:raise ConflictError('进度正在续算，请更新后操作')
             if q.version!=1:raise ValidationError('未知副本命令版本')
+            if s.domains.get('cultivation',{}).get('attribute_trial',{}).get('running'):raise ConflictError('请先停止属性试炼再进入冒险。')
             if q.name=='dungeon_select':
                 if set(q.payload)!={'dungeon_id'} or type(q.payload['dungeon_id']) is not str:raise ValidationError('请选择副本')
                 b=s.domains.get('combat',{}).get('battle')

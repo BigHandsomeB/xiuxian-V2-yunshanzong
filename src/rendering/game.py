@@ -109,6 +109,8 @@ def present(view, assets):
     snapshot = assets.snapshot();config=bindings()
     resources = set(view['holdings']) | set(config['icons'])
     kinds = set(config['building_icons']) | {row['definition_id'] for row in view['buildings'].values()}
+    trial_enemy=((view.get('cultivation') or {}).get('attribute_trials') or {}).get('battle') or {}
+    trial_asset=trial_enemy.get('enemy_asset_id')
     combat=view.get('combat');screens={key:dict(value) for key,value in SCREENS.items()}
     if combat:screens['battle'].update(implemented=True,read_only=False)
     if view.get('equipment'):screens['equipment'].update(implemented=True,read_only=False)
@@ -119,6 +121,7 @@ def present(view, assets):
         'system_icons': _map(config.get('system_icons',{}),config.get('system_icons',{}),assets,snapshot),
         'resource_overview':resource_overview(assets,snapshot),
         'equipment_icons': {r['definition_id']:_icon(config['icons'].get(r['definition_id']) or r['asset_id'],assets,snapshot) for r in view.get('equipment',{}).get('instances',[])},
+        'attribute_trial_enemy':_icon(config.get('combat_bindings',{}).get(trial_asset) or trial_asset,assets,snapshot) if trial_asset else None,
         'artifact_icons': _map(config.get('artifact_icons',{}),config.get('artifact_icons',{}),assets,snapshot),
         'technique_icons': {r['id']:_icon(r['asset_id'],assets,snapshot) for r in (view.get('techniques') or {}).get('catalog',[])},
         'building_icons': _map(kinds, config['building_icons'], assets, snapshot),

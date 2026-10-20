@@ -71,7 +71,7 @@ class EconomyApplication(WorldApplication):
             minimum=cfg.get('recipe_sect_minimum',{}).get(recipe_id,1)
             if development(state.domains['sect'],self.registry,state.domains.get('dungeon',{}).get('cleared_floor',0))['level']<minimum:
                 raise ValidationError(f'宗门等级不足，需要{minimum}级宗门')
-        cap=work.capability(state.domains['disciples'],self.registry,building_id)
+        cap=work.capability(state.domains['disciples'],self.registry,building_id,recipe_id)
         if not cap['workers']:raise ValidationError('请先安排工作弟子')
         amounts={k:n*cap['workers'] for k,n in d.inputs}
         stock,_=operations.consume(state.domains['inventory'],self.registry,amounts)
@@ -231,7 +231,7 @@ class EconomyApplication(WorldApplication):
             for key in self.recipe_ids():
                 d=jobs.definition(self.registry,key)
                 if d.building_kind!=row['definition_id']:continue
-                reasons=[];cap=work.capability(state.domains['disciples'],self.registry,building_id)
+                reasons=[];cap=work.capability(state.domains['disciples'],self.registry,building_id,key)
                 try:self.start_candidate(state,building_id,key)
                 except (ValidationError,ConflictError) as exc:
                     message=str(exc)
@@ -244,6 +244,9 @@ class EconomyApplication(WorldApplication):
                 recipes.append({'building_id':building_id,'recipe_id':key,'name':d.display_name,'building_kind':d.building_kind,'min_level':d.min_level,'min_sect_level':(settings(self.registry).get('recipe_sect_minimum',{}).get(key,1) if settings(self.registry) else 1),'inputs':[{'resource_id':k,'name':self.registry.lookup(DefinitionKey('resources',k)).display_name,'quantity':n,'current':state.domains['inventory']['holdings'].get(k,0)} for k,n in inputs.items()], 'outputs':[{'resource_id':k,'name':self.registry.lookup(DefinitionKey('resources',k)).display_name,'quantity':n} for k,n in output.items()], 'equipment_output':None if not d.equipment_output_id else self.crafting_equipment_preview(d.equipment_output_id,max(1,cap['worker_power_milli']//1000)),'duration_seconds':d.duration_ms/1000,'workers':cap['workers'],'can_start':not reasons,'blocking_reasons':reasons,'job':job,'job_duration_seconds':jobs.duration(job,self.registry)/1000 if job else None,'remaining_seconds':0 if not job else max(0,job['due_ms']-state.time['sim_time_ms'])/1000,'work':work.project(state.domains['disciples'],self.registry,building_id)})
         automation=thaw_json(state.domains['automation']);can_auto=False
         for b,p in automation['production'].items():
+            if b in automation.get('recipe_production',{}):
+                automation['production'][b]['waiting_reason']='已改为按配方分别派工'
+                continue
             reason='自动生产关闭'
             if p['enabled']:
                 d=jobs.definition(self.registry,p['recipe_id'])
@@ -252,6 +255,16 @@ class EconomyApplication(WorldApplication):
                     try:self.start_candidate(state,b,p['recipe_id'],policy_row=p);reason='等待自动续产';can_auto=True
                     except (ValidationError,ConflictError) as exc:reason=str(exc) if any('\u4e00'<=c<='\u9fff' for c in str(exc)) else '等待材料、岗位或仓库条件'
             automation['production'][b]['waiting_reason']=reason
+        for bid,queue in automation.get('recipe_production',{}).items():
+            for rid,row in queue['recipes'].items():
+                if not row['enabled'] or not work.capability(state.domains['disciples'],self.registry,bid,rid)['workers']:continue
+                d=jobs.definition(self.registry,rid)
+                if self.output_stock(state,d)>=row['target']:continue
+                try:
+                    from src.application.recipe_staffing import check_policy
+                    check_policy(state,self.registry,bid,row)
+                    self.start_candidate(state,bid,rid,policy_row=row);can_auto=True
+                except (ValidationError,ConflictError):pass
         working=any(j['status']=='WORKING' for j in state.domains['production']['jobs'].values())
         awaiting=any(r['evaluation']=='PENDING' for r in equip.equipment(state)['instances'].values())
         needs=not paused(state.time) and bool(state.time['pending'] or working or can_auto or awaiting)

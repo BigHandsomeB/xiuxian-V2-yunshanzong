@@ -6,6 +6,8 @@ from src.data.registry import DefinitionKey
 from src.systems.sect import ecology, nutrition
 from src.systems.resources import jobs
 from src.systems.disciples import work
+from src.application import garden as garden_app
+from src.application import habitats as habitat_app
 
 
 class EcologyViews:
@@ -74,8 +76,11 @@ class EcologyViews:
         from src.systems.cultivation import techniques
         from src.application.cultivation import partition
         combat=state.domains.get('combat',{}).get('battle') or {}
-        blocked=paused(state.time) or bool(state.time['pending']) or state.domains['dungeon']['auto']['enabled'] or combat.get('status') in ('ACTIVE','PLAYER_WIN')
+        from src.systems.cultivation import attribute_trials as trial_rules
+        trial_busy=trial_rules.running(partition(state))
+        blocked=trial_busy or paused(state.time) or bool(state.time['pending']) or state.domains['dungeon']['auto']['enabled'] or combat.get('status') in ('ACTIVE','PLAYER_WIN')
         from src.systems.dungeons.progress import cleared
+        if view.get('cultivation') is not None:view['cultivation']['attribute_trials']=trial_rules.view(partition(state),self.registry,blocked)
         view['techniques']=techniques.view(partition(state),self.registry,blocked,state.domains['inventory']['holdings'],cleared(state.domains['dungeon'],'thorn_path'),paused(state.time) or bool(state.time['pending']))
         if view['techniques']:
             from src.application.combat_effect_views import technique as effect_view
@@ -158,6 +163,8 @@ class EcologyViews:
                            'installed_facilities': thaw_json(part['facilities']),
                            'basic_meal_ids': list(nutrition.basic_ids(self.registry)),
                            'available': available}
+        view['ecology']['gardens'] = [garden_app.view(state, self.registry, row['building_id']) for row in farms if row['building_kind'] == 'garden']
+        view['ecology']['habitats'] = [habitat_app.view(state, self.registry, row['building_id']) for row in farms if row['building_kind'] in ('pasture','spring')]
         view['preparation'] = self.preparation_view(state, view)
         from src.application.artifacts import view as artifact_view
         artifacts=artifact_view(state,self.registry)
@@ -195,6 +202,8 @@ class EcologyViews:
             elif row['recipe_id'].startswith('supplement_recipe_'):
                 row['ecology_category'] = 'material'
         journey = state.domains['sect_management'].get('exploration', {}).get('active')
-        if state.domains[ecology.DOMAIN]['wake'] or (journey and journey['due_ms'] > state.time['sim_time_ms']):
+        garden_pending = any(row for field in state.domains[ecology.DOMAIN].get('garden', {}).values() for row in field.values())
+        repeat_pending = any(p['enabled'] for field in state.domains[ecology.DOMAIN].get('garden_repeat', {}).values() for p in field.values())
+        if repeat_pending or garden_pending or state.domains[ecology.DOMAIN]['wake'] or (journey and journey['due_ms'] > state.time['sim_time_ms']):
             view['needs_poll'] = view['needs_settlement'] = True
         return view

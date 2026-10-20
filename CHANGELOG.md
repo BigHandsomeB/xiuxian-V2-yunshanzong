@@ -2,6 +2,15 @@
 
 本文件整理已完成的开发节点；不将预留配置写成已开放玩法，不记录真实玩家身份、存档、服务器地址或部署口令。日期来自本地提交与任务记录；本次 GitHub 仓库建立自完整快照，不导入原 Git 历史。
 
+## v0.5.0 · 逐格种养、装备精炼与配方派工（2026-10-20）
+
+[发行下载](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.5.0) · [完整说明](docs/project/RELEASE-v0.5.0.md)。
+
+- 全24种养殖品种统一每只／尾1格，灵植每株1格；保留旧存栏与进度。
+- 逐格自动种养、84材料精炼／属性预览／光晕、弟子居具体配方±1派工。
+- 定向属性试炼场与历史战斗冷启动组合校验剪枝。
+- 网页／服务器版更新；保留Windows独立版和历史发行。
+
 ## v0.4.0 · 山外探索与宗门旧事（2026-10-19）
 
 [发行下载](https://github.com/BigHandsomeB/xiuxian-V2-yunshanzong/releases/tag/v0.4.0) · [完整说明](docs/project/RELEASE-v0.4.0.md)。

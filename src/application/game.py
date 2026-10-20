@@ -46,6 +46,12 @@ class GameApplication(DandingApplication):
 
     def player_projection(self,state):return battle.player(self.registry,state.save_id)
     def combat_equipment(self,state):return ()
+    def combat_equipment_snapshot(self,state):
+        from src.systems.equipment import items
+        p=state.domains.get('equipment',items.initial())
+        rows={i:p['instances'][i] for i in p['slots'].values()}
+        if not any(r.get('refinement') for r in rows.values()):return None
+        return freeze_json({'instances':rows,'slots':p['slots'],'audit':[]})
     def combat_artifact(self,state):
         from src.data.artifacts.definitions import settings
         from src.systems.artifacts.artifacts import snapshot
@@ -123,7 +129,7 @@ class GameApplication(DandingApplication):
                 if set(p)!={'encounter_id'}:raise ValidationError('exact encounter intent required')
                 counter=state.identity['instance_counter']+1
                 identity={**state.identity,'instance_counter':counter}
-                partition=battle.start(partition,self.registry,state.save_id,f'{state.save_id}:{state.generation}:i:{counter}',self.prepare_combat_start(state,p['encounter_id']),player_snapshot=self.player_projection(state),growth_snapshot=state.domains.get('cultivation',growth.initial(state.save_id)),equipment_sources=self.combat_equipment(state),artifact_snapshot=self.combat_artifact(state))
+                partition=battle.start(partition,self.registry,state.save_id,f'{state.save_id}:{state.generation}:i:{counter}',self.prepare_combat_start(state,p['encounter_id']),player_snapshot=self.player_projection(state),growth_snapshot=state.domains.get('cultivation',growth.initial(state.save_id)),equipment_sources=self.combat_equipment(state),artifact_snapshot=self.combat_artifact(state),equipment_snapshot=self.combat_equipment_snapshot(state))
             else:
                 if set(p)!={'battle_id'}:raise ValidationError('exact battle intent required')
                 if request.name=='combat_attack':partition=battle.attack(partition,self.registry,state.save_id,p['battle_id'])

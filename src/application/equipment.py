@@ -42,6 +42,24 @@ def matches_projection(bonuses,definitions,base_stats=()):
     # Nonnegative contributions cannot undo a single item's excess, even at a cap.
     groups=tuple(sorted((tuple(row for row in group if all((min(a,cap) if cap is not None else a)<=n for n,(a,_,_),cap in zip(bonuses,row,caps))) for group in groups),key=len))
     if any(not group for group in groups):return False
+    # Eliminate choices that cannot fit even with every other slot at its bounds.
+    while True:
+        lows=[tuple(min(row[j][0] for row in group) for j in range(size)) for group in groups]
+        highs=[tuple(max(row[j][1] for row in group) for j in range(size)) for group in groups]
+        low=tuple(sum(row[j] for row in lows) for j in range(size))
+        high=tuple(sum(row[j] for row in highs) for j in range(size))
+        narrowed=[]
+        for i,group in enumerate(groups):
+            choices=tuple(row for row in group if all(
+                (min(row[j][0]+low[j]-lows[i][j],caps[j]) if caps[j] is not None else row[j][0]+low[j]-lows[i][j]) <= bonuses[j] <=
+                (min(row[j][1]+high[j]-highs[i][j],caps[j]) if caps[j] is not None else row[j][1]+high[j]-highs[i][j])
+                for j in range(size)))
+            if not choices:return False
+            narrowed.append(choices)
+        narrowed=tuple(narrowed)
+        if narrowed==groups:break
+        groups=narrowed
+    groups=tuple(sorted(groups,key=len))
     remaining=[(0,)*size for _ in range(len(groups)+1)]
     for i in range(len(groups)-1,-1,-1):remaining[i]=tuple(remaining[i+1][j]+max(row[j][1] for row in groups[i]) for j in range(size))
     def fits(low,high,steps,tail,final=False):
@@ -139,6 +157,10 @@ def validate(state,registry):
     if b and b.get('player_snapshot'):
         # Historical Battle snapshot is not coupled to current equipment ownership.
         valid=False;p=partition(state)
+        witness=b.get('equipment_snapshot')
+        if witness is not None:
+            items.validate(witness,registry,state.save_id)
+            if len(witness['instances'])>len(EQUIPMENT_SLOTS) or set(witness['instances'])!=set(witness['slots'].values()):raise ValidationError('bounded equipped snapshot required')
         bases=[]
         if b.get('growth_snapshot') is not None:
             bases.append(growth.projection(b['growth_snapshot'],registry,state.save_id))
@@ -160,10 +182,12 @@ def validate(state,registry):
             bases=[project(base,registry,b['artifact_snapshot']) for base in bases]
         for base in bases:
             # A known equipped set is an exact witness; avoid a six-slot search.
-            equipped=[equipment(state)['instances'][i] for i in equipment(state)['slots'].values()]
+            source=witness if witness is not None else equipment(state)
+            equipped=[source['instances'][i] for i in source['slots'].values()]
             if all(items.known_stats(row,items.definition(registry,row['definition_id'])) and items.known_affixes(row,items.definition(registry,row['definition_id'])) for row in equipped):
-                projected=items.projection(equipment(state),base)
+                projected=items.projection(source,base)
                 if all(projected.get(k,0)==b['player_snapshot'].get(k,0) for k in items.STATS):valid=True;break
+            if witness is not None:continue
             bonuses=tuple(b['player_snapshot'].get(key,0)-base.get(key,0) for key in items.STATS)
             if matches_random_projection(bonuses,registry,base):valid=True;break
         if not valid:raise ValidationError('battle snapshot outside registered equipment/growth projections')
@@ -192,7 +216,7 @@ def bulk_preview(state,registry):
     """Stable selection across unrelated world updates; never trusts client eligibility."""
     selected=[];sell={};salvage={}
     for identity,row in sorted(equipment(state)['instances'].items()):
-        if items.protected(row) or row.get('enhancement',{}).get('level',0) or items.unknown(row,registry):continue
+        if items.protected(row) or row.get('enhancement',{}).get('level',0) or row.get('refinement') or items.unknown(row,registry):continue
         d=items.definition(registry,row['definition_id']);selected.append((identity,d.machine_id))
         sell['coins']=sell.get('coins',0)+items.sale_price(registry,d.machine_id)
         for key,n in d.salvage:salvage[key]=salvage.get(key,0)+n
@@ -203,11 +227,11 @@ def process_all(state,registry,name,p):
     if set(p)!={'selection_digest'} or type(p['selection_digest']) is not str:raise ValidationError('请先确认装备处理预览')
     preview=bulk_preview(state,registry)
     if p['selection_digest']!=preview['selection_digest']:raise ConflictError('装备列表已变化，请重新确认一键处理')
-    if not preview['count']:raise ValidationError('没有可处理的装备；穿戴、锁定、收藏和强化装备已保留')
+    if not preview['count']:raise ValidationError('没有可处理的装备；穿戴、锁定、收藏、强化和精炼装备已保留')
     amounts=preview['sell' if name=='equipment_sell_all' else 'salvage']
     e=thaw_json(equipment(state))
     for identity,row in tuple(e['instances'].items()):
-        if items.protected(row) or row.get('enhancement',{}).get('level',0) or items.unknown(row,registry):continue
+        if items.protected(row) or row.get('enhancement',{}).get('level',0) or row.get('refinement') or items.unknown(row,registry):continue
         del e['instances'][identity]
     capacity=sect.capacity_source(state,registry)['effective']
     needed=sum(n for key,n in amounts.items() if holdings.definition(registry,key).warehouse_counted)
@@ -269,6 +293,8 @@ def view(state,registry):
     for row in rows:
         row.update(effects_view(registry,row['definition_id']))
         actual=items.effective_stats(p['instances'][row['instance_id']])
+        if p['instances'][row['instance_id']].get('refinement'):
+            row['refinement']=thaw_json(p['instances'][row['instance_id']]['refinement'])
         row['stats']={key.removesuffix('_milli').removesuffix('_bps'):n/(100 if key.endswith('_bps') else 1000) for key,n in actual.items()}
         ranges=items.equipment_ranges(row['definition_id'],craft=p['instances'][row['instance_id']].get('roll_version')==items.CRAFT_ROLL_VERSION) if p['instances'][row['instance_id']].get('roll_version') in (items.ROLL_VERSION,items.CRAFT_ROLL_VERSION) else items.definition(registry,row['definition_id']).stat_ranges
         row['stat_ranges']={k.removesuffix('_milli').removesuffix('_bps'):[a/(100 if k.endswith('_bps') else 1000),b/(100 if k.endswith('_bps') else 1000)] for k,a,b,step in ranges}

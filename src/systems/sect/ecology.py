@@ -8,6 +8,7 @@ from src.core.state.envelope import freeze_json
 from src.core.time.model import Event, SimulationDomain
 from src.core.validation import ValidationError, integer
 from src.data.economy.ecology import settings, lookup
+from src.systems.sect import garden, habitats
 
 DOMAIN = 'ecology'
 BATCH_FIELDS = {'species_id', 'building_id', 'count', 'stage', 'progress_milli',
@@ -61,17 +62,23 @@ def credit_limit(batch, registry, day_length_ms):
 def validate(partition, registry):
     fields = {'schema_version', 'batches', 'facilities', 'job_effects', 'meals',
               'wake', 'tick_ready', 'supply'}
-    if not isinstance(partition, Mapping) or set(partition) != fields or partition['schema_version'] != 1:
+    if not isinstance(partition, Mapping) or not fields <= set(partition) <= fields | {'garden', 'garden_repeat'} or partition['schema_version'] != 1:
         raise ValidationError('invalid ecology partition')
+    garden.validate(partition.get('garden', {}), registry)
+    garden.validate_policies(partition.get('garden_repeat', {}), registry)
     for key in ('batches', 'facilities', 'job_effects', 'meals'):
         if not isinstance(partition[key], Mapping):
             raise ValidationError('ecology maps required')
     if len(partition['batches']) > settings(registry)['limits']['max_batches']:
         raise ValidationError('养殖批次达到上限')
     for identity, row in partition['batches'].items():
-        if type(identity) is not str or not isinstance(row, Mapping) or set(row) != BATCH_FIELDS:
+        if type(identity) is not str or not isinstance(row, Mapping) or not BATCH_FIELDS <= set(row) <= BATCH_FIELDS | {'slot_index', 'repeat'}:
             raise ValidationError('invalid husbandry group')
         species = lookup(registry, 'species', row['species_id'])
+        if 'slot_index' in row:
+            integer(row['slot_index'], 'habitat index')
+            if row['count'] != 1: raise ValidationError('one individual per placed habitat')
+        if 'repeat' in row and type(row['repeat']) is not bool: raise ValidationError('invalid automatic husbandry switch')
         if row['stage'] not in ('JUVENILE', 'MATURE', 'READY') or type(row['building_id']) is not str:
             raise ValidationError('invalid husbandry lifecycle')
         for key in ('count', 'progress_milli', 'feed_paid', 'rate_milli',
@@ -148,6 +155,7 @@ def simulation(registry, day_length_ms):
         return (Event(wake['event_id'], DOMAIN, wake['due_ms'], 5, {}),) if wake else ()
 
     def accrue(partition, start, end):
+        garden.accrue(partition, registry, end - start)
         for row in partition['batches'].values():
             if row['stage'] == 'READY' or not row['rate_milli']:
                 continue

@@ -14,6 +14,7 @@ from src.systems.resources import jobs
 from src.systems.disciples import work
 from src.systems.inventory import operations,holdings
 from src.systems.economy import policy
+from src.application import recipe_staffing
 from src.application import equipment as equip
 from src.application import offline_reports as reports
 
@@ -23,12 +24,15 @@ class EconomySettlement:
         self.core=SettlementEngine({'production':jobs.simulation(self.registry),'automation':policy.simulation(self.registry)})
     def validate_state(self,state):
         self.work.validate_state(state);self.core.validate_state(state);reports.validate(state)
-        for b,row in state.domains['automation']['production'].items():
+        policies=list(state.domains['automation']['production'].items())
+        policies.extend((b,row) for b,q in state.domains['automation'].get('recipe_production',{}).items() for row in q['recipes'].values())
+        for b,row in policies:
             building=state.domains['sect']['buildings'].get(b)
             if building is None or jobs.definition(self.registry,row['recipe_id']).building_kind!=building['definition_id']:raise ValidationError('automation target/recipe mismatch')
         return state
     def wake(self,s):
-        if not any(r['enabled'] for r in s.domains['automation']['production'].values()):due=None
+        policies=[*s.domains['automation']['production'].values(),*(row for q in s.domains['automation'].get('recipe_production',{}).values() for row in q['recipes'].values())]
+        if not any(r['enabled'] for r in policies):due=None
         else:due=min((j['due_ms']+1 for j in s.domains['production']['jobs'].values() if j['status']=='WORKING'),default=None)
         old=s.domains['automation']['wake']
         if (due is None and old is None) or (old and old['due_ms']==due):return s
@@ -56,7 +60,7 @@ class EconomySettlement:
         return replace(s,domains={**s.domains,'production':p,'inventory':stock,'disciples':work.release_finished(s.domains['disciples'],self.registry,active)})
     def dispatch(self,s):
         for b,row in sorted(s.domains['automation']['production'].items()):
-            if not row['enabled']:continue
+            if not row['enabled'] or b in s.domains['automation'].get('recipe_production',{}):continue
             j=s.domains['production']['jobs'].get(b)
             if j and j['status']!='COMPLETE':continue
             d=jobs.definition(self.registry,row['recipe_id']);count=self.app.output_stock(s,d)
@@ -67,7 +71,7 @@ class EconomySettlement:
                 p=policy.record(s.domains['automation'],'START',j['job_id'],d.display_name+'已自动开始')
                 s=replace(s,domains={**s.domains,'automation':p})
             except (ValidationError,ConflictError):continue
-        return self.wake(s)
+        return self.wake(recipe_staffing.dispatch(self.app,s))
     def compress(self,state,now_ms):
         return state
     def advance(self,state,*,max_events,now_ms=None,continuation=None):

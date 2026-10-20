@@ -14,6 +14,10 @@ from src.systems.economy import policy
 from src.systems.dungeons import progress
 from src.data.economy.ecology import lookup
 from src.systems.sect import story
+from src.systems.cultivation import attribute_trials as trial_rules
+from src.application import attribute_trials as trial_app
+from src.application import garden as garden_app
+from src.application import habitats as habitat_app
 
 
 class EcologySettlement(ManagementSettlement):
@@ -22,6 +26,7 @@ class EcologySettlement(ManagementSettlement):
         from src.systems.artifacts import artifacts
         artifact_handlers={artifacts.DOMAIN:artifacts.simulation(self.registry)} if artifact_settings(self.registry) else {}
         self.core = SettlementEngine({**artifact_handlers,
+            'cultivation':trial_rules.simulation(self.registry),
             'production': jobs.simulation(self.registry),
             'automation': policy.simulation(self.registry),
             'dungeon': progress.simulation(self.registry),
@@ -116,10 +121,11 @@ class EcologySettlement(ManagementSettlement):
 
     def wake(self, state):
         state = story.observe(state, self.registry)
-        state = super().wake(state)
+        state = trial_app.wake(self.app,super().wake(state))
         if paused(state.time):
             return state
         state = self.position_meals(state)
+        state = garden_app.replant(self.app, state)
         part = thaw_json(state.domains[ecology.DOMAIN])
         now, day = state.time['sim_time_ms'], state.time['day_length_ms']
         stock = state.domains['inventory']
@@ -133,7 +139,8 @@ class EcologySettlement(ManagementSettlement):
         next_day = (now // day + 1) * day
         if part['batches']:
             deadlines.append(next_day)
-        for row in part['batches'].values():
+        remaining_workers = {}
+        for identity, row in sorted(part['batches'].items()):
             row['rate_milli'] = 0
             species = lookup(self.registry, 'species', row['species_id'])
             bid = row['building_id']
@@ -144,8 +151,10 @@ class EcologySettlement(ManagementSettlement):
                 continue
             workers = work.capability(state.domains['disciples'], self.registry, bid)['workers']
             job = state.domains['production']['jobs'].get(bid)
-            if not workers or (job and job['status'] == 'WORKING'):
-                row['reason'] = '等待照料弟子' if not workers else '加工中，照料暂停'
+            free = remaining_workers.setdefault(bid, workers)
+            needed_workers = row['count'] if 'slot_index' in row else 1
+            if free < needed_workers or (job and job['status'] == 'WORKING'):
+                row['reason'] = '等待照料弟子' if free < needed_workers else '加工中，照料暂停'
                 continue
             if not row['cycle_rate_milli']:
                 effect = nutrition.effects(state, self.registry, bid)
@@ -165,9 +174,11 @@ class EcologySettlement(ManagementSettlement):
             if credit <= row['progress_milli']:
                 row['reason'] = '饲料不足，成长暂停'
                 continue
+            remaining_workers[bid] -= needed_workers
             row['rate_milli'] = rate
             row['reason'] = '成长中' if row['stage'] == 'JUVENILE' else '周期生产中'
             deadlines.append(now + (min(total, credit) - row['progress_milli'] + rate - 1) // rate)
+        garden_app.schedule(state, self.registry, part, deadlines)
         old = part['wake']
         due = min(deadlines) if deadlines else None
         counter = state.identity['event_counter']
@@ -181,6 +192,7 @@ class EcologySettlement(ManagementSettlement):
                        domains={**state.domains, 'inventory': stock, ecology.DOMAIN: part})
 
     def deliver(self, state):
+        state = garden_app.deliver(self.app, state)
         production = thaw_json(state.domains['production'])
         part = thaw_json(state.domains[ecology.DOMAIN])
         stock = state.domains['inventory']
@@ -219,5 +231,6 @@ class EcologySettlement(ManagementSettlement):
         state = self.app.prepare_economy_state(state)
         state = self.progress_livestock(state)
         state = self.daily_supply(state)
+        state = habitat_app.collect(self.app, state)
         # Supply happens before automatic starts or discretionary position meals.
-        return super().dispatch(state)
+        return trial_app.dispatch(self.app,super().dispatch(state))
